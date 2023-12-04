@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "byc",
+    " # ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stone",
+      "count": 1
+    },
+    "b": {
+      "item": "minecraft:book",
+      "count": 1
+    },
+    "c": {
+      "item": "minecraft:candle",
+      "count": 1
+    },
+    "y": {
+      "item": "yellow_carpet",
+      "count": 1
+    }
+  },
+  "result": {
+    "item": "holyhell:divining_table"
+  }
+}

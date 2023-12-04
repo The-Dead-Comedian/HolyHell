@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "holyhell:block/levantia_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "holyhell:block/levantia_log"
+    },
+    "axis=z": {
+      "model": "holyhell:block/levantia_log_horizontal",
+      "x": 90
+    }
+  }
+}

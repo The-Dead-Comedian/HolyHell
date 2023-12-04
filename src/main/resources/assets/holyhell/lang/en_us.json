@@ -1,0 +1,23 @@
+{
+  "item.holyhell.holy_tear" : "Holy Tear",
+  "item.holyhell.saint_eye" : "Eye of a saint",
+  "item.holyhell.angel_spawn_egg": "Angel Spawn Egg",
+  "item.holyhell.all_seer_spawn_egg": "All Seer Spawn Egg",
+  "item.holyhell.evangelist_helmet": "Evangelist Helmet",
+  "item.holyhell.evangelist_chestplate": "Evangelist Chestplate",
+  "item.holyhell.evangelist_leggings": "Evangelist Leggings",
+  "item.holyhell.evangelist_boots": "Evangelist Boots",
+
+  "entity.holyhell.angel": "Angel",
+  "entity.holyhell.all_seer": "All Seer",
+
+  "creativetab:holy_tab": "Holy trinkets",
+
+  "block.holyhell.divining_table": "Divining Table",
+  "block.holyhell.levantia_log": "Levantia Log",
+  "block.holyhell.stripped_levantia_log": "Stripped Levantia Log",
+  "block.holyhell.carved_levantia_log": "Carved Levantia Log",
+  "block.holyhell.levantia_plank": "Levantia Plank",
+  "block.holyhell.levantia_leaves": "Levantia Leaves",
+  "block.holyhell.levantia_sapling": "Levantia Sapling"
+}

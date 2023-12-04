@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "holyhell:block/stripped_levantia_log_end",
+    "side": "holyhell:block/stripped_levantia_log_side"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+
+  "key": {
+    "#": {
+      "item": "holyhell:stripped_levantia_log"
+    }
+  },
+  "pattern": [
+    "## ",
+    "## ",
+    "   "
+  ],
+  "result": {
+    "count": 3,
+    "item": "holyhell:carved_levantia_log"
+  },
+  "show_notification": true
+}
