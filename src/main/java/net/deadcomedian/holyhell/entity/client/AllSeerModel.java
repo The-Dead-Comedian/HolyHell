@@ -163,9 +163,9 @@ public class AllSeerModel<T extends Entity> extends HierarchicalModel<T> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
 
-		this.animateWalk(ModAnimationDefinitions.ALLSEER_WALK, limbSwing, limbSwingAmount, 2f, 2.5f);
+		this.animateWalk(ModAnimationDefinitions.ALLSEER_IDLE, limbSwing, limbSwingAmount, 2f, 2.5f);
 		this.animate(((AllSeerEntity) entity).idleAnimationState, ModAnimationDefinitions.ALLSEER_IDLE, ageInTicks, 1f);
-		this.animate(((AllSeerEntity) entity).walkAnimationState, ModAnimationDefinitions.ALLSEER_WALK, ageInTicks, 1f);
+
 		this.animate(((AllSeerEntity) entity).attackAnimationState, ModAnimationDefinitions.ALLSEER_ATTACK1, ageInTicks, 1f);
 	}
 

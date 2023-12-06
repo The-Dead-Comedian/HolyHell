@@ -35,12 +35,13 @@ public class AllSeerEntity extends Monster {
 
     private static final EntityDataAccessor<Boolean> ATTACKING =
             SynchedEntityData.defineId(AllSeerEntity.class, EntityDataSerializers.BOOLEAN);
+
+
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
 
-    public final AnimationState walkAnimationState = new AnimationState();
-    public int walkAnimationTimeout = 0;
-    
+
+
     public final AnimationState attackAnimationState = new AnimationState();
     public int attackAnimationTimeout = 0;
 
@@ -61,23 +62,17 @@ public class AllSeerEntity extends Monster {
     }
 
     private void setupAnimationStates() {
-        if(this.idleAnimationTimeout <= 0 && !this.isAttacking()) {
-            this.idleAnimationTimeout = this.random.nextInt(10) + 20;
+        if(this.idleAnimationTimeout <= 0 && !this.isAttacking() ) {
+
+            this.idleAnimationTimeout = this.random.nextInt(20) + 40;
             this.idleAnimationState.start(this.tickCount);
         } else {
             --this.idleAnimationTimeout;
         }
-        if(this.idleAnimationTimeout >= 0    && !this.isAttacking()){
 
-
-            this.idleAnimationState.start(this.tickCount);
-        } else {
-            --this.idleAnimationTimeout;
-
-
-        }
 
         if(this.isAttacking() && attackAnimationTimeout <= 0) {
+
             idleAnimationState.stop();
             attackAnimationTimeout = 20; // Length in ticks of your animation
             attackAnimationState.start(this.tickCount);
@@ -94,7 +89,7 @@ public class AllSeerEntity extends Monster {
     @Override
     protected void updateWalkAnimation(float pPartialTick) {
         float f;
-        if(this.getPose() == Pose.STANDING) {
+        if(this.getPose() != Pose.STANDING) {
             f = Math.min(pPartialTick * 6F, 1f);
         } else {
             f = 0f;
@@ -111,6 +106,7 @@ public class AllSeerEntity extends Monster {
 
     }
 
+
     public boolean isAttacking() {
         return this.entityData.get(ATTACKING);
     }
@@ -120,6 +116,7 @@ public class AllSeerEntity extends Monster {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(ATTACKING, false);
+
     }
     @Override
     protected void registerGoals(){
