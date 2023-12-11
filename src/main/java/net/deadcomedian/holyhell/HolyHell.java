@@ -5,6 +5,7 @@ import net.deadcomedian.holyhell.block.ModBlocks;
 import net.deadcomedian.holyhell.entity.ModEntities;
 import net.deadcomedian.holyhell.entity.client.AllSeerRenderer;
 import net.deadcomedian.holyhell.entity.client.AngelRenderer;
+import net.deadcomedian.holyhell.entity.client.HailingHereticRenderer;
 import net.deadcomedian.holyhell.item.ModCreativeModTabs;
 import net.deadcomedian.holyhell.item.ModItems;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -88,6 +89,7 @@ public class HolyHell
         {
             EntityRenderers.register(ModEntities.ANGEL.get(), AngelRenderer::new);
             EntityRenderers.register(ModEntities.ALL_SEER.get(), AllSeerRenderer::new);
+            EntityRenderers.register(ModEntities.HAILING_HERETIC.get(), HailingHereticRenderer::new);
         }
     }
 }

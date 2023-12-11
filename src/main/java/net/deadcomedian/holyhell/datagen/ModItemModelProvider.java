@@ -36,10 +36,10 @@ public class ModItemModelProvider extends ItemModelProvider {
 
         withExistingParent(ModItems.ANGEL_SPAWN_EGG.getId().getPath(), mcLoc("item/template_spawn_egg"));
         withExistingParent(ModItems.ALL_SEER_SPAWN_EGG.getId().getPath(), mcLoc("item/template_spawn_egg"));
-        withExistingParent(ModItems.EVANGELIST_HELMET.getId().getPath(), mcLoc("item/evangelist_helmet"));
+    /*    withExistingParent(ModItems.EVANGELIST_HELMET.getId().getPath(), mcLoc("item/evangelist_helmet"));
         withExistingParent(ModItems.EVANGELIST_CHESTPLATE.getId().getPath(), mcLoc("item/evangelist_chestplate"));
         withExistingParent(ModItems.EVANGELIST_LEGGINGS.getId().getPath(), mcLoc("item/evangelist_leggings"));
-        withExistingParent(ModItems.EVANGELIST_BOOTS.getId().getPath(), mcLoc("item/evangelist_boots"));
+        withExistingParent(ModItems.EVANGELIST_BOOTS.getId().getPath(), mcLoc("item/evangelist_boots"));*/
 
         saplingItem(ModBlocks.LEVANTIA_SAPLING);
 

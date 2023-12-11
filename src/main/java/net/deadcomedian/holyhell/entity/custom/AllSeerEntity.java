@@ -133,7 +133,7 @@ public class AllSeerEntity extends Monster {
     }
 
     public static AttributeSupplier.Builder createAttributes(){
-        return Animal.createLivingAttributes()
+        return Monster.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH, 300)
                 .add(Attributes.FOLLOW_RANGE, 24D)
                 .add(Attributes.FLYING_SPEED, 1D)

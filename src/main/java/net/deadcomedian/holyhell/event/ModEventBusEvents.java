@@ -13,5 +13,6 @@ public class ModEventBusEvents {
     public static void registerAttributes(EntityAttributeCreationEvent event) {
         event.put(ModEntities.ANGEL.get(), AngelEntity.createAttributes().build());
         event.put(ModEntities.ALL_SEER.get(), AllSeerEntity.createAttributes().build());
+        event.put(ModEntities.HAILING_HERETIC.get(), AngelEntity.createAttributes().build());
     }
 }
