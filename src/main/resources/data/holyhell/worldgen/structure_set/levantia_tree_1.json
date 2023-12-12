@@ -1,0 +1,16 @@
+{
+  "structures": [
+    {
+      "structure": "holyhell:levantia_tree_1",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 23456789098765,
+
+    "separation": 9,
+    "spacing": 30,
+
+    "type": "minecraft:random_spread"
+  }
+}
