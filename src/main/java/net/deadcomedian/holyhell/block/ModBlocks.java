@@ -4,6 +4,7 @@ import io.netty.handler.ssl.JdkApplicationProtocolNegotiator;
 import net.deadcomedian.holyhell.HolyHell;
 import net.deadcomedian.holyhell.block.custom.ModFlammableRotatedPillarBlock;
 import net.deadcomedian.holyhell.block.custom.divining_table;
+import net.deadcomedian.holyhell.block.custom.dream_catcher;
 import net.deadcomedian.holyhell.item.ModItems;
 import net.deadcomedian.holyhell.worldgen.tree.LevantiaTreeGrower;
 import net.minecraft.core.BlockPos;
@@ -29,6 +30,9 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> DIVINING_TABLE =registerBlock("divining_table",
             () -> new divining_table(BlockBehaviour.Properties.copy(Blocks.GLASS).sound(SoundType.BONE_BLOCK).noOcclusion()));
+
+    public static final RegistryObject<Block> DREAM_CATCHER =registerBlock("dream_catcher",
+            () -> new dream_catcher(BlockBehaviour.Properties.copy(Blocks.GLASS).sound(SoundType.WOOD).noOcclusion()));
 
     public static final RegistryObject<Block> LEVANTIA_LOG =registerBlock("levantia_log",
             () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).sound(SoundType.WOOD).strength(3f)));

@@ -24,6 +24,7 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModItems.SAINT_EYE.get());
                         pOutput.accept(ModItems.ANGEL_SPAWN_EGG.get());
                         pOutput.accept(ModItems.ALL_SEER_SPAWN_EGG.get());
+                        pOutput.accept(ModItems.HAILING_HERETIC_SPAWN_EGG.get());
 
                         pOutput.accept(ModItems.EVANGELIST_HELMET.get());
                         pOutput.accept(ModItems.EVANGELIST_CHESTPLATE.get());
@@ -31,6 +32,7 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModItems.EVANGELIST_BOOTS.get());
 
                         pOutput.accept(ModBlocks.DIVINING_TABLE.get());
+                        pOutput.accept(ModBlocks.DREAM_CATCHER.get());
 
                         pOutput.accept(ModBlocks.LEVANTIA_LOG.get());
                         pOutput.accept(ModBlocks.STRIPPED_LEVANTIA_LOG.get());

@@ -34,6 +34,8 @@ public class ModItems {
             ()-> new ForgeSpawnEggItem(ModEntities.ANGEL, 0xc4c4c4, 0xffff59, new Item.Properties()));
     public static final RegistryObject<Item> ALL_SEER_SPAWN_EGG = ITEMS.register("all_seer_spawn_egg",
             ()-> new ForgeSpawnEggItem(ModEntities.ALL_SEER, 0xc4c4c4, 0xffff59, new Item.Properties()));
+    public static final RegistryObject<Item> HAILING_HERETIC_SPAWN_EGG = ITEMS.register("hailing_heretic_spawn_egg",
+            ()-> new ForgeSpawnEggItem(ModEntities.HAILING_HERETIC, 0xc4c4c4, 0xffff59, new Item.Properties()));
 
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);

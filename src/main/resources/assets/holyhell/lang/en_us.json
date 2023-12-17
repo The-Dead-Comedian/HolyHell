@@ -10,10 +10,12 @@
 
   "entity.holyhell.angel": "Angel",
   "entity.holyhell.all_seer": "All Seer",
+  "entity.holyhell.hailing_heretic": "Hailing Heretic",
 
   "creativetab:holy_tab": "Holy trinkets",
 
   "block.holyhell.divining_table": "Divining Table",
+  "block.holyhell.dream_catcher": "Dream Catcher",
   "block.holyhell.levantia_log": "Levantia Log",
   "block.holyhell.stripped_levantia_log": "Stripped Levantia Log",
   "block.holyhell.carved_levantia_log": "Carved Levantia Log",

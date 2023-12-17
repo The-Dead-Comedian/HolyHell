@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "holyhell:block/dream_catcher" },
+    "facing=east": { "model": "holyhell:block/dream_catcher", "y": 90 },
+    "facing=south": { "model": "holyhell:block/dream_catcher", "y": 180 },
+    "facing=west": { "model": "holyhell:block/dream_catcher", "y": 270 }
+  }
+}
