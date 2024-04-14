@@ -4,6 +4,7 @@ import com.dead_comedian.holyhell.Holyhell;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.registry.Registries;
@@ -13,10 +14,22 @@ import net.minecraft.util.Identifier;
 
 public class ModItems {
     public static final Item SAINT_EYE = registerItem("saint_eye", new Item(new FabricItemSettings()));
+
     public static final Item HOLY_TEAR = registerItem("holy_tear", new Item(new FabricItemSettings()));
+    public static final Item EVANGELIST_HELMET= registerItem("evangelist_helmet", new ArmorItem(ModArmorMaterials.EVANGELIST, ArmorItem.Type.HELMET,new FabricItemSettings()));
+    public static final Item EVANGELIST_CHESTPLATE= registerItem("evangelist_chestplate", new ArmorItem(ModArmorMaterials.EVANGELIST, ArmorItem.Type.CHESTPLATE,new FabricItemSettings()));
+    public static final Item EVANGELIST_LEGGINGS= registerItem("evangelist_leggings", new ArmorItem(ModArmorMaterials.EVANGELIST, ArmorItem.Type.LEGGINGS,new FabricItemSettings()));
+    public static final Item EVANGELIST_BOOTS= registerItem("evangelist_boots", new ArmorItem(ModArmorMaterials.EVANGELIST, ArmorItem.Type.BOOTS,new FabricItemSettings()));;;
     private static void addToIngredientGroup(FabricItemGroupEntries entries) {
         entries.add(SAINT_EYE);
         entries.add(HOLY_TEAR);
+        entries.add(EVANGELIST_HELMET);
+        entries.add(EVANGELIST_CHESTPLATE);
+        entries.add(EVANGELIST_LEGGINGS);
+        entries.add(EVANGELIST_BOOTS);
+
+
+
     }
 
     private static Item registerItem(String name, Item item) {

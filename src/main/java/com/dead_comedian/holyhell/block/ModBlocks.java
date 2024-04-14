@@ -6,6 +6,7 @@ import com.dead_comedian.holyhell.block.custom.divining_table;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.JukeboxBlockEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -20,13 +21,13 @@ import net.minecraft.util.Identifier;
 public class ModBlocks {
 
     public static final Block DIVINING_TABLE = registerBlock("divining_table",
-            new divining_table(FabricBlockSettings.copyOf(Blocks.ANVIL)) {
+            new divining_table(FabricBlockSettings.copyOf(Blocks.ANVIL).nonOpaque()) {
                 @Override
                 public BlockState rotate(BlockState state, BlockRotation rotation) {
                     return super.rotate(state, rotation);
                 }
             });
-
+   //public static final Block E = registerBlock("eee", new JukeboxBlock())
 
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);

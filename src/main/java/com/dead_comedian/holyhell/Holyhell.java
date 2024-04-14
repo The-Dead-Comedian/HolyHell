@@ -1,7 +1,9 @@
 package com.dead_comedian.holyhell;
 
 import com.dead_comedian.holyhell.block.ModBlocks;
+import com.dead_comedian.holyhell.effect.ModEffects;
 import com.dead_comedian.holyhell.item.ModItems;
+import com.dead_comedian.holyhell.sound.ModSounds;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -22,6 +24,8 @@ public class Holyhell implements ModInitializer {
 		// Proceed with mild caution.
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
+		ModEffects.registerEffects();
+		ModSounds.registerSounds();
 		LOGGER.info("what is lovee? baby don't hurt mee, don't hurt mee, noo moree");
 	}
 }
