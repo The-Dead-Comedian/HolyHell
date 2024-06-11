@@ -1,11 +1,11 @@
 {
-  "item.holyhell.saint_eye" : "saint's balls",
-  "item.holyhell.holy_tear" : "holy tea (brits love this shit)",
-  "block.holyhell.divining_table": "dinning table (dinner is ready kids)",
-  "item.holyhell.evangelist_helmet": "Helmet of revenge(by captain sparklez)",
-  "item.holyhell.evangelist_chestplate": "E-Vegan's Boobs",
-  "item.holyhell.evangelist_leggings": "Even-list? that's quite Pants innit?",
-  "item.holyhell.evangelist_boots": "evangefeet",
+  "item.holyhell.saint_eye" : "Saint Eye",
+  "item.holyhell.holy_tear" : "Holy Tear",
+  "block.holyhell.divining_table": "Divining Table",
+  "item.holyhell.evangelist_helmet": "Evangelist Helmet",
+  "item.holyhell.evangelist_chestplate": "Evangelist Chestplate",
+  "item.holyhell.evangelist_leggings": "Evangelist Leggings",
+  "item.holyhell.evangelist_boots": "Evangelist Boots",
   "effect.holyhell.clarity": "Post Nut Clarity",
   "sounds.holyhell.clarity_music": "Metal Detector Jingle"
 }

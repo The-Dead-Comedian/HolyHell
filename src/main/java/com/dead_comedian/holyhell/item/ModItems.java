@@ -1,12 +1,14 @@
 package com.dead_comedian.holyhell.item;
 
 import com.dead_comedian.holyhell.Holyhell;
+import com.dead_comedian.holyhell.entity.ModEntities;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -14,7 +16,7 @@ import net.minecraft.util.Identifier;
 
 public class ModItems {
     public static final Item SAINT_EYE = registerItem("saint_eye", new Item(new FabricItemSettings()));
-
+    public static final Item ANGEL_SPAWN_EGG = registerItem("angel_spawn_egg", new SpawnEggItem(ModEntities.ANGEL,0xc4c4c4,0xffff59, new FabricItemSettings()));
     public static final Item HOLY_TEAR = registerItem("holy_tear", new Item(new FabricItemSettings()));
     public static final Item EVANGELIST_HELMET= registerItem("evangelist_helmet", new ArmorItem(ModArmorMaterials.EVANGELIST, ArmorItem.Type.HELMET,new FabricItemSettings()));
     public static final Item EVANGELIST_CHESTPLATE= registerItem("evangelist_chestplate", new ArmorItem(ModArmorMaterials.EVANGELIST, ArmorItem.Type.CHESTPLATE,new FabricItemSettings()));
@@ -27,7 +29,7 @@ public class ModItems {
         entries.add(EVANGELIST_CHESTPLATE);
         entries.add(EVANGELIST_LEGGINGS);
         entries.add(EVANGELIST_BOOTS);
-
+        entries.add(ANGEL_SPAWN_EGG);
 
 
     }
@@ -36,7 +38,7 @@ public class ModItems {
         return Registry.register(Registries.ITEM, new Identifier(Holyhell.MOD_ID, name), item);
     }
     public static void registerModItems(){
-        Holyhell.LOGGER.info("registering otems for" + Holyhell.MOD_ID);
+        Holyhell.LOGGER.info("registering items for" + Holyhell.MOD_ID);
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(ModItems::addToIngredientGroup);
     }
