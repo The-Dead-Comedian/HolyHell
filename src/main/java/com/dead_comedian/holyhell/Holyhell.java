@@ -24,8 +24,8 @@ public class Holyhell implements ModInitializer {
 		// Proceed with mild caution.
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
-		ModEffects.registerEffects();
-		ModSounds.registerSounds();
+		// ModEffects.registerEffects();
+		// ModSounds.registerSounds();
 		LOGGER.info("what is lovee? baby don't hurt mee, don't hurt mee, noo moree");
 	}
 }
