@@ -1,20 +1,23 @@
 package com.dead_comedian.holyhell.entity.custom;
 
 import com.dead_comedian.holyhell.entity.ai.AngelAttackGoal;
-import net.minecraft.entity.AnimationState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityPose;
-import net.minecraft.entity.EntityType;
+import net.minecraft.block.Block;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.mob.EvokerEntity;
+import net.minecraft.entity.mob.EvokerFangsEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 public class AngelEntity extends HostileEntity {
     public AngelEntity(EntityType<? extends HostileEntity> entityType, World world) {
@@ -89,8 +92,7 @@ public class AngelEntity extends HostileEntity {
     @Override
     public void tick() {
         super.tick();
-
-
+            LastPrayerAbility();
 
 
             if(this.getWorld().isClient()) {
@@ -114,6 +116,21 @@ public class AngelEntity extends HostileEntity {
                 .add(EntityAttributes.GENERIC_ARMOR, 0.5f)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2);
     }
+
+//summoning
+
+        public void LastPrayerAbility(){
+
+
+            if(!this.isAlive()){
+                BlockPos blockPos = this.getBlockPos();
+                System.out.println("doodoo");
+                    AngelEntity.this.getWorld().spawnEntity(new LastPrayerEntity(AngelEntity.this.getWorld(), (double)blockPos.getX(),(double)blockPos.getY(), (double)blockPos.getZ(),  this.getYaw()));
+
+            }
+        }
+
+
     }
 
 

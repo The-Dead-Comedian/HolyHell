@@ -2,7 +2,7 @@ package com.dead_comedian.holyhell;
 
 import com.dead_comedian.holyhell.block.ModBlocks;
 import com.dead_comedian.holyhell.client.models.entity.AngelModel;
-import com.dead_comedian.holyhell.client.models.entity.LastPlayerModel;
+import com.dead_comedian.holyhell.client.models.entity.LastPrayerModel;
 import com.dead_comedian.holyhell.client.renderer.AngelRenderer;
 import com.dead_comedian.holyhell.client.renderer.LastPrayerRenderer;
 import com.dead_comedian.holyhell.entity.ModEntities;
@@ -22,7 +22,7 @@ public class HolyhellClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.ANGEL, AngelRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.ANGEL, AngelModel::getTexturedModelData);
         EntityRendererRegistry.register(ModEntities.LASTPRAYER, LastPrayerRenderer::new);
-        EntityModelLayerRegistry.registerModelLayer(ModModelLayers.LASTPRAYER, LastPlayerModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(ModModelLayers.LASTPRAYER, LastPrayerModel::getTexturedModelData);
 
     }
 }

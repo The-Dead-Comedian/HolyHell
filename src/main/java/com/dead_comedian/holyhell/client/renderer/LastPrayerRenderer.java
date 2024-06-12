@@ -1,26 +1,28 @@
 package com.dead_comedian.holyhell.client.renderer;
 
-import com.dead_comedian.holyhell.Holyhell;
-import com.dead_comedian.holyhell.client.models.entity.AngelModel;
-import com.dead_comedian.holyhell.client.models.entity.LastPlayerModel;
+
+import com.dead_comedian.holyhell.client.models.entity.LastPrayerModel;
 import com.dead_comedian.holyhell.entity.ModModelLayers;
-import com.dead_comedian.holyhell.entity.custom.AngelEntity;
 import com.dead_comedian.holyhell.entity.custom.LastPrayerEntity;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.client.render.entity.model.EvokerFangsEntityModel;
+import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.mob.EvokerFangsEntity;
 import net.minecraft.util.Identifier;
 
+
+@Environment(EnvType.CLIENT)
 public class LastPrayerRenderer extends EntityRenderer<LastPrayerEntity> {
-    private static final Identifier TEXTURE = new Identifier(Holyhell.MOD_ID, "textures/entity/angel.png");
-    private final LastPlayerModel<LastPrayerEntity> model;
+    private static final Identifier TEXTURE = new Identifier("textures/entity/last_prayer.png");
+    private final LastPrayerModel<LastPrayerEntity> model;
+
     public LastPrayerRenderer(EntityRendererFactory.Context context) {
         super(context);
-        this.model =  new LastPlayerModel(context.getPart(ModModelLayers.LASTPRAYER));
+        this.model = new LastPrayerModel<>(context.getPart(ModModelLayers.LASTPRAYER));
     }
 
 
