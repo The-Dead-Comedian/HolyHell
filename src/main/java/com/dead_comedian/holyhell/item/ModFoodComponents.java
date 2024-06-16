@@ -1,4 +1,4 @@
-package com.dead_comedian.holyhell.entity.custom;
+package com.dead_comedian.holyhell.item;
 
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;

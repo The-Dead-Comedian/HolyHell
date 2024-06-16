@@ -29,7 +29,7 @@ public class LastPrayerEntity extends Entity {
 
     public LastPrayerEntity(World world, double x, double y, double z, float yaw) {
         this((EntityType<? extends LastPrayerEntity>) ModEntities.LASTPRAYER, world);
-     
+
         this.setYaw(yaw * 57.295776F);
         this.setPosition(x, y, z);
     }
@@ -87,12 +87,11 @@ public class LastPrayerEntity extends Entity {
         if (target.isAlive() && !target.isInvulnerable()) {
 
 
-                target.damage(this.getDamageSources().generic(), 6.0F);
-            }
-
+            target.damage(this.getDamageSources().generic(), 6.0F);
         }
-    }
 
+    }
+}
 
 
 

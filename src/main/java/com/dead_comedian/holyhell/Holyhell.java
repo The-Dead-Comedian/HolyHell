@@ -5,6 +5,7 @@ import com.dead_comedian.holyhell.block.ModBlocks;
 import com.dead_comedian.holyhell.entity.ModEntities;
 import com.dead_comedian.holyhell.entity.custom.AngelEntity;
 import com.dead_comedian.holyhell.entity.custom.LastPrayerEntity;
+import com.dead_comedian.holyhell.item.ModItemGroup;
 import com.dead_comedian.holyhell.item.ModItems;
 
 import net.fabricmc.api.ModInitializer;
@@ -26,6 +27,7 @@ public class Holyhell implements ModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
+		ModItemGroup.registerItemGroups();
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
 		ModEntities.registerModEntities();
