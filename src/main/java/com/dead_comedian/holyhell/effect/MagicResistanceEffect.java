@@ -6,6 +6,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.s2c.play.StopSoundS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class MagicResistanceEffect extends StatusEffect {
+    LivingEntity livingEntity;
     public static final Predicate<Entity> IS_PLAYER = entity -> (entity instanceof ServerPlayerEntity);
     public MagicResistanceEffect(StatusEffectCategory statusEffectCategory, int color) {
         super(statusEffectCategory, color);
@@ -37,8 +39,7 @@ public class MagicResistanceEffect extends StatusEffect {
     @Override
     public void onApplied(LivingEntity entity, AttributeContainer attributes, int amplifier){
         entity.getWorld().playSound(null, entity.getBlockPos(), ModSounds.CLARITY_MUSIC, SoundCategory.RECORDS, 1f, 1f );
-        //entity.getWorld().Client
-
+        entity.getDamageSources().indirectMagic(livingEntity,livingEntity );
     }
     @Override
     public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier){

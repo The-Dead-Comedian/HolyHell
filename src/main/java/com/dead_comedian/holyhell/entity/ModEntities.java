@@ -3,6 +3,7 @@ package com.dead_comedian.holyhell.entity;
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.entity.custom.AngelEntity;
 import com.dead_comedian.holyhell.entity.custom.LastPrayerEntity;
+import com.dead_comedian.holyhell.entity.custom.ReligiousRingsEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
@@ -22,6 +23,11 @@ public class ModEntities {
             FabricEntityTypeBuilder.<LastPrayerEntity>create(SpawnGroup.CREATURE, LastPrayerEntity::new)
                     .dimensions(EntityDimensions.fixed(3f, 4f)).build());
 
+
+    public static final EntityType<ReligiousRingsEntity> RELIGIOUS_RINGS = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(Holyhell.MOD_ID, "religious_rings"),
+            FabricEntityTypeBuilder.<ReligiousRingsEntity>create(SpawnGroup.CREATURE, ReligiousRingsEntity::new)
+                    .dimensions(EntityDimensions.fixed(3f, 4f)).build());
     public static void registerModEntities() {
         Holyhell.LOGGER.info("Registering Entities for " + Holyhell.MOD_ID);
     }

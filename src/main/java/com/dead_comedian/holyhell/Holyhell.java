@@ -2,12 +2,14 @@ package com.dead_comedian.holyhell;
 
 import com.dead_comedian.holyhell.block.ModBlocks;
 
+import com.dead_comedian.holyhell.effect.ModEffects;
 import com.dead_comedian.holyhell.entity.ModEntities;
 import com.dead_comedian.holyhell.entity.custom.AngelEntity;
 import com.dead_comedian.holyhell.entity.custom.LastPrayerEntity;
 import com.dead_comedian.holyhell.item.ModItemGroup;
 import com.dead_comedian.holyhell.item.ModItems;
 
+import com.dead_comedian.holyhell.sound.ModSounds;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -31,6 +33,8 @@ public class Holyhell implements ModInitializer {
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
 		ModEntities.registerModEntities();
+		ModEffects.registerEffects();
+		ModSounds.registerSounds();
 		FabricDefaultAttributeRegistry.register(ModEntities.ANGEL, AngelEntity.createAngelAttributes());
 
 

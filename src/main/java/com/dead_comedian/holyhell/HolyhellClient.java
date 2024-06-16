@@ -3,8 +3,10 @@ package com.dead_comedian.holyhell;
 import com.dead_comedian.holyhell.block.ModBlocks;
 import com.dead_comedian.holyhell.client.models.entity.AngelModel;
 import com.dead_comedian.holyhell.client.models.entity.LastPrayerModel;
+import com.dead_comedian.holyhell.client.models.entity.ReligiousRingsModel;
 import com.dead_comedian.holyhell.client.renderer.AngelRenderer;
 import com.dead_comedian.holyhell.client.renderer.LastPrayerRenderer;
+import com.dead_comedian.holyhell.client.renderer.ReligiousRingsRenderer;
 import com.dead_comedian.holyhell.entity.ModEntities;
 import com.dead_comedian.holyhell.entity.ModModelLayers;
 import net.fabricmc.api.ClientModInitializer;
@@ -23,6 +25,8 @@ public class HolyhellClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.ANGEL, AngelModel::getTexturedModelData);
         EntityRendererRegistry.register(ModEntities.LASTPRAYER, LastPrayerRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.LASTPRAYER, LastPrayerModel::getTexturedModelData);
+        EntityRendererRegistry.register(ModEntities.RELIGIOUS_RINGS, ReligiousRingsRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(ModModelLayers.RELIGIOUS_RINGS, ReligiousRingsModel::getTexturedModelData);
 
     }
 }

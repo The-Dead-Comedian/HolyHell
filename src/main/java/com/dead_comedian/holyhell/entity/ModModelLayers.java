@@ -10,4 +10,7 @@ public class ModModelLayers {
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "angel"), "main");
     public static final EntityModelLayer LASTPRAYER =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "last_prayer"), "main");
+    public static final EntityModelLayer RELIGIOUS_RINGS =
+            new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "religious_rings"), "main");
+
 }
