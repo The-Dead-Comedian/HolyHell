@@ -20,7 +20,7 @@ public class ModEntities {
     public static final EntityType<LastPrayerEntity> LASTPRAYER = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Holyhell.MOD_ID, "last_prayer"),
             FabricEntityTypeBuilder.<LastPrayerEntity>create(SpawnGroup.CREATURE, LastPrayerEntity::new)
-                    .dimensions(EntityDimensions.fixed(2f, 4f)).build());
+                    .dimensions(EntityDimensions.fixed(3f, 4f)).build());
 
     public static void registerModEntities() {
         Holyhell.LOGGER.info("Registering Entities for " + Holyhell.MOD_ID);

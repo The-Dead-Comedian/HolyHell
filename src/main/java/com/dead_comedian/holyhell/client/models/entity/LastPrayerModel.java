@@ -18,7 +18,7 @@ public class LastPrayerModel<T extends LastPrayerEntity> extends SinglePartEntit
 	public static TexturedModelData getTexturedModelData() {
 		ModelData modelData = new ModelData();
 		ModelPartData modelPartData = modelData.getRoot();
-		ModelPartData bone = modelPartData.addChild("bone", ModelPartBuilder.create().uv(0, 0).cuboid(-24.0F, -64.0F, -24.0F, 48.0F, 64.0F, 48.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+		ModelPartData bone = modelPartData.addChild("bone", ModelPartBuilder.create().uv(0, 0).cuboid(-24.0F, -40.0F, -24.0F, 48.0F, 64.0F, 48.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 24.0F, 0.0F, 3.1416F, 0.0F, 0.0F));
 		return TexturedModelData.of(modelData, 256, 256);
 	}
 
@@ -34,6 +34,6 @@ public class LastPrayerModel<T extends LastPrayerEntity> extends SinglePartEntit
 
 	@Override
 	public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-
+		this.getPart().traverse().forEach(ModelPart::resetTransform);
 	}
 }
