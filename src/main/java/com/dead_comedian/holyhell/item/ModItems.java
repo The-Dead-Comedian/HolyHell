@@ -15,7 +15,7 @@ import net.minecraft.util.Identifier;
 
 public class ModItems {
     public static final Item SAINT_EYE = registerItem("saint_eye", new SaintEyeItem(new FabricItemSettings().food(ModFoodComponents.SAINT_EYE)));
-    public static final Item HOLY_GRAIL= registerItem("holy_grail", new Item(new FabricItemSettings()));
+    public static final Item HOLY_GRAIL= registerItem("holy_grail", new SwordItem(ToolMaterials.NETHERITE, 69, 0.3F, new FabricItemSettings()));
     public static final Item RELIGIOUS_RINGS= registerItem("religious_rings", new Item(new FabricItemSettings()));
     public static final Item ANGEL_SPAWN_EGG = registerItem("angel_spawn_egg", new SpawnEggItem(ModEntities.ANGEL,0xc4c4c4,0xffff59, new FabricItemSettings()));
     public static final Item HOLY_TEAR = registerItem("holy_tear", new Item(new FabricItemSettings()));
