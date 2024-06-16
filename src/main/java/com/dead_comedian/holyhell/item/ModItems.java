@@ -3,6 +3,7 @@ package com.dead_comedian.holyhell.item;
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.entity.ModEntities;
 import com.dead_comedian.holyhell.entity.custom.ModFoodComponents;
+import com.dead_comedian.holyhell.item.custom.SaintEyeItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -13,7 +14,8 @@ import net.minecraft.util.Identifier;
 
 
 public class ModItems {
-    public static final Item SAINT_EYE = registerItem("saint_eye", new Item(new FabricItemSettings().food(ModFoodComponents.SAINT_EYE)));
+    public static final Item SAINT_EYE = registerItem("saint_eye", new SaintEyeItem(new FabricItemSettings().food(ModFoodComponents.SAINT_EYE)));
+    public static final Item HOLY_GRAIL= registerItem("holy_grail", new Item(new FabricItemSettings()));
     public static final Item RELIGIOUS_RINGS= registerItem("religious_rings", new Item(new FabricItemSettings()));
     public static final Item ANGEL_SPAWN_EGG = registerItem("angel_spawn_egg", new SpawnEggItem(ModEntities.ANGEL,0xc4c4c4,0xffff59, new FabricItemSettings()));
     public static final Item HOLY_TEAR = registerItem("holy_tear", new Item(new FabricItemSettings()));
