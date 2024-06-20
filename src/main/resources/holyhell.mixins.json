@@ -3,7 +3,10 @@
 	"package": "com.dead_comedian.holyhell.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"ExampleMixin"
+		"ExampleMixin",
+		"ItemRendererAccessor",
+		"ItemRendererMixin",
+		"ModelLoaderMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
