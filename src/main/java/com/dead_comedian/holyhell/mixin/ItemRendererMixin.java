@@ -21,6 +21,7 @@ public abstract class ItemRendererMixin {
         if (stack.isOf(ModItems.HOLY_GRAIL) && renderMode != ModelTransformationMode.GROUND && renderMode != ModelTransformationMode.GUI && renderMode != ModelTransformationMode.FIXED) {
             return ((ItemRendererAccessor) this).mccourse$getModels().getModelManager().getModel(new ModelIdentifier(Holyhell.MOD_ID, "holy_grail_3d", "inventory"));
         }
+
         return value;
     }
 }

@@ -10,7 +10,7 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 
-public class LastPrayerModel<T extends LastPrayerEntity> extends SinglePartEntityModel<T > {
+public class LastPrayerModel<T extends LastPrayerEntity> extends SinglePartEntityModel<T> {
 	private final ModelPart bone;
 	public LastPrayerModel(ModelPart root) {
 		this.bone = root.getChild("bone");
@@ -31,6 +31,7 @@ public class LastPrayerModel<T extends LastPrayerEntity> extends SinglePartEntit
 	public ModelPart getPart() {
 		return bone;
 	}
+
 
 	@Override
 	public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {

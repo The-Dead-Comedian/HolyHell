@@ -6,7 +6,8 @@
 		"ExampleMixin",
 		"ItemRendererAccessor",
 		"ItemRendererMixin",
-		"ModelLoaderMixin"
+		"ModelLoaderMixin",
+		"FeatureRendererMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

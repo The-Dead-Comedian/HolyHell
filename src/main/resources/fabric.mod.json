@@ -17,16 +17,20 @@
 	"entrypoints": {
 		"main": [
 			"com.dead_comedian.holyhell.Holyhell"
-		],"client": [
+		],
+		"client": [
 			"com.dead_comedian.holyhell.HolyhellClient"
 		],
 		"fabric-datagen": [
 			"com.dead_comedian.holyhell.HolyhellDataGenerator"
 		]
+
+
 	},
 	"mixins": [
 		"holyhell.mixins.json"
 	],
+	"accessWidener" : "holyhell.accesswidener",
 	"depends": {
 		"fabricloader": ">=0.15.9",
 		"minecraft": "~1.20.1",
