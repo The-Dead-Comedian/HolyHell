@@ -2,17 +2,14 @@ package com.dead_comedian.holyhell.client.renderer;
 
 
 import com.dead_comedian.holyhell.Holyhell;
-import com.dead_comedian.holyhell.client.models.entity.LastPrayerModel;
+import com.dead_comedian.holyhell.client.models.entity.spells.LastPrayerModel;
 import com.dead_comedian.holyhell.entity.ModModelLayers;
-import com.dead_comedian.holyhell.entity.custom.LastPrayerEntity;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import com.dead_comedian.holyhell.entity.custom.spells.LastPrayerEntity;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 

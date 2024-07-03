@@ -5,7 +5,6 @@ import com.dead_comedian.holyhell.block.ModBlocks;
 import com.dead_comedian.holyhell.effect.ModEffects;
 import com.dead_comedian.holyhell.entity.ModEntities;
 import com.dead_comedian.holyhell.entity.custom.AngelEntity;
-import com.dead_comedian.holyhell.entity.custom.LastPrayerEntity;
 import com.dead_comedian.holyhell.item.ModItemGroup;
 import com.dead_comedian.holyhell.item.ModItems;
 

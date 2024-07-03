@@ -10,6 +10,6 @@ public class ModFoodComponents {
     }
 
     static{
-    SAINT_EYE = (new FoodComponent.Builder()).hunger(1).saturationModifier(0.8F).statusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 100, 2), 1.0F).statusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 100, 0), 1.0F).build();
+    SAINT_EYE = (new FoodComponent.Builder()).hunger(1).saturationModifier(0.8F).statusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200, 2), 1.0F).build();
 }
 }

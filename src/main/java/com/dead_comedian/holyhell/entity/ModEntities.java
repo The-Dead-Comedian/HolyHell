@@ -2,7 +2,7 @@ package com.dead_comedian.holyhell.entity;
 
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.entity.custom.AngelEntity;
-import com.dead_comedian.holyhell.entity.custom.LastPrayerEntity;
+import com.dead_comedian.holyhell.entity.custom.spells.LastPrayerEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;

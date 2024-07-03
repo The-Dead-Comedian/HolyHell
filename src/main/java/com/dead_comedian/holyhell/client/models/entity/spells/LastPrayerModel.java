@@ -2,9 +2,9 @@
 // Exported for Minecraft version 1.17+ for Yarn
 // Paste this class into your mod and generate all required imports
 
-package com.dead_comedian.holyhell.client.models.entity;
+package com.dead_comedian.holyhell.client.models.entity.spells;
 
-import com.dead_comedian.holyhell.entity.custom.LastPrayerEntity;
+import com.dead_comedian.holyhell.entity.custom.spells.LastPrayerEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;

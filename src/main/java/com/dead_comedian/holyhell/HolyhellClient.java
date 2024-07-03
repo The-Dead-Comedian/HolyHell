@@ -2,7 +2,7 @@ package com.dead_comedian.holyhell;
 
 import com.dead_comedian.holyhell.block.ModBlocks;
 import com.dead_comedian.holyhell.client.models.entity.AngelModel;
-import com.dead_comedian.holyhell.client.models.entity.LastPrayerModel;
+import com.dead_comedian.holyhell.client.models.entity.spells.LastPrayerModel;
 
 import com.dead_comedian.holyhell.client.renderer.AngelRenderer;
 import com.dead_comedian.holyhell.client.renderer.LastPrayerRenderer;
