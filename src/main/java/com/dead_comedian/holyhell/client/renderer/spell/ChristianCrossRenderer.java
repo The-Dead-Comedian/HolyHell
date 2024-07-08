@@ -1,10 +1,10 @@
-package com.dead_comedian.holyhell.client.renderer;
+package com.dead_comedian.holyhell.client.renderer.spell;
 
 
 import com.dead_comedian.holyhell.Holyhell;
-import com.dead_comedian.holyhell.client.models.entity.spells.LastPrayerModel;
+import com.dead_comedian.holyhell.client.models.entity.spells.ChristianCrossModel;
 import com.dead_comedian.holyhell.entity.ModModelLayers;
-import com.dead_comedian.holyhell.entity.custom.spells.LastPrayerEntity;
+import com.dead_comedian.holyhell.entity.custom.spells.ChristianCrossEntity;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -14,13 +14,13 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 
-public class LastPrayerRenderer extends EntityRenderer<LastPrayerEntity> {
-    private static final Identifier TEXTURE = new Identifier(Holyhell.MOD_ID, "textures/entity/last_prayer.png");
-    private final LastPrayerModel<LastPrayerEntity> model;
+public class ChristianCrossRenderer extends EntityRenderer<ChristianCrossEntity> {
+    private static final Identifier TEXTURE = new Identifier(Holyhell.MOD_ID, "textures/entity/christian_cross.png");
+    private final ChristianCrossModel<ChristianCrossEntity> model;
 
-    public LastPrayerRenderer(EntityRendererFactory.Context context) {
+    public ChristianCrossRenderer(EntityRendererFactory.Context context) {
         super(context);
-        this.model = new LastPrayerModel<>(context.getPart(ModModelLayers.LASTPRAYER));
+        this.model = new ChristianCrossModel<>(context.getPart(ModModelLayers.CHRISTIANCROSS));
     }
 
 
@@ -28,7 +28,7 @@ public class LastPrayerRenderer extends EntityRenderer<LastPrayerEntity> {
 
 
     @Override
-    public void render(LastPrayerEntity mobEntity, float f, float g, MatrixStack matrixStack,
+    public void render(ChristianCrossEntity mobEntity, float f, float g, MatrixStack matrixStack,
                        VertexConsumerProvider vertexConsumerProvider, int i) {
         VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(this.model.getLayer(TEXTURE));
         this.model.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -36,7 +36,7 @@ public class LastPrayerRenderer extends EntityRenderer<LastPrayerEntity> {
     }
 
     @Override
-    public Identifier getTexture(LastPrayerEntity entity) {
+    public Identifier getTexture(ChristianCrossEntity entity) {
         return TEXTURE;
     }
 

@@ -2,6 +2,7 @@ package com.dead_comedian.holyhell.entity;
 
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.entity.custom.AngelEntity;
+import com.dead_comedian.holyhell.entity.custom.spells.ChristianCrossEntity;
 import com.dead_comedian.holyhell.entity.custom.spells.LastPrayerEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
@@ -21,6 +22,10 @@ public class ModEntities {
             new Identifier(Holyhell.MOD_ID, "last_prayer"),
             FabricEntityTypeBuilder.<LastPrayerEntity>create(SpawnGroup.CREATURE, LastPrayerEntity::new)
                     .dimensions(EntityDimensions.fixed(3f, 4f)).build());
+    public static final EntityType<ChristianCrossEntity> CHRISTIANCROSS = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(Holyhell.MOD_ID, "christian_cross"),
+            FabricEntityTypeBuilder.<ChristianCrossEntity>create(SpawnGroup.CREATURE, ChristianCrossEntity::new)
+                    .dimensions(EntityDimensions.fixed(4f, 3f)).build());
 
 
 

@@ -3,6 +3,7 @@ package com.dead_comedian.holyhell.item;
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.entity.ModEntities;
 import com.dead_comedian.holyhell.item.ModFoodComponents;
+import com.dead_comedian.holyhell.item.custom.HolyGrailItem;
 import com.dead_comedian.holyhell.item.custom.ReligiousRingsItem;
 import com.dead_comedian.holyhell.item.custom.SaintEyeItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -18,8 +19,8 @@ import static com.dead_comedian.holyhell.item.ModItemGroup.HOLYHELL;
 
 public class ModItems {
     public static final Item SAINT_EYE = registerItem("saint_eye", new SaintEyeItem(new FabricItemSettings().food(ModFoodComponents.SAINT_EYE)));
-    public static final Item HOLY_GRAIL= registerItem("holy_grail", new SwordItem(ToolMaterials.NETHERITE, 69, 0.3F, new FabricItemSettings()));
-    public static final Item RELIGIOUS_RINGS= registerItem("religious_rings", new ReligiousRingsItem(ModEntities.ANGEL, new FabricItemSettings()));
+    public static final Item HOLY_GRAIL= registerItem("holy_grail", new HolyGrailItem(ModEntities.CHRISTIANCROSS, new FabricItemSettings()));
+    public static final Item RELIGIOUS_RINGS= registerItem("religious_rings", new ReligiousRingsItem(new FabricItemSettings()));
     public static final Item ANGEL_SPAWN_EGG = registerItem("angel_spawn_egg", new SpawnEggItem(ModEntities.ANGEL,0xffefbf,0xd19822, new FabricItemSettings()));
     public static final Item HOLY_TEAR = registerItem("holy_tear", new Item(new FabricItemSettings()));
     public static final Item EVANGELIST_HELMET= registerItem("evangelist_helmet", new ArmorItem(ModArmorMaterials.EVANGELIST, ArmorItem.Type.HELMET,new FabricItemSettings()));
