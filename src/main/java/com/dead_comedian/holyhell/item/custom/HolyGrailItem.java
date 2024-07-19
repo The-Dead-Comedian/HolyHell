@@ -92,7 +92,7 @@ public class HolyGrailItem extends Item {
     }
 
 
-//asf
+//test
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
