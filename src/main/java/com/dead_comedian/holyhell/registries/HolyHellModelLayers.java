@@ -9,6 +9,9 @@ public class HolyHellModelLayers {
     public static final EntityModelLayer ANGEL =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "angel"), "main");
 
+    public static final EntityModelLayer HAILING_HERETIC =
+            new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "hailing_heretic"), "main");
+
 
 
     public static final EntityModelLayer LASTPRAYER =

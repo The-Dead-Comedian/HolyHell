@@ -2,6 +2,7 @@ package com.dead_comedian.holyhell.registries;
 
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.entity.custom.AngelEntity;
+import com.dead_comedian.holyhell.entity.custom.HailingHereticEntity;
 import com.dead_comedian.holyhell.entity.custom.spells.AreaSpellEntity;
 import com.dead_comedian.holyhell.entity.custom.spells.ChristianCrossEntity;
 import com.dead_comedian.holyhell.entity.custom.spells.LastPrayerEntity;
@@ -17,6 +18,11 @@ public class HolyHellEntities {
     public static final EntityType<AngelEntity> ANGEL = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Holyhell.MOD_ID, "angel"),
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, AngelEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.8f, 1.5f)).build());
+
+    public static final EntityType<HailingHereticEntity> HAILING_HERETIC = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(Holyhell.MOD_ID, "hailing_herentic"),
+            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, HailingHereticEntity::new)
                     .dimensions(EntityDimensions.fixed(0.8f, 1.5f)).build());
 
     public static final EntityType<LastPrayerEntity> LASTPRAYER = Registry.register(Registries.ENTITY_TYPE,

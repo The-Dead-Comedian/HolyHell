@@ -28,8 +28,9 @@ public class ConfusionEffect extends StatusEffect {
     }
     @Override
     public void onApplied(LivingEntity entity, AttributeContainer attributes, int amplifier){
-        entity.getWorld().playSound(null, entity.getBlockPos(), HolyHellSounds.CLARITY_MUSIC, SoundCategory.RECORDS, 1f, 1f );
-        //entity.getWorld().Client
+        if( entity.hasStatusEffect(this)){
+            LivingEntity livingEntity;
+        }
 
         
 

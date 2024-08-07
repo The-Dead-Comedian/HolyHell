@@ -21,13 +21,13 @@ public class AreaSpellModel <T extends AreaSpellEntity> extends SinglePartEntity
 	public static TexturedModelData getTexturedModelData() {
 		ModelData modelData = new ModelData();
 		ModelPartData modelPartData = modelData.getRoot();
-		ModelPartData bb_main = modelPartData.addChild("bb_main", ModelPartBuilder.create().uv(0, 0).cuboid(-121.0F, -78.0F, -121.0F, 242.0F, 78.0F, 0.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+		ModelPartData bb_main = modelPartData.addChild("bb_main", ModelPartBuilder.create().uv(0, 0).cuboid(-121.0F, -24.0F, -121.0F, 242.0F, 78.0F, 0.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
 
-		ModelPartData cube_r1 = bb_main.addChild("cube_r1", ModelPartBuilder.create().uv(0, 0).cuboid(-241.0F, -78.0F, -1.0F, 242.0F, 78.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(-120.0F, 0.0F, 120.0F, -3.1416F, 0.0F, 3.1416F));
+		ModelPartData cube_r1 = bb_main.addChild("cube_r1", ModelPartBuilder.create().uv(0, 0).cuboid(-241.0F, -24.0F, -1.0F, 242.0F, 78.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(-120.0F, 0.0F, 120.0F, -3.1416F, 0.0F, 3.1416F));
 
-		ModelPartData cube_r2 = bb_main.addChild("cube_r2", ModelPartBuilder.create().uv(0, 0).cuboid(-242.0F, -78.0F, -0.001F, 242.0F, 78.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(-121.002F, 0.0F, 121.0F, 0.0F, -1.5708F, 0.0F));
+		ModelPartData cube_r2 = bb_main.addChild("cube_r2", ModelPartBuilder.create().uv(0, 0).cuboid(-242.0F, -24.0F, -0.001F, 242.0F, 78.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(-121.002F, 0.0F, 121.0F, 0.0F, -1.5708F, 0.0F));
 
-		ModelPartData cube_r3 = bb_main.addChild("cube_r3", ModelPartBuilder.create().uv(0, 0).cuboid(-241.0F, -78.0F, -1.0F, 242.0F, 78.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(121.999F, 0.0F, -120.0F, 0.0F, 1.5708F, 0.0F));
+		ModelPartData cube_r3 = bb_main.addChild("cube_r3", ModelPartBuilder.create().uv(0, 0).cuboid(-241.0F, -24.0F, -1.0F, 242.0F, 78.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(121.999F, 0.0F, -120.0F, 0.0F, 1.5708F, 0.0F));
 		return TexturedModelData.of(modelData, 512, 512);
 	}
 

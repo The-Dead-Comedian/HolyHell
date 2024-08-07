@@ -1,5 +1,7 @@
 package com.dead_comedian.holyhell;
 
+import com.dead_comedian.holyhell.client.models.entity.HailingHereticModel;
+import com.dead_comedian.holyhell.client.renderer.HailingHereticRenderer;
 import com.dead_comedian.holyhell.registries.HolyHellBlocks;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
@@ -30,6 +32,8 @@ public class HolyhellClient implements ClientModInitializer {
         EntityRendererRegistry.register(HolyHellEntities.ANGEL, AngelRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.ANGEL, AngelModel::getTexturedModelData);
 
+        EntityRendererRegistry.register(HolyHellEntities.HAILING_HERETIC, HailingHereticRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.HAILING_HERETIC, HailingHereticModel::getTexturedModelData);
 
         EntityRendererRegistry.register(HolyHellEntities.LASTPRAYER, LastPrayerRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.LASTPRAYER, LastPrayerModel::getTexturedModelData);
