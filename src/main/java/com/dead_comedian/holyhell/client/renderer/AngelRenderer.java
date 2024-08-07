@@ -2,7 +2,7 @@ package com.dead_comedian.holyhell.client.renderer;
 
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.client.models.entity.AngelModel;
-import com.dead_comedian.holyhell.entity.ModModelLayers;
+import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
 import com.dead_comedian.holyhell.entity.custom.AngelEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -14,7 +14,7 @@ public class AngelRenderer  extends MobEntityRenderer<AngelEntity, AngelModel<An
     private static final Identifier TEXTURE = new Identifier(Holyhell.MOD_ID, "textures/entity/angel.png");
 
     public AngelRenderer(EntityRendererFactory.Context context) {
-        super(context, new AngelModel<>(context.getPart(ModModelLayers.ANGEL)), 0.6f);
+        super(context, new AngelModel<>(context.getPart(HolyHellModelLayers.ANGEL)), 0.6f);
     }
 
     @Override

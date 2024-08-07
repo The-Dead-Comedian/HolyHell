@@ -3,7 +3,7 @@ package com.dead_comedian.holyhell.client.renderer.spell;
 
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.client.models.entity.spells.LastPrayerModel;
-import com.dead_comedian.holyhell.entity.ModModelLayers;
+import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
 import com.dead_comedian.holyhell.entity.custom.spells.LastPrayerEntity;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumer;
@@ -20,7 +20,7 @@ public class LastPrayerRenderer extends EntityRenderer<LastPrayerEntity> {
 
     public LastPrayerRenderer(EntityRendererFactory.Context context) {
         super(context);
-        this.model = new LastPrayerModel<>(context.getPart(ModModelLayers.LASTPRAYER));
+        this.model = new LastPrayerModel<>(context.getPart(HolyHellModelLayers.LASTPRAYER));
     }
 
 

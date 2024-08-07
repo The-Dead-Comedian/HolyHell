@@ -10,11 +10,10 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import org.jetbrains.annotations.Nullable;
 
-public class divining_table extends HorizontalFacingBlock {
-    public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
+public class DiviningTableBlock extends HorizontalFacingBlock {
     private static final VoxelShape SHAPE = Block.createCuboidShape(0, 0, 0, 16, 12, 16);
 
-    public divining_table(AbstractBlock.Settings settings) {
+    public DiviningTableBlock(AbstractBlock.Settings settings) {
         super(settings);
     }
     @Override

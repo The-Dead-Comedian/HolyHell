@@ -1,19 +1,16 @@
 package com.dead_comedian.holyhell.effect;
 
-import com.dead_comedian.holyhell.Holyhell;
-import com.dead_comedian.holyhell.sound.ModSounds;
+import com.dead_comedian.holyhell.registries.HolyHellSounds;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.s2c.play.StopSoundS2CPacket;
-import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -40,7 +37,7 @@ public class Clarityeffect extends StatusEffect {
     }
     @Override
     public void onApplied(LivingEntity entity, AttributeContainer attributes, int amplifier){
-        entity.getWorld().playSound(null, entity.getBlockPos(), ModSounds.CLARITY_MUSIC, SoundCategory.RECORDS, 1f, 1f );
+        entity.getWorld().playSound(null, entity.getBlockPos(), HolyHellSounds.CLARITY_MUSIC, SoundCategory.RECORDS, 1f, 1f );
         //entity.getWorld().Client
 
     }
@@ -49,7 +46,7 @@ public class Clarityeffect extends StatusEffect {
 
         List<Entity> list_of_living_things_nearby = entity.getWorld().getOtherEntities(entity, entity.getBoundingBox().expand(15), IS_PLAYER);
 
-        StopSoundS2CPacket stopSoundS2CPacket = new StopSoundS2CPacket(ModSounds.CLARITY_MUSIC.getId(), SoundCategory.RECORDS);
+        StopSoundS2CPacket stopSoundS2CPacket = new StopSoundS2CPacket(HolyHellSounds.CLARITY_MUSIC.getId(), SoundCategory.RECORDS);
         if(entity instanceof ServerPlayerEntity){
             list_of_living_things_nearby.add(entity);
         }

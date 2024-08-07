@@ -1,13 +1,11 @@
-package com.dead_comedian.holyhell.datagen;
+package com.dead_comedian.holyhell.client;
 
 
+import com.dead_comedian.holyhell.registries.HolyHellItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
-import com.dead_comedian.holyhell.block.ModBlocks;
-import com.dead_comedian.holyhell.item.ModItems;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
-import net.minecraft.data.client.Models;
 import net.minecraft.item.ArmorItem;
 
 public class ModModelProvider extends FabricModelProvider {
@@ -25,10 +23,10 @@ public class ModModelProvider extends FabricModelProvider {
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
 
 
-        itemModelGenerator.registerArmor(((ArmorItem) ModItems.EVANGELIST_HELMET));
-        itemModelGenerator.registerArmor(((ArmorItem) ModItems.EVANGELIST_CHESTPLATE));
-        itemModelGenerator.registerArmor(((ArmorItem) ModItems.EVANGELIST_LEGGINGS));
-        itemModelGenerator.registerArmor(((ArmorItem) ModItems.EVANGELIST_BOOTS));
+        itemModelGenerator.registerArmor(((ArmorItem) HolyHellItems.EVANGELIST_HELMET));
+        itemModelGenerator.registerArmor(((ArmorItem) HolyHellItems.EVANGELIST_CHESTPLATE));
+        itemModelGenerator.registerArmor(((ArmorItem) HolyHellItems.EVANGELIST_LEGGINGS));
+        itemModelGenerator.registerArmor(((ArmorItem) HolyHellItems.EVANGELIST_BOOTS));
 
     }
 }

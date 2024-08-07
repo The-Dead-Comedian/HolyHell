@@ -1,13 +1,12 @@
-package com.dead_comedian.holyhell.sound;
+package com.dead_comedian.holyhell.registries;
 
 import com.dead_comedian.holyhell.Holyhell;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 
-public class ModSounds {
+public class HolyHellSounds {
 
     public static final SoundEvent CLARITY_MUSIC = registerSoundEvent("clarity_music");
 

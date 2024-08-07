@@ -1,33 +1,29 @@
-package com.dead_comedian.holyhell.block;
+package com.dead_comedian.holyhell.registries;
 
 import com.dead_comedian.holyhell.Holyhell;
-import com.dead_comedian.holyhell.block.custom.RotatableBlock;
-import com.dead_comedian.holyhell.block.custom.divining_table;
+import com.dead_comedian.holyhell.block.custom.DiviningTableBlock;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.JukeboxBlockEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
 
 
 
 
-public class ModBlocks {
+public class HolyHellBlocks {
 
     public static final Block DIVINING_TABLE = registerBlock("divining_table",
-            new divining_table(FabricBlockSettings.copyOf(Blocks.ANVIL).nonOpaque()) {
+            new DiviningTableBlock(FabricBlockSettings.copyOf(Blocks.ANVIL).nonOpaque()) {
                 @Override
                 public BlockState rotate(BlockState state, BlockRotation rotation) {
                     return super.rotate(state, rotation);
                 }
             });
-   //public static final Block E = registerBlock("eee", new JukeboxBlock())
 
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);

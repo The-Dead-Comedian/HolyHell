@@ -1,12 +1,12 @@
-package com.dead_comedian.holyhell.item;
+package com.dead_comedian.holyhell.registries;
 
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.FoodComponent;
 
-public class ModFoodComponents {
+public class HolyHellFoodComponents {
     public static final FoodComponent SAINT_EYE;
-    public ModFoodComponents() {
+    public HolyHellFoodComponents() {
     }
 
     static{

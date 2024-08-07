@@ -1,34 +1,25 @@
 package com.dead_comedian.holyhell.item.custom;
 
-import com.dead_comedian.holyhell.entity.ModEntities;
+
+import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.MobSpawnerBlockEntity;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.FishingBobberEntity;
-import net.minecraft.inventory.StackReference;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.*;
 import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
@@ -58,7 +49,7 @@ public class HolyGrailItem extends Item {
                 BlockEntity blockEntity = world.getBlockEntity(blockPos);
                 if (blockEntity instanceof MobSpawnerBlockEntity) {
                     MobSpawnerBlockEntity mobSpawnerBlockEntity = (MobSpawnerBlockEntity)blockEntity;
-                    EntityType<?> entityType =ModEntities.CHRISTIANCROSS;
+                    EntityType<?> entityType = HolyHellEntities.CHRISTIANCROSS;
                     mobSpawnerBlockEntity.setEntityType(entityType, world.getRandom());
                     blockEntity.markDirty();
                     world.updateListeners(blockPos, blockState, blockState, 3);
@@ -76,11 +67,12 @@ public class HolyGrailItem extends Item {
             }
             EntityType<?> entityType2;
                 if(a == -90.0F){
-                    entityType2 = ModEntities.CHRISTIANCROSS;
+                    entityType2 = HolyHellEntities.CHRISTIANCROSS;
                 blockPos2= player.getBlockPos().up(2);
-                }
-                else{
-                    entityType2 = ModEntities.ANGEL;
+                } else if ( a == 90.0F ) {
+                    entityType2 = HolyHellEntities.AREASPELL;
+                } else{
+                    entityType2 = HolyHellEntities.ANGEL;
                 }
             if (entityType2.spawnFromItemStack((ServerWorld)world, itemStack, player, blockPos2, SpawnReason.SPAWN_EGG, true, !Objects.equals(blockPos, blockPos2) && direction == Direction.UP) != null) {
                 itemStack.decrement(1);
@@ -107,8 +99,8 @@ public class HolyGrailItem extends Item {
             if (!(world.getBlockState(blockPos).getBlock() instanceof FluidBlock)) {
                 return TypedActionResult.pass(itemStack);
             } else if (world.canPlayerModifyAt(user, blockPos) && user.canPlaceOn(blockPos, blockHitResult.getSide(), itemStack)) {
-                EntityType<?> entityType = ModEntities.CHRISTIANCROSS;
-                Entity entity = entityType.spawnFromItemStack((ServerWorld)world, itemStack, user, blockPos, SpawnReason.SPAWN_EGG, false, false);
+                EntityType<?> entityType = HolyHellEntities.CHRISTIANCROSS;
+                Entity entity = entityType.spawnFromItemStack((ServerWorld) world, itemStack, user, blockPos, SpawnReason.SPAWN_EGG, false, false);
                 if (entity == null) {
                     return TypedActionResult.pass(itemStack);
                 } else {

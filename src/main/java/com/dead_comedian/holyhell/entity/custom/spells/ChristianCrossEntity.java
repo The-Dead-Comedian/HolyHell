@@ -2,7 +2,8 @@ package com.dead_comedian.holyhell.entity.custom.spells;
 
 
 
-import com.dead_comedian.holyhell.entity.ModEntities;
+
+import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -27,7 +28,7 @@ public class ChristianCrossEntity extends Entity {
     }
 
     public ChristianCrossEntity(World world, double x, double y, double z, float yaw) {
-        this((EntityType<? extends ChristianCrossEntity>) ModEntities.CHRISTIANCROSS, world);
+        this((EntityType<? extends ChristianCrossEntity>) HolyHellEntities.CHRISTIANCROSS, world);
 
         this.setYaw(yaw * 57.295776F);
         this.setPosition(x, y, z);

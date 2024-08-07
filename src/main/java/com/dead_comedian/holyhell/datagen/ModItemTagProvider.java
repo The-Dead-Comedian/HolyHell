@@ -1,9 +1,10 @@
 package com.dead_comedian.holyhell.datagen;
 
 
+import com.dead_comedian.holyhell.registries.HolyHellItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import com.dead_comedian.holyhell.item.ModItems;
+
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
 
@@ -17,6 +18,6 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
         getOrCreateTagBuilder(ItemTags.TRIMMABLE_ARMOR)
-                .add(ModItems.EVANGELIST_HELMET, ModItems.EVANGELIST_CHESTPLATE, ModItems.EVANGELIST_LEGGINGS, ModItems.EVANGELIST_BOOTS);
+                .add(HolyHellItems.EVANGELIST_HELMET, HolyHellItems.EVANGELIST_CHESTPLATE, HolyHellItems.EVANGELIST_LEGGINGS, HolyHellItems.EVANGELIST_BOOTS);
     }
 }

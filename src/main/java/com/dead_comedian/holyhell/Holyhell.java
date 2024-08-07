@@ -1,16 +1,8 @@
 package com.dead_comedian.holyhell;
 
-import com.dead_comedian.holyhell.block.ModBlocks;
-
-import com.dead_comedian.holyhell.effect.ModEffects;
-import com.dead_comedian.holyhell.entity.ModEntities;
+import com.dead_comedian.holyhell.registries.*;
 import com.dead_comedian.holyhell.entity.custom.AngelEntity;
-import com.dead_comedian.holyhell.item.ModItemGroup;
-import com.dead_comedian.holyhell.item.ModItems;
-
-import com.dead_comedian.holyhell.sound.ModSounds;
 import net.fabricmc.api.ModInitializer;
-
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,13 +20,13 @@ public class Holyhell implements ModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
-		ModItemGroup.registerItemGroups();
-		ModItems.registerModItems();
-		ModBlocks.registerModBlocks();
-		ModEntities.registerModEntities();
-		ModEffects.registerEffects();
-		ModSounds.registerSounds();
-		FabricDefaultAttributeRegistry.register(ModEntities.ANGEL, AngelEntity.createAngelAttributes());
+		HolyHellItemGroup.registerItemGroups();
+		HolyHellItems.registerModItems();
+		HolyHellBlocks.registerModBlocks();
+		HolyHellEntities.registerModEntities();
+		HolyHellEffects.registerEffects();
+		HolyHellSounds.registerSounds();
+		FabricDefaultAttributeRegistry.register(HolyHellEntities.ANGEL, AngelEntity.createAngelAttributes());
 
 
 		LOGGER.info("what is lovee? baby don't hurt mee, don't hurt mee, noo moree");

@@ -1,7 +1,8 @@
-package com.dead_comedian.holyhell.entity;
+package com.dead_comedian.holyhell.registries;
 
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.entity.custom.AngelEntity;
+import com.dead_comedian.holyhell.entity.custom.spells.AreaSpellEntity;
 import com.dead_comedian.holyhell.entity.custom.spells.ChristianCrossEntity;
 import com.dead_comedian.holyhell.entity.custom.spells.LastPrayerEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -12,7 +13,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
-public class ModEntities {
+public class HolyHellEntities {
     public static final EntityType<AngelEntity> ANGEL = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Holyhell.MOD_ID, "angel"),
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, AngelEntity::new)
@@ -26,6 +27,10 @@ public class ModEntities {
             new Identifier(Holyhell.MOD_ID, "christian_cross"),
             FabricEntityTypeBuilder.<ChristianCrossEntity>create(SpawnGroup.CREATURE, ChristianCrossEntity::new)
                     .dimensions(EntityDimensions.fixed(4f, 3f)).build());
+    public static final EntityType<AreaSpellEntity> AREASPELL = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(Holyhell.MOD_ID, "area_spell"),
+            FabricEntityTypeBuilder.<AreaSpellEntity>create(SpawnGroup.CREATURE, AreaSpellEntity::new)
+                    .dimensions(EntityDimensions.fixed(15.125f, 5f)).build());
 
 
 

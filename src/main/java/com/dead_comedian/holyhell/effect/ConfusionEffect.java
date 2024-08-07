@@ -14,32 +14,25 @@ import net.minecraft.sound.SoundCategory;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class MagicResistanceEffect extends StatusEffect {
-    LivingEntity livingEntity;
+public class ConfusionEffect extends StatusEffect {
     public static final Predicate<Entity> IS_PLAYER = entity -> (entity instanceof ServerPlayerEntity);
-    public MagicResistanceEffect(StatusEffectCategory statusEffectCategory, int color) {
+    public ConfusionEffect(StatusEffectCategory statusEffectCategory, int color) {
         super(statusEffectCategory, color);
     }
 
     @Override
     public void applyUpdateEffect(LivingEntity pLivingEntity, int pAmplifier) {
-        if (!pLivingEntity.getWorld().isClient()) {
-            double x = pLivingEntity.getX();
-            double y = pLivingEntity.getY();
-            double z = pLivingEntity.getZ();
-            double xv = pLivingEntity.getVelocity().x;
-            double yv = pLivingEntity.getVelocity().y;
-            double zv = pLivingEntity.getVelocity().z;
-            pLivingEntity.teleport(x, y + 0.005, z);
-            pLivingEntity.setVelocity(xv, yv + 0.05, zv);
-        }
+
 
         super.applyUpdateEffect(pLivingEntity, pAmplifier);
     }
     @Override
     public void onApplied(LivingEntity entity, AttributeContainer attributes, int amplifier){
         entity.getWorld().playSound(null, entity.getBlockPos(), HolyHellSounds.CLARITY_MUSIC, SoundCategory.RECORDS, 1f, 1f );
-        entity.getDamageSources().indirectMagic(livingEntity,livingEntity );
+        //entity.getWorld().Client
+
+        
+
     }
     @Override
     public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier){

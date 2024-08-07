@@ -1,12 +1,15 @@
 {
   "item.holyhell.saint_eye" : "Saint Eye",
   "item.holyhell.holy_tear" : "Holy Tear",
-  "block.holyhell.divining_table": "Divining Table",
+  "item.holyhell.holy_grail" : "Holy Grail",
   "item.holyhell.evangelist_helmet": "Evangelist Helmet",
   "item.holyhell.evangelist_chestplate": "Evangelist Chestplate",
   "item.holyhell.evangelist_leggings": "Evangelist Leggings",
   "item.holyhell.evangelist_boots": "Evangelist Boots",
+
+  "block.holyhell.divining_table": "Divining Table",
+
   "effect.holyhell.clarity": "Post Nut Clarity",
   "sounds.holyhell.clarity_music": "Metal Detector Jingle",
-  "itemGroup.holyhell.items": "Childrens in my basement. wait no i mean mod items"
+  "itemGroup.holyhell.items": "Holy Trinkets"
 }

@@ -2,10 +2,10 @@ package com.dead_comedian.holyhell.datagen;
 
 
 
+import com.dead_comedian.holyhell.client.ModModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.registry.RegistryBuilder;
-import net.minecraft.registry.RegistryKeys;
 
 public class HolyHelldataGenerator implements DataGeneratorEntrypoint {
     @Override

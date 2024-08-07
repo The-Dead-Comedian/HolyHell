@@ -1,9 +1,10 @@
-package com.dead_comedian.holyhell.client.renderer;
+package com.dead_comedian.holyhell.client.renderer.spell;
 
 
 import com.dead_comedian.holyhell.Holyhell;
-import com.dead_comedian.holyhell.effect.ModEffects;
-import com.dead_comedian.holyhell.entity.ModModelLayers;
+import com.dead_comedian.holyhell.registries.HolyHellEffects;
+import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
+
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -25,7 +26,7 @@ public class ReligiousRingsFeatureRenderer <T extends LivingEntity> extends Feat
     private final ModelPart bone3;
     public ReligiousRingsFeatureRenderer(FeatureRendererContext<T, PlayerEntityModel<T>> context, EntityModelLoader loader) {
         super(context);
-        ModelPart modelPart = loader.getModelPart(ModModelLayers.RELIGIOUS_RINGS);
+        ModelPart modelPart = loader.getModelPart(HolyHellModelLayers.RELIGIOUS_RINGS);
         this.bone = modelPart.getChild("bone");
         this.bone2 = modelPart.getChild("bone2");
         this.bone3 = modelPart.getChild("bone3");
@@ -53,7 +54,7 @@ public class ReligiousRingsFeatureRenderer <T extends LivingEntity> extends Feat
 
     @Override
     public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T livingEntity, float f, float g, float h, float j, float k, float l) {
-        if (livingEntity.hasStatusEffect(ModEffects.CLARITY)) {
+        if (livingEntity.hasStatusEffect(HolyHellEffects.CLARITY)) {
             VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityCutoutNoCull(TEXTURE));
 
             for(int m = 0; m < 1; ++m) {

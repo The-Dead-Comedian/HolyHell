@@ -15,7 +15,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class AngelEntity extends HostileEntity {
+public class    AngelEntity extends HostileEntity {
     public AngelEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
     }
