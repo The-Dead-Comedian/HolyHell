@@ -5,6 +5,8 @@ import com.dead_comedian.holyhell.entity.custom.AngelEntity;
 import com.dead_comedian.holyhell.entity.custom.HailingHereticEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.util.Hand;
 
@@ -34,12 +36,15 @@ public class HereticAttackGoal extends MeleeAttackGoal {
         if (isEnemyWithinAttackDistance(pEnemy, pDistToEnemySqr)) {
             shouldCountTillNextAttack = true;
 
+
+
             if(isTimeToStartAttackAnimation()) {
                 entity.setAttacking(true);
             }
 
             if(isTimeToAttack()) {
                 this.mob.getLookControl().lookAt(pEnemy.getX(), pEnemy.getEyeY(), pEnemy.getZ());
+                pEnemy.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS , 20 , 99));
                 performAttack(pEnemy);
             }
         } else {
