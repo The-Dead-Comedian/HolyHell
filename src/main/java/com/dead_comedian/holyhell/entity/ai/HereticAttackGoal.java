@@ -12,7 +12,7 @@ import net.minecraft.util.Hand;
 public class HereticAttackGoal extends MeleeAttackGoal {
     private final HailingHereticEntity entity;
     private int attackDelay = 20;
-    private int ticksUntilNextAttack = 2;
+    private int ticksUntilNextAttack = 20;
     private boolean shouldCountTillNextAttack = false;
 
     public HereticAttackGoal(PathAwareEntity mob, double speed, boolean pauseWhenMobIdle) {
@@ -24,8 +24,8 @@ public class HereticAttackGoal extends MeleeAttackGoal {
     public void start() {
         super.start();
 
-        attackDelay = 5;
-        ticksUntilNextAttack = 5;
+        attackDelay = 20;
+        ticksUntilNextAttack = 20;
     }
 
 

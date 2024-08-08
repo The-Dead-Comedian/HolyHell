@@ -21,9 +21,9 @@ public class HolyHellEntities {
                     .dimensions(EntityDimensions.fixed(0.8f, 1.5f)).build());
 
     public static final EntityType<HailingHereticEntity> HAILING_HERETIC = Registry.register(Registries.ENTITY_TYPE,
-            new Identifier(Holyhell.MOD_ID, "hailing_herentic"),
+            new Identifier(Holyhell.MOD_ID, "hailing_heretic"),
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, HailingHereticEntity::new)
-                    .dimensions(EntityDimensions.fixed(0.8f, 1.5f)).build());
+                    .dimensions(EntityDimensions.fixed(1.5f, 1.2f)).build());
 
     public static final EntityType<LastPrayerEntity> LASTPRAYER = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Holyhell.MOD_ID, "last_prayer"),

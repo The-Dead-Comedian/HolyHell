@@ -5,7 +5,6 @@
 package com.dead_comedian.holyhell.client.models.entity;
 
 import com.dead_comedian.holyhell.client.animation.ModAnimations;
-import com.dead_comedian.holyhell.entity.custom.AngelEntity;
 import com.dead_comedian.holyhell.entity.custom.HailingHereticEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;

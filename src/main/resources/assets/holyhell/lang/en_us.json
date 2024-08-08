@@ -2,12 +2,20 @@
   "item.holyhell.saint_eye" : "Saint Eye",
   "item.holyhell.holy_tear" : "Holy Tear",
   "item.holyhell.holy_grail" : "Holy Grail",
+
+  "item.holyhell.angel_spawn_egg": "Angel Spawn Egg",
+  "item.holyhell.heretic_spawn_egg": "Heretic Spawn Egg",
+
+
   "item.holyhell.evangelist_helmet": "Evangelist Helmet",
   "item.holyhell.evangelist_chestplate": "Evangelist Chestplate",
   "item.holyhell.evangelist_leggings": "Evangelist Leggings",
   "item.holyhell.evangelist_boots": "Evangelist Boots",
 
   "block.holyhell.divining_table": "Divining Table",
+
+  "entity.holyhell.angel" : "Angel",
+  "entity.holyhell.hailing_heretic": "Hailing Heretic",
 
   "effect.holyhell.clarity": "Post Nut Clarity",
   "sounds.holyhell.clarity_music": "Metal Detector Jingle",
