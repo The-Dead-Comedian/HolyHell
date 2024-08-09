@@ -3,6 +3,7 @@ package com.dead_comedian.holyhell.registries;
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.effect.Clarityeffect;
 import com.dead_comedian.holyhell.effect.ConfusionEffect;
+import com.dead_comedian.holyhell.effect.PapalProtectionEffect;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffect;
@@ -23,6 +24,12 @@ public class HolyHellEffects {
                     .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED,
                             "7107DE5E-7CE8-4030-940E-514C1F160890", -0.25f,
                             EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
+    public static final StatusEffect PAPAL_PROTECTION = registerStatusEffect("papal_protection",
+            new PapalProtectionEffect(StatusEffectCategory.NEUTRAL, 0x36ebab)
+                    .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED,
+                            "7107DE5E-7CE8-4030-940E-514C1F160890", -0.25f,
+                            EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
+
 
     private static StatusEffect registerStatusEffect(String name, StatusEffect statusEffect) {
         return Registry.register(Registries.STATUS_EFFECT, new Identifier(Holyhell.MOD_ID, name), statusEffect);

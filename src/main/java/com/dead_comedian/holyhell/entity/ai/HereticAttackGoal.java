@@ -48,14 +48,31 @@ public class HereticAttackGoal extends MeleeAttackGoal {
                 this.mob.getLookControl().lookAt(pEnemy.getX(), pEnemy.getEyeY(), pEnemy.getZ());
                 pEnemy.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS , 20 , 99));
                 render = true;
+
                 performAttack(pEnemy);
             }
         } else {
             render = false;
+
             resetAttackCooldown();
             shouldCountTillNextAttack = false;
             entity.setAttacking(false);
             entity.attackAnimationTimeout = 0;
+        }
+    }
+    public static void safetyMeasure(){
+        int tick1 = 0;
+        while(true){
+            if(render){
+
+            tick1++;
+            System.out.println(tick1);
+            if (tick1 == 20  ){
+                tick1 = 0;
+                render = false;
+
+            }
+        }
         }
     }
 public static boolean shouldRender(){

@@ -5,6 +5,8 @@ import com.dead_comedian.holyhell.registries.HolyHellSounds;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.AttributeContainer;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageSources;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.network.packet.s2c.play.StopSoundS2CPacket;
@@ -14,24 +16,18 @@ import net.minecraft.sound.SoundCategory;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class MagicResistanceEffect extends StatusEffect {
+public class PapalProtectionEffect extends StatusEffect {
     LivingEntity livingEntity;
     public static final Predicate<Entity> IS_PLAYER = entity -> (entity instanceof ServerPlayerEntity);
-    public MagicResistanceEffect(StatusEffectCategory statusEffectCategory, int color) {
+    public PapalProtectionEffect(StatusEffectCategory statusEffectCategory, int color) {
         super(statusEffectCategory, color);
     }
 
     @Override
     public void applyUpdateEffect(LivingEntity pLivingEntity, int pAmplifier) {
         if (!pLivingEntity.getWorld().isClient()) {
-            double x = pLivingEntity.getX();
-            double y = pLivingEntity.getY();
-            double z = pLivingEntity.getZ();
-            double xv = pLivingEntity.getVelocity().x;
-            double yv = pLivingEntity.getVelocity().y;
-            double zv = pLivingEntity.getVelocity().z;
-            pLivingEntity.teleport(x, y + 0.005, z);
-            pLivingEntity.setVelocity(xv, yv + 0.05, zv);
+          DamageSources a = pLivingEntity.getDamageSources();
+          System.out.println(a);
         }
 
         super.applyUpdateEffect(pLivingEntity, pAmplifier);

@@ -120,8 +120,7 @@ public class    AngelEntity extends HostileEntity {
 
             if(!this.isAlive()){
                 BlockPos blockPos = this.getBlockPos();
-                System.out.println("doodoo");
-                    AngelEntity.this.getWorld().spawnEntity(new LastPrayerEntity(AngelEntity.this.getWorld(), (double)blockPos.getX(),(double)blockPos.getY(), (double)blockPos.getZ(),  this.getYaw()));
+                AngelEntity.this.getWorld().spawnEntity(new LastPrayerEntity(AngelEntity.this.getWorld(), (double)blockPos.getX(),(double)blockPos.getY(), (double)blockPos.getZ(),  this.getYaw()));
 
             }
         }

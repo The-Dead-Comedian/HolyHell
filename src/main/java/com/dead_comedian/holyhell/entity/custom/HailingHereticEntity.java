@@ -92,7 +92,7 @@ public class HailingHereticEntity extends HostileEntity {
     @Override
     public void tick() {
         super.tick();
-            LastPrayerAbility();
+
 
 
             if(this.getWorld().isClient()) {
@@ -117,21 +117,11 @@ public class HailingHereticEntity extends HostileEntity {
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2);
     }
 
-//summoning
 
-        public void LastPrayerAbility(){
-
-
-            if(!this.isAlive()){
-                BlockPos blockPos = this.getBlockPos();
-                System.out.println("doodoo");
-                HailingHereticEntity.this.getWorld().spawnEntity(new LastPrayerEntity(HailingHereticEntity.this.getWorld(), (double)blockPos.getX(),(double)blockPos.getY(), (double)blockPos.getZ(),  this.getYaw()));
-
-            }
         }
 
 
-    }
+
 
 
 
