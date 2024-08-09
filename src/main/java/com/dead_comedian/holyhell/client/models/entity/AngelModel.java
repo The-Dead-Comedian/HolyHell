@@ -14,37 +14,41 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 
 public class AngelModel <T extends AngelEntity> extends SinglePartEntityModel<T> {
-	private final ModelPart eye;
+	private final ModelPart bone2;
 
 	public AngelModel(ModelPart root) {
-		this.eye = root.getChild("eye");
+		this.bone2 = root.getChild("bone2");
 
 	}
 	public static TexturedModelData getTexturedModelData() {
 		ModelData modelData = new ModelData();
 		ModelPartData modelPartData = modelData.getRoot();
-		ModelPartData eye = modelPartData.addChild("eye", ModelPartBuilder.create(), ModelTransform.pivot(-0.5F, 7.0F, 0.5F));
+		ModelPartData bone2 = modelPartData.addChild("bone2", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+
+		ModelPartData bone = bone2.addChild("bone", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+
+		ModelPartData eye = bone.addChild("eye", ModelPartBuilder.create(), ModelTransform.pivot(-0.5F, -17.0F, 0.5F));
 
 		ModelPartData rightwing = eye.addChild("rightwing", ModelPartBuilder.create().uv(0, 0).mirrored().cuboid(0.0F, -9.25F, 0.0F, 15.0F, 13.0F, 0.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.pivot(1.5F, -3.75F, 0.5F));
 
 		ModelPartData leftwing = eye.addChild("leftwing", ModelPartBuilder.create().uv(0, 0).cuboid(-15.0F, -9.0F, 0.0F, 15.0F, 13.0F, 0.0F, new Dilation(0.0F)), ModelTransform.pivot(-1.5F, -4.0F, 0.5F));
 
 		ModelPartData eye_ball = eye.addChild("eye_ball", ModelPartBuilder.create().uv(0, 13).cuboid(-3.5F, -4.0F, -3.5F, 7.0F, 5.0F, 7.0F, new Dilation(0.0F))
-		.uv(0, 25).mirrored().cuboid(-3.5F, 1.0F, -3.5F, 7.0F, 1.0F, 7.0F, new Dilation(-0.1F)).mirrored(false), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+				.uv(0, 25).mirrored().cuboid(-3.5F, 1.0F, -3.5F, 7.0F, 1.0F, 7.0F, new Dilation(-0.1F)).mirrored(false), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
 		ModelPartData jaw_eye = eye_ball.addChild("jaw_eye", ModelPartBuilder.create().uv(0, 25).cuboid(-3.5F, -1.0F, -7.2F, 7.0F, 1.0F, 7.0F, new Dilation(-0.1F))
-		.uv(21, 18).cuboid(-3.5F, 0.0F, -7.2F, 7.0F, 2.0F, 7.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 1.0F, 3.7F));
+				.uv(21, 18).cuboid(-3.5F, 0.0F, -7.2F, 7.0F, 2.0F, 7.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 1.0F, 3.7F));
 		return TexturedModelData.of(modelData, 64, 64);
 	}
 
 	@Override
 	public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-		eye.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+		bone2.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
 	}
 
 	@Override
 	public ModelPart getPart() {
-		return eye;
+		return bone2;
 	}
 
 	@Override

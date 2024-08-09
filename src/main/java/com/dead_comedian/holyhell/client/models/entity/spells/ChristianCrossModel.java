@@ -5,12 +5,10 @@
 package com.dead_comedian.holyhell.client.models.entity.spells;
 
 import com.dead_comedian.holyhell.entity.custom.spells.ChristianCrossEntity;
-import com.dead_comedian.holyhell.entity.custom.spells.LastPrayerEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
 
 public class ChristianCrossModel<T extends ChristianCrossEntity> extends SinglePartEntityModel<T> {
 	private final ModelPart bone;

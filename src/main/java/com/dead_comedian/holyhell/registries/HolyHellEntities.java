@@ -40,6 +40,7 @@ public class HolyHellEntities {
 
 
 
+
     public static void registerModEntities() {
         Holyhell.LOGGER.info("Registering Entities for " + Holyhell.MOD_ID);
     }

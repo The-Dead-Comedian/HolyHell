@@ -11,8 +11,8 @@ import net.minecraft.util.Hand;
 
 public class AngelAttackGoal extends MeleeAttackGoal {
     private final AngelEntity entity;
-    private int attackDelay = 20;
-    private int ticksUntilNextAttack = 20;
+    private int attackDelay = 30;
+    private int ticksUntilNextAttack = 30;
     private boolean shouldCountTillNextAttack = false;
 
     public AngelAttackGoal(PathAwareEntity mob, double speed, boolean pauseWhenMobIdle) {
@@ -24,8 +24,8 @@ public class AngelAttackGoal extends MeleeAttackGoal {
     public void start() {
         super.start();
 
-        attackDelay = 20;
-        ticksUntilNextAttack = 20;
+        attackDelay = 30;
+        ticksUntilNextAttack = 30;
     }
 
 
