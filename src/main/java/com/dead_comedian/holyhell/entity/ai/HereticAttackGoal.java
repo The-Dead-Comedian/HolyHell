@@ -12,11 +12,13 @@ import net.minecraft.util.Hand;
 
 
 public class HereticAttackGoal extends MeleeAttackGoal {
+
+
     private final HailingHereticEntity entity;
     private int attackDelay = 20;
     private int ticksUntilNextAttack = 20;
     private boolean shouldCountTillNextAttack = false;
-
+    public static boolean render = false;
     public HereticAttackGoal(PathAwareEntity mob, double speed, boolean pauseWhenMobIdle) {
         super(mob, speed, pauseWhenMobIdle);
         entity = ((HailingHereticEntity) mob);
@@ -45,16 +47,20 @@ public class HereticAttackGoal extends MeleeAttackGoal {
             if(isTimeToAttack()) {
                 this.mob.getLookControl().lookAt(pEnemy.getX(), pEnemy.getEyeY(), pEnemy.getZ());
                 pEnemy.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS , 20 , 99));
+                render = true;
                 performAttack(pEnemy);
             }
         } else {
+            render = false;
             resetAttackCooldown();
             shouldCountTillNextAttack = false;
             entity.setAttacking(false);
             entity.attackAnimationTimeout = 0;
         }
     }
-
+public static boolean shouldRender(){
+        return render;
+}
     private boolean isEnemyWithinAttackDistance(LivingEntity pEnemy, double pDistToEnemySqr) {
         return pDistToEnemySqr <= this.getSquaredMaxAttackDistance(pEnemy);
     }

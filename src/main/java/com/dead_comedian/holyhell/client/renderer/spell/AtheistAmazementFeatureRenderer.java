@@ -2,6 +2,7 @@ package com.dead_comedian.holyhell.client.renderer.spell;
 
 
 import com.dead_comedian.holyhell.Holyhell;
+import com.dead_comedian.holyhell.entity.ai.HereticAttackGoal;
 import com.dead_comedian.holyhell.registries.HolyHellEffects;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
 import net.minecraft.client.model.*;
@@ -21,18 +22,20 @@ import net.minecraft.util.math.RotationAxis;
 
 public class AtheistAmazementFeatureRenderer<T extends LivingEntity> extends FeatureRenderer<T, PlayerEntityModel<T>> {
     public static final Identifier TEXTURE = new Identifier(Holyhell.MOD_ID,"textures/entity/atheist_amazement.png");
-    private final ModelPart bb_main;
+    private final ModelPart bone;
+
     public AtheistAmazementFeatureRenderer(FeatureRendererContext<T, PlayerEntityModel<T>> context, EntityModelLoader loader) {
         super(context);
         ModelPart modelPart = loader.getModelPart(HolyHellModelLayers.ATHEIST_AMAZEMENT);
-        this.bb_main = modelPart.getChild("bb_main");
+        this.bone = modelPart.getChild("bone");
+
     }
 
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
-        ModelPartData bb_main = modelPartData.addChild("bb_main", ModelPartBuilder.create().uv(0, 0).cuboid(-13.0F, 0.0F, -14.0F, 27.0F, 0.0F, 28.0F, new Dilation(0.0F))
-                .uv(0, 28).cuboid(-6.0F, -32.025F, -6.0F, 12.0F, 32.0F, 12.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+        ModelPartData bone = modelPartData.addChild("bone", ModelPartBuilder.create().uv(0, 0).cuboid(-12.0F, 0.025F, -13.0F, 27.0F, 0.0F, 28.0F, new Dilation(0.0F))
+                .uv(0, 28).cuboid(-5.0F, -32.0F, -5.0F, 12.0F, 32.0F, 12.0F, new Dilation(0.0F)), ModelTransform.pivot(-1.0F, 23.975F, -1.0F));
         return TexturedModelData.of(modelData, 128, 128);
     }
 
@@ -43,16 +46,19 @@ public class AtheistAmazementFeatureRenderer<T extends LivingEntity> extends Fea
 
     @Override
     public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T livingEntity, float f, float g, float h, float j, float k, float l) {
-        if (livingEntity.hasStatusEffect(StatusEffects.SLOWNESS)) {
+        if (HereticAttackGoal.shouldRender()) {
             VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityCutoutNoCull(TEXTURE));
 
 
-            matrixStack.push();
-            float n = 0;
-            matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(n));
+                matrixStack.push();
 
-            matrixStack.pop();
+
+
+                this.bone.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV);
+
+                matrixStack.pop();
+            }
 
         }
     }
-}
+

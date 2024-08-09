@@ -18,8 +18,8 @@ public abstract class FeatureRendererMixin {
 
             @Inject(method = "<init>", at = @At(value = "RETURN"))
         private void addFeature(EntityRendererFactory.Context ctx, boolean slim, CallbackInfo ci) {
-                    ((PlayerEntityRenderer) (Object) this).addFeature(new ReligiousRingsFeatureRenderer(
-                            ((FeatureRendererContext) (Object) this), ctx.getModelLoader()));
+                ((PlayerEntityRenderer) (Object) this).addFeature(new ReligiousRingsFeatureRenderer<>(
+                        ((FeatureRendererContext) (Object) this), ctx.getModelLoader()));
 
                     ((PlayerEntityRenderer) (Object) this).addFeature(new AtheistAmazementFeatureRenderer<>(
                            ((FeatureRendererContext) (Object) this), ctx.getModelLoader()));

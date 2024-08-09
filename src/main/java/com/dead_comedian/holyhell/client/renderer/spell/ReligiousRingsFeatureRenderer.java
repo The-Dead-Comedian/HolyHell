@@ -59,7 +59,7 @@ public class ReligiousRingsFeatureRenderer <T extends LivingEntity> extends Feat
 
             for(int m = 0; m < 1; ++m) {
                 matrixStack.push();
-                float n = j * (float)(-(10 + m ));
+                float n = j * (float) (-(10 + m));
                 matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(n));
 
                 this.bone.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV);
