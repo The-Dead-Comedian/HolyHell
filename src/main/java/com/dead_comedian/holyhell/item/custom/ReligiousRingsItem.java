@@ -24,7 +24,7 @@ public class ReligiousRingsItem extends Item {
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        user.addStatusEffect(new StatusEffectInstance(HolyHellEffects.PAPAL_PROTECTION, 40 , 1));
+        user.addStatusEffect(new StatusEffectInstance(HolyHellEffects.JESISTANCE, 40 , 1));
 
         return super.use(world, user, hand);
     }

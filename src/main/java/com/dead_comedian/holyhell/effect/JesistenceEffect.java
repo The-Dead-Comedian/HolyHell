@@ -5,7 +5,6 @@ import com.dead_comedian.holyhell.registries.HolyHellSounds;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.AttributeContainer;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageSources;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
@@ -16,10 +15,10 @@ import net.minecraft.sound.SoundCategory;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class PapalProtectionEffect extends StatusEffect {
+public class JesistenceEffect extends StatusEffect {
     LivingEntity livingEntity;
     public static final Predicate<Entity> IS_PLAYER = entity -> (entity instanceof ServerPlayerEntity);
-    public PapalProtectionEffect(StatusEffectCategory statusEffectCategory, int color) {
+    public JesistenceEffect(StatusEffectCategory statusEffectCategory, int color) {
         super(statusEffectCategory, color);
     }
 

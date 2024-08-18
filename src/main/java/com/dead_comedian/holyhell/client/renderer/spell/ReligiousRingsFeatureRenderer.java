@@ -54,7 +54,7 @@ public class ReligiousRingsFeatureRenderer <T extends LivingEntity> extends Feat
 
     @Override
     public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T livingEntity, float f, float g, float h, float j, float k, float l) {
-        if (livingEntity.hasStatusEffect(HolyHellEffects.CLARITY)) {
+        if (livingEntity.hasStatusEffect(HolyHellEffects.JESISTANCE)) {
             VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityCutoutNoCull(TEXTURE));
 
             for(int m = 0; m < 1; ++m) {
