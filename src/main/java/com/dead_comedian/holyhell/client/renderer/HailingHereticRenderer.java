@@ -6,10 +6,13 @@ import com.dead_comedian.holyhell.client.models.entity.HailingHereticModel;
 import com.dead_comedian.holyhell.entity.custom.AngelEntity;
 import com.dead_comedian.holyhell.entity.custom.HailingHereticEntity;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 
 public class HailingHereticRenderer extends MobEntityRenderer<HailingHereticEntity, HailingHereticModel<HailingHereticEntity>> {

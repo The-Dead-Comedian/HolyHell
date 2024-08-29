@@ -1,0 +1,17 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "holyhell:block/falling_cross",
+      "y": 0
+    },"facing=east": {
+      "model": "holyhell:block/falling_cross",
+      "y": 90
+    },"facing=south": {
+      "model": "holyhell:block/falling_cross",
+      "y": 180
+    },"facing=west": {
+      "model": "holyhell:block/falling_cross",
+      "y": -90
+    }
+  }
+}

@@ -17,10 +17,13 @@ public class HolyHellItemGroup {
                     .icon(() -> new ItemStack(HolyHellItems.SAINT_EYE)).entries((displayContext, entries) -> {
                         entries.add(HolyHellItems.SAINT_EYE);
                         entries.add(HolyHellItems.HOLY_TEAR);
+
                         entries.add(HolyHellItems.RELIGIOUS_RINGS);
                         entries.add(HolyHellItems.HOLY_GRAIL);
+
                         entries.add(HolyHellItems.ANGEL_SPAWN_EGG);
                         entries.add(HolyHellItems.HERETIC_SPAWN_EGG);
+
                         entries.add(HolyHellItems.EVANGELIST_BOOTS);
                         entries.add(HolyHellItems.EVANGELIST_LEGGINGS);
                         entries.add(HolyHellItems.EVANGELIST_CHESTPLATE);
