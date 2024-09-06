@@ -1,6 +1,7 @@
 package com.dead_comedian.holyhell;
 
 import com.dead_comedian.holyhell.entity.custom.HailingHereticEntity;
+import com.dead_comedian.holyhell.entity.custom.KamikazeAngelEntity;
 import com.dead_comedian.holyhell.registries.*;
 import com.dead_comedian.holyhell.entity.custom.AngelEntity;
 import net.fabricmc.api.ModInitializer;
@@ -29,6 +30,8 @@ public class Holyhell implements ModInitializer {
 		HolyHellSounds.registerSounds();
 		FabricDefaultAttributeRegistry.register(HolyHellEntities.ANGEL, AngelEntity.createAngelAttributes());
 		FabricDefaultAttributeRegistry.register(HolyHellEntities.HAILING_HERETIC, HailingHereticEntity.createHereticAttributes());
+		FabricDefaultAttributeRegistry.register(HolyHellEntities.KAMIKAZE_ANGEL, KamikazeAngelEntity.createAngelAttributes());
+
 
 
 		LOGGER.info("what is lovee? baby don't hurt mee, don't hurt mee, noo moree");

@@ -3,6 +3,8 @@ package com.dead_comedian.holyhell.registries;
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.entity.custom.AngelEntity;
 import com.dead_comedian.holyhell.entity.custom.HailingHereticEntity;
+import com.dead_comedian.holyhell.entity.custom.KamikazeAngelEntity;
+import com.dead_comedian.holyhell.entity.custom.LightBeamEntity;
 import com.dead_comedian.holyhell.entity.custom.spells.AreaSpellEntity;
 import com.dead_comedian.holyhell.entity.custom.spells.ChristianCrossEntity;
 import com.dead_comedian.holyhell.entity.custom.spells.LastPrayerEntity;
@@ -15,9 +17,20 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class HolyHellEntities {
+
+    public static final EntityType<LightBeamEntity> LIGHT_BEAM = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(Holyhell.MOD_ID, "light_beam"),
+            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, LightBeamEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.9f, 6.4f)).build());
+
     public static final EntityType<AngelEntity> ANGEL = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Holyhell.MOD_ID, "angel"),
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, AngelEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.8f, 1.5f)).build());
+
+    public static final EntityType<KamikazeAngelEntity> KAMIKAZE_ANGEL = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(Holyhell.MOD_ID, "kamikaze_angel"),
+            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, KamikazeAngelEntity::new)
                     .dimensions(EntityDimensions.fixed(0.8f, 1.5f)).build());
 
     public static final EntityType<HailingHereticEntity> HAILING_HERETIC = Registry.register(Registries.ENTITY_TYPE,

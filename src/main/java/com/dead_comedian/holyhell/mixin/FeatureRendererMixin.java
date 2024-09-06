@@ -1,7 +1,7 @@
 package com.dead_comedian.holyhell.mixin;
 
 import com.dead_comedian.holyhell.client.renderer.spell.AtheistAmazementFeatureRenderer;
-import com.dead_comedian.holyhell.client.renderer.spell.ReligiousRingsFeatureRenderer;
+import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsFeatureRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 

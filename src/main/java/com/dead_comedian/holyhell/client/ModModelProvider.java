@@ -22,10 +22,7 @@ public class ModModelProvider extends FabricModelProvider {
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
 
 
-        itemModelGenerator.registerArmor(((ArmorItem) HolyHellItems.EVANGELIST_HELMET));
-        itemModelGenerator.registerArmor(((ArmorItem) HolyHellItems.EVANGELIST_CHESTPLATE));
-        itemModelGenerator.registerArmor(((ArmorItem) HolyHellItems.EVANGELIST_LEGGINGS));
-        itemModelGenerator.registerArmor(((ArmorItem) HolyHellItems.EVANGELIST_BOOTS));
+
 
     }
 }

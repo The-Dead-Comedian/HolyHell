@@ -1,4 +1,4 @@
-package com.dead_comedian.holyhell.client.renderer.spell;
+package com.dead_comedian.holyhell.client.renderer.feature;
 
 
 import com.dead_comedian.holyhell.Holyhell;

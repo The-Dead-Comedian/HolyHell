@@ -33,7 +33,7 @@ public class ChristianCrossRenderer extends EntityRenderer<ChristianCrossEntity>
                        VertexConsumerProvider vertexConsumerProvider, int i) {
         VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(this.model.getLayer(TEXTURE));
         this.model.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
-        super.render(mobEntity, f, g, matrixStack, vertexConsumerProvider, i);
+        super.render(mobEntity, f, g, matrixStack, vertexConsumerProvider, 15728640);
     }
 
     @Override

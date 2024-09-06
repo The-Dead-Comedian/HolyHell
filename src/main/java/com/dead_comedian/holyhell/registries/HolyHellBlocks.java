@@ -1,7 +1,7 @@
 package com.dead_comedian.holyhell.registries;
 
 import com.dead_comedian.holyhell.Holyhell;
-import com.dead_comedian.holyhell.block.custom.DiviningTableBlock;
+import com.dead_comedian.holyhell.block.DiviningTableBlock;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;

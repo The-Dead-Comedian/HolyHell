@@ -6,13 +6,15 @@ import net.minecraft.util.Identifier;
 
 public class HolyHellModelLayers {
 
+    public static final EntityModelLayer LIGHT_BEAM =
+            new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "light_beam"), "main");
+
     public static final EntityModelLayer ANGEL =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "angel"), "main");
-
     public static final EntityModelLayer HAILING_HERETIC =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "hailing_heretic"), "main");
-
-
+    public static final EntityModelLayer KAMIKAZE_ANGEL =
+            new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "kamikaze_angel"), "main");
 
     public static final EntityModelLayer LASTPRAYER =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "last_prayer"), "main");

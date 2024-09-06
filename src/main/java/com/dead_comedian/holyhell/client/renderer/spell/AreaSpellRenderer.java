@@ -31,7 +31,7 @@ public class AreaSpellRenderer extends EntityRenderer<AreaSpellEntity> {
     public void render(AreaSpellEntity mobEntity, float f, float g, MatrixStack matrixStack,
                        VertexConsumerProvider vertexConsumerProvider, int i) {
         VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(this.model.getLayer(TEXTURE));
-        this.model.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.model.render(matrixStack, vertexConsumer, 15728640, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
         super.render(mobEntity, f, g, matrixStack, vertexConsumerProvider, i);
     }
 

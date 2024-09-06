@@ -2,8 +2,8 @@ package com.dead_comedian.holyhell.client.renderer.spell;
 
 
 import com.dead_comedian.holyhell.Holyhell;
-import com.dead_comedian.holyhell.entity.ai.HereticAttackGoal;
-import com.dead_comedian.holyhell.registries.HolyHellEffects;
+
+import com.dead_comedian.holyhell.entity.custom.HailingHereticEntity;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.OverlayTexture;
@@ -16,9 +16,7 @@ import net.minecraft.client.render.entity.model.EntityModelLoader;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.RotationAxis;
 
 public class AtheistAmazementFeatureRenderer<T extends LivingEntity> extends FeatureRenderer<T, PlayerEntityModel<T>> {
     public static final Identifier TEXTURE = new Identifier(Holyhell.MOD_ID,"textures/entity/atheist_amazement.png");
@@ -46,7 +44,7 @@ public class AtheistAmazementFeatureRenderer<T extends LivingEntity> extends Fea
 
     @Override
     public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T livingEntity, float f, float g, float h, float j, float k, float l) {
-        if (HereticAttackGoal.shouldRender()) {
+        if (HailingHereticEntity.HereticAttackGoal.shouldRender()) {
             VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityCutoutNoCull(TEXTURE));
 
 
@@ -54,7 +52,7 @@ public class AtheistAmazementFeatureRenderer<T extends LivingEntity> extends Fea
 
 
 
-                this.bone.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV);
+                this.bone.render(matrixStack, vertexConsumer, 15728640, OverlayTexture.DEFAULT_UV);
 
                 matrixStack.pop();
             }
