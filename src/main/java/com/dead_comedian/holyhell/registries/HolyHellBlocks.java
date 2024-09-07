@@ -2,6 +2,7 @@ package com.dead_comedian.holyhell.registries;
 
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.block.DiviningTableBlock;
+import com.dead_comedian.holyhell.block.GlobeBlock;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
@@ -25,7 +26,13 @@ public class HolyHellBlocks {
                 }
             });
 
-
+    public static final Block GLOBE = registerBlock("globe",
+            new GlobeBlock(FabricBlockSettings.copyOf(Blocks.ANVIL).nonOpaque()) {
+                @Override
+                public BlockState rotate(BlockState state, BlockRotation rotation) {
+                    return super.rotate(state, rotation);
+                }
+            });
 
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);

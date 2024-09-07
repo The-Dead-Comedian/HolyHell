@@ -8,10 +8,9 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import org.jetbrains.annotations.Nullable;
 
-public class DiviningTableBlock extends HorizontalFacingBlock {
+public class GlobeBlock extends HorizontalFacingBlock {
 
-
-    public DiviningTableBlock(AbstractBlock.Settings settings) {
+    public GlobeBlock(Settings settings) {
         super(settings);
     }
     @Override

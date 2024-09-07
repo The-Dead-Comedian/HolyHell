@@ -31,6 +31,7 @@ public class HolyHellItemGroup {
                         entries.add(HolyHellItems.EVANGELIST_HELMET);
 
                         entries.add(HolyHellBlocks.DIVINING_TABLE);
+                        entries.add(HolyHellBlocks.GLOBE);
 
 
 

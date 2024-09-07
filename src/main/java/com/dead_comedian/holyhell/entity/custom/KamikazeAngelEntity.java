@@ -25,8 +25,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
+import net.minecraft.world.explosion.Explosion;
+import net.minecraft.world.explosion.ExplosionBehavior;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
@@ -65,9 +68,7 @@ public class KamikazeAngelEntity extends HostileEntity implements Flutterer {
         }
 
         if(!isAlive()){
-            BlockPos blockPos = this.getBlockPos();
-            KamikazeAngelEntity.this.getWorld().spawnEntity(new LastPrayerEntity(KamikazeAngelEntity.this.getWorld(), (double)blockPos.getX(),(double)blockPos.getY(), (double)blockPos.getZ(),  this.getYaw()));
-            this.kill();
+            this.explode(1.5d);
         }
 
 
@@ -169,13 +170,30 @@ public class KamikazeAngelEntity extends HostileEntity implements Flutterer {
 
 
     @Override
+    public boolean canExplosionDestroyBlock(Explosion explosion, BlockView world, BlockPos pos, BlockState state, float explosionPower) {
+        return false;
+    }
+    protected void explode(double power) {
+        this.explode((DamageSource)null, power);
+    }
+    protected void explode(@Nullable DamageSource damageSource, double power) {
+        if (!this.getWorld().isClient) {
+            double d = Math.sqrt(power);
+            if (d > 5.0) {
+                d = 5.0;
+            }
+
+            this.getWorld().createExplosion(this, damageSource, (ExplosionBehavior)null, this.getX(), this.getY(), this.getZ(), (float)(4.0 + this.random.nextDouble() * 1.5 * d), false, World.ExplosionSourceType.TNT);
+            this.discard();
+        }
+
+    }
+    @Override
     public void onPlayerCollision(PlayerEntity player) {
         super.onPlayerCollision(player);
 
         if( safetyMargin == 200){
-            BlockPos blockPos = this.getBlockPos();
-            KamikazeAngelEntity.this.getWorld().spawnEntity(new LastPrayerEntity(KamikazeAngelEntity.this.getWorld(), (double)blockPos.getX(),(double)blockPos.getY(), (double)blockPos.getZ(),  this.getYaw()));
-            this.kill();
+           this.explode(1.5d);
             }
     }
 
