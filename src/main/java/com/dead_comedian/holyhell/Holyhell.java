@@ -2,9 +2,11 @@ package com.dead_comedian.holyhell;
 
 import com.dead_comedian.holyhell.entity.custom.HailingHereticEntity;
 import com.dead_comedian.holyhell.entity.custom.KamikazeAngelEntity;
+import com.dead_comedian.holyhell.event.ServerTickHandler;
 import com.dead_comedian.holyhell.registries.*;
 import com.dead_comedian.holyhell.entity.custom.AngelEntity;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +35,7 @@ public class Holyhell implements ModInitializer {
 		FabricDefaultAttributeRegistry.register(HolyHellEntities.KAMIKAZE_ANGEL, KamikazeAngelEntity.createAngelAttributes());
 
 
+		ServerTickEvents.END_WORLD_TICK.register(new ServerTickHandler());
 
 		LOGGER.info("what is lovee? baby don't hurt mee, don't hurt mee, noo moree");
 	}

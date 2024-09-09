@@ -38,6 +38,7 @@ public class HolyGrailItem extends Item {
 
     public ActionResult castSpell(World world, ItemStack itemStack, BlockPos blockPos,Direction direction, PlayerEntity player) {
         float a = player.getPitch();
+        player.stopUsingItem();
         if (!(world instanceof ServerWorld)) {
             return ActionResult.SUCCESS;
         } else {

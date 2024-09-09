@@ -14,9 +14,9 @@ import net.minecraft.sound.SoundCategory;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class Clarityeffect extends StatusEffect {
+public class ClarityEffect extends StatusEffect {
     public static final Predicate<Entity> IS_PLAYER = entity -> (entity instanceof ServerPlayerEntity);
-    public Clarityeffect(StatusEffectCategory statusEffectCategory, int color) {
+    public ClarityEffect(StatusEffectCategory statusEffectCategory, int color) {
         super(statusEffectCategory, color);
     }
 
