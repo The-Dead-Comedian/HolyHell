@@ -2,9 +2,12 @@
   "item.holyhell.saint_eye" : "Saint Eye",
   "item.holyhell.holy_tear" : "Holy Tear",
   "item.holyhell.holy_grail" : "Holy Grail",
+  "item.holyhell.religious_rings" : "Religious Rings",
+
 
   "item.holyhell.angel_spawn_egg": "Angel Spawn Egg",
   "item.holyhell.heretic_spawn_egg": "Heretic Spawn Egg",
+  "item.holyhell.kamikaze_angel_spawn_egg": "Kamikaze Angel Spawn Egg",
 
 
   "item.holyhell.evangelist_helmet": "Evangelist Helmet",
@@ -13,11 +16,20 @@
   "item.holyhell.evangelist_boots": "Evangelist Boots",
 
   "block.holyhell.divining_table": "Divining Table",
+  "block.holyhell.globe": "Globe",
+
 
   "entity.holyhell.angel" : "Angel",
   "entity.holyhell.hailing_heretic": "Hailing Heretic",
+  "entity.holyhell.kamikaze_angel": "Kamikaze Angel",
+  "entity.holyhell.light_beam": "Light Beam",
+
+
 
   "effect.holyhell.clarity": "Post Nut Clarity",
   "sounds.holyhell.clarity_music": "Metal Detector Jingle",
+  "sounds.holyhell.jesistence": "Jesistence",
+  "sounds.holyhell.enlightened": "Enlightened",
+
   "itemGroup.holyhell.items": "Holy Trinkets"
 }
