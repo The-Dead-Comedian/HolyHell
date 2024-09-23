@@ -2,9 +2,9 @@ package com.dead_comedian.holyhell.client.renderer.spell;
 
 
 import com.dead_comedian.holyhell.Holyhell;
-import com.dead_comedian.holyhell.client.models.entity.spells.LastPrayerModel;
+import com.dead_comedian.holyhell.client.models.entity.spells.GlobularDomeModel;
+import com.dead_comedian.holyhell.entity.custom.spells.GlobularDomeEntity;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
-import com.dead_comedian.holyhell.entity.custom.spells.LastPrayerEntity;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -14,13 +14,13 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 
-public class LastPrayerRenderer extends EntityRenderer<LastPrayerEntity> {
-    private static final Identifier TEXTURE = new Identifier(Holyhell.MOD_ID, "textures/entity/last_prayer.png");
-    private final LastPrayerModel<LastPrayerEntity> model;
+public class GlobularDomeRenderer extends EntityRenderer<GlobularDomeEntity> {
+    private static final Identifier TEXTURE = new Identifier(Holyhell.MOD_ID, "textures/entity/globular_dome.png");
+    private final GlobularDomeModel<GlobularDomeEntity> model;
 
-    public LastPrayerRenderer(EntityRendererFactory.Context context) {
+    public GlobularDomeRenderer(EntityRendererFactory.Context context) {
         super(context);
-        this.model = new LastPrayerModel<>(context.getPart(HolyHellModelLayers.LASTPRAYER));
+        this.model = new GlobularDomeModel<>(context.getPart(HolyHellModelLayers.GLOBULAR_DOME));
     }
 
 
@@ -28,15 +28,15 @@ public class LastPrayerRenderer extends EntityRenderer<LastPrayerEntity> {
 
 
     @Override
-    public void render(LastPrayerEntity mobEntity, float f, float g, MatrixStack matrixStack,
+    public void render(GlobularDomeEntity mobEntity, float f, float g, MatrixStack matrixStack,
                        VertexConsumerProvider vertexConsumerProvider, int i) {
         VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(this.model.getLayer(TEXTURE));
-        this.model.render(matrixStack, vertexConsumer, 15728640, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.model.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
         super.render(mobEntity, f, g, matrixStack, vertexConsumerProvider, 15728640);
     }
 
     @Override
-    public Identifier getTexture(LastPrayerEntity entity) {
+    public Identifier getTexture(GlobularDomeEntity entity) {
         return TEXTURE;
     }
 

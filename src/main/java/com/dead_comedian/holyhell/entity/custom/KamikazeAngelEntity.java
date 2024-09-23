@@ -2,7 +2,7 @@ package com.dead_comedian.holyhell.entity.custom;
 
 
 
-import com.dead_comedian.holyhell.entity.custom.spells.LastPrayerEntity;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.AboveGroundTargeting;
@@ -261,7 +261,6 @@ public class KamikazeAngelEntity extends HostileEntity implements Flutterer {
 
             if(collidesWith(pEnemy)){
                 BlockPos blockPos = entity.getBlockPos();
-                entity.getWorld().spawnEntity(new LastPrayerEntity(entity.getWorld(), (double)blockPos.getX(),(double)blockPos.getY(), (double)blockPos.getZ(),  entity.getYaw()));
 
             }
             if (isEnemyWithinAttackDistance(pEnemy, pDistToEnemySqr)) {

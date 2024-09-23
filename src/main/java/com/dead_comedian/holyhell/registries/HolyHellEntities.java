@@ -6,8 +6,7 @@ import com.dead_comedian.holyhell.entity.custom.HailingHereticEntity;
 import com.dead_comedian.holyhell.entity.custom.KamikazeAngelEntity;
 import com.dead_comedian.holyhell.entity.custom.LightBeamEntity;
 import com.dead_comedian.holyhell.entity.custom.spells.AreaSpellEntity;
-import com.dead_comedian.holyhell.entity.custom.spells.ChristianCrossEntity;
-import com.dead_comedian.holyhell.entity.custom.spells.LastPrayerEntity;
+import com.dead_comedian.holyhell.entity.custom.spells.GlobularDomeEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
@@ -37,15 +36,10 @@ public class HolyHellEntities {
             new Identifier(Holyhell.MOD_ID, "hailing_heretic"),
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, HailingHereticEntity::new)
                     .dimensions(EntityDimensions.fixed(1.5f, 1.2f)).build());
-
-    public static final EntityType<LastPrayerEntity> LASTPRAYER = Registry.register(Registries.ENTITY_TYPE,
-            new Identifier(Holyhell.MOD_ID, "last_prayer"),
-            FabricEntityTypeBuilder.<LastPrayerEntity>create(SpawnGroup.CREATURE, LastPrayerEntity::new)
-                    .dimensions(EntityDimensions.fixed(3f, 4f)).build());
-    public static final EntityType<ChristianCrossEntity> CHRISTIANCROSS = Registry.register(Registries.ENTITY_TYPE,
-            new Identifier(Holyhell.MOD_ID, "christian_cross"),
-            FabricEntityTypeBuilder.<ChristianCrossEntity>create(SpawnGroup.CREATURE, ChristianCrossEntity::new)
-                    .dimensions(EntityDimensions.fixed(4f, 3f)).build());
+    public static final EntityType<GlobularDomeEntity> GLOBULAR_DOME = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(Holyhell.MOD_ID, "globular_dome"),
+            FabricEntityTypeBuilder.<GlobularDomeEntity>create(SpawnGroup.CREATURE, GlobularDomeEntity::new)
+                    .dimensions(EntityDimensions.fixed(3f, 3f)).build());
     public static final EntityType<AreaSpellEntity> AREASPELL = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Holyhell.MOD_ID, "area_spell"),
             FabricEntityTypeBuilder.<AreaSpellEntity>create(SpawnGroup.CREATURE, AreaSpellEntity::new)

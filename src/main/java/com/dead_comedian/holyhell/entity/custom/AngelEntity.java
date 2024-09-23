@@ -1,7 +1,7 @@
 package com.dead_comedian.holyhell.entity.custom;
 
 
-import com.dead_comedian.holyhell.entity.custom.spells.LastPrayerEntity;
+
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -47,7 +47,7 @@ public class AngelEntity extends HostileEntity {
     @Override
     public void tick() {
         super.tick();
-        LastPrayerAbility();
+
 
 
         if(this.getWorld().isClient()) {
@@ -229,15 +229,7 @@ public class AngelEntity extends HostileEntity {
     ///////////////
 
 
-        public void LastPrayerAbility(){
 
-
-            if(!this.isAlive()){
-                BlockPos blockPos = this.getBlockPos();
-                AngelEntity.this.getWorld().spawnEntity(new LastPrayerEntity(AngelEntity.this.getWorld(), (double)blockPos.getX(),(double)blockPos.getY(), (double)blockPos.getZ(),  this.getYaw()));
-
-            }
-        }
 
 
     }

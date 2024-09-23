@@ -18,8 +18,8 @@ public class HolyHellModelLayers {
 
     public static final EntityModelLayer LASTPRAYER =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "last_prayer"), "main");
-    public static final EntityModelLayer CHRISTIANCROSS =
-            new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "christian_cross"), "main");
+    public static final EntityModelLayer GLOBULAR_DOME =
+            new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "globular_dome"), "main");
     public static final EntityModelLayer RELIGIOUS_RINGS =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "religious_rings"), "main");
     public static final EntityModelLayer AREA_SPELL =

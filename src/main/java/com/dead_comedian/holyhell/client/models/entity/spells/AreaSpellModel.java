@@ -5,13 +5,11 @@
 package com.dead_comedian.holyhell.client.models.entity.spells;
 
 import com.dead_comedian.holyhell.entity.custom.spells.AreaSpellEntity;
-import com.dead_comedian.holyhell.entity.custom.spells.ChristianCrossEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 
-import javax.swing.text.html.parser.Entity;
 
 public class AreaSpellModel <T extends AreaSpellEntity> extends SinglePartEntityModel<T> {
 	private final ModelPart bb_main;

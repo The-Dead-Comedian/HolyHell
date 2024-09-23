@@ -2,6 +2,7 @@ package com.dead_comedian.holyhell.registries;
 
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.item.ModArmorMaterials;
+import com.dead_comedian.holyhell.item.custom.GlobularDomeItem;
 import com.dead_comedian.holyhell.item.custom.HolyGrailItem;
 import com.dead_comedian.holyhell.item.custom.ReligiousRingsItem;
 import com.dead_comedian.holyhell.item.custom.SaintEyeItem;
@@ -16,7 +17,13 @@ import net.minecraft.util.Identifier;
 
 public class HolyHellItems {
     public static final Item SAINT_EYE = registerItem("saint_eye", new SaintEyeItem(new FabricItemSettings().food(HolyHellFoodComponents.SAINT_EYE)));
-    public static final Item HOLY_GRAIL = registerItem("holy_grail", new HolyGrailItem(HolyHellEntities.CHRISTIANCROSS, new FabricItemSettings()));
+    public static final Item HOLY_GRAIL = registerItem("holy_grail", new HolyGrailItem(HolyHellEntities.GLOBULAR_DOME, new FabricItemSettings()));
+    public static final Item BLINDING_BOMB = registerItem("blinding_bomb", new Item(new FabricItemSettings()));
+    public static final Item GLOBULAR_DOME = registerItem("globular_dome", new GlobularDomeItem(new FabricItemSettings()));
+    public static final Item BOUNCY_ARROW = registerItem("bouncy_arrow", new ArrowItem(new FabricItemSettings()));
+    public static final Item HOLY_ARROW = registerItem("holy_arrow", new ArrowItem(new FabricItemSettings()));
+    public static final Item HOLY_BOUNCY_ARROW = registerItem("holy_bouncy_arrow", new ArrowItem(new FabricItemSettings()));
+
     public static final Item RELIGIOUS_RINGS = registerItem("religious_rings", new ReligiousRingsItem(new FabricItemSettings()));
     public static final Item ANGEL_SPAWN_EGG = registerItem("angel_spawn_egg", new SpawnEggItem(HolyHellEntities.ANGEL, 0xffefbf, 0xd19822, new FabricItemSettings()));
     public static final Item KAMIKAZE_ANGEL_SPAWN_EGG = registerItem("kamikaze_angel_spawn_egg", new SpawnEggItem(HolyHellEntities.KAMIKAZE_ANGEL, 0xffefbf, 0xd19822, new FabricItemSettings()));
@@ -26,7 +33,7 @@ public class HolyHellItems {
     public static final Item EVANGELIST_CHESTPLATE = registerItem("evangelist_chestplate", new ArmorItem(ModArmorMaterials.EVANGELIST, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
     public static final Item EVANGELIST_LEGGINGS = registerItem("evangelist_leggings", new ArmorItem(ModArmorMaterials.EVANGELIST, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
     public static final Item EVANGELIST_BOOTS = registerItem("evangelist_boots", new ArmorItem(ModArmorMaterials.EVANGELIST, ArmorItem.Type.BOOTS, new FabricItemSettings()));
-    ;;
+
 
 
     private static Item registerItem(String name, Item item) {

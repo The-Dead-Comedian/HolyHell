@@ -3,6 +3,7 @@ package com.dead_comedian.holyhell;
 import com.dead_comedian.holyhell.client.models.entity.HailingHereticModel;
 import com.dead_comedian.holyhell.client.models.entity.KamikazeAngelModel;
 import com.dead_comedian.holyhell.client.models.entity.LightBeamModel;
+import com.dead_comedian.holyhell.client.models.entity.spells.GlobularDomeModel;
 import com.dead_comedian.holyhell.client.renderer.HailingHereticRenderer;
 import com.dead_comedian.holyhell.client.renderer.KamikazeAngelRenderer;
 import com.dead_comedian.holyhell.client.renderer.LightBeamRenderer;
@@ -14,8 +15,7 @@ import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
 
 import com.dead_comedian.holyhell.client.models.entity.AngelModel;
 import com.dead_comedian.holyhell.client.models.entity.spells.AreaSpellModel;
-import com.dead_comedian.holyhell.client.models.entity.spells.ChristianCrossModel;
-import com.dead_comedian.holyhell.client.models.entity.spells.LastPrayerModel;
+
 
 import com.dead_comedian.holyhell.client.renderer.AngelRenderer;
 
@@ -44,12 +44,8 @@ public class HolyhellClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(HolyHellEntities.KAMIKAZE_ANGEL, KamikazeAngelRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.KAMIKAZE_ANGEL, KamikazeAngelModel::getTexturedModelData);
-
-
-        EntityRendererRegistry.register(HolyHellEntities.LASTPRAYER, LastPrayerRenderer::new);
-        EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.LASTPRAYER, LastPrayerModel::getTexturedModelData);
-        EntityRendererRegistry.register(HolyHellEntities.CHRISTIANCROSS, ChristianCrossRenderer::new);
-        EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.CHRISTIANCROSS, ChristianCrossModel::getTexturedModelData);
+        EntityRendererRegistry.register(HolyHellEntities.GLOBULAR_DOME, GlobularDomeRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.GLOBULAR_DOME, GlobularDomeModel::getTexturedModelData);
         EntityRendererRegistry.register(HolyHellEntities.AREASPELL, AreaSpellRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.AREA_SPELL, AreaSpellModel::getTexturedModelData);
 

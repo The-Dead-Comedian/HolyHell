@@ -50,7 +50,7 @@ public class HolyGrailItem extends Item {
                 BlockEntity blockEntity = world.getBlockEntity(blockPos);
                 if (blockEntity instanceof MobSpawnerBlockEntity) {
                     MobSpawnerBlockEntity mobSpawnerBlockEntity = (MobSpawnerBlockEntity)blockEntity;
-                    EntityType<?> entityType = HolyHellEntities.CHRISTIANCROSS;
+                    EntityType<?> entityType = HolyHellEntities.GLOBULAR_DOME;
                     mobSpawnerBlockEntity.setEntityType(entityType, world.getRandom());
                     blockEntity.markDirty();
                     world.updateListeners(blockPos, blockState, blockState, 3);
@@ -68,8 +68,8 @@ public class HolyGrailItem extends Item {
             }
             EntityType<?> entityType2;
                 if(a == -90.0F){
-                    entityType2 = HolyHellEntities.CHRISTIANCROSS;
-                blockPos2= player.getBlockPos().up(2);
+                    entityType2 = HolyHellEntities.GLOBULAR_DOME;
+
                 } else if ( a == 90.0F ) {
                     entityType2 = HolyHellEntities.AREASPELL;
                 } else{
@@ -100,7 +100,7 @@ public class HolyGrailItem extends Item {
             if (!(world.getBlockState(blockPos).getBlock() instanceof FluidBlock)) {
                 return TypedActionResult.pass(itemStack);
             } else if (world.canPlayerModifyAt(user, blockPos) && user.canPlaceOn(blockPos, blockHitResult.getSide(), itemStack)) {
-                EntityType<?> entityType = HolyHellEntities.CHRISTIANCROSS;
+                EntityType<?> entityType = HolyHellEntities.GLOBULAR_DOME;
                 Entity entity = entityType.spawnFromItemStack((ServerWorld) world, itemStack, user, blockPos, SpawnReason.SPAWN_EGG, false, false);
                 if (entity == null) {
                     return TypedActionResult.pass(itemStack);
