@@ -2,6 +2,7 @@ package com.dead_comedian.holyhell;
 
 import com.dead_comedian.holyhell.entity.custom.HailingHereticEntity;
 import com.dead_comedian.holyhell.entity.custom.KamikazeAngelEntity;
+import com.dead_comedian.holyhell.entity.custom.PalladinEntity;
 import com.dead_comedian.holyhell.event.ServerTickHandler;
 import com.dead_comedian.holyhell.registries.*;
 import com.dead_comedian.holyhell.entity.custom.AngelEntity;
@@ -31,6 +32,7 @@ public class Holyhell implements ModInitializer {
 		HolyHellEffects.registerEffects();
 		HolyHellSounds.registerSounds();
 		FabricDefaultAttributeRegistry.register(HolyHellEntities.ANGEL, AngelEntity.createAngelAttributes());
+		FabricDefaultAttributeRegistry.register(HolyHellEntities.PALLADIN, PalladinEntity.createAngelAttributes());
 		FabricDefaultAttributeRegistry.register(HolyHellEntities.HAILING_HERETIC, HailingHereticEntity.createHereticAttributes());
 		FabricDefaultAttributeRegistry.register(HolyHellEntities.KAMIKAZE_ANGEL, KamikazeAngelEntity.createAngelAttributes());
 

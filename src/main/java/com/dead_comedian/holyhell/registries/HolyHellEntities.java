@@ -1,10 +1,7 @@
 package com.dead_comedian.holyhell.registries;
 
 import com.dead_comedian.holyhell.Holyhell;
-import com.dead_comedian.holyhell.entity.custom.AngelEntity;
-import com.dead_comedian.holyhell.entity.custom.HailingHereticEntity;
-import com.dead_comedian.holyhell.entity.custom.KamikazeAngelEntity;
-import com.dead_comedian.holyhell.entity.custom.LightBeamEntity;
+import com.dead_comedian.holyhell.entity.custom.*;
 import com.dead_comedian.holyhell.entity.custom.spells.AreaSpellEntity;
 import com.dead_comedian.holyhell.entity.custom.spells.GlobularDomeEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -26,16 +23,20 @@ public class HolyHellEntities {
             new Identifier(Holyhell.MOD_ID, "angel"),
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, AngelEntity::new)
                     .dimensions(EntityDimensions.fixed(0.8f, 1.5f)).build());
-
     public static final EntityType<KamikazeAngelEntity> KAMIKAZE_ANGEL = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Holyhell.MOD_ID, "kamikaze_angel"),
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, KamikazeAngelEntity::new)
                     .dimensions(EntityDimensions.fixed(0.8f, 1.5f)).build());
-
     public static final EntityType<HailingHereticEntity> HAILING_HERETIC = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Holyhell.MOD_ID, "hailing_heretic"),
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, HailingHereticEntity::new)
                     .dimensions(EntityDimensions.fixed(1.5f, 1.2f)).build());
+
+    public static final EntityType<PalladinEntity> PALLADIN = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(Holyhell.MOD_ID, "palladin"),
+            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, PalladinEntity::new)
+                    .dimensions(EntityDimensions.fixed(1.5f, 1.2f)).build());
+
     public static final EntityType<GlobularDomeEntity> GLOBULAR_DOME = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Holyhell.MOD_ID, "globular_dome"),
             FabricEntityTypeBuilder.<GlobularDomeEntity>create(SpawnGroup.CREATURE, GlobularDomeEntity::new)

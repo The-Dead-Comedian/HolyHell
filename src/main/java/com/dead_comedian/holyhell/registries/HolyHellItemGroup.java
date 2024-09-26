@@ -29,6 +29,7 @@ public class HolyHellItemGroup {
                         entries.add(HolyHellItems.ANGEL_SPAWN_EGG);
                         entries.add(HolyHellItems.KAMIKAZE_ANGEL_SPAWN_EGG);
                         entries.add(HolyHellItems.HERETIC_SPAWN_EGG);
+                        entries.add(HolyHellItems.PALLADIN_SPAWN_EGG);
 
                         entries.add(HolyHellItems.EVANGELIST_BOOTS);
                         entries.add(HolyHellItems.EVANGELIST_LEGGINGS);

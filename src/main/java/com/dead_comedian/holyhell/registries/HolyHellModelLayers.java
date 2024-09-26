@@ -11,13 +11,13 @@ public class HolyHellModelLayers {
 
     public static final EntityModelLayer ANGEL =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "angel"), "main");
+    public static final EntityModelLayer PALLADIN =
+            new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "palladin"), "main");
     public static final EntityModelLayer HAILING_HERETIC =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "hailing_heretic"), "main");
     public static final EntityModelLayer KAMIKAZE_ANGEL =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "kamikaze_angel"), "main");
 
-    public static final EntityModelLayer LASTPRAYER =
-            new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "last_prayer"), "main");
     public static final EntityModelLayer GLOBULAR_DOME =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "globular_dome"), "main");
     public static final EntityModelLayer RELIGIOUS_RINGS =
