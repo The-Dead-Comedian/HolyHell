@@ -1,6 +1,7 @@
 package com.dead_comedian.holyhell;
 
 import com.dead_comedian.holyhell.client.models.entity.*;
+import com.dead_comedian.holyhell.client.models.entity.spells.FireBallModel;
 import com.dead_comedian.holyhell.client.models.entity.spells.GlobularDomeModel;
 import com.dead_comedian.holyhell.client.renderer.*;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsFeatureRenderer;
@@ -8,10 +9,6 @@ import com.dead_comedian.holyhell.client.renderer.spell.*;
 import com.dead_comedian.holyhell.registries.HolyHellBlocks;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
-
-import com.dead_comedian.holyhell.client.models.entity.spells.AreaSpellModel;
-
-
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
@@ -43,9 +40,9 @@ public class HolyhellClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(HolyHellEntities.GLOBULAR_DOME, GlobularDomeRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.GLOBULAR_DOME, GlobularDomeModel::getTexturedModelData);
-        EntityRendererRegistry.register(HolyHellEntities.AREASPELL, AreaSpellRenderer::new);
-        EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.AREA_SPELL, AreaSpellModel::getTexturedModelData);
 
+        EntityRendererRegistry.register(HolyHellEntities.FIREBALL, FireBallRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.FIREBALL, FireBallModel::getTexturedModelData);
 
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.RELIGIOUS_RINGS, ReligiousRingsFeatureRenderer::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.ATHEIST_AMAZEMENT, AtheistAmazementFeatureRenderer::getTexturedModelData);

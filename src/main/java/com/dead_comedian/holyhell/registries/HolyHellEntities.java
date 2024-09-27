@@ -2,7 +2,7 @@ package com.dead_comedian.holyhell.registries;
 
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.entity.custom.*;
-import com.dead_comedian.holyhell.entity.custom.spells.AreaSpellEntity;
+import com.dead_comedian.holyhell.entity.custom.spells.FireBallEntity;
 import com.dead_comedian.holyhell.entity.custom.spells.GlobularDomeEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
@@ -31,20 +31,21 @@ public class HolyHellEntities {
             new Identifier(Holyhell.MOD_ID, "hailing_heretic"),
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, HailingHereticEntity::new)
                     .dimensions(EntityDimensions.fixed(1.5f, 1.2f)).build());
-
     public static final EntityType<PalladinEntity> PALLADIN = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Holyhell.MOD_ID, "palladin"),
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, PalladinEntity::new)
                     .dimensions(EntityDimensions.fixed(1.5f, 1.2f)).build());
 
+
+    public static final EntityType<FireBallEntity> FIREBALL = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(Holyhell.MOD_ID, "fireball"),
+            FabricEntityTypeBuilder.<FireBallEntity>create(SpawnGroup.CREATURE, FireBallEntity::new)
+                    .dimensions(EntityDimensions.fixed(3f, 3f)).build());
     public static final EntityType<GlobularDomeEntity> GLOBULAR_DOME = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Holyhell.MOD_ID, "globular_dome"),
             FabricEntityTypeBuilder.<GlobularDomeEntity>create(SpawnGroup.CREATURE, GlobularDomeEntity::new)
                     .dimensions(EntityDimensions.fixed(3f, 3f)).build());
-    public static final EntityType<AreaSpellEntity> AREASPELL = Registry.register(Registries.ENTITY_TYPE,
-            new Identifier(Holyhell.MOD_ID, "area_spell"),
-            FabricEntityTypeBuilder.<AreaSpellEntity>create(SpawnGroup.CREATURE, AreaSpellEntity::new)
-                    .dimensions(EntityDimensions.fixed(15.125f, 5f)).build());
+
 
 
 

@@ -12,11 +12,13 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.entity.mob.SpellcastingIllagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-public class PalladinEntity extends HostileEntity {
+public class PalladinEntity extends SpellcastingIllagerEntity {
 
 
     ///////////////
@@ -34,7 +36,7 @@ public class PalladinEntity extends HostileEntity {
     // MISC //
     //////////
 
-    public PalladinEntity(EntityType<? extends HostileEntity> entityType, World world) {
+    public PalladinEntity(EntityType<? extends SpellcastingIllagerEntity> entityType, World world) {
         super(entityType, world);
     }
     @Override
@@ -43,6 +45,17 @@ public class PalladinEntity extends HostileEntity {
         this.dataTracker.startTracking(ATTACKING, false);
 
     }
+
+    @Override
+    public void addBonusForWave(int wave, boolean unused) {
+
+    }
+
+    @Override
+    public SoundEvent getCelebratingSound() {
+        return null;
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -53,10 +66,16 @@ public class PalladinEntity extends HostileEntity {
             setupAnimationStates();
         }
     }
+
+    @Override
+    protected SoundEvent getCastSpellSound() {
+        return null;
+    }
+
     @Override
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new MeleeAttackGoal(this,1,true));
+        this.goalSelector.add(2, new FleeEntityGoal(this, PlayerEntity.class, 12.0F, 0.6, 1.5));
         this.goalSelector.add(4, new WanderAroundFarGoal(this, 1D));
         this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 4f));
         this.goalSelector.add(6, new LookAroundGoal(this));

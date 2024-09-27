@@ -18,12 +18,14 @@ public class HolyHellModelLayers {
     public static final EntityModelLayer KAMIKAZE_ANGEL =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "kamikaze_angel"), "main");
 
+    public static final EntityModelLayer FIREBALL =
+            new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "fireball"), "main");
+
+
     public static final EntityModelLayer GLOBULAR_DOME =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "globular_dome"), "main");
     public static final EntityModelLayer RELIGIOUS_RINGS =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "religious_rings"), "main");
-    public static final EntityModelLayer AREA_SPELL =
-            new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "area_spell"), "main");
     public static final EntityModelLayer ATHEIST_AMAZEMENT =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "atheist_amazement"), "main");
 
