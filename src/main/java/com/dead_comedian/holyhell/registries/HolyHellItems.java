@@ -27,7 +27,10 @@ public class HolyHellItems {
     public static final Item ANGEL_SPAWN_EGG = registerItem("angel_spawn_egg", new SpawnEggItem(HolyHellEntities.ANGEL, 0xffefbf, 0xd19822, new FabricItemSettings()));
     public static final Item KAMIKAZE_ANGEL_SPAWN_EGG = registerItem("kamikaze_angel_spawn_egg", new SpawnEggItem(HolyHellEntities.KAMIKAZE_ANGEL, 0xffefbf, 0xd19822, new FabricItemSettings()));
     public static final Item HERETIC_SPAWN_EGG = registerItem("heretic_spawn_egg", new SpawnEggItem(HolyHellEntities.HAILING_HERETIC, 0xffefbf, 0xf5c842, new FabricItemSettings()));
+
     public static final Item HOLY_TEAR = registerItem("holy_tear", new Item(new FabricItemSettings()));
+    public static final Item BAPTIZED_PLATE = registerItem("baptized_plate", new Item(new FabricItemSettings()));
+
     public static final Item EVANGELIST_HELMET = registerItem("evangelist_helmet", new ArmorItem(ModArmorMaterials.EVANGELIST, ArmorItem.Type.HELMET, new FabricItemSettings()));
     public static final Item EVANGELIST_CHESTPLATE = registerItem("evangelist_chestplate", new ArmorItem(ModArmorMaterials.EVANGELIST, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
     public static final Item EVANGELIST_LEGGINGS = registerItem("evangelist_leggings", new ArmorItem(ModArmorMaterials.EVANGELIST, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));

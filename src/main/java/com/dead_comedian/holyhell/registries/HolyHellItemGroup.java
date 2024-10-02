@@ -16,15 +16,18 @@ public class HolyHellItemGroup {
             FabricItemGroup.builder().displayName(Text.translatable("itemGroup.holyhell.items"))
                     .icon(() -> new ItemStack(HolyHellItems.SAINT_EYE)).entries((displayContext, entries) -> {
                         entries.add(HolyHellItems.SAINT_EYE);
-                        entries.add(HolyHellItems.HOLY_TEAR);
                         entries.add(HolyHellItems.BLINDING_BOMB);
                         entries.add(HolyHellItems.GLOBULAR_DOME);
+                        entries.add(HolyHellItems.RELIGIOUS_RINGS);
+
                         entries.add(HolyHellItems.BOUNCY_ARROW);
                         entries.add(HolyHellItems.HOLY_ARROW);
                         entries.add(HolyHellItems.HOLY_BOUNCY_ARROW);
 
-                        entries.add(HolyHellItems.RELIGIOUS_RINGS);
                         entries.add(HolyHellItems.HOLY_GRAIL);
+
+                        entries.add(HolyHellItems.HOLY_TEAR);
+                        entries.add(HolyHellItems.BAPTIZED_PLATE);
 
                         entries.add(HolyHellItems.ANGEL_SPAWN_EGG);
                         entries.add(HolyHellItems.KAMIKAZE_ANGEL_SPAWN_EGG);

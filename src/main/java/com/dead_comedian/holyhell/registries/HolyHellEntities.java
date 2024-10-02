@@ -27,7 +27,7 @@ public class HolyHellEntities {
     public static final EntityType<KamikazeAngelEntity> KAMIKAZE_ANGEL = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Holyhell.MOD_ID, "kamikaze_angel"),
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, KamikazeAngelEntity::new)
-                    .dimensions(EntityDimensions.fixed(0.8f, 1.5f)).build());
+                    .dimensions(EntityDimensions.fixed(0.8f, 0.8f)).build());
     public static final EntityType<HailingHereticEntity> HAILING_HERETIC = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Holyhell.MOD_ID, "hailing_heretic"),
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, HailingHereticEntity::new)
@@ -35,7 +35,7 @@ public class HolyHellEntities {
     public static final EntityType<PalladinEntity> PALLADIN = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Holyhell.MOD_ID, "palladin"),
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, PalladinEntity::new)
-                    .dimensions(EntityDimensions.fixed(1.5f, 3f)).build());
+                    .dimensions(EntityDimensions.fixed(1.5f, 2.5f)).build());
 
 
     public static final EntityType<FireBallEntity> FIREBALL = Registry.register(Registries.ENTITY_TYPE,
