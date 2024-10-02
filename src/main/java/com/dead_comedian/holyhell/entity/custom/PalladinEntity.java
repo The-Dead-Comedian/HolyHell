@@ -35,7 +35,7 @@ public class PalladinEntity extends HostileEntity {
 
     private int idleAnimationTimeout = 0;
     public int attackAnimationTimeout = 0;
-    int cooldown = 250;
+    int cooldown = 0;
 
     //////////
     // MISC //
@@ -56,11 +56,11 @@ public class PalladinEntity extends HostileEntity {
     @Override
     public void tick() {
         super.tick();
-        cooldown--;
+        cooldown++;
 
         FuckThisImDoingMyOwnSystem(cooldown);
-        if (cooldown == 0) {
-            cooldown = 250;
+        if (cooldown == 250) {
+            cooldown = 0;
         }
         if (this.getWorld().isClient()) {
             setupAnimationStates();
@@ -144,7 +144,6 @@ public class PalladinEntity extends HostileEntity {
     }
 
     // summoning
-    // to do: self defence summon
 
     public void summonSwordRing(Entity entity) {
         int loop = 0;
@@ -175,11 +174,11 @@ public class PalladinEntity extends HostileEntity {
 
             setAttacking(true);
         } else {
-            if (cooldown == 180 && targetEntity != null && targetEntity.isAlive()) {
+            if (cooldown == 40 && targetEntity != null && targetEntity.isAlive()) {
                 setAttacking(false);
             }
         }
-        if (cooldown == 0 && targetEntity != null && targetEntity.isAlive()) {
+        if (cooldown == 20 && targetEntity != null && targetEntity.isAlive()) {
             summonSwordRing(this.getTarget());
         }
     }

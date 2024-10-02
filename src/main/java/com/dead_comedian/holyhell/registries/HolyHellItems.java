@@ -18,9 +18,7 @@ public class HolyHellItems {
     public static final Item BLINDING_BOMB = registerItem("blinding_bomb", new Item(new FabricItemSettings()));
     public static final Item GLOBULAR_DOME = registerItem("globular_dome", new GlobularDomeItem(new FabricItemSettings()));
 
-    public static final Item BOUNCY_ARROW = registerItem("bouncy_arrow", new BouncyArrowItem(new FabricItemSettings()));
     public static final Item HOLY_ARROW = registerItem("holy_arrow", new HolyArrowItem(new FabricItemSettings()));
-    public static final Item HOLY_BOUNCY_ARROW = registerItem("holy_bouncy_arrow", new HolyBouncyArrowItem(new FabricItemSettings()));
 
     public static final Item RELIGIOUS_RINGS = registerItem("religious_rings", new ReligiousRingsItem(new FabricItemSettings()));
     public static final Item PALLADIN_SPAWN_EGG = registerItem("palladin_spawn_egg", new SpawnEggItem(HolyHellEntities.PALLADIN, 0xffefbf, 0xd19822, new FabricItemSettings()));
