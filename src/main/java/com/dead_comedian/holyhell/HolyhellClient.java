@@ -1,6 +1,7 @@
 package com.dead_comedian.holyhell;
 
 import com.dead_comedian.holyhell.client.models.entity.*;
+import com.dead_comedian.holyhell.client.models.entity.spells.FallingSwordModel;
 import com.dead_comedian.holyhell.client.models.entity.spells.FireBallModel;
 import com.dead_comedian.holyhell.client.models.entity.spells.GlobularDomeModel;
 import com.dead_comedian.holyhell.client.renderer.*;
@@ -43,6 +44,8 @@ public class HolyhellClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(HolyHellEntities.FIREBALL, FireBallRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.FIREBALL, FireBallModel::getTexturedModelData);
+        EntityRendererRegistry.register(HolyHellEntities.FALLING_SWORD, FallingSwordRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.FALLING_SWORD, FallingSwordModel::getTexturedModelData);
 
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.RELIGIOUS_RINGS, ReligiousRingsFeatureRenderer::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.ATHEIST_AMAZEMENT, AtheistAmazementFeatureRenderer::getTexturedModelData);

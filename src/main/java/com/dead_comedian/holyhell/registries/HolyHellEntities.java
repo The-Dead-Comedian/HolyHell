@@ -2,6 +2,7 @@ package com.dead_comedian.holyhell.registries;
 
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.entity.custom.*;
+import com.dead_comedian.holyhell.entity.custom.spells.FallingSwordEntity;
 import com.dead_comedian.holyhell.entity.custom.spells.FireBallEntity;
 import com.dead_comedian.holyhell.entity.custom.spells.GlobularDomeEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -34,13 +35,19 @@ public class HolyHellEntities {
     public static final EntityType<PalladinEntity> PALLADIN = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Holyhell.MOD_ID, "palladin"),
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, PalladinEntity::new)
-                    .dimensions(EntityDimensions.fixed(1.5f, 1.2f)).build());
+                    .dimensions(EntityDimensions.fixed(1.5f, 3f)).build());
 
 
     public static final EntityType<FireBallEntity> FIREBALL = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Holyhell.MOD_ID, "fireball"),
             FabricEntityTypeBuilder.<FireBallEntity>create(SpawnGroup.CREATURE, FireBallEntity::new)
-                    .dimensions(EntityDimensions.fixed(3f, 3f)).build());
+                    .dimensions(EntityDimensions.fixed(0.5f, 0.25f)).build());
+    public static final EntityType<FallingSwordEntity> FALLING_SWORD = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(Holyhell.MOD_ID, "falling_sword"),
+            FabricEntityTypeBuilder.<FallingSwordEntity>create(SpawnGroup.CREATURE, FallingSwordEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.5f, 2f)).build());
+
+
     public static final EntityType<GlobularDomeEntity> GLOBULAR_DOME = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Holyhell.MOD_ID, "globular_dome"),
             FabricEntityTypeBuilder.<GlobularDomeEntity>create(SpawnGroup.CREATURE, GlobularDomeEntity::new)
