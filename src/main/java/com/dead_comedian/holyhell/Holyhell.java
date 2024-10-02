@@ -31,6 +31,7 @@ public class Holyhell implements ModInitializer {
 		HolyHellEntities.registerModEntities();
 		HolyHellEffects.registerEffects();
 		HolyHellSounds.registerSounds();
+		HolyHellPaintings.registerPaintings();
 		FabricDefaultAttributeRegistry.register(HolyHellEntities.ANGEL, AngelEntity.createAngelAttributes());
 		FabricDefaultAttributeRegistry.register(HolyHellEntities.PALLADIN, PalladinEntity.createPalladinAttributes());
 		FabricDefaultAttributeRegistry.register(HolyHellEntities.HAILING_HERETIC, HailingHereticEntity.createHereticAttributes());
