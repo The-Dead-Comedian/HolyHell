@@ -33,9 +33,9 @@ public class ServerTickHandler implements ServerTickEvents.EndWorldTick {
                 tick++;
 
                 System.out.println(tick);
-                if (tick >= 500) {
+                if (tick >= 300) {
 
-                    double d = i.getX() + (rand.nextInt(5) - 0.5) * 10.0;
+                    double d = i.getX() + (rand.nextInt(5) - 0.5) *     10.0;
                     double e = i.getY();
                     double f = i.getZ() + (rand.nextInt(5) - 0.5) * 10.0;
 
