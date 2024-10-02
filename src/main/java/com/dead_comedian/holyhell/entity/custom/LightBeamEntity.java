@@ -107,18 +107,18 @@ public class LightBeamEntity extends Entity {
                 BlockPos blockPos = this.getBlockPos();
                 AngelEntity angelEntity = new AngelEntity(HolyHellEntities.ANGEL, this.getWorld());
                 this.getWorld().spawnEntity(angelEntity);
-                angelEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0), angelEntity.getYaw(), angelEntity.getPitch());
+                angelEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y ,2), angelEntity.getYaw(), angelEntity.getPitch());
             } else if(a == 1){
                 BlockPos blockPos = this.getBlockPos();
                 KamikazeAngelEntity kamikazeAngelEntity = new KamikazeAngelEntity(HolyHellEntities.KAMIKAZE_ANGEL, this.getWorld());
                 this.getWorld().spawnEntity(kamikazeAngelEntity);
-                kamikazeAngelEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0), kamikazeAngelEntity.getYaw(), kamikazeAngelEntity.getPitch());
+                kamikazeAngelEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y ,2), kamikazeAngelEntity.getYaw(), kamikazeAngelEntity.getPitch());
 
             }else if(a == 2){
                 BlockPos blockPos = this.getBlockPos();
                 HailingHereticEntity hailingHereticEntity = new HailingHereticEntity(HolyHellEntities.HAILING_HERETIC, this.getWorld());
                 this.getWorld().spawnEntity(hailingHereticEntity);
-                hailingHereticEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0), hailingHereticEntity.getYaw(), hailingHereticEntity.getPitch());
+                hailingHereticEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y ,2), hailingHereticEntity.getYaw(), hailingHereticEntity.getPitch());
             }
 
             b = capacity > current;

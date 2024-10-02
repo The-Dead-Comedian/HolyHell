@@ -89,7 +89,7 @@ public class KamikazeAngelEntity extends HostileEntity implements Flutterer {
     public static DefaultAttributeContainer.Builder createAngelAttributes() {
         return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0)
                 .add(EntityAttributes.GENERIC_FLYING_SPEED, 1)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 1)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.7)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.0)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 48.0);
     }
