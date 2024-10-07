@@ -27,6 +27,8 @@ public class HolyHellModelLayers {
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "globular_dome"), "main");
     public static final EntityModelLayer RELIGIOUS_RINGS =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "religious_rings"), "main");
+    public static final EntityModelLayer RELIGIOUS_RINGSV =
+            new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "religious_ringsv"), "main");
     public static final EntityModelLayer ATHEIST_AMAZEMENT =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "atheist_amazement"), "main");
 

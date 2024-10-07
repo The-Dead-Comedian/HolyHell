@@ -1,7 +1,8 @@
 package com.dead_comedian.holyhell.mixin;
 
+import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsUpperFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.spell.AtheistAmazementFeatureRenderer;
-import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsFeatureRenderer;
+import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsLowerFeatureRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 
@@ -18,7 +19,10 @@ public abstract class FeatureRendererMixin {
 
             @Inject(method = "<init>", at = @At(value = "RETURN"))
         private void addFeature(EntityRendererFactory.Context ctx, boolean slim, CallbackInfo ci) {
-                ((PlayerEntityRenderer) (Object) this).addFeature(new ReligiousRingsFeatureRenderer<>(
+
+                ((PlayerEntityRenderer) (Object) this).addFeature(new ReligiousRingsUpperFeatureRenderer<>(
+                        ((FeatureRendererContext) (Object) this), ctx.getModelLoader()));
+                ((PlayerEntityRenderer) (Object) this).addFeature(new ReligiousRingsLowerFeatureRenderer<>(
                         ((FeatureRendererContext) (Object) this), ctx.getModelLoader()));
 
                     ((PlayerEntityRenderer) (Object) this).addFeature(new AtheistAmazementFeatureRenderer<>(
