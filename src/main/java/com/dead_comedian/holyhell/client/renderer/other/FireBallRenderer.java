@@ -1,9 +1,9 @@
-package com.dead_comedian.holyhell.client.renderer.spell;
+package com.dead_comedian.holyhell.client.renderer.other;
 
 
 import com.dead_comedian.holyhell.Holyhell;
-import com.dead_comedian.holyhell.client.models.entity.spells.FireBallModel;
-import com.dead_comedian.holyhell.entity.custom.spells.FireBallEntity;
+import com.dead_comedian.holyhell.client.models.entity.other.FireBallModel;
+import com.dead_comedian.holyhell.entity.custom.other.FireBallEntity;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumer;
@@ -44,7 +44,7 @@ public class FireBallRenderer extends EntityRenderer<FireBallEntity> {
         }
         this.model.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
         super.render(mobEntity, f, g, matrixStack, vertexConsumerProvider, 15728640);
-    }
+    }   
 
     @Override
     public Identifier getTexture(FireBallEntity entity) {

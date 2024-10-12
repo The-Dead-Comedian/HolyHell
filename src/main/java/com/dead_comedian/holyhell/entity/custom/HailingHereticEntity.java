@@ -62,9 +62,9 @@ public class HailingHereticEntity extends HostileEntity {
     public static DefaultAttributeContainer.Builder createHereticAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 20)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f)
-                .add(EntityAttributes.GENERIC_ARMOR, 0.5f)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2);
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3f)
+                .add(EntityAttributes.GENERIC_ARMOR, 1f)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 8);
     }
     @Override
     protected void initDataTracker() {

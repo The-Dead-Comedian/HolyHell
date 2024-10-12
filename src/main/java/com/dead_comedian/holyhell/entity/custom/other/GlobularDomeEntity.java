@@ -1,4 +1,4 @@
-package com.dead_comedian.holyhell.entity.custom.spells;
+package com.dead_comedian.holyhell.entity.custom.other;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

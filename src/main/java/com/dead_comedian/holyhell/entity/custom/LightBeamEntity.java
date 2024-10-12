@@ -90,6 +90,7 @@ public class LightBeamEntity extends Entity {
     @Override
     public void onPlayerCollision(PlayerEntity player) {
         super.onPlayerCollision(player);
+        capacity =0;
         Box userHitbox = new Box(player.getBlockPos()).expand(50);
 
         List<PlayerEntity> list = this.getWorld().getNonSpectatingEntities(PlayerEntity.class, userHitbox);

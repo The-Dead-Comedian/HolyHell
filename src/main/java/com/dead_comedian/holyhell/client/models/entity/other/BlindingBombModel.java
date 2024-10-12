@@ -1,0 +1,188 @@
+// Made with Blockbench 4.11.1
+// Exported for Minecraft version 1.17+ for Yarn
+// Paste this class into your mod and generate all required imports
+
+package com.dead_comedian.holyhell.client.models.entity.other;
+
+import com.dead_comedian.holyhell.entity.custom.other.BlindingBombEntity;
+import net.minecraft.client.model.*;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.entity.model.SinglePartEntityModel;
+import net.minecraft.client.util.math.MatrixStack;
+
+public class BlindingBombModel<T extends BlindingBombEntity> extends SinglePartEntityModel<T> {
+	private final ModelPart blinding_bomb;
+	public BlindingBombModel(ModelPart root) {
+		this.blinding_bomb = root.getChild("blinding_bomb");
+	}
+	public static TexturedModelData getTexturedModelData() {
+		ModelData modelData = new ModelData();
+		ModelPartData modelPartData = modelData.getRoot();
+		ModelPartData blinding_bomb = modelPartData.addChild("blinding_bomb", ModelPartBuilder.create().uv(0, 0).cuboid(-5.0F, -2.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(0, 2).cuboid(-6.0F, -2.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(0, 4).cuboid(1.0F, -3.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(4, 0).cuboid(0.0F, -3.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(4, 2).cuboid(-1.0F, -3.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(4, 4).cuboid(-2.0F, -3.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(0, 6).cuboid(-4.0F, -3.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(4, 6).cuboid(-7.0F, -3.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(0, 8).cuboid(3.0F, -4.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(8, 0).cuboid(2.0F, -4.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(8, 2).cuboid(1.0F, -4.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(4, 8).cuboid(0.0F, -4.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(8, 4).cuboid(-1.0F, -4.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(8, 6).cuboid(-2.0F, -4.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(8, 8).cuboid(-3.0F, -4.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(0, 10).cuboid(-4.0F, -4.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(4, 10).cuboid(-7.0F, -4.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(8, 10).cuboid(4.0F, -5.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(0, 12).cuboid(3.0F, -5.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(12, 0).cuboid(2.0F, -5.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(12, 2).cuboid(1.0F, -5.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(4, 12).cuboid(0.0F, -5.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(12, 4).cuboid(-1.0F, -5.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(12, 6).cuboid(-2.0F, -5.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(8, 12).cuboid(-3.0F, -5.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(12, 8).cuboid(-4.0F, -5.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(12, 10).cuboid(-5.0F, -5.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(12, 12).cuboid(-6.0F, -5.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(0, 14).cuboid(5.0F, -6.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(4, 14).cuboid(4.0F, -6.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(8, 14).cuboid(3.0F, -6.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(12, 14).cuboid(2.0F, -6.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(0, 16).cuboid(1.0F, -6.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(16, 0).cuboid(0.0F, -6.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(16, 2).cuboid(-1.0F, -6.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(4, 16).cuboid(-2.0F, -6.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(16, 4).cuboid(-3.0F, -6.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(16, 6).cuboid(-4.0F, -6.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(8, 16).cuboid(-5.0F, -6.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(16, 8).cuboid(5.0F, -7.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(16, 10).cuboid(4.0F, -7.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(12, 16).cuboid(3.0F, -7.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(16, 12).cuboid(2.0F, -7.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(16, 14).cuboid(1.0F, -7.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(16, 16).cuboid(0.0F, -7.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(0, 18).cuboid(-1.0F, -7.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(4, 18).cuboid(-2.0F, -7.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(8, 18).cuboid(-3.0F, -7.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(12, 18).cuboid(-4.0F, -7.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(16, 18).cuboid(-5.0F, -7.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(0, 20).cuboid(-6.0F, -7.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(20, 0).cuboid(6.0F, -8.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(20, 2).cuboid(5.0F, -8.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(4, 20).cuboid(4.0F, -8.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(20, 4).cuboid(3.0F, -8.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(20, 6).cuboid(2.0F, -8.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(8, 20).cuboid(1.0F, -8.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(20, 8).cuboid(0.0F, -8.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(20, 10).cuboid(-1.0F, -8.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(12, 20).cuboid(-2.0F, -8.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(20, 12).cuboid(-3.0F, -8.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(20, 14).cuboid(-4.0F, -8.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(16, 20).cuboid(-5.0F, -8.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(20, 16).cuboid(-6.0F, -8.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(20, 18).cuboid(-7.0F, -8.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(20, 20).cuboid(6.0F, -9.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(0, 22).cuboid(5.0F, -9.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(4, 22).cuboid(4.0F, -9.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(8, 22).cuboid(3.0F, -9.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(12, 22).cuboid(2.0F, -9.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(16, 22).cuboid(1.0F, -9.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(20, 22).cuboid(0.0F, -9.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(0, 24).cuboid(-1.0F, -9.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(24, 0).cuboid(-2.0F, -9.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(24, 2).cuboid(-3.0F, -9.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(4, 24).cuboid(-4.0F, -9.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(24, 4).cuboid(-5.0F, -9.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(24, 6).cuboid(-6.0F, -9.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(8, 24).cuboid(-7.0F, -9.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(24, 8).cuboid(6.0F, -10.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(24, 10).cuboid(5.0F, -10.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(12, 24).cuboid(4.0F, -10.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(24, 12).cuboid(3.0F, -10.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(24, 14).cuboid(2.0F, -10.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(16, 24).cuboid(1.0F, -10.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(24, 16).cuboid(0.0F, -10.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(24, 18).cuboid(-1.0F, -10.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(20, 24).cuboid(-2.0F, -10.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(24, 20).cuboid(-3.0F, -10.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(24, 22).cuboid(-4.0F, -10.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(24, 24).cuboid(-5.0F, -10.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(0, 26).cuboid(-6.0F, -10.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(4, 26).cuboid(-7.0F, -10.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(8, 26).cuboid(6.0F, -11.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(12, 26).cuboid(5.0F, -11.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(16, 26).cuboid(4.0F, -11.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(20, 26).cuboid(3.0F, -11.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(24, 26).cuboid(2.0F, -11.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(0, 28).cuboid(1.0F, -11.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(28, 0).cuboid(0.0F, -11.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(28, 2).cuboid(-1.0F, -11.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(4, 28).cuboid(-2.0F, -11.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(28, 4).cuboid(-3.0F, -11.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(28, 6).cuboid(-4.0F, -11.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(8, 28).cuboid(-5.0F, -11.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(28, 8).cuboid(-6.0F, -11.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(28, 10).cuboid(-7.0F, -11.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(12, 28).cuboid(5.0F, -12.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(28, 12).cuboid(4.0F, -12.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(28, 14).cuboid(3.0F, -12.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(16, 28).cuboid(2.0F, -12.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(28, 16).cuboid(1.0F, -12.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(28, 18).cuboid(0.0F, -12.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(20, 28).cuboid(-1.0F, -12.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(28, 20).cuboid(-2.0F, -12.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(28, 22).cuboid(-3.0F, -12.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(24, 28).cuboid(-4.0F, -12.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(28, 24).cuboid(-5.0F, -12.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(28, 26).cuboid(-6.0F, -12.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(28, 28).cuboid(5.0F, -13.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(0, 30).cuboid(4.0F, -13.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(4, 30).cuboid(3.0F, -13.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(8, 30).cuboid(2.0F, -13.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(12, 30).cuboid(1.0F, -13.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(16, 30).cuboid(0.0F, -13.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(20, 30).cuboid(-1.0F, -13.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(24, 30).cuboid(-2.0F, -13.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(28, 30).cuboid(-3.0F, -13.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(0, 32).cuboid(-4.0F, -13.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(32, 0).cuboid(-5.0F, -13.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(32, 2).cuboid(-6.0F, -13.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(4, 32).cuboid(4.0F, -14.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(32, 4).cuboid(3.0F, -14.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(32, 6).cuboid(2.0F, -14.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(8, 32).cuboid(1.0F, -14.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(32, 8).cuboid(0.0F, -14.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(32, 10).cuboid(-1.0F, -14.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(12, 32).cuboid(-2.0F, -14.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(32, 12).cuboid(-3.0F, -14.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(32, 14).cuboid(-4.0F, -14.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(16, 32).cuboid(-5.0F, -14.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(32, 16).cuboid(3.0F, -15.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(32, 18).cuboid(2.0F, -15.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(20, 32).cuboid(1.0F, -15.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(32, 20).cuboid(0.0F, -15.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(32, 22).cuboid(-1.0F, -15.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(24, 32).cuboid(-2.0F, -15.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(32, 24).cuboid(-3.0F, -15.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(32, 26).cuboid(-4.0F, -15.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(28, 32).cuboid(1.0F, -16.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(32, 28).cuboid(0.0F, -16.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(32, 30).cuboid(-1.0F, -16.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+		.uv(32, 32).cuboid(-2.0F, -16.0F, 0.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+		return TexturedModelData.of(modelData, 64, 64);
+	}
+	@Override
+	public void setAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	}
+	@Override
+	public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
+		blinding_bomb.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+	}
+
+	@Override
+	public ModelPart getPart() {
+		return blinding_bomb;
+	}
+}

@@ -1,4 +1,4 @@
-package com.dead_comedian.holyhell.entity.custom.spells;
+package com.dead_comedian.holyhell.entity.custom.other;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -11,10 +11,15 @@ import net.minecraft.world.World;
 public class FireBallEntity extends PersistentProjectileEntity {
 
 
-    public FireBallEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
+    public FireBallEntity(EntityType<? extends PersistentProjectileEntity> entityType, double d, double e, double f, World world) {
         super(entityType, world);
+        this.setPos(d, e, f);
+
     }
 
+    public FireBallEntity(EntityType<FireBallEntity> fireBallEntityEntityType, World world) {
+        super(fireBallEntityEntityType,world);
+    }
 
 
     @Override

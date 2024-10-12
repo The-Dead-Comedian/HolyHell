@@ -2,9 +2,10 @@ package com.dead_comedian.holyhell.registries;
 
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.entity.custom.*;
-import com.dead_comedian.holyhell.entity.custom.spells.FallingSwordEntity;
-import com.dead_comedian.holyhell.entity.custom.spells.FireBallEntity;
-import com.dead_comedian.holyhell.entity.custom.spells.GlobularDomeEntity;
+import com.dead_comedian.holyhell.entity.custom.other.BlindingBombEntity;
+import com.dead_comedian.holyhell.entity.custom.other.FallingSwordEntity;
+import com.dead_comedian.holyhell.entity.custom.other.FireBallEntity;
+import com.dead_comedian.holyhell.entity.custom.other.GlobularDomeEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
@@ -15,10 +16,10 @@ import net.minecraft.util.Identifier;
 
 public class HolyHellEntities {
 
-    public static final EntityType<LightBeamEntity> LIGHT_BEAM = Registry.register(Registries.ENTITY_TYPE,
-            new Identifier(Holyhell.MOD_ID, "light_beam"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, LightBeamEntity::new)
-                    .dimensions(EntityDimensions.fixed(0.9f, 6.4f)).build());
+
+
+
+    //MOBS
 
     public static final EntityType<AngelEntity> ANGEL = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Holyhell.MOD_ID, "angel"),
@@ -38,6 +39,8 @@ public class HolyHellEntities {
                     .dimensions(EntityDimensions.fixed(1.5f, 2.5f)).build());
 
 
+    //Projectiles
+
     public static final EntityType<FireBallEntity> FIREBALL = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Holyhell.MOD_ID, "fireball"),
             FabricEntityTypeBuilder.<FireBallEntity>create(SpawnGroup.CREATURE, FireBallEntity::new)
@@ -47,13 +50,21 @@ public class HolyHellEntities {
             FabricEntityTypeBuilder.<FallingSwordEntity>create(SpawnGroup.CREATURE, FallingSwordEntity::new)
                     .dimensions(EntityDimensions.fixed(0.5f, 2f)).build());
 
+    public static final EntityType<BlindingBombEntity> BLINDING_BOMB = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(Holyhell.MOD_ID, "blinding_bomb"),
+            FabricEntityTypeBuilder.<BlindingBombEntity>create(SpawnGroup.CREATURE, BlindingBombEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.5f, 2f)).build());
 
+    //Other
     public static final EntityType<GlobularDomeEntity> GLOBULAR_DOME = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Holyhell.MOD_ID, "globular_dome"),
             FabricEntityTypeBuilder.<GlobularDomeEntity>create(SpawnGroup.CREATURE, GlobularDomeEntity::new)
                     .dimensions(EntityDimensions.fixed(3f, 3f)).build());
 
-
+    public static final EntityType<LightBeamEntity> LIGHT_BEAM = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(Holyhell.MOD_ID, "light_beam"),
+            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, LightBeamEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.9f, 6.4f)).build());
 
 
 

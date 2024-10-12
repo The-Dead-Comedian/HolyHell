@@ -56,7 +56,6 @@ public class KamikazeAngelEntity extends HostileEntity implements Flutterer {
         this.setPathfindingPenalty(PathNodeType.LAVA, -1.0F);
         this.setPathfindingPenalty(PathNodeType.WATER, -1.0F);
         this.setPathfindingPenalty(PathNodeType.WATER_BORDER, 16.0F);
-        this.setPathfindingPenalty(PathNodeType.COCOA, -1.0F);
         this.setPathfindingPenalty(PathNodeType.FENCE, -1.0F);
     }
     @Override
@@ -173,21 +172,21 @@ public class KamikazeAngelEntity extends HostileEntity implements Flutterer {
     public boolean canExplosionDestroyBlock(Explosion explosion, BlockView world, BlockPos pos, BlockState state, float explosionPower) {
         return false;
     }
-    protected void explode(double power) {
-        this.explode((DamageSource)null, power);
-    }
-    protected void explode(@Nullable DamageSource damageSource, double power) {
-        if (!this.getWorld().isClient) {
-            double d = Math.sqrt(power);
-            if (d > 5.0) {
-                d = 5.0;
+        protected void explode(double power) {
+            this.explode((DamageSource)null, power);
+        }
+        protected void explode(@Nullable DamageSource damageSource, double power) {
+            if (!this.getWorld().isClient) {
+                double d = Math.sqrt(power);
+                if (d > 5.0) {
+                    d = 5.0;
+                }
+
+                this.getWorld().createExplosion(this, damageSource, (ExplosionBehavior)null, this.getX(), this.getY(), this.getZ(), (float)(4.0 + this.random.nextDouble() * 1.5 * d), false, World.ExplosionSourceType.TNT);
+                this.discard();
             }
 
-            this.getWorld().createExplosion(this, damageSource, (ExplosionBehavior)null, this.getX(), this.getY(), this.getZ(), (float)(4.0 + this.random.nextDouble() * 1.5 * d), false, World.ExplosionSourceType.TNT);
-            this.discard();
         }
-
-    }
     @Override
     public void onPlayerCollision(PlayerEntity player) {
         super.onPlayerCollision(player);
@@ -197,9 +196,10 @@ public class KamikazeAngelEntity extends HostileEntity implements Flutterer {
             }
     }
 
-
-
-
+    @Override
+    public boolean isImmuneToExplosion() {
+        return true;
+    }
 
     ////////
     // AI //

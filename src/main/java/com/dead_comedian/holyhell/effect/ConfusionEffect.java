@@ -2,14 +2,22 @@ package com.dead_comedian.holyhell.effect;
 
 import com.dead_comedian.holyhell.registries.HolyHellSounds;
 
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.s2c.play.StopSoundS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.math.Box;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -29,7 +37,15 @@ public class ConfusionEffect extends StatusEffect {
     @Override
     public void onApplied(LivingEntity entity, AttributeContainer attributes, int amplifier){
         if( entity.hasStatusEffect(this)){
-            LivingEntity livingEntity;
+            Box userHitbox = new Box(entity.getBlockPos()).expand(50);
+
+            List<LivingEntity> list = entity.getWorld().getNonSpectatingEntities(LivingEntity.class, userHitbox);
+            for(LivingEntity i : list){
+                if(entity instanceof HostileEntity){
+                    ((HostileEntity) entity).targetSelector.add(2, new ActiveTargetGoal<>((MobEntity) entity, LivingEntity.class, true));
+
+                }
+            }
         }
 
         

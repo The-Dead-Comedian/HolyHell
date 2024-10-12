@@ -1,9 +1,9 @@
-package com.dead_comedian.holyhell.client.renderer.spell;
+package com.dead_comedian.holyhell.client.renderer.other;
 
 
 import com.dead_comedian.holyhell.Holyhell;
-import com.dead_comedian.holyhell.client.models.entity.spells.GlobularDomeModel;
-import com.dead_comedian.holyhell.entity.custom.spells.GlobularDomeEntity;
+import com.dead_comedian.holyhell.client.models.entity.other.FallingSwordModel;
+import com.dead_comedian.holyhell.entity.custom.other.FallingSwordEntity;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumer;
@@ -14,13 +14,13 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 
-public class GlobularDomeRenderer extends EntityRenderer<GlobularDomeEntity> {
-    private static final Identifier TEXTURE = new Identifier(Holyhell.MOD_ID, "textures/entity/globular_dome.png");
-    private final GlobularDomeModel<GlobularDomeEntity> model;
+public class FallingSwordRenderer extends EntityRenderer<FallingSwordEntity> {
+    private static final Identifier TEXTURE = new Identifier(Holyhell.MOD_ID, "textures/entity/falling_swords.png");
+    private final FallingSwordModel<FallingSwordEntity> model;
 
-    public GlobularDomeRenderer(EntityRendererFactory.Context context) {
+    public FallingSwordRenderer(EntityRendererFactory.Context context) {
         super(context);
-        this.model = new GlobularDomeModel<>(context.getPart(HolyHellModelLayers.GLOBULAR_DOME));
+        this.model = new FallingSwordModel<>(context.getPart(HolyHellModelLayers.FALLING_SWORD));
     }
 
 
@@ -28,7 +28,7 @@ public class GlobularDomeRenderer extends EntityRenderer<GlobularDomeEntity> {
 
 
     @Override
-    public void render(GlobularDomeEntity mobEntity, float f, float g, MatrixStack matrixStack,
+    public void render(FallingSwordEntity mobEntity, float f, float g, MatrixStack matrixStack,
                        VertexConsumerProvider vertexConsumerProvider, int i) {
         VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(this.model.getLayer(TEXTURE));
         this.model.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -36,7 +36,7 @@ public class GlobularDomeRenderer extends EntityRenderer<GlobularDomeEntity> {
     }
 
     @Override
-    public Identifier getTexture(GlobularDomeEntity entity) {
+    public Identifier getTexture(FallingSwordEntity entity) {
         return TEXTURE;
     }
 

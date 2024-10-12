@@ -2,6 +2,8 @@ package com.dead_comedian.holyhell.entity.custom;
 
 
 
+import com.dead_comedian.holyhell.entity.custom.other.FireBallEntity;
+import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -11,11 +13,11 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
+
+import java.util.EnumSet;
 
 public class AngelEntity extends HostileEntity {
 
@@ -57,7 +59,8 @@ public class AngelEntity extends HostileEntity {
     @Override
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new AngelAttackGoal(this, 1f, true));
+
+        this.goalSelector.add(1, new ShootBulletGoal());
 
         this.goalSelector.add(4, new WanderAroundFarGoal(this, 1D));
         this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 4f));
@@ -66,9 +69,9 @@ public class AngelEntity extends HostileEntity {
     }
     public static DefaultAttributeContainer.Builder createAngelAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 20)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 15)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f)
-                .add(EntityAttributes.GENERIC_ARMOR, 0.5f)
+                .add(EntityAttributes.GENERIC_ARMOR, 0.8f)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2);
     }
 
@@ -116,88 +119,6 @@ public class AngelEntity extends HostileEntity {
     // AI //
     ////////
 
-    public class AngelAttackGoal extends MeleeAttackGoal {
-        private final AngelEntity entity;
-        private int attackDelay = 30;
-        private int ticksUntilNextAttack = 30;
-        private boolean shouldCountTillNextAttack = false;
-
-        public AngelAttackGoal(PathAwareEntity mob, double speed, boolean pauseWhenMobIdle) {
-            super(mob, speed, pauseWhenMobIdle);
-            entity = ((AngelEntity) mob);
-        }
-
-        @Override
-        public void start() {
-            super.start();
-
-            attackDelay = 30;
-            ticksUntilNextAttack = 30;
-        }
-
-
-        @Override
-        protected void attack(LivingEntity pEnemy, double pDistToEnemySqr) {
-            if (isEnemyWithinAttackDistance(pEnemy, pDistToEnemySqr)) {
-                shouldCountTillNextAttack = true;
-
-                if(isTimeToStartAttackAnimation()) {
-                    entity.setAttacking(true);
-                }
-
-                if(isTimeToAttack()) {
-                    this.mob.getLookControl().lookAt(pEnemy.getX(), pEnemy.getEyeY(), pEnemy.getZ());
-                    performAttack(pEnemy);
-                }
-            } else {
-                resetAttackCooldown();
-                shouldCountTillNextAttack = false;
-                entity.setAttacking(false);
-                entity.attackAnimationTimeout = 0;
-            }
-        }
-
-        private boolean isEnemyWithinAttackDistance(LivingEntity pEnemy, double pDistToEnemySqr) {
-            return pDistToEnemySqr <= this.getSquaredMaxAttackDistance(pEnemy);
-        }
-
-
-        protected boolean isTimeToStartAttackAnimation() {
-            return this.ticksUntilNextAttack <= attackDelay;
-        }
-        protected void resetAttackCooldown() {
-            this.ticksUntilNextAttack = this.getTickCount(attackDelay * 2);
-        }
-
-        protected boolean isTimeToAttack() {
-            return this.ticksUntilNextAttack <= 0;
-        }
-
-        protected void performAttack(LivingEntity pEnemy) {
-
-            this.resetAttackCooldown();
-            this.mob.swingHand(Hand.MAIN_HAND);
-            this.mob.tryAttack(pEnemy);
-        }
-
-        @Override
-        public void tick() {
-            super.tick();
-            if(shouldCountTillNextAttack) {
-                this.ticksUntilNextAttack = Math.max(this.ticksUntilNextAttack - 1, 0);
-                if(ticksUntilNextAttack == 0) {
-                    entity.setAttacking(false);
-                }
-            }
-        }
-
-        @Override
-        public void stop() {
-            entity.setAttacking(false);
-            super.stop();
-        }
-    }
-
 
     //  attacking
         private static final TrackedData<Boolean> ATTACKING =
@@ -228,7 +149,63 @@ public class AngelEntity extends HostileEntity {
     // SUMMONING //
     ///////////////
 
+    public class ShootBulletGoal extends Goal {
+        private int counter;
 
+        public ShootBulletGoal() {
+            this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
+        }
+
+        public boolean canStart() {
+            LivingEntity livingEntity = AngelEntity.this.getTarget();
+            if (livingEntity != null && livingEntity.isAlive()) {
+
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public void start() {
+            this.counter = 20;
+
+        }
+
+        public void stop() {
+
+        }
+
+        public boolean shouldRunEveryTick() {
+            return true;
+        }
+
+        public void tick() {
+            if (AngelEntity.this.getWorld().getDifficulty() != Difficulty.PEACEFUL) {
+                --this.counter;
+                LivingEntity livingEntity = AngelEntity.this.getTarget();
+                if (livingEntity != null) {
+                    AngelEntity.this.getLookControl().lookAt(livingEntity, 180.0F, 180.0F);
+                    double d = AngelEntity.this.squaredDistanceTo(livingEntity);
+                    if (d < 50.0) {
+                            if (this.counter <= 0) {
+                                this.counter = 20 + AngelEntity.this.random.nextInt(10) * 20 / 2;
+                                FireBallEntity fireballEntity = new FireBallEntity( HolyHellEntities.FIREBALL ,AngelEntity.this.getX(), AngelEntity.this.getY() + 1, AngelEntity.this.getZ(), AngelEntity.this.getWorld());
+
+
+
+                                AngelEntity.this.getWorld().spawnEntity(fireballEntity);
+                                fireballEntity.setVelocity(AngelEntity.this, AngelEntity.this.getPitch(), AngelEntity.this.getYaw(), 1.0F, 1.5F, 1.0F);
+
+                            }
+                    } else {
+                        AngelEntity.this.setTarget((LivingEntity)null);
+                    }
+
+                    super.tick();
+                }
+            }
+        }
+    }
 
 
 

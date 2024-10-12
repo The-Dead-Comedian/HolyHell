@@ -1,7 +1,7 @@
 package com.dead_comedian.holyhell.entity.custom;
 
 
-import com.dead_comedian.holyhell.entity.custom.spells.FallingSwordEntity;
+import com.dead_comedian.holyhell.entity.custom.other.FallingSwordEntity;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -10,17 +10,11 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 public class PalladinEntity extends HostileEntity {
 

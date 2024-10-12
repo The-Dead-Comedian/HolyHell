@@ -1,13 +1,14 @@
 package com.dead_comedian.holyhell;
 
 import com.dead_comedian.holyhell.client.models.entity.*;
-import com.dead_comedian.holyhell.client.models.entity.spells.FallingSwordModel;
-import com.dead_comedian.holyhell.client.models.entity.spells.FireBallModel;
-import com.dead_comedian.holyhell.client.models.entity.spells.GlobularDomeModel;
+import com.dead_comedian.holyhell.client.models.entity.other.BlindingBombModel;
+import com.dead_comedian.holyhell.client.models.entity.other.FallingSwordModel;
+import com.dead_comedian.holyhell.client.models.entity.other.FireBallModel;
+import com.dead_comedian.holyhell.client.models.entity.other.GlobularDomeModel;
 import com.dead_comedian.holyhell.client.renderer.*;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsLowerFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsUpperFeatureRenderer;
-import com.dead_comedian.holyhell.client.renderer.spell.*;
+import com.dead_comedian.holyhell.client.renderer.other.*;
 import com.dead_comedian.holyhell.registries.HolyHellBlocks;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
@@ -45,6 +46,9 @@ public class HolyhellClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(HolyHellEntities.FIREBALL, FireBallRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.FIREBALL, FireBallModel::getTexturedModelData);
+
+        EntityRendererRegistry.register(HolyHellEntities.BLINDING_BOMB, BlindingBombRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.BLINDING_BOMB, BlindingBombModel::getTexturedModelData);
         EntityRendererRegistry.register(HolyHellEntities.FALLING_SWORD, FallingSwordRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.FALLING_SWORD, FallingSwordModel::getTexturedModelData);
 

@@ -2,9 +2,9 @@
 // Exported for Minecraft version 1.17+ for Yarn
 // Paste this class into your mod and generate all required imports
 
-package com.dead_comedian.holyhell.client.models.entity.spells;
+package com.dead_comedian.holyhell.client.models.entity.other;
 
-import com.dead_comedian.holyhell.entity.custom.spells.GlobularDomeEntity;
+import com.dead_comedian.holyhell.entity.custom.other.GlobularDomeEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
