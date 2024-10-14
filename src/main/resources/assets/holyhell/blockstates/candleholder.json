@@ -1,7 +1,14 @@
 {
   "variants": {
-    "": {
+    "piece=0": {
       "model": "holyhell:block/candleholder_down",
+      "y": 0
+    },
+    "piece=1": {
+      "model": "holyhell:block/candleholder_mid",
+      "y": 0
+    },"piece=2": {
+      "model": "holyhell:block/candleholder_up",
       "y": 0
     }
   }

@@ -1,7 +1,9 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"1": "holyhell:block/candleholder_1"
+		"1": "holyhell:block/candleholder_1",
+		"particle": "holyhell:block/candleholder_1"
+
 	},
 	"elements": [
 		{

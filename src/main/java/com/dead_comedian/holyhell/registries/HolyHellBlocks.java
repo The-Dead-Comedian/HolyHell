@@ -2,6 +2,7 @@ package com.dead_comedian.holyhell.registries;
 
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.block.CandelabraBlock;
+import com.dead_comedian.holyhell.block.CandleholderBlock;
 import com.dead_comedian.holyhell.block.DiviningTableBlock;
 import com.dead_comedian.holyhell.block.GlobeBlock;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -39,11 +40,13 @@ public class HolyHellBlocks {
 
             });
     public static final Block CANDLEHOLDER = registerBlock("candleholder",
-            new DiviningTableBlock(FabricBlockSettings.copyOf(Blocks.ANVIL).nonOpaque().noCollision()) {
-                @Override
-                public BlockState rotate(BlockState state, BlockRotation rotation) {
-                    return super.rotate(state, rotation);
+            new CandleholderBlock(FabricBlockSettings.copyOf(Blocks.ANVIL).nonOpaque().noCollision().luminance((state) -> {
+                if(state.get(CandleholderBlock.LIT)){
+                    return 14;
                 }
+                return 0;
+            }) , ParticleTypes.FLAME) {
+
             });
 
     public static final Block GLOBE = registerBlock("globe",
