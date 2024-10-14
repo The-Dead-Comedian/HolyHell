@@ -25,6 +25,8 @@ public class HolyhellClient implements ClientModInitializer {
     public void onInitializeClient() {
         BlockRenderLayerMap.INSTANCE.putBlock(HolyHellBlocks.DIVINING_TABLE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(HolyHellBlocks.GLOBE, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(HolyHellBlocks.CANDELABRA, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(HolyHellBlocks.CANDLEHOLDER, RenderLayer.getCutout());
 
         EntityRendererRegistry.register(HolyHellEntities.LIGHT_BEAM, LightBeamRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.LIGHT_BEAM, LightBeamModel ::getTexturedModelData);

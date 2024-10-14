@@ -40,8 +40,8 @@ public class HolyHellItemGroup {
 
                         entries.add(HolyHellBlocks.DIVINING_TABLE);
                         entries.add(HolyHellBlocks.GLOBE);
-
-
+                        entries.add(HolyHellBlocks.CANDELABRA);
+                        entries.add(HolyHellBlocks.CANDLEHOLDER);
 
                     }).build());
 
