@@ -3,12 +3,19 @@
   "item.holyhell.holy_tear" : "Holy Tear",
   "item.holyhell.holy_grail" : "Holy Grail",
   "item.holyhell.religious_rings" : "Religious Rings",
+  "item.holyhell.blinding_bomb": "Blinding Bomb",
+  "item.holyhell.globular_dome": "Globular Dome",
+
+  "item.holyhell.holy_arrow": "Holy Arrow",
+  "item.holyhell.baptized_plate": "Baptized Plate",
+  "item.holyhell.enhanced_silk": "Enhanced Silk",
+
 
 
   "item.holyhell.angel_spawn_egg": "Angel Spawn Egg",
   "item.holyhell.heretic_spawn_egg": "Heretic Spawn Egg",
   "item.holyhell.kamikaze_angel_spawn_egg": "Kamikaze Angel Spawn Egg",
-  "item.holyhell.palladin_spawn_egg": "Angel Spawn Egg",
+  "item.holyhell.palladin_spawn_egg": "Palladin Spawn Egg",
 
 
   "item.holyhell.evangelist_helmet": "Evangelist Helmet",
@@ -18,6 +25,9 @@
 
   "block.holyhell.divining_table": "Divining Table",
   "block.holyhell.globe": "Globe",
+  "block.holyhell.candelabra": "Candelabra",
+  "block.holyhell.candleholder": "Candle Holder",
+
 
 
   "entity.holyhell.angel" : "Angel",
