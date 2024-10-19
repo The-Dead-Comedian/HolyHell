@@ -46,13 +46,17 @@ public class CandelabraBlock extends Block {
         ItemStack itemStack = player.getStackInHand(hand);
         if (itemStack.isOf(Items.FLINT_AND_STEEL) && !state.get(LIT)) {
             world.setBlockState(pos, state.with(LIT, true));
+            return ActionResult.SUCCESS;
         }
-        if (state.get(LIT)) {
-            world.setBlockState(pos, state.with(LIT, true));
+        if (state.get(LIT) && itemStack.isEmpty()) {
+            world.setBlockState(pos, state.with(LIT, false));
+            return ActionResult.SUCCESS;
         }
         if (itemStack.isOf(Item.fromBlock(HolyHellBlocks.CANDELABRA)) && state.get(CANDLE) < 3) {
-
+           if (!player.isCreative()){
+            itemStack.decrement(1);}
             world.setBlockState(pos, state.with(CANDLE, state.get(CANDLE) + 1));
+
             return ActionResult.SUCCESS;
         }
 

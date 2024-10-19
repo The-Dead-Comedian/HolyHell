@@ -43,6 +43,10 @@ public class HolyhellClient implements ClientModInitializer {
         EntityRendererRegistry.register(HolyHellEntities.PALLADIN, PalladinRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.PALLADIN, PalladinModel::getTexturedModelData);
 
+        EntityRendererRegistry.register(HolyHellEntities.BAB, BabRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.BAB, BabOneModel::getTexturedModelData);
+
+
         EntityRendererRegistry.register(HolyHellEntities.GLOBULAR_DOME, GlobularDomeRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.GLOBULAR_DOME, GlobularDomeModel::getTexturedModelData);
 

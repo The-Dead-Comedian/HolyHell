@@ -20,9 +20,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
 
-import java.util.Arrays;
 
 public class CandleholderBlock extends Block {
     public static final IntProperty PIECE = IntProperty.of("piece",0,2);
@@ -49,8 +47,8 @@ public class CandleholderBlock extends Block {
 
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
 
-        world.setBlockState(pos.up(), state.with(PIECE, 1), 3);
-        world.setBlockState(pos.up().up(), state.with(PIECE, 2), 3);
+            world.setBlockState(pos.up(), state.with(PIECE, 1), 3);
+            world.setBlockState(pos.up().up(), state.with(PIECE, 2), 3);
 
     }
 
@@ -59,9 +57,11 @@ public class CandleholderBlock extends Block {
         ItemStack itemStack = player.getStackInHand(hand);
         if (itemStack.isOf(Items.FLINT_AND_STEEL) && !state.get(LIT) && state.get(PIECE) == 2) {
             world.setBlockState(pos, state.with(LIT, true));
+            return ActionResult.SUCCESS;
         }
         if (state.get(LIT) && state.get(PIECE) == 2) {
-            world.setBlockState(pos, state.with(LIT, true));
+            world.setBlockState(pos, state.with(LIT, false));
+            return ActionResult.SUCCESS;
         }
         return super.onUse(state, world, pos, player, hand, hit);
     }

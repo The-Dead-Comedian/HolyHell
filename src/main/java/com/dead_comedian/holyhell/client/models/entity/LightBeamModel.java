@@ -31,8 +31,8 @@ public class LightBeamModel <T extends LightBeamEntity> extends SinglePartEntity
 	}
 	@Override
 	public void setAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.getPart().traverse().forEach(ModelPart::resetTransform);
-		this.updateAnimation(entity.idleAnimationState, ModAnimations.SPAWN, ageInTicks, 1f);
+
+
 	}
 	@Override
 	public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {

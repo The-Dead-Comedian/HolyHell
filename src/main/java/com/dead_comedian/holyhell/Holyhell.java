@@ -1,11 +1,8 @@
 package com.dead_comedian.holyhell;
 
-import com.dead_comedian.holyhell.entity.custom.HailingHereticEntity;
-import com.dead_comedian.holyhell.entity.custom.KamikazeAngelEntity;
-import com.dead_comedian.holyhell.entity.custom.PalladinEntity;
+import com.dead_comedian.holyhell.entity.custom.*;
 import com.dead_comedian.holyhell.event.ServerTickHandler;
 import com.dead_comedian.holyhell.registries.*;
-import com.dead_comedian.holyhell.entity.custom.AngelEntity;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -36,6 +33,7 @@ public class Holyhell implements ModInitializer {
 		FabricDefaultAttributeRegistry.register(HolyHellEntities.PALLADIN, PalladinEntity.createPalladinAttributes());
 		FabricDefaultAttributeRegistry.register(HolyHellEntities.HAILING_HERETIC, HailingHereticEntity.createHereticAttributes());
 		FabricDefaultAttributeRegistry.register(HolyHellEntities.KAMIKAZE_ANGEL, KamikazeAngelEntity.createAngelAttributes());
+		FabricDefaultAttributeRegistry.register(HolyHellEntities.BAB, BabEntity .createAngelAttributes());
 
 
 		ServerTickEvents.END_WORLD_TICK.register(new ServerTickHandler());

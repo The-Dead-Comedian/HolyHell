@@ -38,6 +38,10 @@ public class HolyHellEntities {
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, PalladinEntity::new)
                     .dimensions(EntityDimensions.fixed(1.5f, 2.5f)).build());
 
+    public static final EntityType<BabEntity> BAB = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(Holyhell.MOD_ID, "bab"),
+            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, BabEntity::new)
+                    .dimensions(EntityDimensions.fixed(1.5f, 2.5f)).build());
 
     //Projectiles
 

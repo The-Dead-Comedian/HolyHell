@@ -18,6 +18,11 @@ public class HolyHellModelLayers {
     public static final EntityModelLayer KAMIKAZE_ANGEL =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "kamikaze_angel"), "main");
 
+    public static final EntityModelLayer BAB =
+            new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "bab"), "main");
+
+
+
     public static final EntityModelLayer FIREBALL =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "fireball"), "main");
     public static final EntityModelLayer FALLING_SWORD =
