@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+
+    "X": {
+      "item": "holyhell:baptized_plate"
+    },
+    "#": {
+      "item": "holyhell:enhanced_silk"
+    }
+  },
+
+  "pattern": [
+    "X X",
+    "XXX",
+    " # "
+  ],
+  "result": {
+    "item": "holyhell:holy_grail"
+  },
+  "show_notification": true
+}
