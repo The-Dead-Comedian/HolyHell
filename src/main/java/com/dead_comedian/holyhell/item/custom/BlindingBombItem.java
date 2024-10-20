@@ -22,7 +22,7 @@ public class BlindingBombItem extends Item {
         if (!world.isClient) {
             BlindingBombEntity snowballEntity = new BlindingBombEntity(world, user);
             snowballEntity.setItem(itemStack);
-            snowballEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1.5F, 1.0F);
+            snowballEntity.setVelocity(user, user.getPitch(), user.getYaw(), 1.0F, 1.5F, 1.0F);
             world.spawnEntity(snowballEntity);
         }
 

@@ -75,6 +75,7 @@ public class AngelEntity extends HostileEntity {
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2);
     }
 
+
     ///////////////
     // ANIMATION //
     ///////////////
