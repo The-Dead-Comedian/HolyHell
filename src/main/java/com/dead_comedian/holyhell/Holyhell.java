@@ -32,7 +32,7 @@ public class Holyhell implements ModInitializer {
 		FabricDefaultAttributeRegistry.register(HolyHellEntities.ANGEL, AngelEntity.createAngelAttributes());
 		FabricDefaultAttributeRegistry.register(HolyHellEntities.PALLADIN, PalladinEntity.createPalladinAttributes());
 		FabricDefaultAttributeRegistry.register(HolyHellEntities.HAILING_HERETIC, HailingHereticEntity.createHereticAttributes());
-		FabricDefaultAttributeRegistry.register(HolyHellEntities.KAMIKAZE_ANGEL, KamikazeAngelEntity.createAngelAttributes());
+		FabricDefaultAttributeRegistry.register(HolyHellEntities.KAMIKAZE_ANGEL, KamikazeAngelEntity.createHereticAttributes());
 		FabricDefaultAttributeRegistry.register(HolyHellEntities.BAB, BabEntity .createAngelAttributes());
 
 
