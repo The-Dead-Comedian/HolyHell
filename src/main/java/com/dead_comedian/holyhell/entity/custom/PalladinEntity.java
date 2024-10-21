@@ -37,6 +37,7 @@ public class PalladinEntity extends HostileEntity {
 
     public PalladinEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
+        this.experiencePoints = 20;
     }
 
     @Override
@@ -75,7 +76,7 @@ public class PalladinEntity extends HostileEntity {
 
     public static DefaultAttributeContainer.Builder createPalladinAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 20)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 50)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f)
                 .add(EntityAttributes.GENERIC_ARMOR, 0.5f)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2);

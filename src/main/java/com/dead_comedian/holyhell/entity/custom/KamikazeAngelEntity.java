@@ -85,8 +85,8 @@ public class KamikazeAngelEntity extends HostileEntity implements Flutterer {
         this.goalSelector.add(4, new WanderAroundFarGoal(this, 1D));
         this.targetSelector.add(1, new ActiveTargetGoal(this, PlayerEntity.class, true));
     }
-    public static DefaultAttributeContainer.Builder createAngelAttributes() {
-        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0)
+    public static DefaultAttributeContainer.Builder createHereticAttributes() {
+        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 15f)
                 .add(EntityAttributes.GENERIC_FLYING_SPEED, 1)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.7)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.0)

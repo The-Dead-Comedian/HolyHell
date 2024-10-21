@@ -38,6 +38,7 @@ public class HailingHereticEntity extends HostileEntity {
 
     public HailingHereticEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
+        this.experiencePoints = 10;
     }
     @Override
     public void tick() {
@@ -61,9 +62,9 @@ public class HailingHereticEntity extends HostileEntity {
     }
     public static DefaultAttributeContainer.Builder createHereticAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 20)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 25)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3f)
-                .add(EntityAttributes.GENERIC_ARMOR, 1f)
+                .add(EntityAttributes.GENERIC_ARMOR, 1.5f)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 8);
     }
     @Override

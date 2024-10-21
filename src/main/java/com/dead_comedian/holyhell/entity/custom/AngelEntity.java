@@ -69,7 +69,7 @@ public class AngelEntity extends HostileEntity {
     }
     public static DefaultAttributeContainer.Builder createAngelAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 15)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 10)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f)
                 .add(EntityAttributes.GENERIC_ARMOR, 0.8f)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2);
