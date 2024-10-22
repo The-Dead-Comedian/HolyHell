@@ -8,13 +8,15 @@ import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.ArrowEntityRenderer;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.ProjectileEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 
-public class FireBallRenderer extends EntityRenderer<FireBallEntity> {
+public class FireBallRenderer extends ProjectileEntityRenderer<FireBallEntity> {
     int timer = 1;
     private static final Identifier TEXTURE1 = new Identifier(Holyhell.MOD_ID, "textures/entity/fireball/fireball1.png");
     private static final Identifier TEXTURE2 = new Identifier(Holyhell.MOD_ID, "textures/entity/fireball/fireball2.png");
@@ -51,7 +53,6 @@ public class FireBallRenderer extends EntityRenderer<FireBallEntity> {
         timer++;
 
         if (timer <= 2) {
-            System.out.println("work");
             return TEXTURE1;
         } else if (timer <= 4 && timer > 2) {
             return TEXTURE1;
