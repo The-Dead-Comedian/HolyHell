@@ -11,7 +11,7 @@ public class FallingSwordEntity extends PersistentProjectileEntity {
     private int ticksLeft;
     public FallingSwordEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
         super(entityType, world);
-        this.ticksLeft =150;
+        this.ticksLeft =50;
     }
 
     @Override

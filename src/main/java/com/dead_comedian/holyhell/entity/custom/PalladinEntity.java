@@ -23,7 +23,6 @@ public class PalladinEntity extends HostileEntity {
     // VARIABLES //
     ///////////////
 
-    int counter = 0;
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
 
@@ -54,7 +53,7 @@ public class PalladinEntity extends HostileEntity {
         cooldown++;
 
         FuckThisImDoingMyOwnSystem(cooldown);
-        if (cooldown == 250) {
+        if (cooldown == 100) {
             cooldown = 0;
         }
         if (this.getWorld().isClient()) {
