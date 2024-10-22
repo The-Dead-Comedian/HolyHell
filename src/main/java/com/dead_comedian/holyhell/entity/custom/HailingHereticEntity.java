@@ -40,16 +40,17 @@ public class HailingHereticEntity extends HostileEntity {
         super(entityType, world);
         this.experiencePoints = 10;
     }
+
     @Override
     public void tick() {
         super.tick();
 
 
-
-        if(this.getWorld().isClient()) {
+        if (this.getWorld().isClient()) {
             setupAnimationStates();
         }
     }
+
     @Override
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
@@ -60,6 +61,7 @@ public class HailingHereticEntity extends HostileEntity {
         this.goalSelector.add(6, new LookAroundGoal(this));
         this.targetSelector.add(1, new ActiveTargetGoal(this, PlayerEntity.class, true));
     }
+
     public static DefaultAttributeContainer.Builder createHereticAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 25)
@@ -67,6 +69,7 @@ public class HailingHereticEntity extends HostileEntity {
                 .add(EntityAttributes.GENERIC_ARMOR, 1.5f)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 8);
     }
+
     @Override
     protected void initDataTracker() {
         super.initDataTracker();
@@ -81,33 +84,32 @@ public class HailingHereticEntity extends HostileEntity {
 
 
     private void setupAnimationStates() {
-        if (this.idleAnimationTimeout <= 0 ) {
+        if (this.idleAnimationTimeout <= 0) {
             this.idleAnimationTimeout = this.random.nextInt(20) + 40;
 
             this.idleAnimationState.start(this.age);
-
 
 
         } else {
             --this.idleAnimationTimeout;
         }
 
-        if(this.isAttacking() && attackAnimationTimeout <= 0) {
+        if (this.isAttacking() && attackAnimationTimeout <= 0) {
             attackAnimationTimeout = 40;
             attackAnimationState.startIfNotRunning(this.age);
-
 
 
         } else {
             --this.attackAnimationTimeout;
         }
 
-        if(!this.isAttacking()) {
+        if (!this.isAttacking()) {
             attackAnimationState.stop();
         }
 
 
     }
+
     @Override
     protected void updateLimbs(float posDelta) {
         float f = this.getPose() == EntityPose.STANDING ? Math.min(posDelta * 6.0f, 1.0f) : 0.0f;
@@ -122,12 +124,13 @@ public class HailingHereticEntity extends HostileEntity {
 
     public class HereticAttackGoal extends MeleeAttackGoal {
 
-
+        int tick1;
         private final HailingHereticEntity entity;
-        private int attackDelay = 20;
-        private int ticksUntilNextAttack = 20;
+        private int attackDelay = 15;
+        private int ticksUntilNextAttack = 15;
         private boolean shouldCountTillNextAttack = false;
         public static boolean render = false;
+
         public HereticAttackGoal(PathAwareEntity mob, double speed, boolean pauseWhenMobIdle) {
             super(mob, speed, pauseWhenMobIdle);
             entity = ((HailingHereticEntity) mob);
@@ -136,9 +139,9 @@ public class HailingHereticEntity extends HostileEntity {
         @Override
         public void start() {
             super.start();
-
-            attackDelay = 20;
-            ticksUntilNextAttack = 20;
+            tick1 = 0;
+            attackDelay = 15;
+            ticksUntilNextAttack = 15;
         }
 
 
@@ -148,14 +151,13 @@ public class HailingHereticEntity extends HostileEntity {
                 shouldCountTillNextAttack = true;
 
 
-
-                if(isTimeToStartAttackAnimation()) {
+                if (isTimeToStartAttackAnimation()) {
                     entity.setAttacking(true);
                 }
 
-                if(isTimeToAttack()) {
+                if (isTimeToAttack()) {
                     this.mob.getLookControl().lookAt(pEnemy.getX(), pEnemy.getEyeY(), pEnemy.getZ());
-                    pEnemy.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS , 20 , 99));
+                    pEnemy.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20, 99));
                     render = true;
 
                     performAttack(pEnemy);
@@ -169,24 +171,27 @@ public class HailingHereticEntity extends HostileEntity {
                 entity.attackAnimationTimeout = 0;
             }
         }
-        public static void safetyMeasure(){
-            int tick1 = 0;
-            while(true){
-                if(render){
 
-                    tick1++;
-                    System.out.println(tick1);
-                    if (tick1 == 20  ){
-                        tick1 = 0;
-                        render = false;
+        public void safetyMeasure() {
 
-                    }
+
+            if (render) {
+
+
+                System.out.println(tick1);
+                if (tick1 == 20) {
+                    tick1 = 0;
+                    render = false;
+
+
                 }
             }
         }
-        public static boolean shouldRender(){
+
+        public static boolean shouldRender() {
             return render;
         }
+
         private boolean isEnemyWithinAttackDistance(LivingEntity pEnemy, double pDistToEnemySqr) {
             return pDistToEnemySqr <= this.getSquaredMaxAttackDistance(pEnemy);
         }
@@ -195,6 +200,7 @@ public class HailingHereticEntity extends HostileEntity {
         protected boolean isTimeToStartAttackAnimation() {
             return this.ticksUntilNextAttack <= attackDelay;
         }
+
         protected void resetAttackCooldown() {
             this.ticksUntilNextAttack = this.getTickCount(attackDelay * 2);
         }
@@ -213,9 +219,11 @@ public class HailingHereticEntity extends HostileEntity {
         @Override
         public void tick() {
             super.tick();
-            if(shouldCountTillNextAttack) {
+            tick1++;
+            safetyMeasure();
+            if (shouldCountTillNextAttack) {
                 this.ticksUntilNextAttack = Math.max(this.ticksUntilNextAttack - 1, 0);
-                if(ticksUntilNextAttack == 0) {
+                if (ticksUntilNextAttack == 0) {
                     entity.setAttacking(false);
                 }
             }
@@ -231,22 +239,25 @@ public class HailingHereticEntity extends HostileEntity {
 
     // attacking
 
-        private static final TrackedData<Boolean> ATTACKING =
+    private static final TrackedData<Boolean> ATTACKING =
             DataTracker.registerData(HailingHereticEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-        public void setAttacking(boolean attacking) {
+
+    public void setAttacking(boolean attacking) {
         this.dataTracker.set(ATTACKING, attacking);
     }
-        @Override
-        public boolean isAttacking() {
+
+    @Override
+    public boolean isAttacking() {
         return this.dataTracker.get(ATTACKING);
     }
-        @Override
-        public boolean tryAttack(Entity target){
+
+    @Override
+    public boolean tryAttack(Entity target) {
         boolean bl = super.tryAttack(target);
-        if(bl){
+        if (bl) {
             float f = this.getWorld().getLocalDifficulty(this.getBlockPos()).getLocalDifficulty();
-            if(this.getMainHandStack().isEmpty() && this.isOnFire() && this.random.nextFloat() < f * 0.3F){
-                target.setOnFireFor(2 * (int)f);
+            if (this.getMainHandStack().isEmpty() && this.isOnFire() && this.random.nextFloat() < f * 0.3F) {
+                target.setOnFireFor(2 * (int) f);
             }
         }
         setAttacking(true);
@@ -254,9 +265,7 @@ public class HailingHereticEntity extends HostileEntity {
     }
 
 
-
-
-        }
+}
 
 
 
