@@ -35,9 +35,6 @@ public class DiviningTableBlock extends HorizontalFacingBlock {
         return super.onUse(state, world, pos, player, hand, hit);
     }
 
-    public static boolean isHasBeenInteracted() {
-        return hasBeenInteracted;
-    }
 
     @Nullable
     @Override

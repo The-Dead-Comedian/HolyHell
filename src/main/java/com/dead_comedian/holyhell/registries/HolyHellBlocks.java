@@ -1,10 +1,7 @@
 package com.dead_comedian.holyhell.registries;
 
 import com.dead_comedian.holyhell.Holyhell;
-import com.dead_comedian.holyhell.block.CandelabraBlock;
-import com.dead_comedian.holyhell.block.CandleholderBlock;
-import com.dead_comedian.holyhell.block.DiviningTableBlock;
-import com.dead_comedian.holyhell.block.GlobeBlock;
+import com.dead_comedian.holyhell.block.*;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
@@ -67,6 +64,15 @@ public class HolyHellBlocks {
             }) , ParticleTypes.FLAME) {
 
             });
+
+    public static final Block STONE_CROSS = registerBlock("stone_cross",
+            new StoneCrossBlock(FabricBlockSettings
+                    .copyOf(Blocks.STONE)
+                    .nonOpaque()
+                    .noCollision()
+                    .requiresTool()
+                    .strength(3.5F)
+            ));
 
     public static final Block GLOBE = registerBlock("globe",
             new GlobeBlock(FabricBlockSettings

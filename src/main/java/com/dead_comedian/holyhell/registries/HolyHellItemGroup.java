@@ -20,6 +20,7 @@ public class HolyHellItemGroup {
                         entries.add(HolyHellItems.GLOBULAR_DOME);
                         entries.add(HolyHellItems.RELIGIOUS_RINGS);
 
+
                         entries.add(HolyHellItems.HOLY_ARROW);
 
                         entries.add(HolyHellItems.HOLY_GRAIL);
@@ -42,6 +43,8 @@ public class HolyHellItemGroup {
                         entries.add(HolyHellBlocks.GLOBE);
                         entries.add(HolyHellBlocks.CANDELABRA);
                         entries.add(HolyHellBlocks.CANDLEHOLDER);
+                        entries.add(HolyHellBlocks.STONE_CROSS);
+
 
                     }).build());
 
