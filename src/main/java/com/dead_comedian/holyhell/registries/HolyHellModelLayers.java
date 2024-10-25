@@ -9,6 +9,7 @@ public class HolyHellModelLayers {
     public static final EntityModelLayer LIGHT_BEAM =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "light_beam"), "main");
 
+
     public static final EntityModelLayer ANGEL =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "angel"), "main");
     public static final EntityModelLayer PALLADIN =
@@ -17,7 +18,6 @@ public class HolyHellModelLayers {
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "hailing_heretic"), "main");
     public static final EntityModelLayer KAMIKAZE_ANGEL =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "kamikaze_angel"), "main");
-
     public static final EntityModelLayer BAB =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "bab"), "main");
 
@@ -31,6 +31,12 @@ public class HolyHellModelLayers {
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "globular_dome"), "main");
     public static final EntityModelLayer BLINDING_BOMB =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "blinding_bomb"), "main");
+
+    public static final EntityModelLayer TRAPPED_STONE_CROSS =
+            new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "trapped_stone_cross"), "main");
+
+
+
     public static final EntityModelLayer RELIGIOUS_RINGS =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "religious_rings"), "main");
     public static final EntityModelLayer RELIGIOUS_RINGSV =

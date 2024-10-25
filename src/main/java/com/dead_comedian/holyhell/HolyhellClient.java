@@ -1,10 +1,7 @@
 package com.dead_comedian.holyhell;
 
 import com.dead_comedian.holyhell.client.models.entity.*;
-import com.dead_comedian.holyhell.client.models.entity.other.BlindingBombModel;
-import com.dead_comedian.holyhell.client.models.entity.other.FallingSwordModel;
-import com.dead_comedian.holyhell.client.models.entity.other.FireBallModel;
-import com.dead_comedian.holyhell.client.models.entity.other.GlobularDomeModel;
+import com.dead_comedian.holyhell.client.models.entity.other.*;
 import com.dead_comedian.holyhell.client.renderer.*;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsLowerFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsUpperFeatureRenderer;
@@ -62,7 +59,8 @@ public class HolyhellClient implements ClientModInitializer {
         EntityRendererRegistry.register(HolyHellEntities.FALLING_SWORD, FallingSwordRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.FALLING_SWORD, FallingSwordModel::getTexturedModelData);
 
-
+        EntityRendererRegistry.register(HolyHellEntities.TRAPPED_STONE_CROSS, TrappedStoneCrossRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.TRAPPED_STONE_CROSS, TrappedStoneCrossModel::getTexturedModelData);
         //FEATURE
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.RELIGIOUS_RINGS, ReligiousRingsLowerFeatureRenderer::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.RELIGIOUS_RINGSV, ReligiousRingsUpperFeatureRenderer::getTexturedModelData);

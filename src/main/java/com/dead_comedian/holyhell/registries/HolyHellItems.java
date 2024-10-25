@@ -17,6 +17,8 @@ public class HolyHellItems {
     public static final Item HOLY_GRAIL = registerItem("holy_grail", new HolyGrailItem(HolyHellEntities.GLOBULAR_DOME, new FabricItemSettings()));
     public static final Item BLINDING_BOMB = registerItem("blinding_bomb", new BlindingBombItem(new FabricItemSettings()));
     public static final Item GLOBULAR_DOME = registerItem("globular_dome", new GlobularDomeItem(new FabricItemSettings()));
+    public static final Item TRAPPED_STONE_CROSS = registerItem("trapped_stone_cross", new TrappedStoneCrossItem(   new FabricItemSettings()));
+
     public static final Item HOLY_ARROW = registerItem("holy_arrow", new HolyArrowItem(new FabricItemSettings()));
 
     public static final Item RELIGIOUS_RINGS = registerItem("religious_rings", new ReligiousRingsItem(new FabricItemSettings()));
