@@ -9,6 +9,16 @@ public class HolyHellModelLayers {
     public static final EntityModelLayer LIGHT_BEAM =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "light_beam"), "main");
 
+    public static final EntityModelLayer LIGHT_BEAM1 =
+            new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "light_beam1"), "main");
+    public static final EntityModelLayer LIGHT_BEAM2 =
+            new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "light_beam2"), "main");
+    public static final EntityModelLayer LIGHT_BEAM3 =
+            new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "light_beam3"), "main");
+    public static final EntityModelLayer LIGHT_BEAM4 =
+            new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "light_beam4"), "main");
+    public static final EntityModelLayer LIGHT_BEAM5 =
+            new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "light_beam5"), "main");
 
     public static final EntityModelLayer ANGEL =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "angel"), "main");

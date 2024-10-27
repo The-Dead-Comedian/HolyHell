@@ -7,7 +7,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
-
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -16,6 +16,7 @@ public class TrappedStoneCrossEntity extends PersistentProjectileEntity {
 
 
     boolean playerDetected = false;
+
 
     public TrappedStoneCrossEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
         super(entityType, world);
@@ -31,19 +32,36 @@ public class TrappedStoneCrossEntity extends PersistentProjectileEntity {
     @Override
     public void onPlayerCollision(PlayerEntity player) {
         super.onPlayerCollision(player);
+        this.discard();
+        player.giveItemStack(new ItemStack(HolyHellItems.TRAPPED_STONE_CROSS,1));
     }
 
     @Override
     protected void onHit(LivingEntity target) {
         super.onHit(target);
         target.damage(this.getDamageSources().fallingBlock(this), 15);
-        this.discard();
-        ((PlayerEntity)target).giveItemStack(new ItemStack(HolyHellItems.TRAPPED_STONE_CROSS,1));
     }
 
 
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+        nbt.putBoolean("Detected", this.isDetected());
+
+    }
+
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+        this.setPlayerDetected(nbt.getBoolean("Detected"));
+
+    }
 
 
+    public boolean isDetected(){
+        return playerDetected;
+    }
+    public void setPlayerDetected(boolean banana){
+        playerDetected = banana;
+    }
     public void detectPlayer() {
         List<Entity> entityBelow = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0, 50, 0).offset(0, -51, 0));
 

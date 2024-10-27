@@ -6,6 +6,7 @@ import com.dead_comedian.holyhell.client.renderer.*;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsLowerFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsUpperFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.other.*;
+import com.dead_comedian.holyhell.entity.custom.LightBeamEntity;
 import com.dead_comedian.holyhell.registries.HolyHellBlocks;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
@@ -46,6 +47,12 @@ public class HolyhellClient implements ClientModInitializer {
         //NON MOBS
         EntityRendererRegistry.register(HolyHellEntities.LIGHT_BEAM, LightBeamRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.LIGHT_BEAM, LightBeamModel ::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.LIGHT_BEAM1, LightBeamModel1 ::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.LIGHT_BEAM2, LightBeamModel2::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.LIGHT_BEAM3, LightBeamModel3::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.LIGHT_BEAM4, LightBeamModel4::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.LIGHT_BEAM5, LightBeamModel5::getTexturedModelData);
+
 
         EntityRendererRegistry.register(HolyHellEntities.GLOBULAR_DOME, GlobularDomeRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.GLOBULAR_DOME, GlobularDomeModel::getTexturedModelData);
