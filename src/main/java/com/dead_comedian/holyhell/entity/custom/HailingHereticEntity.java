@@ -178,7 +178,7 @@ public class HailingHereticEntity extends HostileEntity {
             if (render) {
 
 
-                System.out.println(tick1);
+
                 if (tick1 == 20) {
                     tick1 = 0;
                     render = false;

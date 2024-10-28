@@ -24,8 +24,7 @@ public class LightBeamEntity extends Entity {
     ///////////////
 
 
-    private static final TrackedData<Integer> LEVEL =
-            DataTracker.registerData(LightBeamEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Integer> LEVEL = DataTracker.registerData(LightBeamEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
     int capacity;
 
@@ -142,12 +141,14 @@ public class LightBeamEntity extends Entity {
                 b = capacity > current;
 
             } while (b);
+
+
             if (current > 20) {
                 current = 0;
                 this.kill();
             }
 
-        } else  if (this.getLevel() == 1) {
+        } else if (this.getLevel() == 1) {
             for (PlayerEntity i : list) {
 
                 capacity = capacity + 30;
@@ -184,12 +185,6 @@ public class LightBeamEntity extends Entity {
             }
 
 
-
-
-
-
-
-
         } else if (this.getLevel() == 2) {
             for (PlayerEntity i : list) {
 
@@ -220,18 +215,12 @@ public class LightBeamEntity extends Entity {
                 }
 
                 b = capacity > current;
-                System.out.println(current);
+
             } while (b);
             if (current > 35) {
                 current = 0;
                 this.kill();
             }
-
-
-
-
-
-
 
 
         } else if (this.getLevel() == 3) {
@@ -267,24 +256,17 @@ public class LightBeamEntity extends Entity {
 
             } while (b);
             BlockPos blockPos = this.getBlockPos();
-            PalladinEntity palladinEntity = new PalladinEntity(HolyHellEntities.PALLADIN, this.getWorld());
-            this.getWorld().spawnEntity(palladinEntity);
-            palladinEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), palladinEntity.getYaw(), palladinEntity.getPitch());
+            if (!this.getWorld().isClient()) {
 
-
-
-
+                PalladinEntity palladinEntity = new PalladinEntity(HolyHellEntities.PALLADIN, this.getWorld());
+                this.getWorld().spawnEntity(palladinEntity);
+                palladinEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), palladinEntity.getYaw(), palladinEntity.getPitch());
+            }
 
             if (current > 30) {
                 current = 0;
                 this.kill();
             }
-
-
-
-
-
-
 
 
         } else if (this.getLevel() == 4) {
@@ -321,12 +303,15 @@ public class LightBeamEntity extends Entity {
 
             int c = random.nextInt(2);
             BlockPos blockPos = this.getBlockPos();
-            for(int i = 0; i <= c; i++){
+            if (!this.getWorld().isClient()) {
+
+                for (int i = 0; i <= c; i++) {
 
 
-                PalladinEntity palladinEntity = new PalladinEntity(HolyHellEntities.PALLADIN, this.getWorld());
-                this.getWorld().spawnEntity(palladinEntity);
-                palladinEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), palladinEntity.getYaw(), palladinEntity.getPitch());
+                    PalladinEntity palladinEntity = new PalladinEntity(HolyHellEntities.PALLADIN, this.getWorld());
+                    this.getWorld().spawnEntity(palladinEntity);
+                    palladinEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), palladinEntity.getYaw(), palladinEntity.getPitch());
+                }
             }
             if (current > 35) {
                 current = 0;
@@ -334,13 +319,7 @@ public class LightBeamEntity extends Entity {
             }
 
 
-
-
-
-
-
-
-        } else  if (this.getLevel() == 5) {
+        } else if (this.getLevel() == 5) {
             for (PlayerEntity i : list) {
 
                 capacity = capacity + 40;
@@ -375,31 +354,23 @@ public class LightBeamEntity extends Entity {
 
             int c = random.nextInt(2);
             BlockPos blockPos = this.getBlockPos();
-            for(int i = 0; i <= c; i++){
+            if (!this.getWorld().isClient()) {
+                for (int i = 0; i <= c; i++) {
 
-
-            PalladinEntity palladinEntity = new PalladinEntity(HolyHellEntities.PALLADIN, this.getWorld());
-            this.getWorld().spawnEntity(palladinEntity);
-            palladinEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), palladinEntity.getYaw(), palladinEntity.getPitch());
+                    PalladinEntity palladinEntity = new PalladinEntity(HolyHellEntities.PALLADIN, this.getWorld());
+                    this.getWorld().spawnEntity(palladinEntity);
+                    palladinEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), palladinEntity.getYaw(), palladinEntity.getPitch());
+                }
+                BabEntity babEntity = new BabEntity(HolyHellEntities.BAB, this.getWorld());
+                this.getWorld().spawnEntity(babEntity);
+                babEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), babEntity.getYaw(), babEntity.getPitch());
             }
-            BabEntity babEntity = new BabEntity(HolyHellEntities.BAB, this.getWorld());
-            this.getWorld().spawnEntity(babEntity);
-            babEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), babEntity.getYaw(), babEntity.getPitch());
-
-
 
             if (current > capacity) {
                 current = 0;
                 this.kill();
             }
         }
-
-
-
-
-
-
-
 
 
     }

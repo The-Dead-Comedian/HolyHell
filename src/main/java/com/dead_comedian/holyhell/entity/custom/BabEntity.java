@@ -162,7 +162,7 @@ public class BabEntity extends HostileEntity {
 
     @Override
     public boolean collidesWith(Entity other) {
-            System.out.println("ni");
+
         return super.collidesWith(other);
     }
 }

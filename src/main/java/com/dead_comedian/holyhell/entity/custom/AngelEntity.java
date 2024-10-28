@@ -214,7 +214,7 @@ public class AngelEntity extends HostileEntity implements RangedAttackMob {
                         if (this.counter == 0) {
                             this.counter = 80;
                         }
-                        System.out.println(counter);
+
 
                     } else {
                         AngelEntity.this.setTarget((LivingEntity) null);

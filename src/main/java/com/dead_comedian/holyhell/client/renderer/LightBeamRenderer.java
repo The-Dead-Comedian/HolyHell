@@ -50,11 +50,10 @@ public class LightBeamRenderer extends EntityRenderer<LightBeamEntity> {
         } else if (mobEntity.getLevel() == 1) {
             VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(this.model1.getLayer(TEXTURE));
             this.model1.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 0.3F);
-            System.out.println("WAAAA");
+
         } else if (mobEntity.getLevel() == 2) {
             VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(this.model2.getLayer(TEXTURE));
             this.model2.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 0.3F);
-            System.out.println("WAAAA");
         } else if (mobEntity.getLevel() == 3) {
             VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(this.model3.getLayer(TEXTURE));
             this.model3.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 0.3F);

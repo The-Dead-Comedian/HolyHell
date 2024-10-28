@@ -13,7 +13,7 @@ public class EnlightenedEffect extends StatusEffect {
     @Override
     public void onApplied(LivingEntity entity, AttributeContainer attributes, int amplifier) {
         super.onApplied(entity, attributes, amplifier);
-        System.out.println("wok");
+
     }
 
 }

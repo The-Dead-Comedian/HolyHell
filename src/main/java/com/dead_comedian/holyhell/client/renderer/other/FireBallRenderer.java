@@ -37,7 +37,7 @@ public class FireBallRenderer extends ProjectileEntityRenderer<FireBallEntity> {
             timer++;
         if (timer <= 20) {
             vertexConsumer = vertexConsumerProvider.getBuffer(this.model.getLayer(TEXTURE1));
-            System.out.println(timer);
+
         } else if (timer <= 40 && timer > 20) {
             vertexConsumer = vertexConsumerProvider.getBuffer(this.model.getLayer(TEXTURE2));
         } else if (timer <= 60 && timer > 40) {

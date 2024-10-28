@@ -26,7 +26,7 @@ public class JesistenceEffect extends StatusEffect {
     public void applyUpdateEffect(LivingEntity pLivingEntity, int pAmplifier) {
         if (!pLivingEntity.getWorld().isClient()) {
           DamageSources a = pLivingEntity.getDamageSources();
-          System.out.println(a);
+
         }
 
         super.applyUpdateEffect(pLivingEntity, pAmplifier);

@@ -20,11 +20,11 @@ public class LightBeamModel5<T extends LightBeamEntity> extends SinglePartEntity
 	public static TexturedModelData getTexturedModelData() {
 		ModelData modelData = new ModelData();
 		ModelPartData modelPartData = modelData.getRoot();
-		ModelPartData bone = modelPartData.addChild("bone", ModelPartBuilder.create().uv(20, 0).cuboid(-12.5F, -103.0F, -31.5F, 22.0F, 0.0F, 40.0F, new Dilation(0.0F))
-		.uv(20, 0).cuboid(-12.5F, 0.0F, -31.5F, 22.0F, 0.0F, 40.0F, new Dilation(0.0F))
-		.uv(0, 0).cuboid(-9.0F, -103.0F, -19.0F, 15.0F, 103.0F, 15.0F, new Dilation(0.0F)), ModelTransform.pivot(1.5F, 24.0F, 11.5F));
+		ModelPartData bone = modelPartData.addChild("bone", ModelPartBuilder.create().uv(20, 0).cuboid(-12.5F, 103.0F, -31.5F, 22.0F, 0.0F, 40.0F, new Dilation(0.0F))
+				.uv(20, 0).cuboid(-12.5F, 0.0F, -31.5F, 22.0F, 0.0F, 40.0F, new Dilation(0.0F))
+				.uv(0, 0).cuboid(-9.0F, 0.0F, -19.0F, 15.0F, 103.0F, 15.0F, new Dilation(0.0F)), ModelTransform.pivot(1.5F, 0.0F, 11.5F));
 
-		ModelPartData faze5 = bone.addChild("faze5", ModelPartBuilder.create().uv(191, 7).cuboid(-8.0F, -51.5F, -8.0F, 16.0F, 103.0F, 16.0F, new Dilation(0.0F)), ModelTransform.pivot(-1.5F, -51.5F, -11.5F));
+		ModelPartData faze5 = bone.addChild("faze5", ModelPartBuilder.create().uv(191, 7).cuboid(-8.0F, 51.5F, -8.0F, 16.0F, 103.0F, 16.0F, new Dilation(0.0F)), ModelTransform.pivot(-1.5F, -51.5F, -11.5F));
 		return TexturedModelData.of(modelData, 256, 256);
 	}
 	@Override
