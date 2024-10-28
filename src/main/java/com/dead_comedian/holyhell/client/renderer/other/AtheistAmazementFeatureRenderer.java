@@ -19,7 +19,12 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 
 public class AtheistAmazementFeatureRenderer<T extends LivingEntity> extends FeatureRenderer<T, PlayerEntityModel<T>> {
-    public static final Identifier TEXTURE = new Identifier(Holyhell.MOD_ID,"textures/entity/atheist_amazement.png");
+    int timer = 1;
+    public static final Identifier TEXTURE1 = new Identifier(Holyhell.MOD_ID,"textures/entity/atheist_amazement/atheist_amazement1.png");
+    public static final Identifier TEXTURE2 = new Identifier(Holyhell.MOD_ID,"textures/entity/atheist_amazement/atheist_amazement2.png");
+    public static final Identifier TEXTURE3 = new Identifier(Holyhell.MOD_ID,"textures/entity/atheist_amazement/atheist_amazement3.png");
+    public static final Identifier TEXTURE4 = new Identifier(Holyhell.MOD_ID,"textures/entity/atheist_amazement/atheist_amazement4.png");
+
     private final ModelPart bone;
 
     public AtheistAmazementFeatureRenderer(FeatureRendererContext<T, PlayerEntityModel<T>> context, EntityModelLoader loader) {
@@ -39,15 +44,39 @@ public class AtheistAmazementFeatureRenderer<T extends LivingEntity> extends Fea
 
     @Override
     protected Identifier getTexture(T entity) {
-        return TEXTURE;
+        timer++;
+        if (timer <= 20) {
+            return TEXTURE1;
+        } else if (timer <= 40 && timer > 20) {
+            return TEXTURE2;
+        } else if (timer <= 60 && timer > 40) {
+            return TEXTURE3;
+        } else if (timer <= 80 && timer > 60) {
+            timer = 1;
+            return TEXTURE4;
+        }
+        return TEXTURE1;
+
     }
 
     @Override
     public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T livingEntity, float f, float g, float h, float j, float k, float l) {
         if (HailingHereticEntity.HereticAttackGoal.shouldRender()) {
-            VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityCutoutNoCull(TEXTURE));
 
 
+            VertexConsumer vertexConsumer = null;
+            timer++;
+            if (timer <= 20) {
+                vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityCutoutNoCull(TEXTURE1));
+
+            } else if (timer <= 40 && timer > 20) {
+                vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityCutoutNoCull(TEXTURE2));
+            } else if (timer <= 60 && timer > 40) {
+                vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityCutoutNoCull(TEXTURE3));
+            } else if (timer <= 80 && timer > 60) {
+                vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityCutoutNoCull(TEXTURE4));
+                timer = 1;
+            }
                 matrixStack.push();
 
 

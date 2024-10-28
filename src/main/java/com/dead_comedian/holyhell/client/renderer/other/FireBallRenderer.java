@@ -52,11 +52,11 @@ public class FireBallRenderer extends ProjectileEntityRenderer<FireBallEntity> {
     public Identifier getTexture(FireBallEntity entity) {
         timer++;
 
-        if (timer <= 2) {
+        if (timer <= 20) {
             return TEXTURE1;
-        } else if (timer <= 4 && timer > 2) {
+        } else if (timer <= 40 && timer > 20) {
             return TEXTURE1;
-        } else if (timer <= 6 && timer > 4) {
+        } else if (timer <= 60 && timer > 40) {
             timer = 1;
             return TEXTURE1;
         }
