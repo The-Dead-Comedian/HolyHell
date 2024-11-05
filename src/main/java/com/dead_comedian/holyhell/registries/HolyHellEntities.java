@@ -35,10 +35,21 @@ public class HolyHellEntities {
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, PalladinEntity::new)
                     .dimensions(EntityDimensions.fixed(1.5f, 2.5f)).build());
 
-    public static final EntityType<BabEntity> BAB = Registry.register(Registries.ENTITY_TYPE,
-            new Identifier(Holyhell.MOD_ID, "bab"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, BabEntity::new)
-                    .dimensions(EntityDimensions.fixed(1.5f, 2.5f)).build());
+    public static final EntityType<BabOneEntity> BAB_ONE = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(Holyhell.MOD_ID, "bab_one"),
+            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, BabOneEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.8f, 0.6f)).build());
+
+    public static final EntityType<BabTwoEntity> BAB_TWO = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(Holyhell.MOD_ID, "bab_two"),
+            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, BabTwoEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.8f, 0.8f)).build());
+
+    public static final EntityType<BabThreeEntity> BAB_THREE = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(Holyhell.MOD_ID, "bab_three"),
+            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, BabThreeEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.8f, 0.8f)).build());
+
 
     //Projectiles
 

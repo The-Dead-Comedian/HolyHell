@@ -39,14 +39,13 @@ public class HolyHellItems {
 
 
 
+
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, new Identifier(Holyhell.MOD_ID, name), item);
     }
 
     public static void registerModItems() {
         Holyhell.LOGGER.info("registering items for" + Holyhell.MOD_ID);
-
-
     }
 
 }

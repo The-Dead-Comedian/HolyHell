@@ -1,8 +1,10 @@
 package com.dead_comedian.holyhell.entity.custom;
 
 
-
-import net.minecraft.entity.*;
+import net.minecraft.entity.AnimationState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityPose;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -11,66 +13,72 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.FrogVariant;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.world.World;
 
-public class BabEntity extends HostileEntity {
+import java.util.List;
+
+public class BabTwoEntity extends HostileEntity {
 
 
     ///////////////
     // VARIABLES //
     ///////////////
 
-    int level = 0;
-
-
-
-    public final AnimationState Lvl1IdleAnimationState = new AnimationState();
-    private int Lvl1IdleAnimationTimeout = 0;
 
     public final AnimationState Lvl2IdleAnimationState = new AnimationState();
     private int Lvl2IdleAnimationTimeout = 0;
     public final AnimationState Lvl2AttackAnimationState = new AnimationState();
     public int Lvl2AttackAnimationTimeout = 0;
 
-    public final AnimationState Lvl3IdleAnimationState = new AnimationState();
-    private int Lvl3IdleAnimationTimeout = 0;
-    public final AnimationState Lvl3AttackAnimationState = new AnimationState();
-    public int Lvl3AttackAnimationTimeout = 0;
     //////////
     // MISC //
     //////////
 
-    public BabEntity(EntityType<? extends HostileEntity> entityType, World world) {
+    public BabTwoEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
     }
+
     @Override
     protected void initDataTracker() {
         super.initDataTracker();
         this.dataTracker.startTracking(ATTACKING, false);
-
+        this.dataTracker.startTracking(LEVEL, 0);
     }
+
     @Override
     public void tick() {
         super.tick();
 
-
-
-        if(this.getWorld().isClient()) {
+        List<Entity> entityBelow = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.1, 0.1, 0.1));
+        for (Entity i : entityBelow) {
+            if (i instanceof BabTwoEntity) {
+                if (((BabTwoEntity) i).getLevel() == 0 && this.getLevel() <= 2) {
+                    if (this.collidesWith(i)) {
+                        this.setLevel(this.getLevel() + 1);
+                        System.out.println("a");
+                        i.discard();
+                    }
+                }
+            }
+        }
+        collidesWith(this);
+        if (this.getWorld().isClient()) {
             setupAnimationStates();
         }
     }
+
     @Override
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(4, new WanderAroundFarGoal(this, 1D));
         this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 4f));
-        this.goalSelector.add(1 ,new FollowMobGoal(this,1D,1.0F, 20.0F));
+        this.goalSelector.add(1, new FollowMobGoal(this, 1D, 1.0F, 20.0F));
         this.goalSelector.add(6, new LookAroundGoal(this));
         this.targetSelector.add(1, new ActiveTargetGoal(this, PlayerEntity.class, true));
     }
+
     public static DefaultAttributeContainer.Builder createAngelAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 15)
@@ -79,45 +87,29 @@ public class BabEntity extends HostileEntity {
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2);
     }
 
-    @Override
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
-        
-    }
-
     ///////////////
     // ANIMATION //
     ///////////////
 
 
     private void setupAnimationStates() {
-        if (this.Lvl1IdleAnimationTimeout <= 0 ) {
-            this.Lvl1IdleAnimationTimeout = this.random.nextInt(20) + 40;
 
-            this.Lvl1IdleAnimationState.start(this.age);
-
-
-
-        } else {
-            --this.Lvl1IdleAnimationTimeout;
-        }
-
-        if(this.isAttacking() && Lvl2AttackAnimationTimeout <= 0) {
+        if (this.isAttacking() && Lvl2AttackAnimationTimeout <= 0) {
             Lvl2AttackAnimationTimeout = 40;
             Lvl2AttackAnimationState.startIfNotRunning(this.age);
-
 
 
         } else {
             --this.Lvl2AttackAnimationTimeout;
         }
 
-        if(!this.isAttacking()) {
+        if (!this.isAttacking()) {
             Lvl2AttackAnimationState.stop();
         }
 
 
     }
+
     @Override
     protected void updateLimbs(float posDelta) {
         float f = this.getPose() == EntityPose.STANDING ? Math.min(posDelta * 6.0f, 1.0f) : 0.0f;
@@ -131,39 +123,76 @@ public class BabEntity extends HostileEntity {
 
 
     //  attacking
-        private static final TrackedData<Boolean> ATTACKING =
-            DataTracker.registerData(BabEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> ATTACKING =
+            DataTracker.registerData(BabTwoEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
-        public void setAttacking(boolean attacking) {
+    public void setAttacking(boolean attacking) {
         this.dataTracker.set(ATTACKING, attacking);
     }
-        @Override
-        public boolean isAttacking() {
+
+    @Override
+    public boolean isAttacking() {
         return this.dataTracker.get(ATTACKING);
     }
-        @Override
-        public boolean tryAttack(Entity target){
+
+    @Override
+    public boolean tryAttack(Entity target) {
         boolean bl = super.tryAttack(target);
-        if(bl){
+        if (bl) {
             float f = this.getWorld().getLocalDifficulty(this.getBlockPos()).getLocalDifficulty();
-            if(this.getMainHandStack().isEmpty() && this.isOnFire() && this.random.nextFloat() < f * 0.3F){
-                target.setOnFireFor(2 * (int)f);
+            if (this.getMainHandStack().isEmpty() && this.isOnFire() && this.random.nextFloat() < f * 0.3F) {
+                target.setOnFireFor(2 * (int) f);
             }
         }
         setAttacking(true);
         return bl;
     }
 
+    /////////
+    // NBT //
+    /////////
+
+    @Override
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        this.setLevel(nbt.getInt("Level"));
+    }
+
+    @Override
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        nbt.putInt("Level", this.getLevel());
+    }
+
+
+    ///////////////
+    // COLISSION //
+    ///////////////
+
+    public static boolean canCollide(Entity entity, Entity other) {
+        return other instanceof BabTwoEntity;
+    }
+
+    @Override
+    public boolean isCollidable() {
+        return true;
+    }
+
+    public boolean collidesWith(Entity other) {
+        return canCollide(this, other);
+    }
 
     ///////////
     // LEVEL //
     ///////////
 
+    private static final TrackedData<Integer> LEVEL =
+            DataTracker.registerData(BabTwoEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
-    @Override
-    public boolean collidesWith(Entity other) {
+    public void setLevel(int level) {
+        this.dataTracker.set(LEVEL, level);
+    }
 
-        return super.collidesWith(other);
+    public int getLevel() {
+        return this.dataTracker.get(LEVEL);
     }
 }
 

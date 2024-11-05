@@ -12,9 +12,9 @@ import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.util.Identifier;
 
 @Environment(value = EnvType.CLIENT)
-    public class LightBeamFeatureRenderer<T extends LightBeamEntity> extends EyesFeatureRenderer<T, LightBeamModel<T>> {
+public class LightBeamFeatureRenderer<T extends LightBeamEntity> extends EyesFeatureRenderer<T, LightBeamModel<T>> {
 
-    private static final RenderLayer SKIN = RenderLayer.getEyes(Identifier.of(Holyhell.MOD_ID, "textures/entity/light_beam.png"));
+    private static final RenderLayer SKIN = RenderLayer.getEyes(Identifier.of(Holyhell.MOD_ID, "textures/entity/lightbeam/light_beam1.png"));
 
     public LightBeamFeatureRenderer(FeatureRendererContext<T, LightBeamModel<T>> featureRendererContext) {
         super(featureRendererContext);
@@ -22,6 +22,7 @@ import net.minecraft.util.Identifier;
 
     @Override
     public RenderLayer getEyesTexture() {
+
         return SKIN;
     }
 }

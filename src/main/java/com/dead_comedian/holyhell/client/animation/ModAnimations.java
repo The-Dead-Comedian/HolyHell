@@ -12,7 +12,8 @@ public class ModAnimations {
     ///////////
 
 
-    public static final Animation BABIDLE = Animation.Builder.create(1.5f).looping()
+
+    public static final Animation BABIDLE1 = Animation.Builder.create(1.5f).looping()
             .addBoneAnimation("bone",
                     new Transformation(Transformation.Targets.SCALE,
                             new Keyframe(0f, AnimationHelper.createScalingVector(1f, 1f, 1f),
@@ -21,12 +22,12 @@ public class ModAnimations {
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(1.5f, AnimationHelper.createScalingVector(1f, 1f, 1f),
                                     Transformation.Interpolations.CUBIC))).build();
-    public static final Animation BABWALK = Animation.Builder.create(1f).looping()
+    public static final Animation BABWALK1 = Animation.Builder.create(1f).looping()
             .addBoneAnimation("bone",
                     new Transformation(Transformation.Targets.TRANSLATE,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
-                            new Keyframe(0.5f, AnimationHelper.createTranslationalVector(-1f, 0f, 0f),
+                            new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, 0f, -1f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(1f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
@@ -39,10 +40,10 @@ public class ModAnimations {
                             new Keyframe(1f, AnimationHelper.createScalingVector(1f, 1f, 1f),
                                     Transformation.Interpolations.CUBIC))).build();
 
-
     ///////////
     // BAB 2 //
     ///////////
+
 
 
 
@@ -218,11 +219,10 @@ public class ModAnimations {
                             new Keyframe(0.75f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC))).build();
 
-
-
     ///////////
     // BAB 3 //
     ///////////
+
 
 
 
@@ -232,6 +232,8 @@ public class ModAnimations {
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.8343334f, AnimationHelper.createTranslationalVector(0f, -0.5f, 0f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(1.5f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("head",
                     new Transformation(Transformation.Targets.SCALE,
@@ -333,7 +335,6 @@ public class ModAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-
 
 
     //////////////

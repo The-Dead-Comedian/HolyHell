@@ -6,7 +6,6 @@ import com.dead_comedian.holyhell.client.renderer.*;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsLowerFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsUpperFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.other.*;
-import com.dead_comedian.holyhell.entity.custom.LightBeamEntity;
 import com.dead_comedian.holyhell.registries.HolyHellBlocks;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
@@ -41,8 +40,13 @@ public class HolyhellClient implements ClientModInitializer {
         EntityRendererRegistry.register(HolyHellEntities.PALLADIN, PalladinRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.PALLADIN, PalladinModel::getTexturedModelData);
 
-        EntityRendererRegistry.register(HolyHellEntities.BAB, BabRenderer::new);
+        EntityRendererRegistry.register(HolyHellEntities.BAB_ONE, BabOneRenderer::new);
+        EntityRendererRegistry.register(HolyHellEntities.BAB_TWO, BabTwoRenderer::new);
+        EntityRendererRegistry.register(HolyHellEntities.BAB_THREE, BabThreeRenderer    ::new);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.BAB, BabOneModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.BAB1, BabTwoModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.BAB2, BabThreeModel::getTexturedModelData);
+
 
         //NON MOBS
         EntityRendererRegistry.register(HolyHellEntities.LIGHT_BEAM, LightBeamRenderer::new);
@@ -69,6 +73,7 @@ public class HolyhellClient implements ClientModInitializer {
         EntityRendererRegistry.register(HolyHellEntities.TRAPPED_STONE_CROSS, TrappedStoneCrossRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.TRAPPED_STONE_CROSS, TrappedStoneCrossModel::getTexturedModelData);
         //FEATURE
+
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.RELIGIOUS_RINGS, ReligiousRingsLowerFeatureRenderer::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.RELIGIOUS_RINGSV, ReligiousRingsUpperFeatureRenderer::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.ATHEIST_AMAZEMENT, AtheistAmazementFeatureRenderer::getTexturedModelData);

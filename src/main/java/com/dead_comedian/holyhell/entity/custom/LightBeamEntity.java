@@ -361,7 +361,7 @@ public class LightBeamEntity extends Entity {
                     this.getWorld().spawnEntity(palladinEntity);
                     palladinEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), palladinEntity.getYaw(), palladinEntity.getPitch());
                 }
-                BabEntity babEntity = new BabEntity(HolyHellEntities.BAB, this.getWorld());
+                BabOneEntity babEntity = new BabOneEntity(HolyHellEntities.BAB_ONE, this.getWorld());
                 this.getWorld().spawnEntity(babEntity);
                 babEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), babEntity.getYaw(), babEntity.getPitch());
             }

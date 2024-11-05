@@ -22,6 +22,8 @@ public class Holyhell implements ModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
+
+
 		HolyHellItemGroup.registerItemGroups();
 		HolyHellItems.registerModItems();
 		HolyHellBlocks.registerModBlocks();
@@ -33,11 +35,11 @@ public class Holyhell implements ModInitializer {
 		FabricDefaultAttributeRegistry.register(HolyHellEntities.PALLADIN, PalladinEntity.createPalladinAttributes());
 		FabricDefaultAttributeRegistry.register(HolyHellEntities.HAILING_HERETIC, HailingHereticEntity.createHereticAttributes());
 		FabricDefaultAttributeRegistry.register(HolyHellEntities.KAMIKAZE_ANGEL, KamikazeAngelEntity.createHereticAttributes()		);
-		FabricDefaultAttributeRegistry.register(HolyHellEntities.BAB, BabEntity .createAngelAttributes());
-
-
+		FabricDefaultAttributeRegistry.register(HolyHellEntities.BAB_ONE, BabOneEntity.createAngelAttributes());
+		FabricDefaultAttributeRegistry.register(HolyHellEntities.BAB_TWO, BabTwoEntity.createAngelAttributes());
+		FabricDefaultAttributeRegistry.register(HolyHellEntities.BAB_THREE, BabThreeEntity.createAngelAttributes());
 		ServerTickEvents.END_WORLD_TICK.register(new ServerTickHandler());
 
-		LOGGER.info("what is lovee? baby don't hurt mee, don't hurt mee, noo moree");
+		LOGGER.info("Running The Mod");
 	}
 }
