@@ -26,19 +26,20 @@ public class ReligiousRingsItem extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
 
-            if (user.hasStatusEffect(HolyHellEffects.JESISTANCE)
-                    && user.getStatusEffect(HolyHellEffects.JESISTANCE).getAmplifier() <=5) {
+        if (user.hasStatusEffect(HolyHellEffects.JESISTANCE)
+                && user.getStatusEffect(HolyHellEffects.JESISTANCE).getAmplifier() <= 5) {
 
-                user.addStatusEffect(new StatusEffectInstance(HolyHellEffects.JESISTANCE, 2000,
-                        user.getStatusEffect(HolyHellEffects.JESISTANCE).getAmplifier() + 1));
-
-
-            } else if (!user.hasStatusEffect(HolyHellEffects.JESISTANCE)) {
-                user.addStatusEffect(new StatusEffectInstance(HolyHellEffects.JESISTANCE, 2000, 1));
-            }
+            user.addStatusEffect(new StatusEffectInstance(HolyHellEffects.JESISTANCE, 2000,
+                    user.getStatusEffect(HolyHellEffects.JESISTANCE).getAmplifier() + 1));
 
 
+        } else if (!user.hasStatusEffect(HolyHellEffects.JESISTANCE)) {
+            user.addStatusEffect(new StatusEffectInstance(HolyHellEffects.JESISTANCE, 2000, 1));
+        }
+        if (!user.isCreative()) {
+            user.getStackInHand(hand).decrement(1);
+        }
 
-        return TypedActionResult.success(user.getStackInHand(hand));
+        return TypedActionResult.consume(user.getStackInHand(hand));
     }
 }
