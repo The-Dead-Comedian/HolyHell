@@ -1,5 +1,6 @@
 package com.dead_comedian.holyhell.item.custom;
 
+import com.dead_comedian.holyhell.entity.custom.BabOneEntity;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -7,6 +8,9 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.MobSpawnerBlockEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,6 +28,16 @@ import java.util.Objects;
 public class GlobularDomeItem extends Item {
     public GlobularDomeItem(Settings settings) {
         super(settings);
+    }
+
+    PlayerEntity user2;
+    public PlayerEntity getUser() {
+        return user2;
+    }
+
+
+    public void setUser(PlayerEntity user1) {
+        user2 = user1;
     }
 
 
@@ -75,6 +89,8 @@ public class GlobularDomeItem extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         castSpell(world, user.getStackInHand(hand), user.getBlockPos(), user.getMovementDirection(),user);
+        setUser(user);
+        System.out.println(getUser());
         return super.use(world, user, hand);
     }
 }

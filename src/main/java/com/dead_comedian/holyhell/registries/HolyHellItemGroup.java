@@ -4,7 +4,6 @@ import com.dead_comedian.holyhell.Holyhell;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
@@ -21,7 +20,7 @@ public class HolyHellItemGroup {
                         entries.add(HolyHellItems.RELIGIOUS_RINGS);
 
 
-                        entries.add(HolyHellItems.HOLY_ARROW);
+
 
                         entries.add(HolyHellItems.HOLY_GRAIL);
 
@@ -33,6 +32,7 @@ public class HolyHellItemGroup {
                         entries.add(HolyHellItems.KAMIKAZE_ANGEL_SPAWN_EGG);
                         entries.add(HolyHellItems.HERETIC_SPAWN_EGG);
                         entries.add(HolyHellItems.PALLADIN_SPAWN_EGG);
+                        entries.add(HolyHellItems.BAB_SPAWN_EGG);
 
                         entries.add(HolyHellItems.EVANGELIST_BOOTS);
                         entries.add(HolyHellItems.EVANGELIST_LEGGINGS);
@@ -45,6 +45,12 @@ public class HolyHellItemGroup {
                         entries.add(HolyHellBlocks.CANDLEHOLDER);
                         entries.add(HolyHellBlocks.STONE_CROSS);
                         entries.add(HolyHellItems.TRAPPED_STONE_CROSS);
+
+
+
+
+
+
 
                     }).build());
 

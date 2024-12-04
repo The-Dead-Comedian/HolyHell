@@ -32,7 +32,6 @@ public class BabThreeRenderer extends MobEntityRenderer<BabThreeEntity, BabThree
     public void render(BabThreeEntity mobEntity, float f, float g, MatrixStack matrixStack,
                        VertexConsumerProvider vertexConsumerProvider, int i) {
         VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(this.model.getLayer(TEXTURE));
-        this.model.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 0.3F);
         super.render(mobEntity, f, g, matrixStack, vertexConsumerProvider, i);
     }
 

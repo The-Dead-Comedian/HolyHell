@@ -1,6 +1,7 @@
 package com.dead_comedian.holyhell.entity.custom;
 
 
+import com.dead_comedian.holyhell.registries.HolyHellItems;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityPose;
@@ -13,18 +14,28 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class BabTwoEntity extends HostileEntity {
+public class BabTwoEntity extends TameableEntity {
 
 
     ///////////////
     // VARIABLES //
     ///////////////
+    private static final TrackedData<Boolean> TAMED = DataTracker.registerData(BabTwoEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
 
     public final AnimationState Lvl2IdleAnimationState = new AnimationState();
@@ -36,15 +47,22 @@ public class BabTwoEntity extends HostileEntity {
     // MISC //
     //////////
 
-    public BabTwoEntity(EntityType<? extends HostileEntity> entityType, World world) {
+    public BabTwoEntity(EntityType<? extends TameableEntity> entityType, World world) {
         super(entityType, world);
+    }
+
+    @Nullable
+    @Override
+    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
+        return null;
     }
 
     @Override
     protected void initDataTracker() {
         super.initDataTracker();
         this.dataTracker.startTracking(ATTACKING, false);
-        this.dataTracker.startTracking(LEVEL, 0);
+
+        this.dataTracker.startTracking(TAMED, false);
     }
 
     @Override
@@ -53,17 +71,16 @@ public class BabTwoEntity extends HostileEntity {
 
         List<Entity> entityBelow = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.1, 0.1, 0.1));
         for (Entity i : entityBelow) {
-            if (i instanceof BabTwoEntity) {
-                if (((BabTwoEntity) i).getLevel() == 0 && this.getLevel() <= 2) {
-                    if (this.collidesWith(i)) {
-                        this.setLevel(this.getLevel() + 1);
-                        System.out.println("a");
-                        i.discard();
-                    }
+            if (i instanceof BabOneEntity && this.isTamed()) {
+                if (this.collidesWith(i)) {
+
+                    System.out.println("a");
+                    i.discard();
                 }
             }
+
         }
-        collidesWith(this);
+
         if (this.getWorld().isClient()) {
             setupAnimationStates();
         }
@@ -148,20 +165,65 @@ public class BabTwoEntity extends HostileEntity {
         return bl;
     }
 
+
     /////////
     // NBT //
     /////////
 
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
-        this.setLevel(nbt.getInt("Level"));
+
+        this.setTamed(nbt.getBoolean("Tamed"));
     }
 
     @Override
     public void writeCustomDataToNbt(NbtCompound nbt) {
-        nbt.putInt("Level", this.getLevel());
+
+        nbt.putBoolean("Tamed", this.isTamed());
     }
 
+
+    ///////////
+    // TAMED //
+    ///////////
+
+
+    @Override
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
+
+        ItemStack itemStack = player.getStackInHand(hand);
+        Item item = itemStack.getItem();
+        if (this.getWorld().isClient) {
+            System.out.println(this.dataTracker.get(TAMED));
+            System.out.println(this.getOwner());
+            if (itemStack.isOf(HolyHellItems.HOLY_TEAR) && !this.isTamed()) {
+                setTamed(true);
+                this.setOwner(player);
+                if (!player.isCreative()) {
+                    itemStack.decrement(1);
+                }
+
+                return ActionResult.SUCCESS;
+            }
+        }
+        return super.interactMob(player, hand);
+    }
+
+    public boolean getTamed() {
+        return this.dataTracker.get(TAMED);
+    }
+
+    @Override
+    public void setTamed(boolean tamed) {
+        this.dataTracker.set(TAMED, tamed);
+        super.setTamed(tamed);
+    }
+
+
+    @Override
+    public EntityView method_48926() {
+        return this.getWorld();
+    }
 
     ///////////////
     // COLISSION //
@@ -180,20 +242,7 @@ public class BabTwoEntity extends HostileEntity {
         return canCollide(this, other);
     }
 
-    ///////////
-    // LEVEL //
-    ///////////
 
-    private static final TrackedData<Integer> LEVEL =
-            DataTracker.registerData(BabTwoEntity.class, TrackedDataHandlerRegistry.INTEGER);
-
-    public void setLevel(int level) {
-        this.dataTracker.set(LEVEL, level);
-    }
-
-    public int getLevel() {
-        return this.dataTracker.get(LEVEL);
-    }
 }
 
 

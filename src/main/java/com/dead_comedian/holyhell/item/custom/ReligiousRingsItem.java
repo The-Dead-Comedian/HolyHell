@@ -7,25 +7,38 @@ import net.minecraft.inventory.StackReference;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.ClickType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
+import javax.swing.*;
+
 public class ReligiousRingsItem extends Item {
 
 
-
-    public ReligiousRingsItem( Item.Settings settings ) {
+    public ReligiousRingsItem(Item.Settings settings) {
         super(settings);
     }
 
 
-
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        user.addStatusEffect(new StatusEffectInstance(HolyHellEffects.JESISTANCE, 40 , 1));
 
-        return super.use(world, user, hand);
+            if (user.hasStatusEffect(HolyHellEffects.JESISTANCE)
+                    && user.getStatusEffect(HolyHellEffects.JESISTANCE).getAmplifier() <=5) {
+
+                user.addStatusEffect(new StatusEffectInstance(HolyHellEffects.JESISTANCE, 2000,
+                        user.getStatusEffect(HolyHellEffects.JESISTANCE).getAmplifier() + 1));
+
+
+            } else if (!user.hasStatusEffect(HolyHellEffects.JESISTANCE)) {
+                user.addStatusEffect(new StatusEffectInstance(HolyHellEffects.JESISTANCE, 2000, 1));
+            }
+
+
+
+        return TypedActionResult.success(user.getStackInHand(hand));
     }
 }

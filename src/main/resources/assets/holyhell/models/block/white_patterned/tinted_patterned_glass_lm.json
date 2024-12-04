@@ -1,0 +1,23 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 48],
+	"textures": {
+		"0": "holyhell:block/white_pattern",
+		"particle": "holyhell:block/white_pattern"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 8],
+			"to": [16, 16, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [14, 0, 8]},
+			"faces": {
+				"north": {"uv": [8, 5.33333, 16, 10.66667], "texture": "#0"},
+				"east": {"uv": [0, 0, 0.5, 5.33333], "texture": "#0"},
+				"south": {"uv": [16, 5.33333, 8, 10.66667], "texture": "#0"},
+				"west": {"uv": [0, 0, 0.5, 5.33333], "texture": "#0"},
+				"up": {"uv": [0, 0, 8, 0.33333], "texture": "#0"},
+				"down": {"uv": [0, 0, 8, 0.33333], "texture": "#0"}
+			}
+		}
+	]
+}

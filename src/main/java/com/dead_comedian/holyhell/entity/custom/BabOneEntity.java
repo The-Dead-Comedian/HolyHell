@@ -2,6 +2,7 @@ package com.dead_comedian.holyhell.entity.custom;
 
 
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
+import com.dead_comedian.holyhell.registries.HolyHellItems;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -12,19 +13,31 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.FrogVariant;
+import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class BabOneEntity extends HostileEntity {
+public class BabOneEntity extends TameableEntity {
 
 
     ///////////////
     // VARIABLES //
     ///////////////
+    private static final TrackedData<Boolean> TAMED = DataTracker.registerData(BabOneEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
 
     public final AnimationState Lvl1IdleAnimationState = new AnimationState();
@@ -33,14 +46,20 @@ public class BabOneEntity extends HostileEntity {
     // MISC //
     //////////
 
-    public BabOneEntity(EntityType<? extends HostileEntity> entityType, World world) {
+    public BabOneEntity(EntityType<? extends TameableEntity> entityType, World world) {
         super(entityType, world);
+    }
+
+    @Nullable
+    @Override
+    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
+        return null;
     }
 
     @Override
     protected void initDataTracker() {
         super.initDataTracker();
-        this.dataTracker.startTracking(ATTACKING, false);
+        this.dataTracker.startTracking(TAMED, false);
     }
 
     @Override
@@ -49,28 +68,20 @@ public class BabOneEntity extends HostileEntity {
 
         List<Entity> entityBelow = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.1, 0.1, 0.1));
         for (Entity i : entityBelow) {
-            if (i instanceof BabOneEntity) {
+            if (i instanceof BabOneEntity && this.isTamed()) {
                 if (this.collidesWith(i)) {
-                    BabTwoEntity babEntity = new BabTwoEntity(HolyHellEntities.BAB_TWO, this.getWorld());
-                    this.getWorld().spawnEntity(babEntity);
-                    babEntity.refreshPositionAndAngles(this.getBlockPos(),this.getYaw(),this.getPitch());
 
+                    BlockPos blockPos = this.getBlockPos();
+                    AngelEntity angelEntity = new AngelEntity(HolyHellEntities.ANGEL, this.getWorld());
+                    this.getWorld().spawnEntity(angelEntity);
+                    angelEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), angelEntity.getYaw(), angelEntity.getPitch());
+                    System.out.println("bam");
                     this.discard();
-                    i.discard();
-                }
-            } else if (i instanceof BabTwoEntity) {
-                if (this.collidesWith(i)) {
-                    BabThreeEntity babEntity = new BabThreeEntity(HolyHellEntities.BAB_THREE, this.getWorld());
-                    this.getWorld().spawnEntity(babEntity);
-                    babEntity.refreshPositionAndAngles(this.getBlockPos(),this.getYaw(),this.getPitch());
-
-                    this.discard();
-                    i.discard();
-
+                    i.kill();
                 }
             }
         }
-        collidesWith(this);
+
         if (this.getWorld().isClient()) {
             setupAnimationStates();
         }
@@ -81,8 +92,9 @@ public class BabOneEntity extends HostileEntity {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(4, new WanderAroundFarGoal(this, 1D));
         this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 4f));
-        this.goalSelector.add(1, new FollowMobGoal(this, 1D, 1.0F, 20.0F));
+        this.goalSelector.add(6, new FollowOwnerGoal(this, 1.0, 10.0F, 2.0F, false));
         this.goalSelector.add(6, new LookAroundGoal(this));
+        this.goalSelector.add(1, new FollowOwnerGoal(this, 1, 0, 30, true));
         this.targetSelector.add(1, new ActiveTargetGoal(this, PlayerEntity.class, true));
     }
 
@@ -143,30 +155,80 @@ public class BabOneEntity extends HostileEntity {
         return bl;
     }
 
-    /////////
-    // NBT //
-    /////////
-
 
     ///////////////
     // COLISSION //
     ///////////////
 
     public static boolean canCollide(Entity entity, Entity other) {
-        return other instanceof BabOneEntity || other instanceof BabTwoEntity;
+        return other instanceof BabOneEntity || other instanceof BabTwoEntity && entity.isAlive();
     }
 
     @Override
     public boolean isCollidable() {
-        return true;
+        return this.isAlive();
     }
 
     public boolean collidesWith(Entity other) {
         return canCollide(this, other);
     }
 
+
+    ///////////
+    // TAMED //
+    ///////////
+
+
+    @Override
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
+
+        ItemStack itemStack = player.getStackInHand(hand);
+        Item item = itemStack.getItem();
+        if (this.getWorld().isClient) {
+            System.out.println(this.dataTracker.get(TAMED));
+            System.out.println(this.getOwner());
+            if (itemStack.isOf(HolyHellItems.HOLY_TEAR) && !this.isTamed()) {
+                setTamed(true);
+                this.setOwner(player);
+                if (!player.isCreative()) {
+                    itemStack.decrement(1);
+                }
+
+                return ActionResult.SUCCESS;
+            }
+        }
+        return super.interactMob(player, hand);
+    }
+
+    public boolean getTamed() {
+        return this.dataTracker.get(TAMED);
+    }
+
+    @Override
+    public void setTamed(boolean tamed) {
+        this.dataTracker.set(TAMED, tamed);
+        super.setTamed(tamed);
+    }
+
+
+    @Override
+    public EntityView method_48926() {
+        return this.getWorld();
+    }
+
+
+    /////////
+    // NBT //
+    /////////
+
+
+    @Override
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        this.setTamed(nbt.getBoolean("Tamed"));
+    }
+
+    @Override
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        nbt.putBoolean("Tamed", this.isTamed());
+    }
 }
-
-
-
-

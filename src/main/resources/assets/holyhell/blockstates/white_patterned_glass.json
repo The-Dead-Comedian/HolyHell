@@ -1,0 +1,114 @@
+{
+  "variants": {
+    "piece=0,facing=north": {
+      "model": "holyhell:block/white_patterned/tinted_patterned_glass_lb",
+      "y": 0
+    },
+    "piece=1,facing=north": {
+      "model": "holyhell:block/white_patterned/tinted_patterned_glass_lm",
+      "y": 0
+    },
+    "piece=2,facing=north": {
+      "model": "holyhell:block/white_patterned/tinted_patterned_glass_lt",
+      "y": 0
+    },
+    "piece=3,facing=north": {
+      "model": "holyhell:block/white_patterned/tinted_patterned_glass_rb",
+      "y": 0
+    },
+    "piece=4,facing=north": {
+      "model": "holyhell:block/white_patterned/tinted_patterned_glass_rm",
+      "y": 0
+    },
+    "piece=5,facing=north": {
+      "model": "holyhell:block/white_patterned/tinted_patterned_glass_rt",
+      "y": 0
+    },
+
+
+
+    "piece=0,facing=south": {
+      "model": "holyhell:block/white_patterned/tinted_patterned_glass_lb",
+      "y": 0
+    },
+    "piece=1,facing=south": {
+      "model": "holyhell:block/white_patterned/tinted_patterned_glass_lm",
+      "y": 0
+    },
+    "piece=2,facing=south": {
+      "model": "holyhell:block/white_patterned/tinted_patterned_glass_lt",
+      "y": 0
+    },
+    "piece=3,facing=south": {
+      "model": "holyhell:block/white_patterned/tinted_patterned_glass_rb",
+      "y": 0
+    },
+    "piece=4,facing=south": {
+      "model": "holyhell:block/white_patterned/tinted_patterned_glass_rm",
+      "y": 0
+    },
+    "piece=5,facing=south": {
+      "model": "holyhell:block/white_patterned/tinted_patterned_glass_rt",
+      "y": 0
+    },
+   
+
+
+
+
+
+
+
+    "piece=0,facing=west": {
+      "model": "holyhell:block/white_patterned/tinted_patterned_glass_lb",
+      "y": 90
+    },
+    "piece=1,facing=west": {
+      "model": "holyhell:block/white_patterned/tinted_patterned_glass_lm",
+      "y": 90
+    },
+    "piece=2,facing=west": {
+      "model": "holyhell:block/white_patterned/tinted_patterned_glass_lt",
+      "y": 90
+    },
+    "piece=3,facing=west": {
+      "model": "holyhell:block/white_patterned/tinted_patterned_glass_rb",
+      "y": 90
+    },
+    "piece=4,facing=west": {
+      "model": "holyhell:block/white_patterned/tinted_patterned_glass_rm",
+      "y": 90
+    },
+    "piece=5,facing=west": {
+      "model": "holyhell:block/white_patterned/tinted_patterned_glass_rt",
+      "y": 90
+    },
+
+
+
+    "piece=0,facing=east": {
+      "model": "holyhell:block/white_patterned/tinted_patterned_glass_lb",
+      "y": 90
+    },
+    "piece=1,facing=east": {
+      "model": "holyhell:block/white_patterned/tinted_patterned_glass_lm",
+      "y": 90
+    },
+    "piece=2,facing=east": {
+      "model": "holyhell:block/white_patterned/tinted_patterned_glass_lt",
+      "y": 90
+    },
+    "piece=3,facing=east": {
+      "model": "holyhell:block/white_patterned/tinted_patterned_glass_rb",
+      "y": 90
+    },
+    "piece=4,facing=east": {
+      "model": "holyhell:block/white_patterned/tinted_patterned_glass_rm",
+      "y": 90
+    },
+    "piece=5,facing=east": {
+      "model": "holyhell:block/white_patterned/tinted_patterned_glass_rt",
+      "y": 90
+    }
+  }
+}
