@@ -52,7 +52,7 @@ public class SwordCrossEntity extends PersistentProjectileEntity {
         for (Entity i : entityBelow) {
             if (this.collidesWith(i)) {
                 i.damage(i.getWorld().getDamageSources().magic(), 5.0F);
-                System.out.println("caca");
+
             }
         }
 

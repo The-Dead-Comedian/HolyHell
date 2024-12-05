@@ -7,16 +7,25 @@ import com.dead_comedian.holyhell.client.models.entity.other.SwordCrossModel;
 import com.dead_comedian.holyhell.entity.custom.other.FallingSwordEntity;
 import com.dead_comedian.holyhell.entity.custom.other.SwordCrossEntity;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RotationAxis;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
 
 
-public class SwordCrossRenderer extends EntityRenderer<SwordCrossEntity> {
+public class SwordCrossRenderer<T extends SwordCrossEntity> extends EntityRenderer<T> {
     private static final Identifier TEXTURE = new Identifier(Holyhell.MOD_ID, "textures/entity/sword_cross.png");
     private final SwordCrossModel<SwordCrossEntity> model;
 
@@ -30,8 +39,9 @@ public class SwordCrossRenderer extends EntityRenderer<SwordCrossEntity> {
 
 
     @Override
-    public void render(SwordCrossEntity mobEntity, float f, float g, MatrixStack matrixStack,
-                       VertexConsumerProvider vertexConsumerProvider, int i) {
+    public void render(T mobEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+        MinecraftClient mc = MinecraftClient.getInstance();
+        matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-mc.gameRenderer.getCamera().getYaw()));
         VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(this.model.getLayer(TEXTURE));
         this.model.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
         super.render(mobEntity, f, g, matrixStack, vertexConsumerProvider, 15728640);
