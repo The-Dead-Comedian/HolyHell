@@ -3,14 +3,13 @@
   "package": "com.dead_comedian.holyhell.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "ConfusionEffectMixin",
-    "DamageMixin",
     "ExampleMixin",
     "FeatureRendererMixin",
     "ItemRendererAccessor",
     "ItemRendererMixin",
     "ModelLoaderMixin",
-    "PlayerEntityMixin"
+    "ReligiousRingsMixin",
+    "SwordCrossEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

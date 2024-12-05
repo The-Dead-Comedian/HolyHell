@@ -21,20 +21,13 @@ public class HolyHellEffects {
                             EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
 
     public static final StatusEffect CONFUSION = registerStatusEffect("confusion",
-            new ConfusionEffect(StatusEffectCategory.NEUTRAL, 0x36ebab)
-                    .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED,
-                            "7107DE5E-7CE8-4030-940E-514C1F160890", -0.25f,
-                            EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
+            new ConfusionEffect(StatusEffectCategory.NEUTRAL, 0x36ebab));
+
     public static final StatusEffect JESISTANCE = registerStatusEffect("jesistance",
-            new JesistenceEffect(StatusEffectCategory.NEUTRAL, 0x36ebab)
-                    .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED,
-                            "7107DE5E-7CE8-4030-940E-514C1F160890", -0.25f,
-                            EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
+            new JesistenceEffect(StatusEffectCategory.NEUTRAL, 0x36ebab));
+
     public static final StatusEffect ENLIGHTENED = registerStatusEffect("enlightened",
-            new EnlightenedEffect(StatusEffectCategory.NEUTRAL, 0x36ebab)
-                    .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED,
-                            "7107DE5E-7CE8-4030-940E-514C1F160890", -0.25f,
-                            EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
+            new EnlightenedEffect(StatusEffectCategory.NEUTRAL, 0x36ebab));
 
 
     private static StatusEffect registerStatusEffect(String name, StatusEffect statusEffect) {

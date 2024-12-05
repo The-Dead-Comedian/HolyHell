@@ -61,6 +61,10 @@ public class HolyHellEntities {
             new Identifier(Holyhell.MOD_ID, "falling_sword"),
             FabricEntityTypeBuilder.<FallingSwordEntity>create(SpawnGroup.CREATURE, FallingSwordEntity::new)
                     .dimensions(EntityDimensions.fixed(0.5f, 2f)).build());
+    public static final EntityType<SwordCrossEntity> SWORD_CROSS = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(Holyhell.MOD_ID, "sword_cross"),
+            FabricEntityTypeBuilder.<SwordCrossEntity>create(SpawnGroup.CREATURE, SwordCrossEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.5f, 2f)).build());
 
     public static final EntityType<BlindingBombEntity> BLINDING_BOMB = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Holyhell.MOD_ID, "blinding_bomb"),

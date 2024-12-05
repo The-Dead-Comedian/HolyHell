@@ -37,7 +37,7 @@ public class FireBallEntity extends PersistentProjectileEntity {
     @Override
     public void onPlayerCollision(PlayerEntity player) {
         super.onPlayerCollision(player);
-        player.damage(player.getWorld().getDamageSources().playerAttack(player), 5.0F);
+        player.damage(player.getWorld().getDamageSources().magic(), 5.0F);
         this.discard();
     }
 

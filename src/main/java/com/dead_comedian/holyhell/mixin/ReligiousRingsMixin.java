@@ -3,6 +3,7 @@ package com.dead_comedian.holyhell.mixin;
 import com.dead_comedian.holyhell.entity.custom.KamikazeAngelEntity;
 import com.dead_comedian.holyhell.entity.custom.other.FireBallEntity;
 import com.dead_comedian.holyhell.registries.HolyHellEffects;
+import com.dead_comedian.holyhell.registries.HolyhellTags;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -21,16 +22,19 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.Objects;
 
 @Mixin(PlayerEntity.class)
 
-public abstract class DamageMixin extends LivingEntity {
+public abstract class ReligiousRingsMixin extends LivingEntity {
 
 
-    @Shadow @Final private PlayerInventory inventory;
+    @Shadow
+    @Final
+    private PlayerInventory inventory;
 
-    protected DamageMixin(EntityType<? extends LivingEntity> entityType, World world) {
+    protected ReligiousRingsMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
 
     }
@@ -47,23 +51,12 @@ public abstract class DamageMixin extends LivingEntity {
             a = 0;
         }
 
-        return source.getAttacker() instanceof WardenEntity ||
-                source.getAttacker() instanceof VexEntity ||
-                source.getAttacker() instanceof EvokerFangsEntity ||
-                source.getAttacker() instanceof ShulkerBulletEntity ||
-                source.getAttacker() instanceof GuardianEntity ||
-                source.getAttacker() instanceof ElderGuardianEntity ||
+        if (source.getAttacker() != null) {
 
-
-                source.getAttacker() instanceof FireBallEntity ||
-                source.getAttacker() instanceof KamikazeAngelEntity ||
-
-
-                source == getDamageSources().magic() ||
-                source == getDamageSources().dragonBreath() ||
-                source == getDamageSources().thorns(source.getSource()) ||
-                source == getDamageSources().wither() ||
-                source == getDamageSources().sonicBoom(source.getAttacker()) ? value*(1-(( (float) 20 /100)*a)) : value;
+            return source.getAttacker().getType().isIn(HolyhellTags.Entities.MAGIC_DEALING_MOBS) ||
+                    source.isIn(HolyhellTags.DamageTypes.MAGIC_DAMAGE) ? value * (1 - (((float) 20 / 100) * a)) : value;
+        }
+        return value * (1 - (((float) 20 / 100) * a));
 
     }
 

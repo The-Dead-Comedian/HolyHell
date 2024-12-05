@@ -70,6 +70,9 @@ public class HolyhellClient implements ClientModInitializer {
         EntityRendererRegistry.register(HolyHellEntities.FALLING_SWORD, FallingSwordRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.FALLING_SWORD, FallingSwordModel::getTexturedModelData);
 
+        EntityRendererRegistry.register(HolyHellEntities.SWORD_CROSS, SwordCrossRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.SWORD_CROSS, SwordCrossModel::getTexturedModelData);
+
         EntityRendererRegistry.register(HolyHellEntities.TRAPPED_STONE_CROSS, TrappedStoneCrossRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.TRAPPED_STONE_CROSS, TrappedStoneCrossModel::getTexturedModelData);
         //FEATURE

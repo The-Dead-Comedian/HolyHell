@@ -12,7 +12,7 @@ import java.util.List;
 
 public class GlobularDomeEntity extends Entity {
     private int ticksLeft;
-    PlayerEntity user;
+
 
 
     public GlobularDomeEntity(EntityType<?> type, World world) {

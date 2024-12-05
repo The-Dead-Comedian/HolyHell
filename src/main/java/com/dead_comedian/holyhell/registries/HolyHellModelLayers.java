@@ -39,6 +39,8 @@ public class HolyHellModelLayers {
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "fireball"), "main");
     public static final EntityModelLayer FALLING_SWORD =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "falling_sword"), "main");
+    public static final EntityModelLayer SWORD_CROSS =
+            new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "sword_cross"), "main");
     public static final EntityModelLayer GLOBULAR_DOME =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "globular_dome"), "main");
     public static final EntityModelLayer BLINDING_BOMB =
