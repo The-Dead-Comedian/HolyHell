@@ -14,6 +14,7 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 
 public class HolyhellClient implements ClientModInitializer {
 
@@ -64,7 +65,7 @@ public class HolyhellClient implements ClientModInitializer {
         EntityRendererRegistry.register(HolyHellEntities.FIREBALL, FireBallRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.FIREBALL, FireBallModel::getTexturedModelData);
 
-        EntityRendererRegistry.register(HolyHellEntities.BLINDING_BOMB, BlindingBombRenderer::new);
+        EntityRendererRegistry.register(HolyHellEntities.BLINDING_BOMB, FlyingItemEntityRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.BLINDING_BOMB, BlindingBombModel::getTexturedModelData);
 
         EntityRendererRegistry.register(HolyHellEntities.FALLING_SWORD, FallingSwordRenderer::new);
