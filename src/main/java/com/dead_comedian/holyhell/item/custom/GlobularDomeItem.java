@@ -1,6 +1,8 @@
 package com.dead_comedian.holyhell.item.custom;
 
 import com.dead_comedian.holyhell.entity.custom.BabOneEntity;
+import com.dead_comedian.holyhell.entity.custom.other.GlobularDomeEntity;
+import com.dead_comedian.holyhell.entity.custom.other.SwordCrossEntity;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -29,68 +31,20 @@ public class GlobularDomeItem extends Item {
     public GlobularDomeItem(Settings settings) {
         super(settings);
     }
+    String  owner;
 
-    PlayerEntity user2;
-    public PlayerEntity getUser() {
-        return user2;
-    }
-
-
-    public void setUser(PlayerEntity user1) {
-        user2 = user1;
-    }
-
-
-    public ActionResult castSpell(World world, ItemStack itemStack, BlockPos blockPos, Direction direction, PlayerEntity player) {
-
-        player.stopUsingItem();
-        if (!(world instanceof ServerWorld)) {
-            return ActionResult.SUCCESS;
-        } else {
-
-
-
-            BlockState blockState = world.getBlockState(blockPos);
-            if (blockState.isOf(Blocks.SPAWNER)) {
-                BlockEntity blockEntity = world.getBlockEntity(blockPos);
-                if (blockEntity instanceof MobSpawnerBlockEntity) {
-                    MobSpawnerBlockEntity mobSpawnerBlockEntity = (MobSpawnerBlockEntity)blockEntity;
-                    EntityType<?> entityType = HolyHellEntities.GLOBULAR_DOME;
-                    mobSpawnerBlockEntity.setEntityType(entityType, world.getRandom());
-                    blockEntity.markDirty();
-                    world.updateListeners(blockPos, blockState, blockState, 3);
-                    world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, blockPos);
-                    itemStack.decrement(1);
-                    return ActionResult.CONSUME;
-                }
-            }
-
-            BlockPos blockPos2;
-            if (blockState.getCollisionShape(world, blockPos).isEmpty()) {
-                blockPos2 = blockPos;
-            } else {
-                blockPos2 = blockPos.offset(direction);
-            }
-            EntityType<?> entityType2;
-
-                entityType2 = HolyHellEntities.GLOBULAR_DOME;
-
-
-
-            if (entityType2.spawnFromItemStack((ServerWorld)world, itemStack, player, blockPos2, SpawnReason.SPAWN_EGG, true, !Objects.equals(blockPos, blockPos2) && direction == Direction.UP) != null) {
-                itemStack.decrement(1);
-                world.emitGameEvent(player, GameEvent.ENTITY_PLACE, blockPos);
-            }
-
-            return ActionResult.CONSUME;
-        }
-    }
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        castSpell(world, user.getStackInHand(hand), user.getBlockPos(), user.getMovementDirection(),user);
-        setUser(user);
-        System.out.println(getUser());
-        return super.use(world, user, hand);
+
+
+        BlockPos blockPos = user.getBlockPos();
+        GlobularDomeEntity globularDomeEntity = new GlobularDomeEntity(HolyHellEntities.GLOBULAR_DOME, user.getWorld());
+        user.getWorld().spawnEntity(globularDomeEntity);
+        globularDomeEntity.refreshPositionAndAngles(blockPos, globularDomeEntity.getYaw(), globularDomeEntity.getPitch());
+        globularDomeEntity.setUser(owner);
+
+
+        return TypedActionResult.consume(user.getStackInHand(hand));
     }
 }

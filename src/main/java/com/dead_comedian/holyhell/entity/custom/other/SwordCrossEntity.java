@@ -24,7 +24,7 @@ public class SwordCrossEntity extends PersistentProjectileEntity {
     public SwordCrossEntity(EntityType<? extends PersistentProjectileEntity> entityType, double d, double e, double f, World world) {
         super(entityType, world);
         this.setPos(d, e, f);
-        this.cooldown =10;
+        this.cooldown =0;
     }
 
     public SwordCrossEntity(EntityType<SwordCrossEntity> fireBallEntityEntityType, World world) {
@@ -56,7 +56,7 @@ public class SwordCrossEntity extends PersistentProjectileEntity {
             }
         }
 
-        if(++this.cooldown > 50){
+        if(++this.cooldown > 30){
             this.discard();
         }
 

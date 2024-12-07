@@ -29,11 +29,6 @@ import java.util.Objects;
 
 public abstract class ReligiousRingsMixin extends LivingEntity {
 
-
-    @Shadow
-    @Final
-    private PlayerInventory inventory;
-
     protected ReligiousRingsMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
 

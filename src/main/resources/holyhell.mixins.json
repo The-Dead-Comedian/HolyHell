@@ -5,6 +5,8 @@
   "mixins": [
     "ExampleMixin",
     "FeatureRendererMixin",
+    "GlobularDomeImmunityMixin",
+    "GlobularDomePosMixin",
     "ItemRendererAccessor",
     "ItemRendererMixin",
     "ModelLoaderMixin",

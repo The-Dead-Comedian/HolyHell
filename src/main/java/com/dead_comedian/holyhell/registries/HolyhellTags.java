@@ -2,6 +2,7 @@ package com.dead_comedian.holyhell.registries;
 
 import com.dead_comedian.holyhell.Holyhell;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.registry.RegistryKeys;
@@ -16,6 +17,19 @@ public class HolyhellTags {
 
         private static TagKey<EntityType<?>> createTag(String name) {
             return TagKey.of(RegistryKeys.ENTITY_TYPE, new Identifier(Holyhell.MOD_ID, name));
+        }
+    }
+
+    public static class Blocks{
+
+
+
+
+        public static final TagKey<Block> DOME_CLEARS_OUT =
+                createTag("dome_clears_out");
+
+        private static TagKey<Block> createTag(String name) {
+            return TagKey.of(RegistryKeys.BLOCK, new Identifier(Holyhell.MOD_ID, name));
         }
     }
 
