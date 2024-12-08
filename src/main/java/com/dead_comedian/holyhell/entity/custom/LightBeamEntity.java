@@ -1,6 +1,7 @@
 package com.dead_comedian.holyhell.entity.custom;
 
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
+import net.minecraft.client.render.entity.feature.SkinOverlayOwner;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -16,7 +17,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class LightBeamEntity extends Entity {
+public class LightBeamEntity extends Entity implements SkinOverlayOwner {
 
 
     ///////////////
@@ -373,5 +374,10 @@ public class LightBeamEntity extends Entity {
         }
 
 
+    }
+
+    @Override
+    public boolean shouldRenderOverlay() {
+        return this.getLevel() == 0;
     }
 }

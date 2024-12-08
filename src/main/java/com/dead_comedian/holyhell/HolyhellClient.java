@@ -3,18 +3,24 @@ package com.dead_comedian.holyhell;
 import com.dead_comedian.holyhell.client.models.entity.*;
 import com.dead_comedian.holyhell.client.models.entity.other.*;
 import com.dead_comedian.holyhell.client.renderer.*;
+import com.dead_comedian.holyhell.client.renderer.feature.LightBeamFogFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsLowerFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsUpperFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.other.*;
 import com.dead_comedian.holyhell.registries.HolyHellBlocks;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
+import com.google.common.base.Supplier;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.minecraft.client.model.Dilation;
+import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.util.Identifier;
 
 public class HolyhellClient implements ClientModInitializer {
 
@@ -50,9 +56,13 @@ public class HolyhellClient implements ClientModInitializer {
 
 
         //NON MOBS
+
+
         EntityRendererRegistry.register(HolyHellEntities.LIGHT_BEAM, LightBeamRenderer::new);
-        EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.LIGHT_BEAM, LightBeamModel ::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.LIGHT_BEAM1, LightBeamModel1 ::getTexturedModelData);
+
+        EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.FOG1, () -> LightBeamFogModel.getTexturedModelData(new Dilation(-1.0F)));
+        EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.LIGHT_BEAM, () -> LightBeamModel.getTexturedModelData(new Dilation(0.0F)));
+
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.LIGHT_BEAM2, LightBeamModel2::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.LIGHT_BEAM3, LightBeamModel3::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.LIGHT_BEAM4, LightBeamModel4::getTexturedModelData);

@@ -10,18 +10,16 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 
-public class LightBeamModel  <T extends LightBeamEntity> extends SinglePartEntityModel<T> {
+public class LightBeamFogModel  <T extends LightBeamEntity> extends SinglePartEntityModel<T> {
 	private final ModelPart bone;
-	public LightBeamModel(ModelPart root) {
+	public LightBeamFogModel(ModelPart root) {
 		this.bone = root.getChild("bone");
 	}
 	public static TexturedModelData getTexturedModelData(Dilation dilation) {
 		ModelData modelData = new ModelData();
 		ModelPartData modelPartData = modelData.getRoot();
-		ModelPartData bone = modelPartData.addChild("bone", ModelPartBuilder.create().uv(20, 0).cuboid(-12.5F, 103.0F, -31.5F, 22.0F, 0.0F, 40.0F, dilation)
-		.uv(20, 0).cuboid(-12.5F, 0.0F, -31.5F, 22.0F, 0.0F, 40.0F,dilation)
-		.uv(0, 0).cuboid(-9.0F, 0.0F, -19.0F, 15.0F, 103.0F, 15.0F, dilation), ModelTransform.pivot(1.5F, 0.0F, 11.5F));
-		return TexturedModelData.of(modelData, 256, 256);
+		ModelPartData bone = modelPartData.addChild("bone", ModelPartBuilder.create().uv(0, 0).cuboid(-9.5F, -103.0F, -19.5F, 16.0F, 103.0F, 16.0F, dilation), ModelTransform.pivot(1.5F, 24.0F, 11.5F));
+		return TexturedModelData.of(modelData, 64, 119);
 	}
 
 	@Override
@@ -29,13 +27,15 @@ public class LightBeamModel  <T extends LightBeamEntity> extends SinglePartEntit
 		bone.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
 	}
 
-	@Override
-	public ModelPart getPart() {
-		return null;
-	}
+    @Override
+    public ModelPart getPart() {
+        return null;
+    }
 
-	@Override
-	public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+    @Override
+    public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
 
-	}
+    }
+
+
 }
