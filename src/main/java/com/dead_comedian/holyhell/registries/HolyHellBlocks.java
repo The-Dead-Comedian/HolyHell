@@ -2,6 +2,7 @@ package com.dead_comedian.holyhell.registries;
 
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.block.*;
+import com.dead_comedian.holyhell.item.custom.StoneCrossBlockItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
@@ -64,7 +65,7 @@ public class HolyHellBlocks {
 
             });
 
-    public static final Block STONE_CROSS = registerBlock("stone_cross",
+    public static final Block STONE_CROSS = registerStoneCrossDoor("stone_cross",
             new StoneCrossBlock(FabricBlockSettings
                     .copyOf(Blocks.STONE)
                     .nonOpaque()
@@ -88,7 +89,15 @@ public class HolyHellBlocks {
 
 
 
+    private static Block registerStoneCrossDoor(String name, Block block) {
+        registerStoneCrossDoorItem(name, block);
+        return Registry.register(Registries.BLOCK, new Identifier(Holyhell.MOD_ID, name), block);
+    }
 
+    private static Item registerStoneCrossDoorItem(String name, Block block) {
+        return Registry.register(Registries.ITEM, new Identifier(Holyhell.MOD_ID, name),
+                new StoneCrossBlockItem(block, new FabricItemSettings()));
+    }
 
 
 

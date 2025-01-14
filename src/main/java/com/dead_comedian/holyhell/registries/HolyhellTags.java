@@ -23,7 +23,8 @@ public class HolyhellTags {
     public static class Blocks{
 
 
-
+        public static final TagKey<Block> POWERS_TABLE =
+                createTag("powers_table");
 
         public static final TagKey<Block> DOME_CLEARS_OUT =
                 createTag("dome_clears_out");

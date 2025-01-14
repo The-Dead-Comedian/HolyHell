@@ -1,9 +1,6 @@
 package com.dead_comedian.holyhell.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.HorizontalFacingBlock;
+import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
@@ -20,6 +17,8 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
@@ -29,11 +28,37 @@ import org.jetbrains.annotations.Nullable;
 public class StoneCrossBlock extends HorizontalFacingBlock {
     public static final IntProperty PIECE = IntProperty.of("piece", 0, 5);
 
+    protected static final VoxelShape EAST_SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 3.0, 16.0, 16.0);
+    protected static final VoxelShape WEST_SHAPE = Block.createCuboidShape(13.0, 0.0, 0.0, 16.0, 16.0, 16.0);
+    protected static final VoxelShape SOUTH_SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 16.0, 3.0);
+    protected static final VoxelShape NORTH_SHAPE = Block.createCuboidShape(0.0, 0.0, 13.0, 16.0, 16.0, 16.0);
+
 
     public StoneCrossBlock(Settings settings) {
         super(settings);
         this.setDefaultState((BlockState) this.getDefaultState().with(PIECE, 0));
     }
+
+    @Override
+    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+
+        switch (state.get(FACING)) {
+            default: {
+                return SOUTH_SHAPE;
+
+            }
+            case SOUTH: {
+                return NORTH_SHAPE;
+            }
+            case WEST: {
+                return EAST_SHAPE;
+            }
+            case EAST:
+        }
+        return WEST_SHAPE;
+
+    }
+
 
     @Nullable
     @Override
