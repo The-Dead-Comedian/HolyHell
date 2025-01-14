@@ -33,7 +33,7 @@ public class TrappedStoneCrossEntity extends PersistentProjectileEntity {
     public void onPlayerCollision(PlayerEntity player) {
         super.onPlayerCollision(player);
         this.discard();
-        player.giveItemStack(new ItemStack(HolyHellItems.TRAPPED_STONE_CROSS,1));
+        this.dropItem(HolyHellItems.TRAPPED_STONE_CROSS);
     }
 
     @Override
