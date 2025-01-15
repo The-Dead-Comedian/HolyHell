@@ -74,13 +74,27 @@ public class StoneCrossBlock extends HorizontalFacingBlock {
     }
 
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
-        if (state.get(FACING) == Direction.NORTH || state.get(FACING) == Direction.SOUTH) {
+        if (state.get(FACING) == Direction.NORTH) {
             world.setBlockState(pos.up(), state.with(PIECE, 1), 3);
             world.setBlockState(pos.up().up(), state.with(PIECE, 2), 3);
 
             world.setBlockState(pos.add(1, 0, 0), state.with(PIECE, 3), 3);
             world.setBlockState(pos.up().add(1, 0, 0), state.with(PIECE, 4), 3);
             world.setBlockState(pos.up().up().add(1, 0, 0), state.with(PIECE, 5), 3);
+        } else if (state.get(FACING) == Direction.SOUTH) {
+            world.setBlockState(pos.up(), state.with(PIECE, 1), 3);
+            world.setBlockState(pos.up().up(), state.with(PIECE, 2), 3);
+
+            world.setBlockState(pos.add(-1, 0, 0), state.with(PIECE, 3), 3);
+            world.setBlockState(pos.up().add(-1, 0, 0), state.with(PIECE, 4), 3);
+            world.setBlockState(pos.up().up().add(-1, 0, 0), state.with(PIECE, 5), 3);
+        } else if (state.get(FACING) == Direction.WEST) {
+            world.setBlockState(pos.up(), state.with(PIECE, 1), 3);
+            world.setBlockState(pos.up().up(), state.with(PIECE, 2), 3);
+
+            world.setBlockState(pos.add(0, 0, -1), state.with(PIECE, 3), 3);
+            world.setBlockState(pos.up().add(0, 0, -1), state.with(PIECE, 4), 3);
+            world.setBlockState(pos.up().up().add(0, 0, -1), state.with(PIECE, 5), 3);
         } else {
             world.setBlockState(pos.up(), state.with(PIECE, 1), 3);
             world.setBlockState(pos.up().up(), state.with(PIECE, 2), 3);
