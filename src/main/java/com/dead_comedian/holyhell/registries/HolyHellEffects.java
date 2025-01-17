@@ -3,8 +3,7 @@ package com.dead_comedian.holyhell.registries;
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.effect.ClarityEffect;
 import com.dead_comedian.holyhell.effect.ConfusionEffect;
-import com.dead_comedian.holyhell.effect.EnlightenedEffect;
-import com.dead_comedian.holyhell.effect.JesistenceEffect;
+import com.dead_comedian.holyhell.effect.CustomStatusEffect;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffect;
@@ -24,10 +23,10 @@ public class HolyHellEffects {
             new ConfusionEffect(StatusEffectCategory.NEUTRAL, 0x36ebab));
 
     public static final StatusEffect JESISTANCE = registerStatusEffect("jesistance",
-            new JesistenceEffect(StatusEffectCategory.NEUTRAL, 0x36ebab));
+            new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x36ebab));
 
     public static final StatusEffect ENLIGHTENED = registerStatusEffect("enlightened",
-            new EnlightenedEffect(StatusEffectCategory.NEUTRAL, 0x36ebab));
+            new ConfusionEffect(StatusEffectCategory.BENEFICIAL, 0x36ebab));
 
 
     private static StatusEffect registerStatusEffect(String name, StatusEffect statusEffect) {

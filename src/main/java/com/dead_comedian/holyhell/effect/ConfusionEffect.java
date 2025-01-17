@@ -1,36 +1,18 @@
 package com.dead_comedian.holyhell.effect;
 
-import com.dead_comedian.holyhell.registries.HolyHellSounds;
-
-
-import com.dead_comedian.holyhell.world.explosion.ExplosionNoDamage;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.PrioritizedGoal;
 import net.minecraft.entity.attribute.AttributeContainer;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
-
-
 import net.minecraft.entity.mob.HostileEntity;
-
-
-import net.minecraft.network.packet.s2c.play.StopSoundS2CPacket;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-import net.minecraft.world.explosion.Explosion;
-import net.minecraft.world.explosion.ExplosionBehavior;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Set;
 import java.util.function.Predicate;
 
 public class ConfusionEffect extends StatusEffect {
@@ -43,9 +25,8 @@ public class ConfusionEffect extends StatusEffect {
 
     @Override
     public void applyUpdateEffect(LivingEntity pLivingEntity, int pAmplifier) {
-        if (pLivingEntity instanceof HostileEntity) {
-            LivingEntity target = ((HostileEntity) pLivingEntity).getTarget();
-            if (target == null) {
+        if (pLivingEntity instanceof HostileEntity hostileEntity) {
+            if (hostileEntity.getTarget() != null) {
                 changeTarget(pLivingEntity);
             }
         }
@@ -56,7 +37,6 @@ public class ConfusionEffect extends StatusEffect {
     @Override
     public void onApplied(LivingEntity entity, AttributeContainer attributes, int amplifier) {
         changeTarget(entity);
-
     }
 
 
@@ -86,18 +66,8 @@ public class ConfusionEffect extends StatusEffect {
     @Override
     public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
 
-
-        List<Entity> list_of_living_things_nearby = entity.getWorld().getOtherEntities(entity, entity.getBoundingBox().expand(15), IS_PLAYER);
-
-        StopSoundS2CPacket stopSoundS2CPacket = new StopSoundS2CPacket(HolyHellSounds.CLARITY_MUSIC.getId(), SoundCategory.RECORDS);
-        if (entity instanceof ServerPlayerEntity) {
-            list_of_living_things_nearby.add(entity);
-        }
-
-        for (Entity clientBoi : list_of_living_things_nearby) {
-            if (clientBoi instanceof ServerPlayerEntity Boi) {
-                Boi.networkHandler.sendPacket(stopSoundS2CPacket);
-            }
+        if (entity instanceof HostileEntity hostileEntity) {
+            hostileEntity.targetSelector.add(1, new ActiveTargetGoal(hostileEntity, PlayerEntity.class, true));
         }
     }
 

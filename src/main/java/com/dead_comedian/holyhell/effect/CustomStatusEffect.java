@@ -15,10 +15,10 @@ import net.minecraft.sound.SoundCategory;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class JesistenceEffect extends StatusEffect {
+public class CustomStatusEffect extends StatusEffect {
 
 
-    public JesistenceEffect(StatusEffectCategory statusEffectCategory, int color) {
+    public CustomStatusEffect(StatusEffectCategory statusEffectCategory, int color) {
         super(statusEffectCategory, color);
     }
 
