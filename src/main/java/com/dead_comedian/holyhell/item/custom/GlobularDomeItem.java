@@ -31,7 +31,8 @@ public class GlobularDomeItem extends Item {
     public GlobularDomeItem(Settings settings) {
         super(settings);
     }
-    String  owner;
+
+    String owner;
 
 
     @Override
@@ -44,6 +45,9 @@ public class GlobularDomeItem extends Item {
         globularDomeEntity.refreshPositionAndAngles(blockPos, globularDomeEntity.getYaw(), globularDomeEntity.getPitch());
         globularDomeEntity.setUser(owner);
 
+        if (!user.isCreative()) {
+            user.getStackInHand(hand).decrement(1);
+        }
 
         return TypedActionResult.consume(user.getStackInHand(hand));
     }

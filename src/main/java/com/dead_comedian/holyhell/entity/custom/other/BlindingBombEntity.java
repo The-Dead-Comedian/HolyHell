@@ -5,16 +5,11 @@ import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.BlazeEntity;
-import net.minecraft.entity.projectile.thrown.SnowballEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -28,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class BlindingBombEntity extends ThrownItemEntity {
+
 
 
     public BlindingBombEntity(EntityType<? extends BlindingBombEntity> entityType, World world) {
@@ -76,6 +72,9 @@ public class BlindingBombEntity extends ThrownItemEntity {
         return false;
     }
 
+
+
+
     protected void onCollision(HitResult hitResult) {
         super.onCollision(hitResult);
         if (!this.getWorld().isClient) {
@@ -92,7 +91,7 @@ public class BlindingBombEntity extends ThrownItemEntity {
             }
             this.discard();
         }
-        this.explode(0);
+        this.explode(-1);
 
     }
 
@@ -100,6 +99,4 @@ public class BlindingBombEntity extends ThrownItemEntity {
     protected Item getDefaultItem() {
         return null;
     }
-
-
 }
