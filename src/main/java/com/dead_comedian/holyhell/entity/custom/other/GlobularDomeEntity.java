@@ -1,5 +1,7 @@
 package com.dead_comedian.holyhell.entity.custom.other;
 
+import com.dead_comedian.holyhell.registries.HolyHellEntities;
+import com.dead_comedian.holyhell.registries.HolyhellParticles;
 import com.dead_comedian.holyhell.registries.HolyhellTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -8,6 +10,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
@@ -25,25 +28,17 @@ public class GlobularDomeEntity extends Entity {
 
     public String userNBT;
 
-    public void setUser(String player){
-        userNBT=player;
+    public void setUser(String player) {
+        userNBT = player;
     }
-
-    public String getUser(){
-        return userNBT;
-    }
-
 
     public GlobularDomeEntity(EntityType<?> type, World world) {
         super(type, world);
 
-        this.ticksLeft =200;
+        this.ticksLeft = 200;
 
 
     }
-
-
-
 
 
     @Override
@@ -51,17 +46,18 @@ public class GlobularDomeEntity extends Entity {
         super.tick();
 
         List<Entity> entityBelow = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2));
+        List<Entity> entityBelow2 = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.25));
         launchLivingEntities(entityBelow);
+        launchLivingEntities1(entityBelow2);
 
         BlockState blockState = this.getWorld().getBlockState(this.getBlockPos());
         BlockState blockState2 = this.getLandingBlockState();
-        boolean bl = blockState.isIn(HolyhellTags.Blocks.DOME_CLEARS_OUT) || blockState2.isIn(HolyhellTags.Blocks.DOME_CLEARS_OUT) ;
+        boolean bl = blockState.isIn(HolyhellTags.Blocks.DOME_CLEARS_OUT) || blockState2.isIn(HolyhellTags.Blocks.DOME_CLEARS_OUT);
 
 
-        if(bl){
-             this.destroyBlocks(this.getBoundingBox());
+        if (bl) {
+            this.destroyBlocks(this.getBoundingBox());
         }
-
 
 
         if (--this.ticksLeft < 0) {
@@ -86,16 +82,13 @@ public class GlobularDomeEntity extends Entity {
                     if (blockState.isAir() || blockState.isIn(HolyhellTags.Blocks.DOME_CLEARS_OUT)) {
 
                         this.getWorld().setBlockState(blockPos, Blocks.AIR.getDefaultState(), Block.NOTIFY_ALL);
-                }}
+                    }
+                }
             }
         }
 
         return bl;
     }
-
-
-
-
 
 
     @Override
@@ -117,8 +110,18 @@ public class GlobularDomeEntity extends Entity {
     protected void writeCustomDataToNbt(NbtCompound nbt) {
 
     }
+    private void launchLivingEntities1(List<Entity> entities) {
+        double d = (this.getBoundingBox().minX + this.getBoundingBox().maxX) / 2.0;
+        double e = (this.getBoundingBox().minZ + this.getBoundingBox().maxZ) / 2.0;
+
+        for (Entity entity : entities) {
+            if (!(entity instanceof PlayerEntity)) {
 
 
+                this.getWorld().addParticle(HolyhellParticles.LIGHT_RING, this.getParticleX(0.1),  this.getBodyY(0.5), this.getParticleZ(0.1), 0.0, 0.0, 0.0);
+
+            }}
+        }
 
     private void launchLivingEntities(List<Entity> entities) {
         double d = (this.getBoundingBox().minX + this.getBoundingBox().maxX) / 2.0;
@@ -131,11 +134,10 @@ public class GlobularDomeEntity extends Entity {
                 double f = entity.getX() - d;
                 double g = entity.getZ() - e;
                 double h = Math.max(f * f + g * g, 0.1);
-
                 entity.addVelocity(f / h * 2, 0.4, g / h * 2);
+
             }
         }
-
 
 
     }

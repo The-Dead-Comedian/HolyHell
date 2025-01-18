@@ -44,6 +44,7 @@ public class GlobularDomeItem extends Item {
         user.getWorld().spawnEntity(globularDomeEntity);
         globularDomeEntity.refreshPositionAndAngles(blockPos, globularDomeEntity.getYaw(), globularDomeEntity.getPitch());
         globularDomeEntity.setUser(owner);
+        user.getItemCooldownManager().set(this, 200);
 
         if (!user.isCreative()) {
             user.getStackInHand(hand).decrement(1);

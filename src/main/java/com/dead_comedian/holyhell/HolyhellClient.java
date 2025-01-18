@@ -6,11 +6,14 @@ import com.dead_comedian.holyhell.client.renderer.*;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsLowerFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsUpperFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.other.*;
+import com.dead_comedian.holyhell.particle.LightRingParticle;
 import com.dead_comedian.holyhell.registries.HolyHellBlocks;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
+import com.dead_comedian.holyhell.registries.HolyhellParticles;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.render.RenderLayer;
@@ -26,6 +29,11 @@ public class HolyhellClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(HolyHellBlocks.CANDELABRA, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(HolyHellBlocks.CANDLEHOLDER, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(HolyHellBlocks.STONE_CROSS, RenderLayer.getCutout());
+
+        // PARTICLES
+        ParticleFactoryRegistry.getInstance().register(HolyhellParticles.LIGHT_RING, LightRingParticle.Factory::new);
+
+
 
         // MOBS
 
