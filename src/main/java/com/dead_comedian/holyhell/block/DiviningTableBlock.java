@@ -20,6 +20,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.village.raid.Raid;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -46,7 +47,7 @@ public class DiviningTableBlock extends HorizontalFacingBlock {
     }
 
     public static boolean canAccessPowerProvider(World world, BlockPos tablePos, BlockPos providerOffset) {
-        return world.getBlockState(tablePos.add(providerOffset)).isIn(HolyhellTags.Blocks.POWERS_TABLE) && world.getBlockState(tablePos.add(providerOffset.getX() / 2, providerOffset.getY(), providerOffset.getZ() / 2)).isIn(BlockTags.ENCHANTMENT_POWER_TRANSMITTER);
+        return world.getBlockState(tablePos.add(providerOffset)).isOf(getBlockFromItem(Raid.getOminousBanner().getItem())) && world.getBlockState(tablePos.add(providerOffset.getX() / 2, providerOffset.getY(), providerOffset.getZ() / 2)).isIn(BlockTags.ENCHANTMENT_POWER_TRANSMITTER);
     }
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
