@@ -30,6 +30,7 @@ public class Holyhell implements ModInitializer {
         HolyhellParticles.registerParticles();
         HolyHellEntities.registerModEntities();
         HolyHellItemGroup.registerItemGroups();
+        HolyHellBlockEntities.registerBlockEntities();
 
 
         FabricDefaultAttributeRegistry.register(HolyHellEntities.ANGEL, AngelEntity.createAngelAttributes());

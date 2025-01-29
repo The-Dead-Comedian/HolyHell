@@ -29,6 +29,7 @@ public class HolyhellClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(HolyHellBlocks.CANDELABRA, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(HolyHellBlocks.CANDLEHOLDER, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(HolyHellBlocks.STONE_CROSS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(HolyHellBlocks.FALLING_CROSS, RenderLayer.getCutout());
 
         // PARTICLES
         ParticleFactoryRegistry.getInstance().register(HolyhellParticles.LIGHT_RING, LightRingParticle.Factory::new);
@@ -82,8 +83,6 @@ public class HolyhellClient implements ClientModInitializer {
         EntityRendererRegistry.register(HolyHellEntities.SWORD_CROSS, SwordCrossRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.SWORD_CROSS, SwordCrossModel::getTexturedModelData);
 
-        EntityRendererRegistry.register(HolyHellEntities.TRAPPED_STONE_CROSS, TrappedStoneCrossRenderer::new);
-        EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.TRAPPED_STONE_CROSS, TrappedStoneCrossModel::getTexturedModelData);
         //FEATURE
 
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.RELIGIOUS_RINGS, ReligiousRingsLowerFeatureRenderer::getTexturedModelData);

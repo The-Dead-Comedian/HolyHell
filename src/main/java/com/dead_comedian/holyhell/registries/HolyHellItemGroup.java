@@ -44,7 +44,7 @@ public class HolyHellItemGroup {
                         entries.add(HolyHellBlocks.CANDELABRA);
                         entries.add(HolyHellBlocks.CANDLEHOLDER);
                         entries.add(HolyHellBlocks.STONE_CROSS);
-                        entries.add(HolyHellItems.TRAPPED_STONE_CROSS);
+                        entries.add(HolyHellBlocks.FALLING_CROSS);
 
 
 

@@ -46,9 +46,6 @@ public class HolyHellModelLayers {
     public static final EntityModelLayer BLINDING_BOMB =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "blinding_bomb"), "main");
 
-    public static final EntityModelLayer TRAPPED_STONE_CROSS =
-            new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "trapped_stone_cross"), "main");
-
 
 
     public static final EntityModelLayer RELIGIOUS_RINGS =
