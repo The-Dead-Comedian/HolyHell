@@ -30,6 +30,7 @@ public class HolyHellItems {
     public static final Item HOLY_TEAR = registerItem("holy_tear", new Item(new FabricItemSettings()));
     public static final Item BAPTIZED_PLATE = registerItem("baptized_plate", new Item(new FabricItemSettings()));
     public static final Item ENHANCED_SILK = registerItem("enhanced_silk", new Item(new FabricItemSettings()));
+    public static final Item KEBAB = registerItem("kebab", new Item(new FabricItemSettings().food(FoodComponents.BEEF)));
 
 
     public static final Item EVANGELIST_HELMET = registerItem("evangelist_helmet", new ArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.HELMET, new FabricItemSettings()));
