@@ -1,6 +1,7 @@
 package com.dead_comedian.holyhell.entity.custom.other;
 
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
@@ -37,7 +38,8 @@ public class FireBallEntity extends PersistentProjectileEntity {
     @Override
     public void onPlayerCollision(PlayerEntity player) {
         super.onPlayerCollision(player);
-        player.damage(player.getWorld().getDamageSources().magic(), 5.0F);
+        if(!player.blockedByShield(player.getWorld().getDamageSources().arrow(this,player.getAttacker()))){
+        player.damage(player.getWorld().getDamageSources().magic(), 5.0F);}
         this.discard();
     }
 

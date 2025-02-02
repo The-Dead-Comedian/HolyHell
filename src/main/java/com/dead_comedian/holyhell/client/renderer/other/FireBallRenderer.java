@@ -44,6 +44,7 @@ public class FireBallRenderer extends ProjectileEntityRenderer<FireBallEntity> {
             vertexConsumer = vertexConsumerProvider.getBuffer(this.model.getLayer(TEXTURE3));
             timer = 1;
         }
+        
         this.model.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
         super.render(mobEntity, f, g, matrixStack, vertexConsumerProvider, 15728640);
     }   
