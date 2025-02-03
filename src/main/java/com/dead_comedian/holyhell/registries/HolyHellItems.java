@@ -33,10 +33,10 @@ public class HolyHellItems {
     public static final Item KEBAB = registerItem("kebab", new Item(new FabricItemSettings().food(FoodComponents.BEEF)));
 
 
-    public static final Item EVANGELIST_HELMET = registerItem("evangelist_helmet", new ArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.HELMET, new FabricItemSettings()));
-    public static final Item EVANGELIST_CHESTPLATE = registerItem("evangelist_chestplate", new ArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
-    public static final Item EVANGELIST_LEGGINGS = registerItem("evangelist_leggings", new ArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
-    public static final Item EVANGELIST_BOOTS = registerItem("evangelist_boots", new ArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+    public static final Item EVANGELIST_HELMET = registerItem("evangelist_helmet", new EvangelistArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.HELMET, new FabricItemSettings()));
+    public static final Item EVANGELIST_CHESTPLATE = registerItem("evangelist_chestplate", new EvangelistArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
+    public static final Item EVANGELIST_LEGGINGS = registerItem("evangelist_leggings", new EvangelistArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item EVANGELIST_BOOTS = registerItem("evangelist_boots", new EvangelistArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
 
 

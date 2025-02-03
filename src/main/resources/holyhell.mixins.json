@@ -3,6 +3,7 @@
   "package": "com.dead_comedian.holyhell.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "ArmorTimerEntityMixin",
     "ExampleMixin",
     "FeatureRendererMixin",
     "GlobularDomeImmunityMixin",

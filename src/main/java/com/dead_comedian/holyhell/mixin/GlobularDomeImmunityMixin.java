@@ -34,17 +34,19 @@ public abstract class GlobularDomeImmunityMixin extends LivingEntity {
         List<Entity> entityBelow = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(-0.1));
         for (Entity entity : entityBelow) {
             if (this.collidesWith(entity) && entity instanceof GlobularDomeEntity) {
-                System.out.println(0);
                 return 0;
 
             }
 
         }
-        System.out.println(value);
+
         return value;
 
     }
 
 
 }
+
+
+
 
