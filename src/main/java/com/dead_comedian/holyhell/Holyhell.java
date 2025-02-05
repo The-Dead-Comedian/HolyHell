@@ -40,6 +40,7 @@ public class Holyhell implements ModInitializer {
         FabricDefaultAttributeRegistry.register(HolyHellEntities.BAB_ONE, BabOneEntity.createAngelAttributes());
         FabricDefaultAttributeRegistry.register(HolyHellEntities.BAB_TWO, BabTwoEntity.createAngelAttributes());
         FabricDefaultAttributeRegistry.register(HolyHellEntities.BAB_THREE, BabThreeEntity.createAngelAttributes());
+        FabricDefaultAttributeRegistry.register(HolyHellEntities.HOLY_SPIRIT, HolySpiritEntity.createHereticAttributes());
         ServerTickEvents.END_WORLD_TICK.register(new ServerTickHandler());
 
         LOGGER.info("Running The Mod");

@@ -52,10 +52,13 @@ public class HolyhellClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(HolyHellEntities.BAB_ONE, BabOneRenderer::new);
         EntityRendererRegistry.register(HolyHellEntities.BAB_TWO, BabTwoRenderer::new);
-        EntityRendererRegistry.register(HolyHellEntities.BAB_THREE, BabThreeRenderer    ::new);
+        EntityRendererRegistry.register(HolyHellEntities.BAB_THREE, BabThreeRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.BAB, BabOneModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.BAB1, BabTwoModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.BAB2, BabThreeModel::getTexturedModelData);
+
+        EntityRendererRegistry.register(HolyHellEntities.HOLY_SPIRIT, HolySpiritRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.HOLY_SPIRIT, HolySpiritModel::getTexturedModelData);
 
 
         //NON MOBS

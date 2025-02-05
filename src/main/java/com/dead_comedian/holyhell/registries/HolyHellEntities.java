@@ -50,6 +50,10 @@ public class HolyHellEntities {
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, BabThreeEntity::new)
                     .dimensions(EntityDimensions.fixed(0.8f, 0.8f)).build());
 
+    public static final EntityType<HolySpiritEntity> HOLY_SPIRIT = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(Holyhell.MOD_ID, "holy_sprit"),
+            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, HolySpiritEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.8f, 0.8f)).build());
 
     //Projectiles
 

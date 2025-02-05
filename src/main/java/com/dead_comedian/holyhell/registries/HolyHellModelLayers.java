@@ -26,6 +26,8 @@ public class HolyHellModelLayers {
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "palladin"), "main");
     public static final EntityModelLayer HAILING_HERETIC =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "hailing_heretic"), "main");
+    public static final EntityModelLayer HOLY_SPIRIT =
+            new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "holy_spirit"), "main");
     public static final EntityModelLayer KAMIKAZE_ANGEL =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "kamikaze_angel"), "main");
     public static final EntityModelLayer BAB =
