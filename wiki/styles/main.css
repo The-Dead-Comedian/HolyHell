@@ -1,11 +1,11 @@
 @font-face {font-family: "minefont";
-  src: url("mcfont.woff") format("woff");
+  src: url("https://epxzzy.github.io/mcfont.woff") format("woff");
 }
 @font-face {font-family: "minefontbig";
-  src: url("minefontbig.woff") format("woff");
+  src: url("https://epxzzy.github.io/minefontbig.woff") format("woff");
 }
 @font-face {font-family: "minefontbigcaps";
-  src: url("minefontbigcaps.woff") format("woff");
+  src: url("https://epxzzy.github.io/minefontbigcaps.woff") format("woff");
 }
 .logo {
 	width: 100%;
