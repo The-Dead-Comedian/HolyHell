@@ -91,14 +91,14 @@ footer {
 	box-shadow: 8px 0 0 0 #555555,
 		0 8px 0 0 #555555,
 		4px 4px 0 0 #555555,
-		-8px 0 0 0 #e8e8e8,
-		0 -8px 0 0 #e8e8e8,
-		-4px -4px 0 0 #e8e8e8,
+		-8px 0 0 0 #ffffff,
+		0 -8px 0 0 #ffffff,
+		-4px -4px 0 0 #ffffff,
 		0 0 0 4px #b5b4b5,
 		4px 8px 0 0 #555,
 		8px 4px 0 0 #555,
-		-4px -8px 0 0 #e8e8e8,
-		-8px -4px 0 0 #e8e8e8,
+		-4px -8px 0 0 #ffffff,
+		-8px -4px 0 0 #ffffff,
 		8px -4px 0 0 #000,
 		4px -8px 0 0 #000,
 		-8px 4px 0 0 #000,
@@ -397,7 +397,7 @@ footer {
     color: white;
     background-color: #686868;
     text-align: center;
-    box-shadow: 0px 0px 0 0 #f0f0f0, 0px -34px 0 0 #c6c6c6, 4px 0 0 0 #555, 4px -34px 0 0 #555, 0 4px 0 0 #555, 2px 2px 0 0 #555, -4px 0 0 0 #e8e8e8, -4px -34px 0 0 #e8e8e8, 0 -38px 0 0 #e8e8e8, 0 -4px 0 0 #e4e4e4, -2px -36px 0 0 #e8e8e8, -4px -34px 0 0 #e8e8e8, 1px -35px 0 1px #c6c6c6, 1px -37px 0 1px #000000, 2px 4px 0 0 #555, 4px 2px 0 0 #555, -2px -4px 0 0 #e4e4e4, -4px -2px 0 0 #e4e4e4, 4px -2px 0 0 #000, 2px -4px 0 0 #000, -4px 2px 0 0 #000, -2px 4px 0 0 #000, -4px -36px 0 0 #000, 4px 4px 0 0 #000, -6px 0 0 0 #000, -6px -36px 0 0 #000, 6px 0 0 0 #000000, 6px -36px 0 0 #000000, 6px 2px 0 0 #000, -2px -40px 0 0 #000, -4px -38px 0 0 #000, 0 6px 0 0 #000, 2px 6px 0 0 #000, 2px -40px 0 0 #000, 4px -38px 0 0 #000, inset 0px 10px 0px 16px #c6c6c6, inset 18px 28px 0px 0px #555, inset -18px -8px 0px 0px #e8e8e8;
+    box-shadow: 0px 0px 0 0 #f0f0f0, 0px -34px 0 0 #c6c6c6, 4px 0 0 0 #555, 4px -34px 0 0 #555, 0 4px 0 0 #555, 2px 2px 0 0 #555, -4px 0 0 0 #ffffff, -4px -34px 0 0 #ffffff, 0 -38px 0 0 #ffffff, 0 -4px 0 0 #e4e4e4, -2px -36px 0 0 #ffffff, -4px -34px 0 0 #ffffff, 1px -35px 0 1px #c6c6c6, 1px -37px 0 1px #000000, 2px 4px 0 0 #555, 4px 2px 0 0 #555, -2px -4px 0 0 #e4e4e4, -4px -2px 0 0 #e4e4e4, 4px -2px 0 0 #000, 2px -4px 0 0 #000, -4px 2px 0 0 #000, -2px 4px 0 0 #000, -4px -36px 0 0 #000, 4px 4px 0 0 #000, -6px 0 0 0 #000, -6px -36px 0 0 #000, 6px 0 0 0 #000000, 6px -36px 0 0 #000000, 6px 2px 0 0 #000, -2px -40px 0 0 #000, -4px -38px 0 0 #000, 0 6px 0 0 #000, 2px 6px 0 0 #000, 2px -40px 0 0 #000, 4px -38px 0 0 #000, inset 0px 10px 0px 16px #c6c6c6, inset 18px 28px 0px 0px #555, inset -18px -8px 0px 0px #ffffff;
     margin-top: 50px;
 }
 */
