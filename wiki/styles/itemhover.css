@@ -44,9 +44,9 @@
     right: -0.125em;
     bottom: 0.125em;
     left: -0.125em;
-    border: 0.125em solid #100010;
+    border: 0.15em solid #100010;
     border-style: none solid;
-    border-color: rgba(16,0,16,0.94);
+    border-color: rgba(16,0,16,0.94)
 }
 
 #minetip-tooltip::after {
@@ -58,6 +58,6 @@
     left: 0;
     border: 0.125em solid #2D0A63;
     border-image: -webkit-linear-gradient(rgba(80,0,255,0.31),rgba(40,0,127,0.31)) 1;
-    border-image: linear-gradient(rgba(80,0,255,0.31),rgba(40,0,127,0.31)) 1;
+    border-image: linear-gradient(rgba(80,0,255,0.31),rgba(40,0,127,0.31)) 1
 }
 /* &#10;&#13; for \n */

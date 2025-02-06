@@ -82,8 +82,8 @@ html {
 .boxes {
   display: grid;
   align-content: center;
-  grid-template-columns: repeat(9, calc(var(--slot-size) + 8px));
-  grid-auto-rows: calc(var(--slot-size) + 8px);
+  grid-template-columns: repeat(9, calc(var(--slot-size) + 4px));
+  grid-auto-rows: calc(var(--slot-size) + 4px);
   grid-gap: 0px;
   cursor: default;
 }
@@ -91,8 +91,8 @@ html {
 .boxes2 {
   display: grid;
   align-content: center;
-  grid-template-columns: repeat(9, calc(var(--slot-size) + 8px));
-  grid-auto-rows: calc(var(--slot-size) + 8px);
+  grid-template-columns: repeat(9, calc(var(--slot-size) + 4px));
+  grid-auto-rows: calc(var(--slot-size) + 4px);
   grid-gap: 0px;
   margin-bottom: 6px;
   cursor: default;
@@ -101,8 +101,8 @@ html {
 .boxes3 {
   display: grid;
   align-content: center;
-  grid-template-columns: repeat(9, calc(var(--slot-size) + 8px));
-  grid-auto-rows: calc(var(--slot-size) + 8px);
+  grid-template-columns: repeat(9, calc(var(--slot-size) + 4px));
+  grid-auto-rows: calc(var(--slot-size) + 4px);
   grid-gap: 0px;
   cursor: default;
 }
