@@ -29,7 +29,7 @@ public class HailingHereticEntity extends HostileEntity {
     public final AnimationState attackAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
     public int attackAnimationTimeout = 0;
-
+    int tick1;
 
     //////////
     // MISC //
@@ -40,12 +40,26 @@ public class HailingHereticEntity extends HostileEntity {
         super(entityType, world);
         this.experiencePoints = 10;
     }
+    public void safetyMeasure() {
 
+
+        if (HereticAttackGoal.render) {
+
+           tick1++;
+
+            if (tick1 == 20) {
+                tick1 = 0;
+                HereticAttackGoal.render = false;
+
+
+            }
+        }
+    }
     @Override
     public void tick() {
         super.tick();
 
-
+        safetyMeasure();
         if (this.getWorld().isClient()) {
             setupAnimationStates();
         }
@@ -55,7 +69,6 @@ public class HailingHereticEntity extends HostileEntity {
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new HereticAttackGoal(this, 1f, true));
-
         this.goalSelector.add(4, new WanderAroundFarGoal(this, 1D));
         this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 4f));
         this.goalSelector.add(6, new LookAroundGoal(this));
@@ -124,7 +137,7 @@ public class HailingHereticEntity extends HostileEntity {
 
     public class HereticAttackGoal extends MeleeAttackGoal {
 
-        int tick1;
+
         private final HailingHereticEntity entity;
         private int attackDelay = 15;
         private int ticksUntilNextAttack = 15;
@@ -172,21 +185,7 @@ public class HailingHereticEntity extends HostileEntity {
             }
         }
 
-        public void safetyMeasure() {
 
-
-            if (render) {
-
-
-
-                if (tick1 == 20) {
-                    tick1 = 0;
-                    render = false;
-
-
-                }
-            }
-        }
 
         public static boolean shouldRender() {
             return render;
@@ -219,7 +218,7 @@ public class HailingHereticEntity extends HostileEntity {
         @Override
         public void tick() {
             super.tick();
-            tick1++;
+
             safetyMeasure();
             if (shouldCountTillNextAttack) {
                 this.ticksUntilNextAttack = Math.max(this.ticksUntilNextAttack - 1, 0);

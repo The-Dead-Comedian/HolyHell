@@ -11,7 +11,7 @@ import net.minecraft.sound.SoundEvents;
 import java.util.function.Supplier;
 
 public enum HolyhellArmorMaterials implements ArmorMaterial {
-    EVANGELIST("evangelist", 25, new int[] { 3, 8, 6, 3 }, 26,
+    EVANGELIST("evangelist", 25, new int[]{2, 6, 5, 2}, 26,
             SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 2f, 0.1f, () -> Ingredient.ofItems(HolyHellItems.BAPTIZED_PLATE));
     private final String name;
     private final int durabilityMultiplier;
@@ -22,7 +22,7 @@ public enum HolyhellArmorMaterials implements ArmorMaterial {
     private final float knockbackResistance;
     private final Supplier<Ingredient> repairIngredient;
 
-    private static final int[] BASE_DURABILITY = { 11, 16, 15, 13 };
+    private static final int[] BASE_DURABILITY = {11, 16, 15, 13};
 
     HolyhellArmorMaterials(String name, int durabilityMultiplier, int[] protectionAmounts, int enchantability, SoundEvent equipSound,
                            float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
@@ -44,6 +44,10 @@ public enum HolyhellArmorMaterials implements ArmorMaterial {
     @Override
     public int getProtection(ArmorItem.Type type) {
         return protectionAmounts[type.ordinal()];
+    }
+
+    public void setProtection(ArmorItem.Type type, int a) {
+        protectionAmounts[type.ordinal()] = a;
     }
 
     @Override

@@ -3,17 +3,18 @@
   "category": "misc",
   "key": {
 
-    "X": {
-      "item": "minecraft:stone"
+
+    "#": {
+      "item": "holyhell:saint_eye"
     }
   },
   "pattern": [
-    "X X",
-    " X ",
-    "X X"
+    "   ",
+    " # ",
+    "   "
   ],
   "result": {
-    "item": "holyhell:trapped_stone_cross"
+    "item": "holyhell:holy_tear"
   },
   "show_notification": true
 }

@@ -28,12 +28,12 @@ public class PalladinModel<T extends PalladinEntity> extends SinglePartEntityMod
 		ModelPartData head = torso.addChild("head", ModelPartBuilder.create().uv(0, 29).cuboid(-6.0F, -12.0F, -6.0F, 12.0F, 12.0F, 12.0F, new Dilation(0.0F))
 				.uv(0, 53).cuboid(-12.0F, -22.0F, 0.0F, 24.0F, 16.0F, 0.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -18.0F, 0.0F));
 
-		ModelPartData left_hand = torso.addChild("left_hand", ModelPartBuilder.create().uv(62, 0).cuboid(-7.7375F, 6.5F, -4.0F, 8.0F, 15.0F, 8.0F, new Dilation(0.0F))
+		ModelPartData left_hand = torso.addChild("left_hand", ModelPartBuilder.create().uv(96, 48).cuboid(-7.7375F, -2.5F, -4.0F, 8.0F, 24.0F, 8.0F, new Dilation(0.0F))
 				.uv(48, 29).mirrored().cuboid(-9.7375F, -4.5F, -5.0F, 10.0F, 15.0F, 10.0F, new Dilation(0.0F)).mirrored(false)
 				.uv(0, 69).cuboid(-7.7625F, 1.5F, -4.0F, 8.0F, 5.0F, 8.0F, new Dilation(0.0F))
 				.uv(0, 69).cuboid(-7.7625F, -3.5F, -4.0F, 8.0F, 5.0F, 8.0F, new Dilation(0.0F)), ModelTransform.pivot(-10.2625F, -16.5F, 0.0F));
 
-		ModelPartData right_hand = torso.addChild("right_hand", ModelPartBuilder.create().uv(62, 0).mirrored().cuboid(-0.2625F, 6.5F, -4.0F, 8.0F, 15.0F, 8.0F, new Dilation(0.0F)).mirrored(false)
+		ModelPartData right_hand = torso.addChild("right_hand", ModelPartBuilder.create().uv(96, 48).mirrored().cuboid(-0.2625F, -2.5F, -4.0F, 8.0F, 24.0F, 8.0F, new Dilation(0.0F)).mirrored(false)
 				.uv(48, 29).cuboid(-0.2625F, -4.5F, -5.0F, 10.0F, 15.0F, 10.0F, new Dilation(0.0F))
 				.uv(0, 69).mirrored().cuboid(-0.2375F, 1.5F, -4.0F, 8.0F, 5.0F, 8.0F, new Dilation(0.0F)).mirrored(false)
 				.uv(0, 69).mirrored().cuboid(-0.2375F, -3.5F, -4.0F, 8.0F, 5.0F, 8.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.pivot(10.2625F, -16.5F, 0.0F));

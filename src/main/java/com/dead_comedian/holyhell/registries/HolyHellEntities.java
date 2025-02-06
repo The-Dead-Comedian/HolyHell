@@ -50,6 +50,10 @@ public class HolyHellEntities {
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, BabThreeEntity::new)
                     .dimensions(EntityDimensions.fixed(0.8f, 0.8f)).build());
 
+    public static final EntityType<HolySpiritEntity> HOLY_SPIRIT = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(Holyhell.MOD_ID, "holy_sprit"),
+            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, HolySpiritEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.8f, 0.8f)).build());
 
     //Projectiles
 
@@ -76,11 +80,6 @@ public class HolyHellEntities {
             new Identifier(Holyhell.MOD_ID, "globular_dome"),
             FabricEntityTypeBuilder.<GlobularDomeEntity>create(SpawnGroup.CREATURE, GlobularDomeEntity::new)
                     .dimensions(EntityDimensions.fixed(3f, 3f)).build());
-
-    public static final EntityType<TrappedStoneCrossEntity> TRAPPED_STONE_CROSS = Registry.register(Registries.ENTITY_TYPE,
-            new Identifier(Holyhell.MOD_ID, "trapped_stone_cross"),
-            FabricEntityTypeBuilder.<TrappedStoneCrossEntity>create(SpawnGroup.CREATURE, TrappedStoneCrossEntity::new)
-                    .dimensions(EntityDimensions.fixed(3f, 0.5f)).build());
 
     public static final EntityType<LightBeamEntity> LIGHT_BEAM = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Holyhell.MOD_ID, "light_beam"),

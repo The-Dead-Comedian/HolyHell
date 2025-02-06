@@ -2,6 +2,7 @@ package com.dead_comedian.holyhell.registries;
 
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.block.*;
+import com.dead_comedian.holyhell.block.entity.FallingCrossBlockEntity;
 import com.dead_comedian.holyhell.item.custom.StoneCrossBlockItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -30,6 +31,18 @@ public class HolyHellBlocks {
                         public BlockState rotate(BlockState state, BlockRotation rotation) {
                             return super.rotate(state, rotation);
                         }
+            });
+
+    public static final Block FALLING_CROSS = registerBlock("falling_cross",
+            new FallingCrossBlock(  FabricBlockSettings
+                    .copyOf(Blocks.STONE)
+                    .requiresTool()
+                    .strength(3F)
+                    .nonOpaque()) {
+                @Override
+                public BlockState rotate(BlockState state, BlockRotation rotation) {
+                    return super.rotate(state, rotation);
+                }
             });
 
     public static final Block CANDELABRA = registerBlock("candelabra",

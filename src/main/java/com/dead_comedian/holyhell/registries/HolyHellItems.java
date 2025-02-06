@@ -16,7 +16,6 @@ public class HolyHellItems {
     public static final Item HOLY_GRAIL = registerItem("holy_grail", new HolyGrailItem(HolyhellToolMaterial.GRAIL,12, -2.6F, new FabricItemSettings()));
     public static final Item BLINDING_BOMB = registerItem("blinding_bomb", new BlindingBombItem(new FabricItemSettings()));
     public static final Item GLOBULAR_DOME = registerItem("globular_dome", new GlobularDomeItem(new FabricItemSettings()));
-    public static final Item TRAPPED_STONE_CROSS = registerItem("trapped_stone_cross", new TrappedStoneCrossItem(   new FabricItemSettings()));
 
 
 
@@ -31,12 +30,13 @@ public class HolyHellItems {
     public static final Item HOLY_TEAR = registerItem("holy_tear", new Item(new FabricItemSettings()));
     public static final Item BAPTIZED_PLATE = registerItem("baptized_plate", new Item(new FabricItemSettings()));
     public static final Item ENHANCED_SILK = registerItem("enhanced_silk", new Item(new FabricItemSettings()));
+    public static final Item KEBAB = registerItem("kebab", new Item(new FabricItemSettings().food(FoodComponents.BEEF)));
 
 
-    public static final Item EVANGELIST_HELMET = registerItem("evangelist_helmet", new ArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.HELMET, new FabricItemSettings()));
-    public static final Item EVANGELIST_CHESTPLATE = registerItem("evangelist_chestplate", new ArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
-    public static final Item EVANGELIST_LEGGINGS = registerItem("evangelist_leggings", new ArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
-    public static final Item EVANGELIST_BOOTS = registerItem("evangelist_boots", new ArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+    public static final Item EVANGELIST_HELMET = registerItem("evangelist_helmet", new EvangelistArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.HELMET, new FabricItemSettings()));
+    public static final Item EVANGELIST_CHESTPLATE = registerItem("evangelist_chestplate", new EvangelistArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
+    public static final Item EVANGELIST_LEGGINGS = registerItem("evangelist_leggings", new EvangelistArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item EVANGELIST_BOOTS = registerItem("evangelist_boots", new EvangelistArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
 
 

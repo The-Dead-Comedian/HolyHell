@@ -31,11 +31,11 @@ public class ServerTickHandler implements ServerTickEvents.EndWorldTick {
         Random rand = new Random();
         List<ServerPlayerEntity> list = world.getPlayers();
         for (PlayerEntity i : list) {
-            if (i.hasStatusEffect(HolyHellEffects.ENLIGHTENED)) {
+
                 tick++;
                 if (tick >= 300) {
 
-                    if (i.hasStatusEffect(StatusEffects.BAD_OMEN) && Objects.requireNonNull(i.getStatusEffect(StatusEffects.BAD_OMEN)).getAmplifier() == 1) {
+                    if (i.hasStatusEffect(HolyHellEffects.ENLIGHTENED) && Objects.requireNonNull(i.getStatusEffect(HolyHellEffects.ENLIGHTENED)).getAmplifier() == 1) {
                         double d = i.getX() + (rand.nextInt(5) - 0.5) * 10.0;
                         double e = i.getY();
                         double f = i.getZ() + (rand.nextInt(5) - 0.5) * 10.0;
@@ -47,7 +47,7 @@ public class ServerTickHandler implements ServerTickEvents.EndWorldTick {
                         swordEntity.refreshPositionAndAngles(d, e, f, i.getYaw(), i.getPitch());
                         tick = 0;
                     }
-                    else if (i.hasStatusEffect(StatusEffects.BAD_OMEN) && Objects.requireNonNull(i.getStatusEffect(StatusEffects.BAD_OMEN)).getAmplifier() == 2) {
+                    else if (i.hasStatusEffect(HolyHellEffects.ENLIGHTENED) && Objects.requireNonNull(i.getStatusEffect(HolyHellEffects.ENLIGHTENED)).getAmplifier() == 2) {
                         double d = i.getX() + (rand.nextInt(5) - 0.5) * 10.0;
                         double e = i.getY();
                         double f = i.getZ() + (rand.nextInt(5) - 0.5) * 10.0;
@@ -59,7 +59,7 @@ public class ServerTickHandler implements ServerTickEvents.EndWorldTick {
                         swordEntity.refreshPositionAndAngles(d, e, f, i.getYaw(), i.getPitch());
                         tick = 0;
                     }
-                    else if (i.hasStatusEffect(StatusEffects.BAD_OMEN) && Objects.requireNonNull(i.getStatusEffect(StatusEffects.BAD_OMEN)).getAmplifier() == 3) {
+                    else if (i.hasStatusEffect(HolyHellEffects.ENLIGHTENED) && Objects.requireNonNull(i.getStatusEffect(HolyHellEffects.ENLIGHTENED)).getAmplifier() == 3) {
                         double d = i.getX() + (rand.nextInt(5) - 0.5) * 10.0;
                         double e = i.getY();
                         double f = i.getZ() + (rand.nextInt(5) - 0.5) * 10.0;
@@ -71,7 +71,7 @@ public class ServerTickHandler implements ServerTickEvents.EndWorldTick {
                         swordEntity.refreshPositionAndAngles(d, e, f, i.getYaw(), i.getPitch());
                         tick = 0;
                     }
-                    else if (i.hasStatusEffect(StatusEffects.BAD_OMEN) && Objects.requireNonNull(i.getStatusEffect(StatusEffects.BAD_OMEN)).getAmplifier() == 4) {
+                    else if (i.hasStatusEffect(HolyHellEffects.ENLIGHTENED) && Objects.requireNonNull(i.getStatusEffect(HolyHellEffects.ENLIGHTENED)).getAmplifier() == 4) {
                         double d = i.getX() + (rand.nextInt(5) - 0.5) * 10.0;
                         double e = i.getY();
                         double f = i.getZ() + (rand.nextInt(5) - 0.5) * 10.0;
@@ -83,7 +83,7 @@ public class ServerTickHandler implements ServerTickEvents.EndWorldTick {
                         swordEntity.refreshPositionAndAngles(d, e, f, i.getYaw(), i.getPitch());
                         tick = 0;
                     }
-                    else if (i.hasStatusEffect(StatusEffects.BAD_OMEN) && Objects.requireNonNull(i.getStatusEffect(StatusEffects.BAD_OMEN)).getAmplifier() == 5) {
+                    else if (i.hasStatusEffect(HolyHellEffects.ENLIGHTENED) && Objects.requireNonNull(i.getStatusEffect(HolyHellEffects.ENLIGHTENED)).getAmplifier() == 5) {
                         double d = i.getX() + (rand.nextInt(5) - 0.5) * 10.0;
                         double e = i.getY();
                         double f = i.getZ() + (rand.nextInt(5) - 0.5) * 10.0;
@@ -96,7 +96,7 @@ public class ServerTickHandler implements ServerTickEvents.EndWorldTick {
                         swordEntity.refreshPositionAndAngles(d, e, f, i.getYaw(), i.getPitch());
                         tick = 0;
                     }
-                    else if (!i.hasStatusEffect(StatusEffects.BAD_OMEN)){
+                    else if (i.hasStatusEffect(HolyHellEffects.ENLIGHTENED) && Objects.requireNonNull(i.getStatusEffect(HolyHellEffects.ENLIGHTENED)).getAmplifier() == 0){
                         double d = i.getX() + (rand.nextInt(5) - 0.5) * 10.0;
                         double e = i.getY();
                         double f = i.getZ() + (rand.nextInt(5) - 0.5) * 10.0;
@@ -112,7 +112,7 @@ public class ServerTickHandler implements ServerTickEvents.EndWorldTick {
                 }
             }
 
-        }
+
     }
 }
 

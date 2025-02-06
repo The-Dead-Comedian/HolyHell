@@ -62,9 +62,7 @@ public class AngelEntity extends HostileEntity implements RangedAttackMob {
     @Override
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
-
         this.goalSelector.add(1, new ShootFireBallGoal());
-
         this.goalSelector.add(4, new WanderAroundFarGoal(this, 1D));
         this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 4f));
         this.goalSelector.add(6, new LookAroundGoal(this));
@@ -158,7 +156,7 @@ public class AngelEntity extends HostileEntity implements RangedAttackMob {
         double d0 = target.getX() - this.getX();
         double d2 = target.getZ() - this.getZ();
 
-        FireBallEntity soulBullet = new FireBallEntity(HolyHellEntities.FIREBALL, this.getX(), this.getY() + 1.5, this.getZ(), this.getWorld());
+        FireBallEntity soulBullet = new FireBallEntity(HolyHellEntities.FIREBALL, this.getX(), this.getY() + 1, this.getZ(), this.getWorld());
         soulBullet.setVelocity(d0, look.y, d2, 1.0F, 16);
         this.getWorld().spawnEntity(soulBullet);
 
