@@ -50,10 +50,10 @@ h1, h2, h3, h4, h5, h6, h7{
 	        box-shadow: 0 10px 22px -6px #00000021, 0 -4px #06ab33 inset, 0 4px #05d30cf7 inset, -4px 0 #06ab33 inset, 4px 0 #05d30cf7 inset;
 	border: solid white 2px;
 }
-.mcTextDarkred {color: #AA0000;} .mcTextDarkblue {color: #0000AA;} .mcTextDarkpurple {color: #AA00AA;} .mcTextDarkgreen {color: #00AA00;} .mcTextDarkaqua {color: #00AAAA;}
+.mcTextDarkred {color: #AA0000;} .mcTextDarkblue {color: #0000AA;} .mcTextDarkpurple {color: #AA00AA;} .mcTextDarkgreen {color: #00AA00;text-shadow: 0.125em 0.125em 0 #002A00;} .mcTextDarkaqua {color: #00AAAA;}
 .mcTextDarkgray, .mcTextDarkgrey {color: #555555;} .mcTextRed {color: #FF5555;} .mcTextGreen {color: #55FF55;} .mcTextAqua {color: #55FFFF;} .mcTextBlue {color: #5555FF;}
 .mcTextYellow {color: #FFFF55;}.mcTextGray, .mcTextGrey {color: #AAAAAA;} .mcTextMineGold {color: #DDD605;} .mcTextGold {color: #FFAA00;} .mcTextWhite {color: #FFFFFF;}
-.mcTextPurple {color: #FF55FF;}
+.mcTextLightblue {color: #5454FB; text-shadow: 0.125em 0.125em 0 #15153E}
 .youtube {
     background-image: url("https://epxzzy.github.io/icon/youtube.png");
     background-size: cover;
