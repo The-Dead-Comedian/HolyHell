@@ -2,6 +2,7 @@
     background-image: url("https://epxzzy.github.io/holyhell/src/main/resources/assets/holyhell/textures/item/saint_eye.png");
     background-size: cover;
     background-repeat: no-repeat;
+    image-rendering: pixelated;
     height: 29px;
     width: 29px;
     display: block;
@@ -11,6 +12,7 @@
     background-image: url("https://epxzzy.github.io/holyhell/src/main/resources/assets/holyhell/textures/item/religious_rings.png");
     background-size: cover;
     background-repeat: no-repeat;
+    image-rendering: pixelated;
     height: 29px;
     width: 29px;
     display: block;
@@ -19,6 +21,7 @@
 .blinding_bomb {
     background-image: url("https://epxzzy.github.io/holyhell/src/main/resources/assets/holyhell/textures/item/blinding_bomb.png");
     background-size: cover;
+    image-rendering: pixelated;
     background-repeat: no-repeat;
     height: 29px;
     width: 29px;
@@ -29,6 +32,7 @@
     background-image: url("https://epxzzy.github.io/holyhell/src/main/resources/assets/holyhell/textures/item/globular_dome.png");
     background-size: cover;
     background-repeat: no-repeat;
+    image-rendering: pixelated;
     height: 29px;
     width: 29px;
     display: block;
@@ -38,6 +42,7 @@
     background-image: url("https://epxzzy.github.io/holyhell/src/main/resources/assets/holyhell/textures/item/holy_grail.png");
     background-size: cover;
     background-repeat: no-repeat;
+    image-rendering: pixelated;
     height: 29px;
     width: 29px;
     display: block;
@@ -47,6 +52,7 @@
     background-image: url("https://epxzzy.github.io/holyhell/src/main/resources/assets/holyhell/textures/item/holy_tear.png");
     background-size: cover;
     background-repeat: no-repeat;
+    image-rendering: pixelated;
     height: 29px;
     width: 29px;
     display: block;
@@ -56,6 +62,7 @@
     background-image: url("https://epxzzy.github.io/holyhell/src/main/resources/assets/holyhell/textures/item/baptized_plate.png");
     background-size: cover;
     background-repeat: no-repeat;
+    image-rendering: pixelated;
     height: 29px;
     width: 29px;
     display: block;
@@ -65,6 +72,7 @@
     background-image: url("https://epxzzy.github.io/holyhell/src/main/resources/assets/holyhell/textures/item/enhanced_silk.png");
     background-size: cover;
     background-repeat: no-repeat;
+    image-rendering: pixelated;
     height: 29px;
     width: 29px;
     display: block;
@@ -74,6 +82,7 @@
     background-image: url("https://epxzzy.github.io/holyhell/src/main/resources/assets/holyhell/textures/item/evangelist_boots.png");
     background-size: cover;
     background-repeat: no-repeat;
+    image-rendering: pixelated;
     height: 29px;
     width: 29px;
     display: block;
@@ -83,6 +92,7 @@
     background-image: url("https://epxzzy.github.io/holyhell/src/main/resources/assets/holyhell/textures/item/evangelist_leggings.png");
     background-size: cover;
     background-repeat: no-repeat;
+    image-rendering: pixelated;
     height: 29px;
     width: 29px;
     display: block;
@@ -92,6 +102,7 @@
     background-image: url("https://epxzzy.github.io/holyhell/src/main/resources/assets/holyhell/textures/item/evangelist_chestplate.png");
     background-size: cover;
     background-repeat: no-repeat;
+    image-rendering: pixelated;
     height: 29px;
     width: 29px;
     display: block;
@@ -101,6 +112,7 @@
     background-image: url("https://epxzzy.github.io/holyhell/src/main/resources/assets/holyhell/textures/item/evangelist_helmet.png");
     background-size: cover;
     background-repeat: no-repeat;
+    image-rendering: pixelated;
     height: 29px;
     width: 29px;
     display: block;
@@ -110,6 +122,7 @@
     background-image: url("https://epxzzy.github.io/holyhell/src/main/resources/assets/holyhell/textures/item/candelabra.png");
     background-size: cover;
     background-repeat: no-repeat;
+    image-rendering: pixelated;
     height: 29px;
     width: 29px;
     display: block;
@@ -119,6 +132,7 @@
     background-image: url("https://epxzzy.github.io/holyhell/src/main/resources/assets/holyhell/textures/item/candleholder.png");
     background-size: cover;
     background-repeat: no-repeat;
+    image-rendering: pixelated;
     height: 29px;
     width: 29px;
     display: block;
@@ -128,6 +142,7 @@
     background-image: url("https://epxzzy.github.io/holyhell/src/main/resources/assets/holyhell/textures/item/stone_cross.png");
     background-size: cover;
     background-repeat: no-repeat;
+    image-rendering: pixelated;
     height: 29px;
     width: 29px;
     display: block;
@@ -137,6 +152,7 @@
     background-image: url("https://epxzzy.github.io/holyhell/src/main/resources/assets/holyhell/textures/item/stone_cross.png");
     background-size: cover;
     background-repeat: no-repeat;
+    image-rendering: pixelated;
     height: 29px;
     width: 29px;
     display: block;
