@@ -146,6 +146,9 @@ h1 {
   .chest {
     animation: float 3s ease-in-out infinite;
   }
+  .buff_holder {
+    animation: none
+  }
 }
 .copperplusplus{
   background-image: url("https://epxzzy.github.io/creations/icons/cog.png");
