@@ -642,11 +642,11 @@ public class ModAnimations {
     public static final Animation KAMIKAZE_FLY2 = Animation.Builder.create(1.5f).looping()
             .addBoneAnimation("body",
                     new Transformation(Transformation.Targets.TRANSLATE,
-                            new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 9f, 0f),
+                            new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 1.5f, 0f),
                                     Transformation.Interpolations.CUBIC),
-                            new Keyframe(1.25f, AnimationHelper.createTranslationalVector(0f, 7.5f, 0f),
+                            new Keyframe(1.25f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
-                            new Keyframe(1.5f, AnimationHelper.createTranslationalVector(0f, 9f, 0f),
+                            new Keyframe(1.5f, AnimationHelper.createTranslationalVector(0f, 1.5f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("body",
                     new Transformation(Transformation.Targets.ROTATE,
