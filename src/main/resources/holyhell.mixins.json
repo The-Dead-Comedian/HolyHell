@@ -8,6 +8,7 @@
     "FeatureRendererMixin",
     "GlobularDomeImmunityMixin",
     "GlobularDomePosMixin",
+    "HolyShieldMixin",
     "ItemRendererAccessor",
     "ItemRendererMixin",
     "ModelLoaderMixin",

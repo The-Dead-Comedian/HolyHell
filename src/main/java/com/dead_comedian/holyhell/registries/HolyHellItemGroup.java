@@ -23,6 +23,7 @@ public class HolyHellItemGroup {
 
 
                         entries.add(HolyHellItems.HOLY_GRAIL);
+                        entries.add(HolyHellItems.HOLY_SHIELD);
 
                         entries.add(HolyHellItems.HOLY_TEAR);
                         entries.add(HolyHellItems.BAPTIZED_PLATE);

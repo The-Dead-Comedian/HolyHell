@@ -7,10 +7,7 @@ import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsLowerFea
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsUpperFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.other.*;
 import com.dead_comedian.holyhell.particle.LightRingParticle;
-import com.dead_comedian.holyhell.registries.HolyHellBlocks;
-import com.dead_comedian.holyhell.registries.HolyHellEntities;
-import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
-import com.dead_comedian.holyhell.registries.HolyhellParticles;
+import com.dead_comedian.holyhell.registries.*;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
@@ -31,9 +28,11 @@ public class HolyhellClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(HolyHellBlocks.STONE_CROSS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(HolyHellBlocks.FALLING_CROSS, RenderLayer.getCutout());
 
+
+        HolyHellModelPredicateProvider.registerModModels();
+
         // PARTICLES
         ParticleFactoryRegistry.getInstance().register(HolyhellParticles.LIGHT_RING, LightRingParticle.Factory::new);
-
 
 
         // MOBS

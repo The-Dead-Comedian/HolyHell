@@ -1,10 +1,16 @@
 package com.dead_comedian.holyhell.registries;
 
 import com.dead_comedian.holyhell.Holyhell;
+import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.Identifier;
 
 public class HolyHellModelLayers {
+
+    public static final SpriteIdentifier SHIELD_BASE_NO_PATTERN = new SpriteIdentifier(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE,  new Identifier(Holyhell.MOD_ID , "entity/holy_shield"));
+
+
 
     public static final EntityModelLayer LIGHT_BEAM =
             new EntityModelLayer(new Identifier(Holyhell.MOD_ID, "light_beam"), "main");
