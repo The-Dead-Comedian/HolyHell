@@ -1,9 +1,15 @@
 package com.dead_comedian.holyhell.entity.custom;
 
+import com.dead_comedian.holyhell.registries.HolyhellParticles;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleFactory;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageType;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -14,6 +20,10 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
+import net.minecraft.item.Items;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
@@ -40,12 +50,13 @@ public class HailingHereticEntity extends HostileEntity {
         super(entityType, world);
         this.experiencePoints = 10;
     }
+
     public void safetyMeasure() {
 
 
         if (HereticAttackGoal.render) {
 
-           tick1++;
+            tick1++;
 
             if (tick1 == 20) {
                 tick1 = 0;
@@ -55,6 +66,7 @@ public class HailingHereticEntity extends HostileEntity {
             }
         }
     }
+
     @Override
     public void tick() {
         super.tick();
@@ -68,7 +80,7 @@ public class HailingHereticEntity extends HostileEntity {
     @Override
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new HereticAttackGoal(this, 1f, true));
+            this.goalSelector.add(1, new HereticAttackGoal(this, 1f, true));
         this.goalSelector.add(4, new WanderAroundFarGoal(this, 1D));
         this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 4f));
         this.goalSelector.add(6, new LookAroundGoal(this));
@@ -97,18 +109,10 @@ public class HailingHereticEntity extends HostileEntity {
 
 
     private void setupAnimationStates() {
-        if (this.idleAnimationTimeout <= 0) {
-            this.idleAnimationTimeout = this.random.nextInt(20) + 40;
 
-            this.idleAnimationState.start(this.age);
-
-
-        } else {
-            --this.idleAnimationTimeout;
-        }
 
         if (this.isAttacking() && attackAnimationTimeout <= 0) {
-            attackAnimationTimeout = 40;
+            attackAnimationTimeout = 30;
             attackAnimationState.startIfNotRunning(this.age);
 
 
@@ -170,8 +174,13 @@ public class HailingHereticEntity extends HostileEntity {
 
                 if (isTimeToAttack()) {
                     this.mob.getLookControl().lookAt(pEnemy.getX(), pEnemy.getEyeY(), pEnemy.getZ());
-                    pEnemy.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20, 99));
                     render = true;
+
+                    if (!pEnemy.isBlocking()) {
+                        pEnemy.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20, 99));
+                    }else {
+                        this.entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 30, 99));
+                    }
 
                     performAttack(pEnemy);
                 }
@@ -265,10 +274,3 @@ public class HailingHereticEntity extends HostileEntity {
 
 
 }
-
-
-
-
-
-
-
