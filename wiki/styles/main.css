@@ -1,0 +1,403 @@
+@font-face {font-family: "minefont";
+  src: url("https://epxzzy.github.io/mcfont.woff") format("woff");
+}
+@font-face {font-family: "minefontbig";
+  src: url("https://epxzzy.github.io/minefontbig.woff") format("woff");
+}
+@font-face {font-family: "minefontbigcaps";
+  src: url("https://epxzzy.github.io/minefontbigcaps.woff") format("woff");
+}
+.logo {
+	width: 100%;
+	-webkit-box-align:center;
+	    -ms-flex-align:center;
+	        align-items:center;
+}
+html {
+	background-color: #000000;
+	font-family: minefont;
+	font-weight: lighter;
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+h1, h2, h3, h4, h5, h6, h7{
+	font-family: minefont;
+	font-weight: lighter;
+}
+.button {
+	display: inline-block;
+	font-family: minefont;
+	color: #000;
+	text-decoration: none;
+	padding: 20px;
+	margin: 10px auto 10px;
+	background-color: #c6c6c6;
+	-webkit-box-shadow: 0 10px 22px -6px #00000021, 0 -4px #555555 inset, 0 4px #ffffff inset, -4px 0 #555555 inset, 4px 0 #ffffff inset;
+	        box-shadow: 0 10px 22px -6px #00000021, 0 -4px #555555 inset, 0 4px #ffffff inset, -4px 0 #555555 inset, 4px 0 #ffffff inset;
+	border-style: none;
+	width: 145px;
+}
+.overlay {
+       visibility: hidden;
+       opacity: 0;
+       display: none;
+}
+.button:hover {
+	color: #fff;
+	background-color: #0bbf41;
+	-webkit-box-shadow: 0 10px 22px -6px #00000021, 0 -4px #06ab33 inset, 0 4px #05d30cf7 inset, -4px 0 #06ab33 inset, 4px 0 #05d30cf7 inset;
+	        box-shadow: 0 10px 22px -6px #00000021, 0 -4px #06ab33 inset, 0 4px #05d30cf7 inset, -4px 0 #06ab33 inset, 4px 0 #05d30cf7 inset;
+	border: solid white 2px;
+}
+.mcTextDarkred {color: #AA0000;} .mcTextDarkblue {color: #0000AA;} .mcTextDarkpurple {color: #AA00AA;} .mcTextDarkgreen {color: #00AA00;text-shadow: 0.125em 0.125em 0 #002A00;} .mcTextDarkaqua {color: #00AAAA;}
+.mcTextDarkgray, .mcTextDarkgrey {color: #555555;} .mcTextRed {color: #FF5555;} .mcTextGreen {color: #55FF55;} .mcTextAqua {color: #55FFFF;} .mcTextBlue {color: #5555FF;}
+.mcTextYellow {color: #FFFF55;}.mcTextGray, .mcTextGrey {color: #AAAAAA;} .mcTextMineGold {color: #DDD605;} .mcTextGold {color: #FFAA00;} .mcTextWhite {color: #FFFFFF;}
+.mcTextLightblue {color: #5454FB; text-shadow: 0.125em 0.125em 0 #15153E;}
+.youtube {
+    background-image: url("https://epxzzy.github.io/icon/youtube.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    cursor: default;
+    margin: 5px;
+}
+.youtube:hover {
+    background-image: url("https://epxzzy.github.io/icon/youtube_hover.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.cord {
+    background-image: url("https://epxzzy.github.io/icon/cord.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    cursor: default;
+    margin: 5px;
+}
+.cord:hover {
+    background-image: url("https://epxzzy.github.io/icon/cord_hover.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+footer {
+	background-color: #c6c6c6;
+	display: block;
+	text-align: center;
+	box-shadow: 8px 0 0 0 #555555,
+		0 8px 0 0 #555555,
+		4px 4px 0 0 #555555,
+		-8px 0 0 0 #ffffff,
+		0 -8px 0 0 #ffffff,
+		-4px -4px 0 0 #ffffff,
+		0 0 0 4px #b5b4b5,
+		4px 8px 0 0 #555,
+		8px 4px 0 0 #555,
+		-4px -8px 0 0 #ffffff,
+		-8px -4px 0 0 #ffffff,
+		8px -4px 0 0 #000,
+		4px -8px 0 0 #000,
+		-8px 4px 0 0 #000,
+		-4px 8px 0 0 #000,
+		-8px -8px 0 0 #000,
+		8px 8px 0 0 #000,
+		-12px 0 0 0 #000,
+		-12px -4px 0 0 #000,
+		12px 0 0 0 #000,
+		12px 4px 0 0 #000,
+		0 -12px 0 0 #000,
+		-4px -12px 0 0 #000,
+		0 12px 0 0 #000,
+		4px 12px 0 0 #000;
+	width: 100%;
+	height: 20vh;
+	display: block;
+	position: relative;
+	bottom: 0vh;
+}
+.himg {
+	z-index: 2;
+	position: absolute;
+	height: auto;
+	width: 100vw;
+	top: 0vh;
+	right: 0vh;
+	left: 0vh;
+	bottom: 0vh;
+}
+.tabbtn {
+       -webkit-user-select: none; /* Safari */
+       -moz-user-select: none; /* Firefox */
+       -ms-user-select: none; /* IE10+/Edge */
+       user-select: none;
+       background-color: #626262;
+       color: #B1B1B1;
+       border: none;
+       z-index: 5;
+       height: 100px;
+       margin-left: 16px;
+       margin-right: 16px;
+       margin-bottom: 4px;
+       box-shadow: -4px 0px 0px 0px #626262,
+		   0px -4px 0px 0px #626262,
+		   -8px -8px 0px 0px #C4C4C4,
+		   4px -4px 0px 0px #626262,
+		   5px 0px 0px -1px #626262,
+		   -8px -12px 0px 0px #C4C4C4,
+		   -12px -8px 0px 0px #C4C4C4,
+		   -12px 0px 0px 0px #C4C4C4,
+		   4px -12px 0px 0px #C4C4C4,
+		   12px -4px 0px 0px #2C2C2C,
+		   8px -1px 0px 0px #2C2C2C,
+		   8px -8px 0px 0px #8B8B8B,
+		   -16px -4px 0px 0px black,
+		   -16px -8px 0px 0px black,
+		   -8px -16px 0px 0px black,
+		   -12px -12px 0px 0px black,
+		   16px -4px 0px 0px black,
+		   4px -16px 0px 0px black,
+		   8px -12px 0px 0px black,
+		   12px -8px 0px 0px black,
+		   0px 4px 0px 0px #626262,
+		   4px 4px 0px 0px #626262,
+		   -4px 6px 0px 0px #626262,
+		   4px 6px 0px 0px #626262,
+	       12px 6px 0px 0px #2C2C2C,
+		   16px 6px 0px 0px black;
+       display: inline-flex;
+       flex-direction: column;
+       align-items: flex-start;
+       flex-wrap: wrap;
+       align-content: flex-start;
+}
+.tabbtnactive {
+       -webkit-user-select: none; /* Safari */
+       -moz-user-select: none; /* Firefox */
+       -ms-user-select: none; /* IE10+/Edge */
+       user-select: none;
+       background-color: #c6c6c6;
+       color: #4C4C4C;
+       border: none;
+       display: inline-flex;
+       z-index: 7;
+       height: 100px;
+       margin-left: 16px;
+       margin-right: 16px;
+       margin-bottom: 4px;
+       box-shadow: -4px 0px 0px 0px #c6c6c6,
+     0px -4px 0px 0px #c6c6c6,
+     -8px -8px 0px 0px #ffffff,
+     4px -4px 0px 0px #c6c6c6,
+     5px 0px 0px -1px #c6c6c6,
+     -8px -12px 0px 0px #ffffff,
+     -12px -8px 0px 0px #ffffff,
+     -12px 0px 0px 0px #ffffff,
+     4px -12px 0px 0px #ffffff,
+     12px -4px 0px 0px #555555,
+     8px -1px 0px 0px #555555,
+     8px -8px 0px 0px #b8b8b8,
+     -16px -4px 0px 0px black,
+     -16px -8px 0px 0px black,
+     -8px -16px 0px 0px black,
+     -12px -12px 0px 0px black,
+     16px -4px 0px 0px black,
+     4px -16px 0px 0px black,
+     8px -12px 0px 0px black,
+     12px -8px 0px 0px black,
+     0px 4px 0px 0px #c6c6c6,
+     4px 4px 0px 0px #c6c6c6,
+     -4px 6px 0px 0px #c6c6c6;
+       display: inline-flex;
+       flex-direction: column;
+       align-items: flex-start;
+       flex-wrap: wrap;
+       align-content: flex-start;
+       text-align: end;
+}
+.tabindex {
+	box-shadow: 8px 0 0 0 #555555,
+    0 8px 0 0 #555555,
+    4px 4px 0 0 #555555,
+       -8px 0 0 0 #fff,
+    0 -8px 0 0 #fff,
+    -4px -4px 0 0 #fff,
+    0 0 0 4px #b5b4b5,
+    4px 8px 0 0 #555,
+    8px 4px 0 0 #555,
+    -4px -8px 0 0 #fff,
+    -8px -4px 0 0 #fff,
+    8px -4px 0 0 #000,
+    4px -8px 0 0 #000,
+    -8px 4px 0 0 #000,
+    -4px 8px 0 0 #000,
+    -12px -12px 0 0 #000,
+    8px 8px 0 0 #000,
+    -12px 0 0 0 #000,
+    -12px -3px 0 0 #000,
+    12px 0 0 0 #000,
+    12px 4px 0 0 #000,
+    0 -12px 0 0 #000,
+    -4px -12px 0 0 #000,
+    0 12px 0 0 #000,
+    4px 12px 0 0 #000;
+	background-color: #C6C6C6;
+	z-index: 6;
+	-ms-overflow-style: none;  /* IE and Edge */
+	scrollbar-width: none;
+	height: 500px;
+}
+.tabicon {
+	-webkit-user-select: none; /* Safari */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none;
+	width: 80px;
+	height: auto;
+	position: relative;
+	margin: auto;
+}
+.tabtext {
+	-webkit-user-select: none; /* Safari */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none;
+	font-family: 'minefont';
+	position: relative;
+	font-size: 25px;
+	top: 5px;
+}
+.tabtext2 {
+	-webkit-user-select: none; /* Safari */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none;
+	background-color: #4c4c4c;
+	font-family: 'minefont';
+	box-shadow: 4px 0px 0px 0px #4C4C4C,0px -4px 0px 0px #4C4C4C,-4px 0px 0px 0px #4C4C4C,0px 4px 0px 0px #4C4C4C;
+	font-size: 25px;
+	position: relative;
+	left: 6px;
+	bottom: 4px;
+	font-weight: lighter;
+}
+.tabbtnactive .tabtext2 {
+	-webkit-user-select: none; /* Safari */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none;
+	color: #FFFFFF;
+}
+.artibtn {
+	box-shadow: 0 10px 22px -6px #00000021, 0 -4px #555555 inset, 0 4px #ffffff inset, -4px 0 #555555 inset, 4px 0 #ffffff inset;
+	background-color: #C6C6C6;
+	width: 95%;
+	border: none;
+	margin: 10px auto 10px auto;
+	height: auto;
+	display: flex;
+	flex-direction: row;
+	position: relative;
+	align-self: center;
+	justify-content: center;
+	align-content: flex-start;
+}
+.artibtn:hover {
+		background-color: #0bbf41;
+	-webkit-box-shadow: 0 10px 22px -6px #00000021, 0 -4px #06ab33 inset, 0 4px #05d30cf7 inset, -4px 0 #06ab33 inset, 4px 0 #05d30cf7 inset;
+	        box-shadow: 0 10px 22px -6px #00000021, 0 -4px #06ab33 inset, 0 4px #05d30cf7 inset, -4px 0 #06ab33 inset, 4px 0 #05d30cf7 inset;
+}
+.articon {
+	width: 15%;
+	margin: 2%;
+}
+.artitle {
+	font-size: xx-large;
+	text-align: justify;
+	margin-top: 17px;
+	text-decoration: none;
+	text-shadow: 0.1em 0.1em 0 #9d9d9d;
+	color: #fff;
+	font-family: 'minefontbigcaps';
+}
+.artdesc {
+	position: relative;
+	font-size: larger;
+	font-family: 'minefontbig';
+	color: #fff;
+	text-align: left;
+	right: 67px;
+	top: 45px;
+	width: 59%;
+	text-shadow: 0.125em 0.125em  0 #9d9d9d;
+}
+.artidate {
+	position: relative;
+	font-family: 'minefont';
+	margin: 10px;
+	color: #fff;
+	text-shadow: 0.125em 0.125em 0 #9d9d9d;
+}
+.maincage {
+	z-index: 5;
+    width: 1200px;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: auto;
+}
+@media only screen and (min-width: 600px) {
+	.tabbtn {
+	width: 20.5%;
+	}
+	.tabindex {
+	width: 87vw;
+	}
+}
+@media only screen and (min-width: 768px) {
+	.tabbtn {
+	width: 19.6%;
+	}
+	.tabindex {
+	width: 87vw;
+	}
+}
+@media only screen and (min-width: 992px) {
+	.tabbtn {
+	width: 19.64%;
+	}
+	.tabindex {
+	width: 87vw;
+	}
+}
+@media only screen and (min-width: 1200px) {
+	.tabbtn {
+	width: 249px;
+	}
+	.tabindex {
+	width: 1100px;
+	}
+}
+@media (min-width:100px) and (max-width:600px) {
+	.maincage {
+	width: 99vw;
+	}
+}
+/*
+.server_menu {
+    width: 50vh;
+    height: 55vh;
+    padding: 0px;
+    color: white;
+    background-color: #686868;
+    text-align: center;
+    box-shadow: 0px 0px 0 0 #f0f0f0, 0px -34px 0 0 #c6c6c6, 4px 0 0 0 #555, 4px -34px 0 0 #555, 0 4px 0 0 #555, 2px 2px 0 0 #555, -4px 0 0 0 #ffffff, -4px -34px 0 0 #ffffff, 0 -38px 0 0 #ffffff, 0 -4px 0 0 #e4e4e4, -2px -36px 0 0 #ffffff, -4px -34px 0 0 #ffffff, 1px -35px 0 1px #c6c6c6, 1px -37px 0 1px #000000, 2px 4px 0 0 #555, 4px 2px 0 0 #555, -2px -4px 0 0 #e4e4e4, -4px -2px 0 0 #e4e4e4, 4px -2px 0 0 #000, 2px -4px 0 0 #000, -4px 2px 0 0 #000, -2px 4px 0 0 #000, -4px -36px 0 0 #000, 4px 4px 0 0 #000, -6px 0 0 0 #000, -6px -36px 0 0 #000, 6px 0 0 0 #000000, 6px -36px 0 0 #000000, 6px 2px 0 0 #000, -2px -40px 0 0 #000, -4px -38px 0 0 #000, 0 6px 0 0 #000, 2px 6px 0 0 #000, 2px -40px 0 0 #000, 4px -38px 0 0 #000, inset 0px 10px 0px 16px #c6c6c6, inset 18px 28px 0px 0px #555, inset -18px -8px 0px 0px #ffffff;
+    margin-top: 50px;
+}
+*/
