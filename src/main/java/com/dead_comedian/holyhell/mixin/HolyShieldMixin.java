@@ -20,6 +20,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -39,6 +40,7 @@ public abstract class HolyShieldMixin extends LivingEntity {
         super(entityType, world);
     }
 
+    @Unique
     public boolean spawnParitcle = false;
 
     @Inject(method = "applyDamage", at = @At(value = "HEAD"))
@@ -54,12 +56,13 @@ public abstract class HolyShieldMixin extends LivingEntity {
             for (Entity i : list) {
                 if (i != ((PlayerEntity) (Object) this)) {
                     knockbackNearbyEntities(((PlayerEntity) (Object) this).getWorld(), ((PlayerEntity) (Object) this), i);
-               spawnParitcle=true;
+                    spawnParitcle=true;
                 }
             }
         }
     }
 
+    @Unique
     private static void knockbackNearbyEntities(World world, PlayerEntity player, Entity attacked) {
         world.syncWorldEvent(2013, attacked.getSteppingPos(), 750);
         world.getEntitiesByClass(LivingEntity.class, attacked.getBoundingBox().expand(3.5), getKnockbackPredicate(player, attacked)).forEach((entity) -> {
@@ -78,6 +81,7 @@ public abstract class HolyShieldMixin extends LivingEntity {
     }
 
 
+    @Unique
     private static Predicate<LivingEntity> getKnockbackPredicate(PlayerEntity player, Entity attacked) {
         return (entity) -> {
             boolean var10000;
@@ -119,8 +123,11 @@ public abstract class HolyShieldMixin extends LivingEntity {
         };
     }
 
+    @Unique
     private static double getKnockback(PlayerEntity player, LivingEntity attacked, Vec3d distance) {
-        return ((3.5 - distance.length()) * 0.699999988079071 * (double) (player.fallDistance > 5.0F ? 2 : 1) * (1.0 - attacked.getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE)) * 4);
+        player.getWorld().addParticle(HolyhellParticles.LIGHT_RING, player.getX(),player.getY(),player.getZ(),1,1,1);
+        System.out.println("x "+ player.getX() +"/n y:"+ player.getZ()+ "/n z:"+ player.getZ());
+        return ((3.5 - distance.length()) * 0.699999988079071 * (double) (player.fallDistance > 5.0F ? 2 : 1) * (1.0 - attacked.getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE)) * 10  );
 
     }
 }
