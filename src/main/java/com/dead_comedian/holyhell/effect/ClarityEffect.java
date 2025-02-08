@@ -1,64 +1,62 @@
 package com.dead_comedian.holyhell.effect;
 
 import com.dead_comedian.holyhell.registries.HolyHellSounds;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.AttributeContainer;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectCategory;
-import net.minecraft.network.packet.s2c.play.StopSoundS2CPacket;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-
 import java.util.List;
 import java.util.function.Predicate;
+import net.minecraft.network.protocol.game.ClientboundStopSoundPacket;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeMap;
 
-public class ClarityEffect extends StatusEffect {
-    public static final Predicate<Entity> IS_PLAYER = entity -> (entity instanceof ServerPlayerEntity);
-    public ClarityEffect(StatusEffectCategory statusEffectCategory, int color) {
+public class ClarityEffect extends MobEffect {
+    public static final Predicate<Entity> IS_PLAYER = entity -> (entity instanceof ServerPlayer);
+    public ClarityEffect(MobEffectCategory statusEffectCategory, int color) {
         super(statusEffectCategory, color);
     }
 
     @Override
-    public void applyUpdateEffect(LivingEntity pLivingEntity, int pAmplifier) {
-        if (!pLivingEntity.getWorld().isClient()) {
+    public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
+        if (!pLivingEntity.level().isClientSide()) {
             double x = pLivingEntity.getX();
             double y = pLivingEntity.getY();
             double z = pLivingEntity.getZ();
-            double xv = pLivingEntity.getVelocity().x;
-            double yv = pLivingEntity.getVelocity().y;
-            double zv = pLivingEntity.getVelocity().z;
-            pLivingEntity.teleport(x, y + 0.005, z);
-            pLivingEntity.setVelocity(xv, yv + 0.05, zv);
+            double xv = pLivingEntity.getDeltaMovement().x;
+            double yv = pLivingEntity.getDeltaMovement().y;
+            double zv = pLivingEntity.getDeltaMovement().z;
+            pLivingEntity.teleportToWithTicket(x, y + 0.005, z);
+            pLivingEntity.setDeltaMovement(xv, yv + 0.05, zv);
         }
 
-        super.applyUpdateEffect(pLivingEntity, pAmplifier);
+        super.applyEffectTick(pLivingEntity, pAmplifier);
     }
     @Override
-    public void onApplied(LivingEntity entity, AttributeContainer attributes, int amplifier){
-        entity.getWorld().playSound(null, entity.getBlockPos(), HolyHellSounds.CLARITY_MUSIC, SoundCategory.RECORDS, 1f, 1f );
+    public void addAttributeModifiers(LivingEntity entity, AttributeMap attributes, int amplifier){
+        entity.level().playSound(null, entity.blockPosition(), HolyHellSounds.CLARITY_MUSIC, SoundSource.RECORDS, 1f, 1f );
     }
     @Override
-    public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier){
+    public void removeAttributeModifiers(LivingEntity entity, AttributeMap attributes, int amplifier){
 
-        List<Entity> list_of_living_things_nearby = entity.getWorld().getOtherEntities(entity, entity.getBoundingBox().expand(15), IS_PLAYER);
+        List<Entity> list_of_living_things_nearby = entity.level().getEntities(entity, entity.getBoundingBox().inflate(15), IS_PLAYER);
 
-        StopSoundS2CPacket stopSoundS2CPacket = new StopSoundS2CPacket(HolyHellSounds.CLARITY_MUSIC.getId(), SoundCategory.RECORDS);
-        if(entity instanceof ServerPlayerEntity){
+        ClientboundStopSoundPacket stopSoundS2CPacket = new ClientboundStopSoundPacket(HolyHellSounds.CLARITY_MUSIC.getLocation(), SoundSource.RECORDS);
+        if(entity instanceof ServerPlayer){
             list_of_living_things_nearby.add(entity);
         }
 
         for (Entity clientBoi : list_of_living_things_nearby ) {
-            if(clientBoi instanceof ServerPlayerEntity) {
-                ServerPlayerEntity Boi = (ServerPlayerEntity) clientBoi;
-                Boi.networkHandler.sendPacket(stopSoundS2CPacket);
+            if(clientBoi instanceof ServerPlayer) {
+                ServerPlayer Boi = (ServerPlayer) clientBoi;
+                Boi.connection.send(stopSoundS2CPacket);
             }}
     }
 
 
     @Override
-    public boolean canApplyUpdateEffect(int pDuration, int pAmplifier) {
+    public boolean isDurationEffectTick(int pDuration, int pAmplifier) {
         return true;
     }
 }

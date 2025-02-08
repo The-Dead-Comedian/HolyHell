@@ -1,40 +1,34 @@
 package com.dead_comedian.holyhell.item.custom;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.StackReference;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.util.ClickType;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.world.World;
-
 import java.util.List;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 
 public class SaintEyeItem extends Item {
 
-    public SaintEyeItem(Settings settings) {
+    public SaintEyeItem(Properties settings) {
         super(settings);
     }
 
     @Override
-    public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
+    public void releaseUsing(ItemStack stack, Level world, LivingEntity user, int remainingUseTicks) {
 
 
-        Box userHitbox = new Box(user.getBlockPos()).expand(50);
+        AABB userHitbox = new AABB(user.blockPosition()).inflate(50);
 
-        List<LivingEntity> list = world.getNonSpectatingEntities(LivingEntity.class, userHitbox);
+        List<LivingEntity> list = world.getEntitiesOfClass(LivingEntity.class, userHitbox);
         for(LivingEntity i : list){
 
-            i.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 200 ,1));
-            user.removeStatusEffect(StatusEffects.GLOWING);
+            i.addEffect(new MobEffectInstance(MobEffects.GLOWING, 200 ,1));
+            user.removeEffect(MobEffects.GLOWING);
         }
 
-        super.onStoppedUsing(stack, world, user, remainingUseTicks);
+        super.releaseUsing(stack, world, user, remainingUseTicks);
     }
 
     

@@ -2,17 +2,16 @@ package com.dead_comedian.holyhell.item;
 
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.registries.HolyHellItems;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ArmorMaterial;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-
 import java.util.function.Supplier;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.crafting.Ingredient;
 
 public enum HolyhellArmorMaterials implements ArmorMaterial {
     EVANGELIST("evangelist", 25, new int[]{2, 6, 5, 2}, 26,
-            SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 2f, 0.1f, () -> Ingredient.ofItems(HolyHellItems.BAPTIZED_PLATE));
+            SoundEvents.ARMOR_EQUIP_GOLD, 2f, 0.1f, () -> Ingredient.of(HolyHellItems.BAPTIZED_PLATE));
     private final String name;
     private final int durabilityMultiplier;
     private final int[] protectionAmounts;
@@ -37,12 +36,12 @@ public enum HolyhellArmorMaterials implements ArmorMaterial {
     }
 
     @Override
-    public int getDurability(ArmorItem.Type type) {
+    public int getDurabilityForType(ArmorItem.Type type) {
         return BASE_DURABILITY[type.ordinal()] * this.durabilityMultiplier;
     }
 
     @Override
-    public int getProtection(ArmorItem.Type type) {
+    public int getDefenseForType(ArmorItem.Type type) {
         return protectionAmounts[type.ordinal()];
     }
 
@@ -51,7 +50,7 @@ public enum HolyhellArmorMaterials implements ArmorMaterial {
     }
 
     @Override
-    public int getEnchantability() {
+    public int getEnchantmentValue() {
         return this.enchantability;
     }
 

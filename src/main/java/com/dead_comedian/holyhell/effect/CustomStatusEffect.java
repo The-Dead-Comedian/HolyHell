@@ -1,24 +1,15 @@
 package com.dead_comedian.holyhell.effect;
 
 import com.dead_comedian.holyhell.registries.HolyHellSounds;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.AttributeContainer;
-import net.minecraft.entity.damage.DamageSources;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectCategory;
-import net.minecraft.network.packet.s2c.play.StopSoundS2CPacket;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-
 import java.util.List;
 import java.util.function.Predicate;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
 
-public class CustomStatusEffect extends StatusEffect {
+public class CustomStatusEffect extends MobEffect {
 
 
-    public CustomStatusEffect(StatusEffectCategory statusEffectCategory, int color) {
+    public CustomStatusEffect(MobEffectCategory statusEffectCategory, int color) {
         super(statusEffectCategory, color);
     }
 

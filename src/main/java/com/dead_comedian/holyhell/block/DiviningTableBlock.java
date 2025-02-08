@@ -1,28 +1,26 @@
 package com.dead_comedian.holyhell.block;
 
 import com.dead_comedian.holyhell.registries.HolyHellEffects;
-import com.dead_comedian.holyhell.registries.HolyhellTags;
-import net.minecraft.block.*;
-import net.minecraft.block.enums.BlockHalf;
-import net.minecraft.client.sound.Sound;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.StateManager;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.village.raid.Raid;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.raid.Raid;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
@@ -30,31 +28,31 @@ import java.util.List;
 
 import static com.ibm.icu.impl.ValidIdentifiers.Datatype.x;
 
-public class DiviningTableBlock extends HorizontalFacingBlock {
+public class DiviningTableBlock extends HorizontalDirectionalBlock {
 
 
     public int nuh = 0;
-    public final List<BlockPos> POWER_PROVIDER_OFFSETS = BlockPos.stream(-2, 0, -2, 2, 1, 2).filter((pos) -> {
+    public final List<BlockPos> POWER_PROVIDER_OFFSETS = BlockPos.betweenClosedStream(-2, 0, -2, 2, 1, 2).filter((pos) -> {
         return Math.abs(pos.getX()) == 2 || Math.abs(pos.getZ()) == 2;
-    }).map(BlockPos::toImmutable).toList();
+    }).map(BlockPos::immutable).toList();
 
 
-    public DiviningTableBlock(AbstractBlock.Settings settings) {
+    public DiviningTableBlock(BlockBehaviour.Properties settings) {
         super(settings);
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
-    public static boolean canAccessPowerProvider(World world, BlockPos tablePos, BlockPos providerOffset) {
-        return world.getBlockState(tablePos.add(providerOffset)).isOf(getBlockFromItem(Raid.getOminousBanner().getItem())) && world.getBlockState(tablePos.add(providerOffset.getX() / 2, providerOffset.getY(), providerOffset.getZ() / 2)).isIn(BlockTags.ENCHANTMENT_POWER_TRANSMITTER);
+    public static boolean canAccessPowerProvider(Level world, BlockPos tablePos, BlockPos providerOffset) {
+        return world.getBlockState(tablePos.offset(providerOffset)).is(byItem(Raid.getLeaderBannerInstance().getItem())) && world.getBlockState(tablePos.offset(providerOffset.getX() / 2, providerOffset.getY(), providerOffset.getZ() / 2)).is(BlockTags.ENCHANTMENT_POWER_TRANSMITTER);
     }
 
     @Override
-    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
-        super.randomDisplayTick(state, world, pos, random);
+    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
+        super.animateTick(state, world, pos, random);
 
         for (BlockPos blockPos : POWER_PROVIDER_OFFSETS) {
 
@@ -69,7 +67,7 @@ public class DiviningTableBlock extends HorizontalFacingBlock {
 
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 
             Iterator var5 = POWER_PROVIDER_OFFSETS.iterator();
 
@@ -82,39 +80,39 @@ public class DiviningTableBlock extends HorizontalFacingBlock {
 
         System.out.println(nuh);
         if(nuh < 2){
-            player.addStatusEffect(new StatusEffectInstance(HolyHellEffects.ENLIGHTENED, 2400,0));
+            player.addEffect(new MobEffectInstance(HolyHellEffects.ENLIGHTENED, 2400,0));
         }
         else if(nuh < 4){
-            player.addStatusEffect(new StatusEffectInstance(HolyHellEffects.ENLIGHTENED, 2400,1));
+            player.addEffect(new MobEffectInstance(HolyHellEffects.ENLIGHTENED, 2400,1));
         }
         else if(nuh < 6){
-            player.addStatusEffect(new StatusEffectInstance(HolyHellEffects.ENLIGHTENED, 2400,2));
+            player.addEffect(new MobEffectInstance(HolyHellEffects.ENLIGHTENED, 2400,2));
         }
         else if(nuh < 8){
-            player.addStatusEffect(new StatusEffectInstance(HolyHellEffects.ENLIGHTENED, 2400,3));
+            player.addEffect(new MobEffectInstance(HolyHellEffects.ENLIGHTENED, 2400,3));
         }
         else if(nuh < 10){
-            player.addStatusEffect(new StatusEffectInstance(HolyHellEffects.ENLIGHTENED, 2400,4));
+            player.addEffect(new MobEffectInstance(HolyHellEffects.ENLIGHTENED, 2400,4));
         }
         else if(nuh < 12){
-            player.addStatusEffect(new StatusEffectInstance(HolyHellEffects.ENLIGHTENED, 2400,5));
+            player.addEffect(new MobEffectInstance(HolyHellEffects.ENLIGHTENED, 2400,5));
         }
 
 
-        world.playSoundAtBlockCenter(pos, SoundEvents.ENTITY_ENDER_DRAGON_GROWL, SoundCategory.BLOCKS, 1, 1, false);
+        world.playLocalSound(pos, SoundEvents.ENDER_DRAGON_GROWL, SoundSource.BLOCKS, 1, 1, false);
         nuh = 0;
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
 
     @Nullable
     @Override
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite());
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
     }
 }

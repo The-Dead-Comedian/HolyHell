@@ -3,35 +3,35 @@ package com.dead_comedian.holyhell.mixin;
 import com.dead_comedian.holyhell.entity.custom.other.SwordCrossEntity;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import com.dead_comedian.holyhell.registries.HolyHellItems;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(PlayerEntity.class)
+@Mixin(Player.class)
 
 public abstract class SwordCrossEntityMixin extends LivingEntity {
-    protected SwordCrossEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
+    protected SwordCrossEntityMixin(EntityType<? extends LivingEntity> entityType, Level world) {
         super(entityType, world);
     }
 
-    @Inject(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;addCritParticles(Lnet/minecraft/entity/Entity;)V"))
+    @Inject(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;crit(Lnet/minecraft/world/entity/Entity;)V"))
     private void attack(Entity target, CallbackInfo ci) {
 
-        ItemStack itemStack = this.getStackInHand(this.getActiveHand());
-        if(itemStack.isOf(HolyHellItems.HOLY_GRAIL)){
-            BlockPos blockPos = target.getBlockPos();
-            SwordCrossEntity angelEntity = new SwordCrossEntity(HolyHellEntities.SWORD_CROSS, this.getWorld());
-            this.getWorld().spawnEntity(angelEntity);
-            angelEntity.refreshPositionAndAngles(blockPos, angelEntity.getYaw(), angelEntity.getPitch());
+        ItemStack itemStack = this.getItemInHand(this.getUsedItemHand());
+        if(itemStack.is(HolyHellItems.HOLY_GRAIL)){
+            BlockPos blockPos = target.blockPosition();
+            SwordCrossEntity angelEntity = new SwordCrossEntity(HolyHellEntities.SWORD_CROSS, this.level());
+            this.level().addFreshEntity(angelEntity);
+            angelEntity.moveTo(blockPos, angelEntity.getYRot(), angelEntity.getXRot());
 
         }
 

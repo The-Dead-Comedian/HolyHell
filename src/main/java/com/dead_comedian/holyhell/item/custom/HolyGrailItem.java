@@ -2,16 +2,14 @@ package com.dead_comedian.holyhell.item.custom;
 
 
 
-import net.minecraft.entity.*;
-import net.minecraft.item.Item;
-import net.minecraft.item.SwordItem;
-import net.minecraft.item.ToolMaterial;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.Tier;
 
 
 public class HolyGrailItem extends SwordItem {
 
 
-    public HolyGrailItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
+    public HolyGrailItem(Tier toolMaterial, int attackDamage, float attackSpeed, Properties settings) {
         super(toolMaterial, attackDamage, attackSpeed, settings);
     }
 

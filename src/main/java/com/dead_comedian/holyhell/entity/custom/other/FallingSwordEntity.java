@@ -1,27 +1,27 @@
 package com.dead_comedian.holyhell.entity.custom.other;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
-public class FallingSwordEntity extends PersistentProjectileEntity {
+public class FallingSwordEntity extends AbstractArrow {
 
     private int ticksLeft;
-    public FallingSwordEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
+    public FallingSwordEntity(EntityType<? extends AbstractArrow> entityType, Level world) {
         super(entityType, world);
         this.ticksLeft =50;
     }
 
     @Override
-    public boolean isCollidable() {
+    public boolean canBeCollidedWith() {
         return true;
     }
 
     @Override
-    public void onPlayerCollision(PlayerEntity player) {
-        super.onPlayerCollision(player);
+    public void playerTouch(Player player) {
+        super.playerTouch(player);
 
 
     }
@@ -34,7 +34,7 @@ public class FallingSwordEntity extends PersistentProjectileEntity {
     }
 
     @Override
-    protected ItemStack asItemStack() {
+    protected ItemStack getPickupItem() {
         return null;
     }
 

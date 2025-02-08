@@ -6,50 +6,56 @@ package com.dead_comedian.holyhell.client.models.entity;
 
 import com.dead_comedian.holyhell.client.animation.ModAnimations;
 import com.dead_comedian.holyhell.entity.custom.KamikazeAngelEntity;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 
 
 
-public class KamikazeAngelModel  <T extends KamikazeAngelEntity> extends SinglePartEntityModel<T> {
+public class KamikazeAngelModel  <T extends KamikazeAngelEntity> extends HierarchicalModel<T> {
 	private final ModelPart bone;
 
 	public KamikazeAngelModel(ModelPart root) {
 		this.bone = root.getChild("bone");
 
 	}
-	public static TexturedModelData getTexturedModelData() {
-		ModelData modelData = new ModelData();
-		ModelPartData modelPartData = modelData.getRoot();
-		ModelPartData bone = modelPartData.addChild("bone", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+	public static LayerDefinition getTexturedModelData() {
+		MeshDefinition modelData = new MeshDefinition();
+		PartDefinition modelPartData = modelData.getRoot();
+		PartDefinition bone = modelPartData.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-		ModelPartData body = bone.addChild("body", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		PartDefinition body = bone.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		ModelPartData head = body.addChild("head", ModelPartBuilder.create().uv(0, 0).cuboid(-6.5F, -6.5F, -6.5F, 13.0F, 13.0F, 13.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -6.5F, 5.5F));
+		PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-6.5F, -6.5F, -6.5F, 13.0F, 13.0F, 13.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -6.5F, 5.5F));
 
-		ModelPartData left_top = body.addChild("left_top", ModelPartBuilder.create().uv(63, 2).mirrored().cuboid(-2.0F, -10.0F, 0.0F, 17.0F, 12.0F, 0.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.pivot(6.5F, -13.0F, 5.5F));
+		PartDefinition left_top = body.addOrReplaceChild("left_top", CubeListBuilder.create().texOffs(63, 2).mirror().addBox(-2.0F, -10.0F, 0.0F, 17.0F, 12.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(6.5F, -13.0F, 5.5F));
 
-		ModelPartData right_top = body.addChild("right_top", ModelPartBuilder.create().uv(63, 2).cuboid(-15.0F, -10.0F, 0.0F, 17.0F, 12.0F, 0.0F, new Dilation(0.0F)), ModelTransform.pivot(-6.5F, -13.0F, 5.5F));
+		PartDefinition right_top = body.addOrReplaceChild("right_top", CubeListBuilder.create().texOffs(63, 2).addBox(-15.0F, -10.0F, 0.0F, 17.0F, 12.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(-6.5F, -13.0F, 5.5F));
 
-		ModelPartData left_bottom = body.addChild("left_bottom", ModelPartBuilder.create().uv(74, 32).mirrored().cuboid(-2.0F, -9.0F, 0.0F, 18.0F, 12.0F, 0.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.pivot(6.5F, 0.0F, 5.5F));
+		PartDefinition left_bottom = body.addOrReplaceChild("left_bottom", CubeListBuilder.create().texOffs(74, 32).mirror().addBox(-2.0F, -9.0F, 0.0F, 18.0F, 12.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(6.5F, 0.0F, 5.5F));
 
-		ModelPartData right_bottom = body.addChild("right_bottom", ModelPartBuilder.create().uv(74, 32).cuboid(-16.0F, -9.0F, 0.0F, 18.0F, 12.0F, 0.0F, new Dilation(0.0F)), ModelTransform.pivot(-6.5F, 0.0F, 5.5F));
-		return TexturedModelData.of(modelData, 128, 128);
+		PartDefinition right_bottom = body.addOrReplaceChild("right_bottom", CubeListBuilder.create().texOffs(74, 32).addBox(-16.0F, -9.0F, 0.0F, 18.0F, 12.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(-6.5F, 0.0F, 5.5F));
+		return LayerDefinition.create(modelData, 128, 128);
 	}
 	@Override
-	public void setAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.getPart().traverse().forEach(ModelPart::resetTransform);
-		this.animateMovement(ModAnimations.KAMIKAZE_FLY2, limbSwing, limbSwingAmount, 2f, 2.5f);
+	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.root().getAllParts().forEach(ModelPart::resetPose);
+		this.animateWalk(ModAnimations.KAMIKAZE_FLY2, limbSwing, limbSwingAmount, 2f, 2.5f);
 	}
 	@Override
-	public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
+	public void renderToBuffer(PoseStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
 		bone.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
 	}
 
 	@Override
-	public ModelPart getPart() {
+	public ModelPart root() {
 		return bone;
 	}
 }

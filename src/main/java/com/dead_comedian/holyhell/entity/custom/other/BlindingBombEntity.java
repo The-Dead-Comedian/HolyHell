@@ -2,52 +2,52 @@ package com.dead_comedian.holyhell.entity.custom.other;
 
 import com.dead_comedian.holyhell.registries.HolyHellEffects;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
-import net.minecraft.item.Item;
-import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.explosion.Explosion;
-import net.minecraft.world.explosion.ExplosionBehavior;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.ExplosionDamageCalculator;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 
-public class BlindingBombEntity extends ThrownItemEntity {
+public class BlindingBombEntity extends ThrowableItemProjectile {
 
 
 
-    public BlindingBombEntity(EntityType<? extends BlindingBombEntity> entityType, World world) {
+    public BlindingBombEntity(EntityType<? extends BlindingBombEntity> entityType, Level world) {
         super(entityType, world);
     }
 
-    public BlindingBombEntity(World world, LivingEntity owner) {
+    public BlindingBombEntity(Level world, LivingEntity owner) {
         super(HolyHellEntities.BLINDING_BOMB, owner, world);
     }
 
-    public BlindingBombEntity(World world, double x, double y, double z) {
+    public BlindingBombEntity(Level world, double x, double y, double z) {
         super(HolyHellEntities.BLINDING_BOMB, x, y, z, world);
     }
 
-    protected void onEntityHit(EntityHitResult entityHitResult) {
-        super.onEntityHit(entityHitResult);
+    protected void onHitEntity(EntityHitResult entityHitResult) {
+        super.onHitEntity(entityHitResult);
         Entity entity = entityHitResult.getEntity();
 
-        Box userHitbox = new Box(entity.getBlockPos()).expand(3);
+        AABB userHitbox = new AABB(entity.blockPosition()).inflate(3);
 
-        List<LivingEntity> list = entity.getWorld().getNonSpectatingEntities(LivingEntity.class, userHitbox);
+        List<LivingEntity> list = entity.level().getEntitiesOfClass(LivingEntity.class, userHitbox);
         for(LivingEntity i : list){
 
-            i.addStatusEffect(new StatusEffectInstance(HolyHellEffects.CONFUSION, 200 ,1));
+            i.addEffect(new MobEffectInstance(HolyHellEffects.CONFUSION, 200 ,1));
 
         }
     }
@@ -55,38 +55,38 @@ public class BlindingBombEntity extends ThrownItemEntity {
         this.explode((DamageSource)null, power);
     }
     protected void explode(@Nullable DamageSource damageSource, double power) {
-        if (!this.getWorld().isClient) {
+        if (!this.level().isClientSide) {
             double d = Math.sqrt(power);
             if (d > 5.0) {
                 d = 5.0;
             }
 
-            this.getWorld().createExplosion(this, damageSource, (ExplosionBehavior)null, this.getX(), this.getY(), this.getZ(), (float)(4.0 + this.random.nextDouble() * 1.5 * d), false, World.ExplosionSourceType.TNT);
+            this.level().explode(this, damageSource, (ExplosionDamageCalculator)null, this.getX(), this.getY(), this.getZ(), (float)(4.0 + this.random.nextDouble() * 1.5 * d), false, Level.ExplosionInteraction.TNT);
             this.discard();
         }
 
     }
 
     @Override
-    public boolean canExplosionDestroyBlock(Explosion explosion, BlockView world, BlockPos pos, BlockState state, float explosionPower) {
+    public boolean shouldBlockExplode(Explosion explosion, BlockGetter world, BlockPos pos, BlockState state, float explosionPower) {
         return false;
     }
 
 
 
 
-    protected void onCollision(HitResult hitResult) {
-        super.onCollision(hitResult);
-        if (!this.getWorld().isClient) {
-            this.getWorld().sendEntityStatus(this, (byte)3);
+    protected void onHit(HitResult hitResult) {
+        super.onHit(hitResult);
+        if (!this.level().isClientSide) {
+            this.level().broadcastEntityEvent(this, (byte)3);
             Entity entity = this;
 
-            Box userHitbox = new Box(entity.getBlockPos()).expand(3);
+            AABB userHitbox = new AABB(entity.blockPosition()).inflate(3);
 
-            List<LivingEntity> list = entity.getWorld().getNonSpectatingEntities(LivingEntity.class, userHitbox);
+            List<LivingEntity> list = entity.level().getEntitiesOfClass(LivingEntity.class, userHitbox);
             for(LivingEntity i : list){
 
-                i.addStatusEffect(new StatusEffectInstance(HolyHellEffects.CONFUSION, 200 ,1));
+                i.addEffect(new MobEffectInstance(HolyHellEffects.CONFUSION, 200 ,1));
 
             }
             this.discard();

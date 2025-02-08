@@ -1,14 +1,13 @@
 package com.dead_comedian.holyhell.entity.custom.other;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.EntityPose;
-
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 public class DomePart extends Entity {
@@ -17,38 +16,38 @@ public class DomePart extends Entity {
     private final EntityDimensions partDimensions;
 
     public DomePart(GlobularDomeEntity owner, String name, float width, float height) {
-        super(owner.getType(), owner.getWorld());
-        this.partDimensions = EntityDimensions.changing(width, height);
-        this.calculateDimensions();
+        super(owner.getType(), owner.level());
+        this.partDimensions = EntityDimensions.scalable(width, height);
+        this.refreshDimensions();
         this.owner = owner;
         this.name = name;
     }
 
     @Override
-    protected void initDataTracker() {
+    protected void defineSynchedData() {
     }
 
     @Override
-    protected void readCustomDataFromNbt(NbtCompound nbt) {
+    protected void readAdditionalSaveData(CompoundTag nbt) {
     }
 
     @Override
-    protected void writeCustomDataToNbt(NbtCompound nbt) {
+    protected void addAdditionalSaveData(CompoundTag nbt) {
     }
 
     @Override
-    public boolean canHit() {
+    public boolean isPickable() {
         return true;
     }
 
     @Override
     @Nullable
-    public ItemStack getPickBlockStack() {
-        return this.owner.getPickBlockStack();
+    public ItemStack getPickResult() {
+        return this.owner.getPickResult();
     }
 
     @Override
-    public boolean damage(DamageSource source, float amount) {
+    public boolean hurt(DamageSource source, float amount) {
         if (this.isInvulnerableTo(source)) {
             return false;
         }
@@ -56,22 +55,22 @@ public class DomePart extends Entity {
     }
 
     @Override
-    public boolean isPartOf(Entity entity) {
+    public boolean is(Entity entity) {
         return this == entity || this.owner == entity;
     }
 
     @Override
-    public Packet<ClientPlayPacketListener> createSpawnPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public EntityDimensions getDimensions(EntityPose pose) {
+    public EntityDimensions getDimensions(Pose pose) {
         return this.partDimensions;
     }
 
     @Override
-    public boolean shouldSave() {
+    public boolean shouldBeSaved() {
         return false;
     }
 }

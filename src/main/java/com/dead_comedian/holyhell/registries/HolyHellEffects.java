@@ -4,33 +4,33 @@ import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.effect.ClarityEffect;
 import com.dead_comedian.holyhell.effect.ConfusionEffect;
 import com.dead_comedian.holyhell.effect.CustomStatusEffect;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectCategory;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 
 public class HolyHellEffects {
-    public static final StatusEffect CLARITY = registerStatusEffect("clarity",
-            new ClarityEffect(StatusEffectCategory.NEUTRAL, 0x36ebab)
-                    .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED,
+    public static final MobEffect CLARITY = registerStatusEffect("clarity",
+            new ClarityEffect(MobEffectCategory.NEUTRAL, 0x36ebab)
+                    .addAttributeModifier(Attributes.MOVEMENT_SPEED,
                             "7107DE5E-7CE8-4030-940E-514C1F160890", -0.25f,
-                            EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
+                            AttributeModifier.Operation.MULTIPLY_TOTAL));
 
-    public static final StatusEffect CONFUSION = registerStatusEffect("confusion",
-            new ConfusionEffect(StatusEffectCategory.NEUTRAL, 0x36ebab));
+    public static final MobEffect CONFUSION = registerStatusEffect("confusion",
+            new ConfusionEffect(MobEffectCategory.NEUTRAL, 0x36ebab));
 
-    public static final StatusEffect JESISTANCE = registerStatusEffect("jesistance",
-            new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x36ebab));
+    public static final MobEffect JESISTANCE = registerStatusEffect("jesistance",
+            new CustomStatusEffect(MobEffectCategory.BENEFICIAL, 0x36ebab));
 
-    public static final StatusEffect ENLIGHTENED = registerStatusEffect("enlightened",
-            new ConfusionEffect(StatusEffectCategory.BENEFICIAL, 0x36ebab));
+    public static final MobEffect ENLIGHTENED = registerStatusEffect("enlightened",
+            new ConfusionEffect(MobEffectCategory.BENEFICIAL, 0x36ebab));
 
 
-    private static StatusEffect registerStatusEffect(String name, StatusEffect statusEffect) {
-        return Registry.register(Registries.STATUS_EFFECT, new Identifier(Holyhell.MOD_ID, name), statusEffect);
+    private static MobEffect registerStatusEffect(String name, MobEffect statusEffect) {
+        return Registry.register(BuiltInRegistries.MOB_EFFECT, new ResourceLocation(Holyhell.MOD_ID, name), statusEffect);
     }
 
     public static void registerEffects() {

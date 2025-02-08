@@ -6,32 +6,31 @@ import com.dead_comedian.holyhell.client.models.entity.BabTwoModel;
 import com.dead_comedian.holyhell.entity.custom.BabThreeEntity;
 import com.dead_comedian.holyhell.entity.custom.BabTwoEntity;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Identifier;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.resources.ResourceLocation;
 
-public class BabThreeRenderer extends MobEntityRenderer<BabThreeEntity, BabThreeModel<BabThreeEntity>> {
-    private static final Identifier TEXTURE = new Identifier(Holyhell.MOD_ID, "textures/entity/bab3.png");
+public class BabThreeRenderer extends MobRenderer<BabThreeEntity, BabThreeModel<BabThreeEntity>> {
+    private static final ResourceLocation TEXTURE = new ResourceLocation(Holyhell.MOD_ID, "textures/entity/bab3.png");
 
-    public BabThreeRenderer(EntityRendererFactory.Context context) {
-        super(context, new BabThreeModel<>(context.getPart(HolyHellModelLayers.BAB2)), 0.6F);
+    public BabThreeRenderer(EntityRendererProvider.Context context) {
+        super(context, new BabThreeModel<>(context.bakeLayer(HolyHellModelLayers.BAB2)), 0.6F);
 
 
     }
 
     @Override
-    public Identifier getTexture(BabThreeEntity entity) {
+    public ResourceLocation getTextureLocation(BabThreeEntity entity) {
         return TEXTURE;
     }
 
     @Override
-    public void render(BabThreeEntity mobEntity, float f, float g, MatrixStack matrixStack,
-                       VertexConsumerProvider vertexConsumerProvider, int i) {
-        VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(this.model.getLayer(TEXTURE));
+    public void render(BabThreeEntity mobEntity, float f, float g, PoseStack matrixStack,
+                       MultiBufferSource vertexConsumerProvider, int i) {
+        VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(this.model.renderType(TEXTURE));
         super.render(mobEntity, f, g, matrixStack, vertexConsumerProvider, i);
     }
 

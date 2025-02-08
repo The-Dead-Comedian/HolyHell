@@ -2,18 +2,18 @@ package com.dead_comedian.holyhell.registries;
 
 import com.dead_comedian.holyhell.Holyhell;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
-import net.minecraft.particle.DefaultParticleType;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Registry;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 
 public class HolyhellParticles {
-    public static final DefaultParticleType LIGHT_RING =
+    public static final SimpleParticleType LIGHT_RING =
             registerParticle("light_ring", FabricParticleTypes.simple());
 
 
-    private static DefaultParticleType registerParticle(String name, DefaultParticleType particleType) {
-        return Registry.register(Registries.PARTICLE_TYPE, new Identifier(Holyhell.MOD_ID, name), particleType);
+    private static SimpleParticleType registerParticle(String name, SimpleParticleType particleType) {
+        return Registry.register(BuiltInRegistries.PARTICLE_TYPE, new ResourceLocation(Holyhell.MOD_ID, name), particleType);
     }
 
 

@@ -3,21 +3,6 @@ package com.dead_comedian.holyhell.mixin;
 
 import com.dead_comedian.holyhell.registries.HolyHellItems;
 import com.dead_comedian.holyhell.registries.HolyhellParticles;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.decoration.ArmorStandEntity;
-import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.packet.s2c.play.EntityVelocityUpdateS2CPacket;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -27,35 +12,49 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 import java.util.function.Predicate;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
-@Mixin(PlayerEntity.class)
+@Mixin(Player.class)
 
 public abstract class HolyShieldMixin extends LivingEntity {
 
-    @Shadow
-    protected abstract void spawnParticles(ParticleEffect parameters);
 
-    protected HolyShieldMixin(EntityType<? extends LivingEntity> entityType, World world) {
+
+    protected HolyShieldMixin(EntityType<? extends LivingEntity> entityType, Level world) {
         super(entityType, world);
     }
 
     @Unique
     public boolean spawnParitcle = false;
 
-    @Inject(method = "applyDamage", at = @At(value = "HEAD"))
+    @Inject(method = "hurt", at = @At(value = "HEAD"))
 
-    private void modifyDamage(DamageSource source, float amount, CallbackInfo ci) {
-        if (((PlayerEntity) (Object) this).isBlocking() && (
-                ((PlayerEntity) (Object) this).getMainHandStack().isOf(HolyHellItems.HOLY_SHIELD) ||
-                        ((PlayerEntity) (Object) this).getOffHandStack().isOf(HolyHellItems.HOLY_SHIELD))) {
+    private void modifyDamage(DamageSource damageSource, float f, CallbackInfoReturnable<Boolean> cir) {
+        if (((Player) (Object) this).isBlocking() && (
+                ((Player) (Object) this).getMainHandItem().is(HolyHellItems.HOLY_SHIELD) ||
+                        ((Player) (Object) this).getOffhandItem().is(HolyHellItems.HOLY_SHIELD))) {
 
 
-            Box userHitbox = new Box(((PlayerEntity) (Object) this).getBlockPos()).expand(3);
-            List<Entity> list = ((PlayerEntity) (Object) this).getWorld().getNonSpectatingEntities(Entity.class, userHitbox);
+            AABB userHitbox = new AABB(((Player) (Object) this).blockPosition()).inflate(3);
+            List<Entity> list = ((Player) (Object) this).level().getEntitiesOfClass(Entity.class, userHitbox);
             for (Entity i : list) {
-                if (i != ((PlayerEntity) (Object) this)) {
-                    knockbackNearbyEntities(((PlayerEntity) (Object) this).getWorld(), ((PlayerEntity) (Object) this), i);
+                if (i != ((Player) (Object) this)) {
+                    knockbackNearbyEntities(((Player) (Object) this).level(), ((Player) (Object) this), i);
                     spawnParitcle=true;
                 }
             }
@@ -63,17 +62,17 @@ public abstract class HolyShieldMixin extends LivingEntity {
     }
 
     @Unique
-    private static void knockbackNearbyEntities(World world, PlayerEntity player, Entity attacked) {
-        world.syncWorldEvent(2013, attacked.getSteppingPos(), 750);
-        world.getEntitiesByClass(LivingEntity.class, attacked.getBoundingBox().expand(3.5), getKnockbackPredicate(player, attacked)).forEach((entity) -> {
-            Vec3d vec3d = entity.getPos().subtract(attacked.getPos());
+    private static void knockbackNearbyEntities(Level world, Player player, Entity attacked) {
+        world.levelEvent(2013, attacked.getOnPos(), 750);
+        world.getEntitiesOfClass(LivingEntity.class, attacked.getBoundingBox().inflate(3.5), getKnockbackPredicate(player, attacked)).forEach((entity) -> {
+            Vec3 vec3d = entity.position().subtract(attacked.position());
             double d = getKnockback(player, entity, vec3d);
-            Vec3d vec3d2 = vec3d.normalize().multiply(d);
+            Vec3 vec3d2 = vec3d.normalize().scale(d);
             if (d > 0.0) {
-                entity.addVelocity(vec3d2.x * 0.1, 0.1, vec3d2.z * 0.1);
-                if (entity instanceof ServerPlayerEntity) {
-                    ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) entity;
-                    serverPlayerEntity.networkHandler.sendPacket(new EntityVelocityUpdateS2CPacket(serverPlayerEntity));
+                entity.push(vec3d2.x * 0.1, 0.1, vec3d2.z * 0.1);
+                if (entity instanceof ServerPlayer) {
+                    ServerPlayer serverPlayerEntity = (ServerPlayer) entity;
+                    serverPlayerEntity.connection.send(new ClientboundSetEntityMotionPacket(serverPlayerEntity));
                 }
             }
 
@@ -82,7 +81,7 @@ public abstract class HolyShieldMixin extends LivingEntity {
 
 
     @Unique
-    private static Predicate<LivingEntity> getKnockbackPredicate(PlayerEntity player, Entity attacked) {
+    private static Predicate<LivingEntity> getKnockbackPredicate(Player player, Entity attacked) {
         return (entity) -> {
             boolean var10000;
             boolean bl;
@@ -92,9 +91,9 @@ public abstract class HolyShieldMixin extends LivingEntity {
             {
                 bl = !entity.isSpectator();
                 bl2 = entity != player && entity != attacked;
-                bl3 = !player.isTeammate(entity);
-                if (entity instanceof TameableEntity tameableEntity) {
-                    if (tameableEntity.isTamed() && player.getUuid().equals(tameableEntity.getOwnerUuid())) {
+                bl3 = !player.isAlliedTo(entity);
+                if (entity instanceof TamableAnimal tameableEntity) {
+                    if (tameableEntity.isTame() && player.getUUID().equals(tameableEntity.getOwnerUUID())) {
                         var10000 = true;
                         break label62;
                     }
@@ -107,7 +106,7 @@ public abstract class HolyShieldMixin extends LivingEntity {
             label55:
             {
                 bl4 = !var10000;
-                if (entity instanceof ArmorStandEntity armorStandEntity) {
+                if (entity instanceof ArmorStand armorStandEntity) {
                     if (armorStandEntity.isMarker()) {
                         var10000 = false;
                         break label55;
@@ -118,16 +117,16 @@ public abstract class HolyShieldMixin extends LivingEntity {
             }
 
             boolean bl5 = var10000;
-            boolean bl6 = attacked.squaredDistanceTo(entity) <= Math.pow(3.5, 2.0);
+            boolean bl6 = attacked.distanceToSqr(entity) <= Math.pow(3.5, 2.0);
             return bl && bl2 && bl3 && bl4 && bl5 && bl6;
         };
     }
 
     @Unique
-    private static double getKnockback(PlayerEntity player, LivingEntity attacked, Vec3d distance) {
-        player.getWorld().addParticle(HolyhellParticles.LIGHT_RING, player.getX(),player.getY(),player.getZ(),1,1,1);
+    private static double getKnockback(Player player, LivingEntity attacked, Vec3 distance) {
+        player.level().addParticle(HolyhellParticles.LIGHT_RING, player.getX(),player.getY(),player.getZ(),1,1,1);
         System.out.println("x "+ player.getX() +"/n y:"+ player.getZ()+ "/n z:"+ player.getZ());
-        return ((3.5 - distance.length()) * 0.699999988079071 * (double) (player.fallDistance > 5.0F ? 2 : 1) * (1.0 - attacked.getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE)) * 10  );
+        return ((3.5 - distance.length()) * 0.699999988079071 * (double) (player.fallDistance > 5.0F ? 2 : 1) * (1.0 - attacked.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE)) * 10  );
 
     }
 }

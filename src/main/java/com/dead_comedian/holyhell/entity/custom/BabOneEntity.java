@@ -3,37 +3,46 @@ package com.dead_comedian.holyhell.entity.custom;
 
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import com.dead_comedian.holyhell.registries.HolyHellItems;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.EntityView;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.FollowOwnerGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.EntityGetter;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class BabOneEntity extends TameableEntity {
+public class BabOneEntity extends TamableAnimal {
 
 
     ///////////////
     // VARIABLES //
     ///////////////
-    private static final TrackedData<Boolean> TAMED = DataTracker.registerData(BabOneEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> TAMED = SynchedEntityData.defineId(BabOneEntity.class, EntityDataSerializers.BOOLEAN);
 
 
     public final AnimationState Lvl1IdleAnimationState = new AnimationState();
@@ -42,62 +51,62 @@ public class BabOneEntity extends TameableEntity {
     // MISC //
     //////////
 
-    public BabOneEntity(EntityType<? extends TameableEntity> entityType, World world) {
+    public BabOneEntity(EntityType<? extends TamableAnimal> entityType, Level world) {
         super(entityType, world);
     }
 
     @Nullable
     @Override
-    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
+    public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob entity) {
         return null;
     }
 
     @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(TAMED, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(TAMED, false);
     }
 
     @Override
     public void tick() {
         super.tick();
 
-        List<Entity> entityBelow = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.1, 0.1, 0.1));
+        List<Entity> entityBelow = this.level().getEntities(this, this.getBoundingBox().inflate(0.1, 0.1, 0.1));
         for (Entity i : entityBelow) {
             if (i instanceof BabOneEntity && i != this) {
-                if (this.isTamed() && (this.getOwner() == ((BabOneEntity) i).getOwner() || !((BabOneEntity) i).isTamed())) {
-                    if (this.collidesWith(i)) {
+                if (this.isTame() && (this.getOwner() == ((BabOneEntity) i).getOwner() || !((BabOneEntity) i).isTame())) {
+                    if (this.canCollideWith(i)) {
 
-                        BlockPos blockPos = this.getBlockPos();
-                        BabTwoEntity babTwoEntity = new BabTwoEntity(HolyHellEntities.BAB_TWO, this.getWorld());
-                        this.getWorld().spawnEntity(babTwoEntity);
-                        babTwoEntity.setTamed(true);
-                        babTwoEntity.setOwner((PlayerEntity) this.getOwner());
-                        babTwoEntity.refreshPositionAndAngles(blockPos, babTwoEntity.getYaw(), babTwoEntity.getPitch());
+                        BlockPos blockPos = this.blockPosition();
+                        BabTwoEntity babTwoEntity = new BabTwoEntity(HolyHellEntities.BAB_TWO, this.level());
+                        this.level().addFreshEntity(babTwoEntity);
+                        babTwoEntity.setTame(true);
+                        babTwoEntity.tame((Player) this.getOwner());
+                        babTwoEntity.moveTo(blockPos, babTwoEntity.getYRot(), babTwoEntity.getXRot());
                         this.discard();
                         i.discard();
                     }
                 }
             }
         }
-        if (this.getWorld().isClient()) {
+        if (this.level().isClientSide()) {
             setupAnimationStates();
         }
     }
 
     @Override
-    protected void initGoals() {
-        this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(4, new WanderAroundFarGoal(this, 1D));
-        this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 4f));
-        this.goalSelector.add(6, new FollowOwnerGoal(this, 1.0, 10.0F, 2.0F, false));
-        this.goalSelector.add(2, new FleeEntityGoal<>(this, HostileEntity.class, 6, 1, 1));
-        this.goalSelector.add(6, new LookAroundGoal(this));
-        this.targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1D));
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 4f));
+        this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0, 10.0F, 2.0F, false));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Monster.class, 6, 1, 1));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
-    public static DefaultAttributeContainer.Builder createAngelAttributes() {
-        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 10).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f).add(EntityAttributes.GENERIC_ARMOR, 0.4f);
+    public static AttributeSupplier.Builder createAngelAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 10).add(Attributes.MOVEMENT_SPEED, 0.2f).add(Attributes.ARMOR, 0.4f);
     }
 
     ///////////////
@@ -109,7 +118,7 @@ public class BabOneEntity extends TameableEntity {
 
         if (this.Lvl1IdleAnimationTimeout <= 0) {
             this.Lvl1IdleAnimationTimeout = this.random.nextInt(20) + 40;
-            this.Lvl1IdleAnimationState.start(this.age);
+            this.Lvl1IdleAnimationState.start(this.tickCount);
         } else {
             --this.Lvl1IdleAnimationTimeout;
         }
@@ -117,9 +126,9 @@ public class BabOneEntity extends TameableEntity {
 
 
     @Override
-    protected void updateLimbs(float posDelta) {
-        float f = this.getPose() == EntityPose.STANDING ? Math.min(posDelta * 6.0f, 1.0f) : 0.0f;
-        this.limbAnimator.updateLimbs(f, 0.2f);
+    protected void updateWalkAnimation(float posDelta) {
+        float f = this.getPose() == Pose.STANDING ? Math.min(posDelta * 6.0f, 1.0f) : 0.0f;
+        this.walkAnimation.update(f, 0.2f);
     }
 
 
@@ -129,15 +138,15 @@ public class BabOneEntity extends TameableEntity {
 
 
     //  attacking
-    private static final TrackedData<Boolean> ATTACKING = DataTracker.registerData(BabOneEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> ATTACKING = SynchedEntityData.defineId(BabOneEntity.class, EntityDataSerializers.BOOLEAN);
 
-    public void setAttacking(boolean attacking) {
-        this.dataTracker.set(ATTACKING, attacking);
+    public void setAggressive(boolean attacking) {
+        this.entityData.set(ATTACKING, attacking);
     }
 
     @Override
-    public boolean isAttacking() {
-        return this.dataTracker.get(ATTACKING);
+    public boolean isAggressive() {
+        return this.entityData.get(ATTACKING);
     }
 
 
@@ -150,11 +159,11 @@ public class BabOneEntity extends TameableEntity {
     }
 
     @Override
-    public boolean isCollidable() {
+    public boolean canBeCollidedWith() {
         return this.isAlive();
     }
 
-    public boolean collidesWith(Entity other) {
+    public boolean canCollideWith(Entity other) {
         return canCollide(this, other);
     }
 
@@ -165,45 +174,42 @@ public class BabOneEntity extends TameableEntity {
 
 
     @Override
-    public ActionResult interactMob(PlayerEntity player, Hand hand) {
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
 
-        ItemStack itemStack = player.getStackInHand(hand);
-        if (itemStack.isOf(Items.STICK) && !this.isTamed()) {
+        ItemStack itemStack = player.getItemInHand(hand);
+        if (itemStack.is(Items.STICK) && !this.isTame()) {
             this.discard();
 
-            player.giveItemStack(HolyHellItems.KEBAB.getDefaultStack());
+            player.addItem(HolyHellItems.KEBAB.getDefaultInstance());
             if (!player.isCreative()) {
-                itemStack.decrement(1);
+                itemStack.shrink(1);
             }
 
-            return ActionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
 
-        if (itemStack.isOf(HolyHellItems.HOLY_TEAR) && !this.isTamed()) {
-            setTamed(true);
-            this.setOwner(player);
+        if (itemStack.is(HolyHellItems.HOLY_TEAR) && !this.isTame()) {
+            setTame(true);
+            this.tame(player);
             if (!player.isCreative()) {
-                itemStack.decrement(1);
+                itemStack.shrink(1);
             }
 
-            return ActionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
 
-        return super.interactMob(player, hand);
+        return super.mobInteract(player, hand);
     }
 
 
     @Override
-    public void setTamed(boolean tamed) {
-        this.dataTracker.set(TAMED, tamed);
-        super.setTamed(tamed);
+    public void setTame(boolean tamed) {
+        this.entityData.set(TAMED, tamed);
+        super.setTame(tamed);
     }
 
 
-    @Override
-    public EntityView method_48926() {
-        return this.getWorld();
-    }
+
 }
 
 

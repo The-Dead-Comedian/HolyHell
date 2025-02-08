@@ -13,20 +13,20 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 
 public class HolyhellClient implements ClientModInitializer {
 
 
     @Override
     public void onInitializeClient() {
-        BlockRenderLayerMap.INSTANCE.putBlock(HolyHellBlocks.DIVINING_TABLE, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(HolyHellBlocks.GLOBE, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(HolyHellBlocks.CANDELABRA, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(HolyHellBlocks.CANDLEHOLDER, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(HolyHellBlocks.STONE_CROSS, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(HolyHellBlocks.FALLING_CROSS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(HolyHellBlocks.DIVINING_TABLE, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(HolyHellBlocks.GLOBE, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(HolyHellBlocks.CANDELABRA, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(HolyHellBlocks.CANDLEHOLDER, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(HolyHellBlocks.STONE_CROSS, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(HolyHellBlocks.FALLING_CROSS, RenderType.cutout());
 
 
         HolyHellModelPredicateProvider.registerModModels();
@@ -76,7 +76,7 @@ public class HolyhellClient implements ClientModInitializer {
         EntityRendererRegistry.register(HolyHellEntities.FIREBALL, FireBallRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.FIREBALL, FireBallModel::getTexturedModelData);
 
-        EntityRendererRegistry.register(HolyHellEntities.BLINDING_BOMB, FlyingItemEntityRenderer::new);
+        EntityRendererRegistry.register(HolyHellEntities.BLINDING_BOMB, ThrownItemRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(HolyHellModelLayers.BLINDING_BOMB, BlindingBombModel::getTexturedModelData);
 
         EntityRendererRegistry.register(HolyHellEntities.FALLING_SWORD, FallingSwordRenderer::new);

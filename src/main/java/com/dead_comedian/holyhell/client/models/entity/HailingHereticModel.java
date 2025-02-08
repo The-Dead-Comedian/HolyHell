@@ -6,14 +6,20 @@ package com.dead_comedian.holyhell.client.models.entity;
 
 import com.dead_comedian.holyhell.client.animation.ModAnimations;
 import com.dead_comedian.holyhell.entity.custom.HailingHereticEntity;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 
 
 
-public class HailingHereticModel <T extends HailingHereticEntity> extends SinglePartEntityModel<T> {
+public class HailingHereticModel <T extends HailingHereticEntity> extends HierarchicalModel<T> {
 	private final ModelPart hole;
 
 	public HailingHereticModel(ModelPart root) {
@@ -21,47 +27,47 @@ public class HailingHereticModel <T extends HailingHereticEntity> extends Single
 
 
 	}
-	public static TexturedModelData getTexturedModelData() {
-		ModelData modelData = new ModelData();
-		ModelPartData modelPartData = modelData.getRoot();
-		ModelPartData hole = modelPartData.addChild("hole", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+	public static LayerDefinition getTexturedModelData() {
+		MeshDefinition modelData = new MeshDefinition();
+		PartDefinition modelPartData = modelData.getRoot();
+		PartDefinition hole = modelPartData.addOrReplaceChild("hole", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-		ModelPartData bottom = hole.addChild("bottom", ModelPartBuilder.create().uv(0, 20).cuboid(-4.5F, -5.1174F, -13.4803F, 9.0F, 9.0F, 10.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -12.5F, 14.0F));
+		PartDefinition bottom = hole.addOrReplaceChild("bottom", CubeListBuilder.create().texOffs(0, 20).addBox(-4.5F, -5.1174F, -13.4803F, 9.0F, 9.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -12.5F, 14.0F));
 
-		ModelPartData back_right_leg2 = bottom.addChild("back_right_leg2", ModelPartBuilder.create().uv(20, 47).cuboid(-2.5F, 0.0F, -2.5F, 5.0F, 9.0F, 5.0F, new Dilation(0.0F))
-				.uv(40, 0).cuboid(-2.5F, 9.0F, -2.5F, 5.0F, 6.0F, 5.0F, new Dilation(0.0F)), ModelTransform.pivot(-5.0F, -2.5F, -4.5F));
+		PartDefinition back_right_leg2 = bottom.addOrReplaceChild("back_right_leg2", CubeListBuilder.create().texOffs(20, 47).addBox(-2.5F, 0.0F, -2.5F, 5.0F, 9.0F, 5.0F, new CubeDeformation(0.0F))
+				.texOffs(40, 0).addBox(-2.5F, 9.0F, -2.5F, 5.0F, 6.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, -2.5F, -4.5F));
 
-		ModelPartData back_left_leg2 = bottom.addChild("back_left_leg2", ModelPartBuilder.create().uv(40, 0).cuboid(-2.5F, 9.0F, -2.5F, 5.0F, 6.0F, 5.0F, new Dilation(0.0F))
-				.uv(20, 47).cuboid(-2.5F, 0.0F, -2.5F, 5.0F, 9.0F, 5.0F, new Dilation(0.0F)), ModelTransform.pivot(5.0F, -2.5F, -4.5F));
+		PartDefinition back_left_leg2 = bottom.addOrReplaceChild("back_left_leg2", CubeListBuilder.create().texOffs(40, 0).addBox(-2.5F, 9.0F, -2.5F, 5.0F, 6.0F, 5.0F, new CubeDeformation(0.0F))
+				.texOffs(20, 47).addBox(-2.5F, 0.0F, -2.5F, 5.0F, 9.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(5.0F, -2.5F, -4.5F));
 
-		ModelPartData body = bottom.addChild("body", ModelPartBuilder.create().uv(0, 0).cuboid(-5.5F, -5.1174F, -9.0F, 11.0F, 11.0F, 9.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -1.0F, -13.4803F));
+		PartDefinition body = bottom.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-5.5F, -5.1174F, -9.0F, 11.0F, 11.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.0F, -13.4803F));
 
-		ModelPartData head = body.addChild("head", ModelPartBuilder.create().uv(30, 31).cuboid(-4.0F, -4.0F, -8.5F, 8.0F, 8.0F, 8.0F, new Dilation(0.5F))
-				.uv(32, 12).cuboid(-4.0F, -4.0F, -8.5F, 8.0F, 8.0F, 8.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.4796F, -8.952F));
+		PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(30, 31).addBox(-4.0F, -4.0F, -8.5F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.5F))
+				.texOffs(32, 12).addBox(-4.0F, -4.0F, -8.5F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.4796F, -8.952F));
 
-		ModelPartData front_right_leg = body.addChild("front_right_leg", ModelPartBuilder.create().uv(20, 47).cuboid(-2.5F, 0.0F, -2.5F, 5.0F, 9.0F, 5.0F, new Dilation(0.0F))
-				.uv(40, 47).cuboid(-2.5F, 9.0F, -2.5F, 5.0F, 8.0F, 5.0F, new Dilation(0.0F)), ModelTransform.pivot(-6.0F, -3.5F, -5.5197F));
+		PartDefinition front_right_leg = body.addOrReplaceChild("front_right_leg", CubeListBuilder.create().texOffs(20, 47).addBox(-2.5F, 0.0F, -2.5F, 5.0F, 9.0F, 5.0F, new CubeDeformation(0.0F))
+				.texOffs(40, 47).addBox(-2.5F, 9.0F, -2.5F, 5.0F, 8.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(-6.0F, -3.5F, -5.5197F));
 
-		ModelPartData front_left_leg = body.addChild("front_left_leg", ModelPartBuilder.create().uv(40, 47).cuboid(-2.4938F, 9.0959F, -2.4465F, 5.0F, 8.0F, 5.0F, new Dilation(0.0F))
-				.uv(20, 47).cuboid(-2.4938F, 0.0959F, -2.4465F, 5.0F, 9.0F, 5.0F, new Dilation(0.0F)), ModelTransform.pivot(5.9938F, -3.5959F, -5.5732F));
-		return TexturedModelData.of(modelData, 64, 64);
+		PartDefinition front_left_leg = body.addOrReplaceChild("front_left_leg", CubeListBuilder.create().texOffs(40, 47).addBox(-2.4938F, 9.0959F, -2.4465F, 5.0F, 8.0F, 5.0F, new CubeDeformation(0.0F))
+				.texOffs(20, 47).addBox(-2.4938F, 0.0959F, -2.4465F, 5.0F, 9.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(5.9938F, -3.5959F, -5.5732F));
+		return LayerDefinition.create(modelData, 64, 64);
 	}
 	@Override
-	public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
+	public void renderToBuffer(PoseStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
 		hole.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
 	}
 
 	@Override
-	public ModelPart getPart() {
+	public ModelPart root() {
 		return hole;
 	}
 
 	@Override
-	public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-		this.getPart().traverse().forEach(ModelPart::resetTransform);
-		this.animateMovement(ModAnimations.HERETIC_WALK, limbAngle, limbDistance, 2f, 2.5f);
+	public void setupAnim(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+		this.root().getAllParts().forEach(ModelPart::resetPose);
+		this.animateWalk(ModAnimations.HERETIC_WALK, limbAngle, limbDistance, 2f, 2.5f);
 
-		this.updateAnimation(entity.attackAnimationState, ModAnimations.HERETIC_ATTACK, animationProgress, 1f);
+		this.animate(entity.attackAnimationState, ModAnimations.HERETIC_ATTACK, animationProgress, 1f);
 
 	}
 }

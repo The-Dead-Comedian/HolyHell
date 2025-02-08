@@ -5,52 +5,50 @@ import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.client.models.entity.other.FireBallModel;
 import com.dead_comedian.holyhell.entity.custom.other.FireBallEntity;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.ArrowEntityRenderer;
-import net.minecraft.client.render.entity.EntityRenderer;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.ProjectileEntityRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Identifier;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.ArrowRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.resources.ResourceLocation;
 
 
-public class FireBallRenderer extends ProjectileEntityRenderer<FireBallEntity> {
+public class FireBallRenderer extends ArrowRenderer<FireBallEntity> {
     int timer = 1;
-    private static final Identifier TEXTURE1 = new Identifier(Holyhell.MOD_ID, "textures/entity/fireball/fireball1.png");
-    private static final Identifier TEXTURE2 = new Identifier(Holyhell.MOD_ID, "textures/entity/fireball/fireball2.png");
-    private static final Identifier TEXTURE3 = new Identifier(Holyhell.MOD_ID, "textures/entity/fireball/fireball3.png");
+    private static final ResourceLocation TEXTURE1 = new ResourceLocation(Holyhell.MOD_ID, "textures/entity/fireball/fireball1.png");
+    private static final ResourceLocation TEXTURE2 = new ResourceLocation(Holyhell.MOD_ID, "textures/entity/fireball/fireball2.png");
+    private static final ResourceLocation TEXTURE3 = new ResourceLocation(Holyhell.MOD_ID, "textures/entity/fireball/fireball3.png");
     private final FireBallModel<FireBallEntity> model;
 
-    public FireBallRenderer(EntityRendererFactory.Context context) {
+    public FireBallRenderer(EntityRendererProvider.Context context) {
         super(context);
-        this.model = new FireBallModel<>(context.getPart(HolyHellModelLayers.FIREBALL));
+        this.model = new FireBallModel<>(context.bakeLayer(HolyHellModelLayers.FIREBALL));
     }
 
 
     @Override
-    public void render(FireBallEntity mobEntity, float f, float g, MatrixStack matrixStack,
-                       VertexConsumerProvider vertexConsumerProvider, int i) {
+    public void render(FireBallEntity mobEntity, float f, float g, PoseStack matrixStack,
+                       MultiBufferSource vertexConsumerProvider, int i) {
 
         VertexConsumer vertexConsumer = null;
             timer++;
         if (timer <= 20) {
-            vertexConsumer = vertexConsumerProvider.getBuffer(this.model.getLayer(TEXTURE1));
+            vertexConsumer = vertexConsumerProvider.getBuffer(this.model.renderType(TEXTURE1));
 
         } else if (timer <= 40 && timer > 20) {
-            vertexConsumer = vertexConsumerProvider.getBuffer(this.model.getLayer(TEXTURE2));
+            vertexConsumer = vertexConsumerProvider.getBuffer(this.model.renderType(TEXTURE2));
         } else if (timer <= 60 && timer > 40) {
-            vertexConsumer = vertexConsumerProvider.getBuffer(this.model.getLayer(TEXTURE3));
+            vertexConsumer = vertexConsumerProvider.getBuffer(this.model.renderType(TEXTURE3));
             timer = 1;
         }
         
-        this.model.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.model.renderToBuffer(matrixStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
         super.render(mobEntity, f, g, matrixStack, vertexConsumerProvider, 15728640);
     }   
 
     @Override
-    public Identifier getTexture(FireBallEntity entity) {
+    public ResourceLocation getTextureLocation(FireBallEntity entity) {
         timer++;
 
         if (timer <= 20) {

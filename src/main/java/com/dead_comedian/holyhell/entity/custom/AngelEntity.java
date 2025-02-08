@@ -3,24 +3,32 @@ package com.dead_comedian.holyhell.entity.custom;
 
 import com.dead_comedian.holyhell.entity.custom.other.FireBallEntity;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.RangedAttackMob;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.Difficulty;
-import net.minecraft.world.World;
-
+import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.RangedAttackMob;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import java.util.EnumSet;
 
-public class AngelEntity extends HostileEntity implements RangedAttackMob {
+public class AngelEntity extends Monster implements RangedAttackMob {
 
 
     ///////////////
@@ -38,14 +46,14 @@ public class AngelEntity extends HostileEntity implements RangedAttackMob {
     // MISC //
     //////////
 
-    public AngelEntity(EntityType<? extends HostileEntity> entityType, World world) {
+    public AngelEntity(EntityType<? extends Monster> entityType, Level world) {
         super(entityType, world);
     }
 
     @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(ATTACKING, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(ATTACKING, false);
 
     }
 
@@ -54,27 +62,27 @@ public class AngelEntity extends HostileEntity implements RangedAttackMob {
         super.tick();
 
 
-        if (this.getWorld().isClient()) {
+        if (this.level().isClientSide()) {
             setupAnimationStates();
         }
     }
 
     @Override
-    protected void initGoals() {
-        this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new ShootFireBallGoal());
-        this.goalSelector.add(4, new WanderAroundFarGoal(this, 1D));
-        this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 4f));
-        this.goalSelector.add(6, new LookAroundGoal(this));
-        this.targetSelector.add(1, new ActiveTargetGoal(this, PlayerEntity.class, true));
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new ShootFireBallGoal());
+        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1D));
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 4f));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal(this, Player.class, true));
     }
 
-    public static DefaultAttributeContainer.Builder createAngelAttributes() {
-        return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 10)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f)
-                .add(EntityAttributes.GENERIC_ARMOR, 0.8f)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2);
+    public static AttributeSupplier.Builder createAngelAttributes() {
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 10)
+                .add(Attributes.MOVEMENT_SPEED, 0.2f)
+                .add(Attributes.ARMOR, 0.8f)
+                .add(Attributes.ATTACK_DAMAGE, 2);
     }
 
 
@@ -87,23 +95,23 @@ public class AngelEntity extends HostileEntity implements RangedAttackMob {
         if (this.idleAnimationTimeout <= 0) {
             this.idleAnimationTimeout = this.random.nextInt(20) + 40;
 
-            this.idleAnimationState.start(this.age);
+            this.idleAnimationState.start(this.tickCount);
 
 
         } else {
             --this.idleAnimationTimeout;
         }
 
-        if (this.isAttacking() && attackAnimationTimeout <= 0) {
+        if (this.isAggressive() && attackAnimationTimeout <= 0) {
             attackAnimationTimeout = 40;
-            attackAnimationState.startIfNotRunning(this.age);
+            attackAnimationState.startIfStopped(this.tickCount);
 
 
         } else {
             --this.attackAnimationTimeout;
         }
 
-        if (!this.isAttacking()) {
+        if (!this.isAggressive()) {
             attackAnimationState.stop();
         }
 
@@ -111,9 +119,9 @@ public class AngelEntity extends HostileEntity implements RangedAttackMob {
     }
 
     @Override
-    protected void updateLimbs(float posDelta) {
-        float f = this.getPose() == EntityPose.STANDING ? Math.min(posDelta * 6.0f, 1.0f) : 0.0f;
-        this.limbAnimator.updateLimbs(f, 0.2f);
+    protected void updateWalkAnimation(float posDelta) {
+        float f = this.getPose() == Pose.STANDING ? Math.min(posDelta * 6.0f, 1.0f) : 0.0f;
+        this.walkAnimation.update(f, 0.2f);
     }
 
 
@@ -123,42 +131,42 @@ public class AngelEntity extends HostileEntity implements RangedAttackMob {
 
 
     //  attacking
-    private static final TrackedData<Boolean> ATTACKING =
-            DataTracker.registerData(AngelEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> ATTACKING =
+            SynchedEntityData.defineId(AngelEntity.class, EntityDataSerializers.BOOLEAN);
 
-    public void setAttacking(boolean attacking) {
-        this.dataTracker.set(ATTACKING, attacking);
+    public void setAggressive(boolean attacking) {
+        this.entityData.set(ATTACKING, attacking);
     }
 
     @Override
-    public boolean isAttacking() {
-        return this.dataTracker.get(ATTACKING);
+    public boolean isAggressive() {
+        return this.entityData.get(ATTACKING);
     }
 
     @Override
-    public boolean tryAttack(Entity target) {
-        boolean bl = super.tryAttack(target);
+    public boolean doHurtTarget(Entity target) {
+        boolean bl = super.doHurtTarget(target);
         if (bl) {
-            float f = this.getWorld().getLocalDifficulty(this.getBlockPos()).getLocalDifficulty();
-            if (this.getMainHandStack().isEmpty() && this.isOnFire() && this.random.nextFloat() < f * 0.3F) {
-                target.setOnFireFor(2 * (int) f);
+            float f = this.level().getCurrentDifficultyAt(this.blockPosition()).getEffectiveDifficulty();
+            if (this.getMainHandItem().isEmpty() && this.isOnFire() && this.random.nextFloat() < f * 0.3F) {
+                target.setSecondsOnFire(2 * (int) f);
             }
         }
-        setAttacking(true);
+        setAggressive(true);
         return bl;
     }
 
     @Override
-    public void attack(LivingEntity target, float pullProgress) {
+    public void performRangedAttack(LivingEntity target, float pullProgress) {
 
 
-        Vec3d look = this.getRotationVector();
+        Vec3 look = this.getLookAngle();
         double d0 = target.getX() - this.getX();
         double d2 = target.getZ() - this.getZ();
 
-        FireBallEntity soulBullet = new FireBallEntity(HolyHellEntities.FIREBALL, this.getX(), this.getY() + 1, this.getZ(), this.getWorld());
-        soulBullet.setVelocity(d0, look.y, d2, 1.0F, 16);
-        this.getWorld().spawnEntity(soulBullet);
+        FireBallEntity soulBullet = new FireBallEntity(HolyHellEntities.FIREBALL, this.getX(), this.getY() + 1, this.getZ(), this.level());
+        soulBullet.shoot(d0, look.y, d2, 1.0F, 16);
+        this.level().addFreshEntity(soulBullet);
 
     }
 
@@ -171,10 +179,10 @@ public class AngelEntity extends HostileEntity implements RangedAttackMob {
         private int counter;
 
         public ShootFireBallGoal() {
-            this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
-        public boolean canStart() {
+        public boolean canUse() {
             LivingEntity livingEntity = AngelEntity.this.getTarget();
             if (livingEntity != null && livingEntity.isAlive()) {
 
@@ -193,20 +201,20 @@ public class AngelEntity extends HostileEntity implements RangedAttackMob {
 
         }
 
-        public boolean shouldRunEveryTick() {
+        public boolean requiresUpdateEveryTick() {
             return true;
         }
 
         public void tick() {
-            if (AngelEntity.this.getWorld().getDifficulty() != Difficulty.PEACEFUL) {
+            if (AngelEntity.this.level().getDifficulty() != Difficulty.PEACEFUL) {
                 --this.counter;
                 LivingEntity livingEntity = AngelEntity.this.getTarget();
                 if (livingEntity != null) {
-                    AngelEntity.this.getLookControl().lookAt(livingEntity, 180.0F, 180.0F);
-                    double d = AngelEntity.this.squaredDistanceTo(livingEntity);
+                    AngelEntity.this.getLookControl().setLookAt(livingEntity, 180.0F, 180.0F);
+                    double d = AngelEntity.this.distanceToSqr(livingEntity);
                     if (d < 50.0) {
                         if (this.counter >= 65) {
-                            AngelEntity.this.attack(AngelEntity.this.getTarget(), 0);
+                            AngelEntity.this.performRangedAttack(AngelEntity.this.getTarget(), 0);
                         }
 
                         if (this.counter == 0) {

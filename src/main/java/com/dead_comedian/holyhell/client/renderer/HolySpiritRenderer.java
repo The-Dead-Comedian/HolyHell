@@ -9,32 +9,30 @@ import com.dead_comedian.holyhell.entity.custom.HailingHereticEntity;
 import com.dead_comedian.holyhell.entity.custom.HolySpiritEntity;
 import com.dead_comedian.holyhell.entity.custom.LightBeamEntity;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Identifier;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.resources.ResourceLocation;
 
-public class HolySpiritRenderer extends MobEntityRenderer<HolySpiritEntity, HolySpiritModel<HolySpiritEntity>> {
-    private static final Identifier NORMAL = new Identifier(Holyhell.MOD_ID, "textures/entity/holy_spirit.png");
+public class HolySpiritRenderer extends MobRenderer<HolySpiritEntity, HolySpiritModel<HolySpiritEntity>> {
+    private static final ResourceLocation NORMAL = new ResourceLocation(Holyhell.MOD_ID, "textures/entity/holy_spirit.png");
 
 
-    public HolySpiritRenderer(EntityRendererFactory.Context context) {
-        super(context, new HolySpiritModel<>(context.getPart(HolyHellModelLayers.HOLY_SPIRIT)), 0.6f);
+    public HolySpiritRenderer(EntityRendererProvider.Context context) {
+        super(context, new HolySpiritModel<>(context.bakeLayer(HolyHellModelLayers.HOLY_SPIRIT)), 0.6f);
 
     }
 
     @Override
-    public Identifier getTexture(HolySpiritEntity entity) {
+    public ResourceLocation getTextureLocation(HolySpiritEntity entity) {
         return NORMAL;
 
     }
 
     @Override
-    public void render(HolySpiritEntity mobEntity, float f, float g, MatrixStack matrixStack,
-                       VertexConsumerProvider vertexConsumerProvider, int i) {
+    public void render(HolySpiritEntity mobEntity, float f, float g, PoseStack matrixStack,
+                       MultiBufferSource vertexConsumerProvider, int i) {
 
 
         super.render(mobEntity, f, g, matrixStack, vertexConsumerProvider, i);

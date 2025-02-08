@@ -7,56 +7,62 @@ package com.dead_comedian.holyhell.client.models.entity;
 
 import com.dead_comedian.holyhell.client.animation.ModAnimations;
 import com.dead_comedian.holyhell.entity.custom.AngelEntity;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 
-public class AngelModel <T extends AngelEntity> extends SinglePartEntityModel<T> {
+public class AngelModel <T extends AngelEntity> extends HierarchicalModel<T> {
 	private final ModelPart bone2;
 
 	public AngelModel(ModelPart root) {
 		this.bone2 = root.getChild("bone2");
 
 	}
-	public static TexturedModelData getTexturedModelData() {
-		ModelData modelData = new ModelData();
-		ModelPartData modelPartData = modelData.getRoot();
-		ModelPartData bone2 = modelPartData.addChild("bone2", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+	public static LayerDefinition getTexturedModelData() {
+		MeshDefinition modelData = new MeshDefinition();
+		PartDefinition modelPartData = modelData.getRoot();
+		PartDefinition bone2 = modelPartData.addOrReplaceChild("bone2", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-		ModelPartData bone = bone2.addChild("bone", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		PartDefinition bone = bone2.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		ModelPartData eye = bone.addChild("eye", ModelPartBuilder.create(), ModelTransform.pivot(-0.5F, -17.0F, 0.5F));
+		PartDefinition eye = bone.addOrReplaceChild("eye", CubeListBuilder.create(), PartPose.offset(-0.5F, -17.0F, 0.5F));
 
-		ModelPartData rightwing = eye.addChild("rightwing", ModelPartBuilder.create().uv(0, 0).mirrored().cuboid(0.0F, -9.25F, 0.0F, 15.0F, 13.0F, 0.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.pivot(1.5F, -3.75F, 0.5F));
+		PartDefinition rightwing = eye.addOrReplaceChild("rightwing", CubeListBuilder.create().texOffs(0, 0).mirror().addBox(0.0F, -9.25F, 0.0F, 15.0F, 13.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(1.5F, -3.75F, 0.5F));
 
-		ModelPartData leftwing = eye.addChild("leftwing", ModelPartBuilder.create().uv(0, 0).cuboid(-15.0F, -9.0F, 0.0F, 15.0F, 13.0F, 0.0F, new Dilation(0.0F)), ModelTransform.pivot(-1.5F, -4.0F, 0.5F));
+		PartDefinition leftwing = eye.addOrReplaceChild("leftwing", CubeListBuilder.create().texOffs(0, 0).addBox(-15.0F, -9.0F, 0.0F, 15.0F, 13.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.5F, -4.0F, 0.5F));
 
-		ModelPartData eye_ball = eye.addChild("eye_ball", ModelPartBuilder.create().uv(0, 13).cuboid(-3.5F, -4.0F, -3.5F, 7.0F, 5.0F, 7.0F, new Dilation(0.0F))
-				.uv(0, 25).mirrored().cuboid(-3.5F, 1.0F, -3.5F, 7.0F, 1.0F, 7.0F, new Dilation(-0.1F)).mirrored(false), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		PartDefinition eye_ball = eye.addOrReplaceChild("eye_ball", CubeListBuilder.create().texOffs(0, 13).addBox(-3.5F, -4.0F, -3.5F, 7.0F, 5.0F, 7.0F, new CubeDeformation(0.0F))
+				.texOffs(0, 25).mirror().addBox(-3.5F, 1.0F, -3.5F, 7.0F, 1.0F, 7.0F, new CubeDeformation(-0.1F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		ModelPartData jaw_eye = eye_ball.addChild("jaw_eye", ModelPartBuilder.create().uv(0, 25).cuboid(-3.5F, -1.0F, -7.2F, 7.0F, 1.0F, 7.0F, new Dilation(-0.1F))
-				.uv(21, 18).cuboid(-3.5F, 0.0F, -7.2F, 7.0F, 2.0F, 7.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 1.0F, 3.7F));
-		return TexturedModelData.of(modelData, 64, 64);
+		PartDefinition jaw_eye = eye_ball.addOrReplaceChild("jaw_eye", CubeListBuilder.create().texOffs(0, 25).addBox(-3.5F, -1.0F, -7.2F, 7.0F, 1.0F, 7.0F, new CubeDeformation(-0.1F))
+				.texOffs(21, 18).addBox(-3.5F, 0.0F, -7.2F, 7.0F, 2.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 1.0F, 3.7F));
+		return LayerDefinition.create(modelData, 64, 64);
 	}
 
 	@Override
-	public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
+	public void renderToBuffer(PoseStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
 		bone2.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
 	}
 
 	@Override
-	public ModelPart getPart() {
+	public ModelPart root() {
 		return bone2;
 	}
 
 	@Override
-	public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-		this.getPart().traverse().forEach(ModelPart::resetTransform);
-		this.animateMovement(ModAnimations.FLY_WALK, limbAngle, limbDistance, 2f, 2.5f);
-		this.updateAnimation(entity.idleAnimationState, ModAnimations.FLY_IDLE, animationProgress, 1f);
-		this.updateAnimation(entity.attackAnimationState, ModAnimations.FLY_ATTACK, animationProgress, 1f);
+	public void setupAnim(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+		this.root().getAllParts().forEach(ModelPart::resetPose);
+		this.animateWalk(ModAnimations.FLY_WALK, limbAngle, limbDistance, 2f, 2.5f);
+		this.animate(entity.idleAnimationState, ModAnimations.FLY_IDLE, animationProgress, 1f);
+		this.animate(entity.attackAnimationState, ModAnimations.FLY_ATTACK, animationProgress, 1f);
 
 	}
+
 }

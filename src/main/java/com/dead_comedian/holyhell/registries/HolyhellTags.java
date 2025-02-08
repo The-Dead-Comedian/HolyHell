@@ -1,13 +1,12 @@
 package com.dead_comedian.holyhell.registries;
 
 import com.dead_comedian.holyhell.Holyhell;
-
-import net.minecraft.block.Block;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.damage.DamageType;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.block.Block;
 
 public class HolyhellTags {
     public static class Entities{
@@ -16,7 +15,7 @@ public class HolyhellTags {
                 createTag("magic_dealing_mobs");
 
         private static TagKey<EntityType<?>> createTag(String name) {
-            return TagKey.of(RegistryKeys.ENTITY_TYPE, new Identifier(Holyhell.MOD_ID, name));
+            return TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(Holyhell.MOD_ID, name));
         }
     }
 
@@ -30,7 +29,7 @@ public class HolyhellTags {
                 createTag("dome_clears_out");
 
         private static TagKey<Block> createTag(String name) {
-            return TagKey.of(RegistryKeys.BLOCK, new Identifier(Holyhell.MOD_ID, name));
+            return TagKey.create(Registries.BLOCK, new ResourceLocation(Holyhell.MOD_ID, name));
         }
     }
 
@@ -40,7 +39,7 @@ public class HolyhellTags {
                 createTag("magic_damage");
 
         private static TagKey<DamageType> createTag(String name) {
-            return TagKey.of(RegistryKeys.DAMAGE_TYPE, new Identifier(Holyhell.MOD_ID, name));
+            return TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(Holyhell.MOD_ID, name));
         }
     }
 

@@ -3,25 +3,19 @@ package com.dead_comedian.holyhell.entity.custom.other;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import com.dead_comedian.holyhell.registries.HolyhellParticles;
 import com.dead_comedian.holyhell.registries.HolyhellTags;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.FluidTags;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.GameRules;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldEvents;
-
 import java.util.Iterator;
 import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 
 public class GlobularDomeEntity extends Entity {
     private int ticksLeft;
@@ -32,7 +26,7 @@ public class GlobularDomeEntity extends Entity {
         userNBT = player;
     }
 
-    public GlobularDomeEntity(EntityType<?> type, World world) {
+    public GlobularDomeEntity(EntityType<?> type, Level world) {
         super(type, world);
 
         this.ticksLeft = 200;
@@ -45,14 +39,14 @@ public class GlobularDomeEntity extends Entity {
     public void tick() {
         super.tick();
 
-        List<Entity> entityBelow = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2));
-        List<Entity> entityBelow2 = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.25));
+        List<Entity> entityBelow = this.level().getEntities(this, this.getBoundingBox().inflate(0.2));
+        List<Entity> entityBelow2 = this.level().getEntities(this, this.getBoundingBox().inflate(0.25));
         launchLivingEntities(entityBelow);
         launchLivingEntities1(entityBelow2);
 
-        BlockState blockState = this.getWorld().getBlockState(this.getBlockPos());
-        BlockState blockState2 = this.getLandingBlockState();
-        boolean bl = blockState.isIn(HolyhellTags.Blocks.DOME_CLEARS_OUT) || blockState2.isIn(HolyhellTags.Blocks.DOME_CLEARS_OUT);
+        BlockState blockState = this.level().getBlockState(this.blockPosition());
+        BlockState blockState2 = this.getBlockStateOnLegacy();
+        boolean bl = blockState.is(HolyhellTags.Blocks.DOME_CLEARS_OUT) || blockState2.is(HolyhellTags.Blocks.DOME_CLEARS_OUT);
 
 
         if (bl) {
@@ -65,23 +59,23 @@ public class GlobularDomeEntity extends Entity {
         }
     }
 
-    private boolean destroyBlocks(Box box) {
-        int i = MathHelper.floor(box.minX);
-        int j = MathHelper.floor(box.minY);
-        int k = MathHelper.floor(box.minZ);
-        int l = MathHelper.floor(box.maxX);
-        int m = MathHelper.floor(box.maxY);
-        int n = MathHelper.floor(box.maxZ);
+    private boolean destroyBlocks(AABB box) {
+        int i = Mth.floor(box.minX);
+        int j = Mth.floor(box.minY);
+        int k = Mth.floor(box.minZ);
+        int l = Mth.floor(box.maxX);
+        int m = Mth.floor(box.maxY);
+        int n = Mth.floor(box.maxZ);
         boolean bl = false;
 
         for (int o = i; o <= l; ++o) {
             for (int p = j; p <= m; ++p) {
                 for (int q = k; q <= n; ++q) {
                     BlockPos blockPos = new BlockPos(o, p, q);
-                    BlockState blockState = this.getWorld().getBlockState(blockPos);
-                    if (blockState.isAir() || blockState.isIn(HolyhellTags.Blocks.DOME_CLEARS_OUT)) {
+                    BlockState blockState = this.level().getBlockState(blockPos);
+                    if (blockState.isAir() || blockState.is(HolyhellTags.Blocks.DOME_CLEARS_OUT)) {
 
-                        this.getWorld().setBlockState(blockPos, Blocks.AIR.getDefaultState(), Block.NOTIFY_ALL);
+                        this.level().setBlock(blockPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
                     }
                 }
             }
@@ -92,22 +86,22 @@ public class GlobularDomeEntity extends Entity {
 
 
     @Override
-    public boolean isCollidable() {
+    public boolean canBeCollidedWith() {
         return true;
     }
 
     @Override
-    protected void initDataTracker() {
+    protected void defineSynchedData() {
 
     }
 
     @Override
-    protected void readCustomDataFromNbt(NbtCompound nbt) {
+    protected void readAdditionalSaveData(CompoundTag nbt) {
 
     }
 
     @Override
-    protected void writeCustomDataToNbt(NbtCompound nbt) {
+    protected void addAdditionalSaveData(CompoundTag nbt) {
 
     }
     private void launchLivingEntities1(List<Entity> entities) {
@@ -115,10 +109,10 @@ public class GlobularDomeEntity extends Entity {
         double e = (this.getBoundingBox().minZ + this.getBoundingBox().maxZ) / 2.0;
 
         for (Entity entity : entities) {
-            if (!(entity instanceof PlayerEntity)) {
+            if (!(entity instanceof Player)) {
 
 
-                this.getWorld().addParticle(HolyhellParticles.LIGHT_RING, this.getParticleX(0.1),  this.getBodyY(0.5), this.getParticleZ(0.1), 0.0, 0.0, 0.0);
+                this.level().addParticle(HolyhellParticles.LIGHT_RING, this.getRandomX(0.1),  this.getY(0.5), this.getRandomZ(0.1), 0.0, 0.0, 0.0);
 
             }}
         }
@@ -128,13 +122,13 @@ public class GlobularDomeEntity extends Entity {
         double e = (this.getBoundingBox().minZ + this.getBoundingBox().maxZ) / 2.0;
 
         for (Entity entity : entities) {
-            if (!(entity instanceof PlayerEntity)) {
+            if (!(entity instanceof Player)) {
 
 
                 double f = entity.getX() - d;
                 double g = entity.getZ() - e;
                 double h = Math.max(f * f + g * g, 0.1);
-                entity.addVelocity(f / h * 2, 0.4, g / h * 2);
+                entity.push(f / h * 2, 0.4, g / h * 2);
 
             }
         }

@@ -1,15 +1,15 @@
 package com.dead_comedian.holyhell.item.custom;
 
 import com.dead_comedian.holyhell.item.HolyhellArmorMaterials;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 
 public class EvangelistArmorItem extends ArmorItem {
 
@@ -19,7 +19,7 @@ public class EvangelistArmorItem extends ArmorItem {
     int time = 2;
     int uhm =0;
 
-    public EvangelistArmorItem(HolyhellArmorMaterials material, Type type, Settings settings) {
+    public EvangelistArmorItem(HolyhellArmorMaterials material, Type type, Properties settings) {
         super(material, type, settings);
         armorMaterial = material;
 
@@ -31,7 +31,7 @@ public class EvangelistArmorItem extends ArmorItem {
 
 
     @Override
-    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+    public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
         super.inventoryTick(stack, world, entity, slot, selected);
         time=time+1;
         if (time == 6000 * (uhm * 0.5) && time <=15001) {
@@ -47,11 +47,11 @@ public class EvangelistArmorItem extends ArmorItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        super.appendTooltip(stack, world, tooltip, context);
-        protection = armorMaterial.getProtection(type);
+    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag context) {
+        super.appendHoverText(stack, world, tooltip, context);
+        protection = armorMaterial.getDefenseForType(type);
         protectionStr = Integer.toString(protection);
-        tooltip.add(Text.of("Protection: " + protectionStr));
+        tooltip.add(Component.nullToEmpty("Protection: " + protectionStr));
 
     }
 }

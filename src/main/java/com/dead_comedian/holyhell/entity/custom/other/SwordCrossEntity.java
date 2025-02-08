@@ -4,42 +4,38 @@ import com.dead_comedian.holyhell.entity.custom.AngelEntity;
 import com.dead_comedian.holyhell.entity.custom.BabOneEntity;
 import com.dead_comedian.holyhell.entity.custom.BabTwoEntity;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
-
 import java.util.List;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
 
-public class SwordCrossEntity extends PersistentProjectileEntity {
+public class SwordCrossEntity extends AbstractArrow {
 
     int cooldown;
 
-    public SwordCrossEntity(EntityType<? extends PersistentProjectileEntity> entityType, double d, double e, double f, World world) {
+    public SwordCrossEntity(EntityType<? extends AbstractArrow> entityType, double d, double e, double f, Level world) {
         super(entityType, world);
-        this.setPos(d, e, f);
+        this.setPosRaw(d, e, f);
         this.cooldown =0;
     }
 
-    public SwordCrossEntity(EntityType<SwordCrossEntity> fireBallEntityEntityType, World world) {
+    public SwordCrossEntity(EntityType<SwordCrossEntity> fireBallEntityEntityType, Level world) {
         super(fireBallEntityEntityType, world);
     }
 
 
     @Override
-    public boolean hasNoGravity() {
+    public boolean isNoGravity() {
         return true;
     }
 
     @Override
-    protected void onBlockHit(BlockHitResult blockHitResult) {
-        super.onBlockHit(blockHitResult);
+    protected void onHitBlock(BlockHitResult blockHitResult) {
+        super.onHitBlock(blockHitResult);
 
     }
 
@@ -48,10 +44,10 @@ public class SwordCrossEntity extends PersistentProjectileEntity {
     public void tick() {
         super.tick();
 
-        List<Entity> entityBelow = this.getWorld().getOtherEntities(this, this.getBoundingBox());
+        List<Entity> entityBelow = this.level().getEntities(this, this.getBoundingBox());
         for (Entity i : entityBelow) {
-            if (this.collidesWith(i)) {
-                i.damage(i.getWorld().getDamageSources().magic(), 5.0F);
+            if (this.canCollideWith(i)) {
+                i.hurt(i.level().damageSources().magic(), 5.0F);
 
             }
         }
@@ -70,12 +66,12 @@ public class SwordCrossEntity extends PersistentProjectileEntity {
 
 
 
-    public boolean collidesWith(Entity other) {
+    public boolean canCollideWith(Entity other) {
         return canCollide(this, other);
     }
 
     @Override
-    protected ItemStack asItemStack() {
+    protected ItemStack getPickupItem() {
         return null;
     }
 

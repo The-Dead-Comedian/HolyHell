@@ -1,58 +1,53 @@
 package com.dead_comedian.holyhell.effect;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.ActiveTargetGoal;
-import net.minecraft.entity.attribute.AttributeContainer;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectCategory;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.random.Random;
-
 import java.util.List;
-import java.util.function.Predicate;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeMap;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.AABB;
 
-public class ConfusionEffect extends StatusEffect {
-    public static final Predicate<Entity> IS_PLAYER = entity -> (entity instanceof ServerPlayerEntity);
-    protected final Random random = Random.create();
+public class ConfusionEffect extends MobEffect {
+    protected final RandomSource random = RandomSource.create();
 
-    public ConfusionEffect(StatusEffectCategory statusEffectCategory, int color) {
+    public ConfusionEffect(MobEffectCategory statusEffectCategory, int color) {
         super(statusEffectCategory, color);
     }
 
     @Override
-    public void applyUpdateEffect(LivingEntity pLivingEntity, int pAmplifier) {
-        if (pLivingEntity instanceof HostileEntity hostileEntity) {
+    public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
+        if (pLivingEntity instanceof Monster hostileEntity) {
             if (hostileEntity.getTarget() != null) {
                 changeTarget(pLivingEntity);
             }
         }
 
-        super.applyUpdateEffect(pLivingEntity, pAmplifier);
+        super.applyEffectTick(pLivingEntity, pAmplifier);
     }
 
     @Override
-    public void onApplied(LivingEntity entity, AttributeContainer attributes, int amplifier) {
+    public void addAttributeModifiers(LivingEntity entity, AttributeMap attributes, int amplifier) {
         changeTarget(entity);
     }
 
 
     public void changeTarget(LivingEntity entity) {
 
-        if (entity.hasStatusEffect(this)) {
-            Box userHitbox = new Box(entity.getBlockPos()).expand(50);
+        if (entity.hasEffect(this)) {
+            AABB userHitbox = new AABB(entity.blockPosition()).inflate(50);
 
-            List<LivingEntity> list = entity.getWorld().getNonSpectatingEntities(LivingEntity.class, userHitbox);
+            List<LivingEntity> list = entity.level().getEntitiesOfClass(LivingEntity.class, userHitbox);
             int a = random.nextInt(list.size());
             for (LivingEntity i : list) {
 
 
                 if (entity != null && list != null) {
-                    if (entity instanceof HostileEntity hostileEntity && list.get(a) != entity && list.get(a) != hostileEntity.getTarget()) {
-                        hostileEntity.targetSelector.getGoals().removeIf(ActiveTargetGoal -> hostileEntity.hasStatusEffect(this));
+                    if (entity instanceof Monster hostileEntity && list.get(a) != entity && list.get(a) != hostileEntity.getTarget()) {
+                        hostileEntity.targetSelector.getAvailableGoals().removeIf(ActiveTargetGoal -> hostileEntity.hasEffect(this));
                         hostileEntity.setTarget(null);
 
                         hostileEntity.setTarget(list.get(a));
@@ -64,16 +59,16 @@ public class ConfusionEffect extends StatusEffect {
     }
 
     @Override
-    public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
+    public void removeAttributeModifiers(LivingEntity entity, AttributeMap attributes, int amplifier) {
 
-        if (entity instanceof HostileEntity hostileEntity) {
-            hostileEntity.targetSelector.add(1, new ActiveTargetGoal(hostileEntity, PlayerEntity.class, true));
+        if (entity instanceof Monster hostileEntity) {
+            hostileEntity.targetSelector.addGoal(1, new NearestAttackableTargetGoal(hostileEntity, Player.class, true));
         }
     }
 
 
     @Override
-    public boolean canApplyUpdateEffect(int pDuration, int pAmplifier) {
+    public boolean isDurationEffectTick(int pDuration, int pAmplifier) {
         return true;
     }
 

@@ -6,13 +6,19 @@ package com.dead_comedian.holyhell.client.models.entity;
 
 import com.dead_comedian.holyhell.client.animation.ModAnimations;
 import com.dead_comedian.holyhell.entity.custom.LightBeamEntity;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 
 
-public class LightBeamModel <T extends LightBeamEntity> extends SinglePartEntityModel<T> {
+public class LightBeamModel <T extends LightBeamEntity> extends HierarchicalModel<T> {
 	private final ModelPart bone;
 	private final ModelPart bone2;
 
@@ -20,28 +26,28 @@ public class LightBeamModel <T extends LightBeamEntity> extends SinglePartEntity
 		this.bone = root.getChild("bone");
 		this.bone2 = root.getChild("bone2");
 	}
-	public static TexturedModelData getTexturedModelData() {
-		ModelData modelData = new ModelData();
-		ModelPartData modelPartData = modelData.getRoot();
-		ModelPartData bone = modelPartData.addChild("bone", ModelPartBuilder.create().uv(0, 0).cuboid(-7.5F, -24.0F, -7.5F, 15.0F, 103.0F, 15.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+	public static LayerDefinition getTexturedModelData() {
+		MeshDefinition modelData = new MeshDefinition();
+		PartDefinition modelPartData = modelData.getRoot();
+		PartDefinition bone = modelPartData.addOrReplaceChild("bone", CubeListBuilder.create().texOffs(0, 0).addBox(-7.5F, -24.0F, -7.5F, 15.0F, 103.0F, 15.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-		ModelPartData bone2 = modelPartData.addChild("bone2", ModelPartBuilder.create().uv(20, 0).cuboid(-11.0F, -24.0F, -20.0F, 22.0F, 0.0F, 40.0F, new Dilation(0.0F))
-		.uv(20, 0).cuboid(-11.0F, 79.0F, -20.0F, 22.0F, 0.0F, 40.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
-		return TexturedModelData.of(modelData, 256, 256);
+		PartDefinition bone2 = modelPartData.addOrReplaceChild("bone2", CubeListBuilder.create().texOffs(20, 0).addBox(-11.0F, -24.0F, -20.0F, 22.0F, 0.0F, 40.0F, new CubeDeformation(0.0F))
+		.texOffs(20, 0).addBox(-11.0F, 79.0F, -20.0F, 22.0F, 0.0F, 40.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
+		return LayerDefinition.create(modelData, 256, 256);
 	}
 	@Override
-	public void setAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 
 
 	}
 	@Override
-	public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
+	public void renderToBuffer(PoseStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
 		bone.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
 		bone2.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
 	}
 
 	@Override
-	public ModelPart getPart() {
+	public ModelPart root() {
 		return bone;
 	}
 }

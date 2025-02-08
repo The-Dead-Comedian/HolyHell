@@ -1,73 +1,73 @@
 package com.dead_comedian.holyhell.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.BlockHitResult;
 
 
 public class CandleholderBlock extends Block {
-    public static final IntProperty PIECE = IntProperty.of("piece",0,2);
-    protected final ParticleEffect particle;
-    public static final BooleanProperty LIT = BooleanProperty.of("lit");
-    public CandleholderBlock(Settings settings, ParticleEffect particle) {
+    public static final IntegerProperty PIECE = IntegerProperty.create("piece",0,2);
+    protected final ParticleOptions particle;
+    public static final BooleanProperty LIT = BooleanProperty.create("lit");
+    public CandleholderBlock(Properties settings, ParticleOptions particle) {
         super(settings);
         this.particle = particle;
-        this.setDefaultState((BlockState) this.getDefaultState().with(PIECE, 0));
-        this.setDefaultState((BlockState) this.getDefaultState().with(LIT, false));    }
+        this.registerDefaultState((BlockState) this.defaultBlockState().setValue(PIECE, 0));
+        this.registerDefaultState((BlockState) this.defaultBlockState().setValue(LIT, false));    }
 
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        return direction == Direction.DOWN && !this.canPlaceAt(state, world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+        return direction == Direction.DOWN && !this.canSurvive(state, world, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
 
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(PIECE);
         builder.add(LIT);
-        super.appendProperties(builder);
+        super.createBlockStateDefinition(builder);
     }
 
-    public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
+    public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
 
-            world.setBlockState(pos.up(), state.with(PIECE, 1), 3);
-            world.setBlockState(pos.up().up(), state.with(PIECE, 2), 3);
+            world.setBlock(pos.above(), state.setValue(PIECE, 1), 3);
+            world.setBlock(pos.above().above(), state.setValue(PIECE, 2), 3);
 
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        ItemStack itemStack = player.getStackInHand(hand);
-        if (itemStack.isOf(Items.FLINT_AND_STEEL) && !state.get(LIT) && state.get(PIECE) == 2) {
-            world.setBlockState(pos, state.with(LIT, true));
-            return ActionResult.SUCCESS;
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        ItemStack itemStack = player.getItemInHand(hand);
+        if (itemStack.is(Items.FLINT_AND_STEEL) && !state.getValue(LIT) && state.getValue(PIECE) == 2) {
+            world.setBlockAndUpdate(pos, state.setValue(LIT, true));
+            return InteractionResult.SUCCESS;
         }
-        if (state.get(LIT) && state.get(PIECE) == 2) {
-            world.setBlockState(pos, state.with(LIT, false));
-            return ActionResult.SUCCESS;
+        if (state.getValue(LIT) && state.getValue(PIECE) == 2) {
+            world.setBlockAndUpdate(pos, state.setValue(LIT, false));
+            return InteractionResult.SUCCESS;
         }
-        return super.onUse(state, world, pos, player, hand, hit);
+        return super.use(state, world, pos, player, hand, hit);
     }
 
-    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
-        if (state.get(LIT)) {
+    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
+        if (state.getValue(LIT)) {
             double d = pos.getX();
             double e = pos.getY();
             double f = pos.getZ();
@@ -94,7 +94,7 @@ public class CandleholderBlock extends Block {
             double f7;
 
 
-          if (state.get(LIT)) {
+          if (state.getValue(LIT)) {
                 d = pos.getX() + 0.5;
                 e = pos.getY() + 0.35;
                 f = pos.getZ() + 0.3;
@@ -144,19 +144,19 @@ public class CandleholderBlock extends Block {
         }
     }
     @Override
-    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        if(state.get(PIECE) == 1){
-            world.removeBlock(pos.up(), false);
-            world.removeBlock(pos.down(), false);
+    public void playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
+        if(state.getValue(PIECE) == 1){
+            world.removeBlock(pos.above(), false);
+            world.removeBlock(pos.below(), false);
 
-        } else if (state.get(PIECE) == 2) {
-            world.removeBlock(pos.down(), false);
-            world.removeBlock(pos.down().down(), false);
+        } else if (state.getValue(PIECE) == 2) {
+            world.removeBlock(pos.below(), false);
+            world.removeBlock(pos.below().below(), false);
 
-        } else if (state.get(PIECE) == 0) {
-            world.removeBlock(pos.up(), false);
-            world.removeBlock(pos.up().up(), false);}
+        } else if (state.getValue(PIECE) == 0) {
+            world.removeBlock(pos.above(), false);
+            world.removeBlock(pos.above().above(), false);}
 
-        super.onBreak(world, pos, state, player);
+        super.playerWillDestroy(world, pos, state, player);
     }
 }

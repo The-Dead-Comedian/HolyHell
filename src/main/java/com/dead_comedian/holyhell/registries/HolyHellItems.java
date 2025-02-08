@@ -5,16 +5,19 @@ import com.dead_comedian.holyhell.item.HolyhellArmorMaterials;
 import com.dead_comedian.holyhell.item.HolyhellToolMaterial;
 import com.dead_comedian.holyhell.item.custom.*;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.item.*;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.food.Foods;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SpawnEggItem;
 
 
 public class HolyHellItems {
     public static final Item SAINT_EYE = registerItem("saint_eye", new SaintEyeItem(new FabricItemSettings().food(HolyHellFoodComponents.SAINT_EYE)));
     public static final Item HOLY_GRAIL = registerItem("holy_grail", new HolyGrailItem(HolyhellToolMaterial.GRAIL,12, -2.6F, new FabricItemSettings()));
-    public static final Item HOLY_SHIELD = registerItem("holy_shield", new HolyShieldItem(new FabricItemSettings().maxDamage(1000)));
+    public static final Item HOLY_SHIELD = registerItem("holy_shield", new HolyShieldItem(new FabricItemSettings().durability(1000)));
     public static final Item BLINDING_BOMB = registerItem("blinding_bomb", new BlindingBombItem(new FabricItemSettings()));
     public static final Item GLOBULAR_DOME = registerItem("globular_dome", new GlobularDomeItem(new FabricItemSettings()));
 
@@ -31,7 +34,7 @@ public class HolyHellItems {
     public static final Item HOLY_TEAR = registerItem("holy_tear", new Item(new FabricItemSettings()));
     public static final Item BAPTIZED_PLATE = registerItem("baptized_plate", new Item(new FabricItemSettings()));
     public static final Item ENHANCED_SILK = registerItem("enhanced_silk", new Item(new FabricItemSettings()));
-    public static final Item KEBAB = registerItem("kebab", new Item(new FabricItemSettings().food(FoodComponents.BEEF)));
+    public static final Item KEBAB = registerItem("kebab", new Item(new FabricItemSettings().food(Foods.BEEF)));
 
 
     public static final Item EVANGELIST_HELMET = registerItem("evangelist_helmet", new EvangelistArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.HELMET, new FabricItemSettings()));
@@ -43,7 +46,7 @@ public class HolyHellItems {
 
 
     private static Item registerItem(String name, Item item) {
-        return Registry.register(Registries.ITEM, new Identifier(Holyhell.MOD_ID, name), item);
+        return Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(Holyhell.MOD_ID, name), item);
     }
 
     public static void registerModItems() {

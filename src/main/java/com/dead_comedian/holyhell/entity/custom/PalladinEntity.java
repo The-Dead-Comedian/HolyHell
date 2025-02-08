@@ -3,20 +3,30 @@ package com.dead_comedian.holyhell.entity.custom;
 
 import com.dead_comedian.holyhell.entity.custom.other.FallingSwordEntity;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.*;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-public class PalladinEntity extends HostileEntity {
+public class PalladinEntity extends Monster {
 
 
     ///////////////
@@ -34,15 +44,15 @@ public class PalladinEntity extends HostileEntity {
     // MISC //
     //////////
 
-    public PalladinEntity(EntityType<? extends HostileEntity> entityType, World world) {
+    public PalladinEntity(EntityType<? extends Monster> entityType, Level world) {
         super(entityType, world);
-        this.experiencePoints = 20;
+        this.xpReward = 20;
     }
 
     @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(ATTACKING, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(ATTACKING, false);
 
     }
 
@@ -56,29 +66,29 @@ public class PalladinEntity extends HostileEntity {
         if (cooldown == 100) {
             cooldown = 0;
         }
-        if (this.getWorld().isClient()) {
+        if (this.level().isClientSide()) {
             setupAnimationStates();
         }
     }
 
 
     @Override
-    protected void initGoals() {
-        this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(2, new FleeEntityGoal(this, PlayerEntity.class, 6.0F, 0.6, 1.5));
-        this.goalSelector.add(4, new WanderAroundFarGoal(this, 1D));
-        this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 3.0F, 1.0F));
-        this.goalSelector.add(10, new LookAtEntityGoal(this, MobEntity.class, 8.0F));
-        this.goalSelector.add(6, new LookAroundGoal(this));
-        this.targetSelector.add(1, new ActiveTargetGoal(this, PlayerEntity.class, true));
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal(this, Player.class, 6.0F, 0.6, 1.5));
+        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1D));
+        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
+        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal(this, Player.class, true));
     }
 
-    public static DefaultAttributeContainer.Builder createPalladinAttributes() {
-        return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 50)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f)
-                .add(EntityAttributes.GENERIC_ARMOR, 0.5f)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2);
+    public static AttributeSupplier.Builder createPalladinAttributes() {
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 50)
+                .add(Attributes.MOVEMENT_SPEED, 0.2f)
+                .add(Attributes.ARMOR, 0.5f)
+                .add(Attributes.ATTACK_DAMAGE, 2);
     }
 
     ///////////////
@@ -90,23 +100,23 @@ public class PalladinEntity extends HostileEntity {
         if (this.idleAnimationTimeout <= 0) {
             this.idleAnimationTimeout = this.random.nextInt(20) + 40;
 
-            this.idleAnimationState.start(this.age);
+            this.idleAnimationState.start(this.tickCount);
 
 
         } else {
             --this.idleAnimationTimeout;
         }
 
-        if (this.isAttacking()) {
+        if (this.isAggressive()) {
             attackAnimationTimeout = 40;
-            attackAnimationState.startIfNotRunning(this.age);
+            attackAnimationState.startIfStopped(this.tickCount);
 
 
         } else {
             --this.attackAnimationTimeout;
         }
 
-        if (!this.isAttacking()) {
+        if (!this.isAggressive()) {
             attackAnimationState.stop();
         }
 
@@ -114,9 +124,9 @@ public class PalladinEntity extends HostileEntity {
     }
 
     @Override
-    protected void updateLimbs(float posDelta) {
-        float f = this.getPose() == EntityPose.STANDING ? Math.min(posDelta * 6.0f, 1.0f) : 0.0f;
-        this.limbAnimator.updateLimbs(f, 0.2f);
+    protected void updateWalkAnimation(float posDelta) {
+        float f = this.getPose() == Pose.STANDING ? Math.min(posDelta * 6.0f, 1.0f) : 0.0f;
+        this.walkAnimation.update(f, 0.2f);
     }
 
 
@@ -125,28 +135,28 @@ public class PalladinEntity extends HostileEntity {
     ////////
 
     //  attacking
-    private static final TrackedData<Boolean> ATTACKING =
-            DataTracker.registerData(PalladinEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> ATTACKING =
+            SynchedEntityData.defineId(PalladinEntity.class, EntityDataSerializers.BOOLEAN);
 
-    public void setAttacking(boolean attacking) {
-        this.dataTracker.set(ATTACKING, attacking);
+    public void setAggressive(boolean attacking) {
+        this.entityData.set(ATTACKING, attacking);
     }
 
     @Override
-    public boolean isAttacking() {
-        return this.dataTracker.get(ATTACKING);
+    public boolean isAggressive() {
+        return this.entityData.get(ATTACKING);
     }
 
     // summoning
 
     public void summonSwordRing(Entity entity) {
         int loop = 0;
-        Iterable<BlockPos> a = BlockPos.iterate(-2, 3, -2, 2, 3, 2);
+        Iterable<BlockPos> a = BlockPos.betweenClosed(-2, 3, -2, 2, 3, 2);
         for (BlockPos b : a) {
 
-            FallingSwordEntity swordEntity = new FallingSwordEntity(HolyHellEntities.FALLING_SWORD, this.getWorld());
-            this.getWorld().spawnEntity(swordEntity);
-            swordEntity.refreshPositionAndAngles(entity.getBlockPos().add(b), swordEntity.getYaw(), swordEntity.getPitch());
+            FallingSwordEntity swordEntity = new FallingSwordEntity(HolyHellEntities.FALLING_SWORD, this.level());
+            this.level().addFreshEntity(swordEntity);
+            swordEntity.moveTo(entity.blockPosition().offset(b), swordEntity.getYRot(), swordEntity.getXRot());
 
             if (loop == 6 || loop == 7 || loop == 8 || loop == 11 || loop == 12 || loop == 13 || loop == 16 || loop == 17 || loop == 18) {
                 swordEntity.discard();
@@ -166,10 +176,10 @@ public class PalladinEntity extends HostileEntity {
 
         if (cooldown == 20 && targetEntity != null && targetEntity.isAlive()) {
 
-            setAttacking(true);
+            setAggressive(true);
         } else {
             if (cooldown == 40 && targetEntity != null && targetEntity.isAlive()) {
-                setAttacking(false);
+                setAggressive(false);
             }
         }
         if (cooldown == 20 && targetEntity != null && targetEntity.isAlive()) {

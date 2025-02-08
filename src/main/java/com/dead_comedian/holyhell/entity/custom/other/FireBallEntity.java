@@ -1,50 +1,48 @@
 package com.dead_comedian.holyhell.entity.custom.other;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
 
-public class FireBallEntity extends PersistentProjectileEntity {
+public class FireBallEntity extends AbstractArrow {
 
 
-    public FireBallEntity(EntityType<? extends PersistentProjectileEntity> entityType, double d, double e, double f, World world) {
+    public FireBallEntity(EntityType<? extends AbstractArrow> entityType, double d, double e, double f, Level world) {
         super(entityType, world);
-        this.setPos(d, e, f);
+        this.setPosRaw(d, e, f);
 
     }
 
-    public FireBallEntity(EntityType<FireBallEntity> fireBallEntityEntityType, World world) {
+    public FireBallEntity(EntityType<FireBallEntity> fireBallEntityEntityType, Level world) {
         super(fireBallEntityEntityType,world);
     }
 
 
     @Override
-    public boolean hasNoGravity() {
+    public boolean isNoGravity() {
         return false;
     }
 
 
     @Override
-    protected void onBlockHit(BlockHitResult blockHitResult) {
-        super.onBlockHit(blockHitResult);
+    protected void onHitBlock(BlockHitResult blockHitResult) {
+        super.onHitBlock(blockHitResult);
         this.discard();
     }
 
     @Override
-    public void onPlayerCollision(PlayerEntity player) {
-        super.onPlayerCollision(player);
-        if(!player.blockedByShield(player.getWorld().getDamageSources().arrow(this,player.getAttacker()))){
-        player.damage(player.getWorld().getDamageSources().magic(), 5.0F);}
+    public void playerTouch(Player player) {
+        super.playerTouch(player);
+        if(!player.isDamageSourceBlocked(player.level().damageSources().arrow(this,player.getLastHurtByMob()))){
+        player.hurt(player.level().damageSources().magic(), 5.0F);}
         this.discard();
     }
 
     @Override
-    protected ItemStack asItemStack() {
+    protected ItemStack getPickupItem() {
         return null;
     }
 

@@ -1,20 +1,19 @@
 package com.dead_comedian.holyhell.entity.custom;
 
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
-import net.minecraft.entity.AnimationState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
-
 import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 
 public class LightBeamEntity extends Entity {
 
@@ -24,7 +23,7 @@ public class LightBeamEntity extends Entity {
     ///////////////
 
 
-    private static final TrackedData<Integer> LEVEL = DataTracker.registerData(LightBeamEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final EntityDataAccessor<Integer> LEVEL = SynchedEntityData.defineId(LightBeamEntity.class, EntityDataSerializers.INT);
 
     int capacity;
 
@@ -41,26 +40,26 @@ public class LightBeamEntity extends Entity {
     /////////
 
     @Override
-    protected void initDataTracker() {
-        this.dataTracker.startTracking(LEVEL, 0);
+    protected void defineSynchedData() {
+        this.entityData.define(LEVEL, 0);
 
     }
 
     public int getLevel() {
-        return this.dataTracker.get(LEVEL);
+        return this.entityData.get(LEVEL);
     }
 
     public void setLevel(int i) {
-        this.dataTracker.set(LEVEL, i);
+        this.entityData.set(LEVEL, i);
     }
 
     @Override
-    protected void readCustomDataFromNbt(NbtCompound nbt) {
+    protected void readAdditionalSaveData(CompoundTag nbt) {
         this.setLevel(nbt.getInt("Level"));
     }
 
     @Override
-    protected void writeCustomDataToNbt(NbtCompound nbt) {
+    protected void addAdditionalSaveData(CompoundTag nbt) {
         nbt.putInt("Level", this.getLevel());
     }
 
@@ -70,7 +69,7 @@ public class LightBeamEntity extends Entity {
     //////////
 
 
-    public LightBeamEntity(EntityType<?> type, World world) {
+    public LightBeamEntity(EntityType<?> type, Level world) {
         super(type, world);
 
     }
@@ -91,7 +90,7 @@ public class LightBeamEntity extends Entity {
         if (this.idleAnimationTimeout <= 0) {
             this.idleAnimationTimeout = this.random.nextInt(20) + 40;
 
-            this.idleAnimationState.start(this.age);
+            this.idleAnimationState.start(this.tickCount);
 
 
         } else {
@@ -102,15 +101,15 @@ public class LightBeamEntity extends Entity {
     }
 
     @Override
-    public void onPlayerCollision(PlayerEntity player) {
-        super.onPlayerCollision(player);
+    public void playerTouch(Player player) {
+        super.playerTouch(player);
         capacity = 0;
-        Box userHitbox = new Box(player.getBlockPos()).expand(50);
+        AABB userHitbox = new AABB(player.blockPosition()).inflate(50);
 
-        List<PlayerEntity> list = this.getWorld().getNonSpectatingEntities(PlayerEntity.class, userHitbox);
+        List<Player> list = this.level().getEntitiesOfClass(Player.class, userHitbox);
 
         if (this.getLevel() == 0) {
-            for (PlayerEntity i : list) {
+            for (Player i : list) {
 
                 capacity = capacity + 20;
             }
@@ -121,15 +120,15 @@ public class LightBeamEntity extends Entity {
                 int a = random.nextInt(3);
                 current = (int)((current + mobSpawnIndex[a]));
                 if (a == 1) {
-                    BlockPos blockPos = this.getBlockPos();
-                    AngelEntity angelEntity = new AngelEntity(HolyHellEntities.ANGEL, this.getWorld());
-                    this.getWorld().spawnEntity(angelEntity);
-                    angelEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), angelEntity.getYaw(), angelEntity.getPitch());
+                    BlockPos blockPos = this.blockPosition();
+                    AngelEntity angelEntity = new AngelEntity(HolyHellEntities.ANGEL, this.level());
+                    this.level().addFreshEntity(angelEntity);
+                    angelEntity.moveTo(blockPos.relative(Direction.Axis.Z, -0).relative(Direction.Axis.Y, 2), angelEntity.getYRot(), angelEntity.getXRot());
                 } else if (a == 2) {
-                    BlockPos blockPos = this.getBlockPos();
-                    HailingHereticEntity hailingHereticEntity = new HailingHereticEntity(HolyHellEntities.HAILING_HERETIC, this.getWorld());
-                    this.getWorld().spawnEntity(hailingHereticEntity);
-                    hailingHereticEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), hailingHereticEntity.getYaw(), hailingHereticEntity.getPitch());
+                    BlockPos blockPos = this.blockPosition();
+                    HailingHereticEntity hailingHereticEntity = new HailingHereticEntity(HolyHellEntities.HAILING_HERETIC, this.level());
+                    this.level().addFreshEntity(hailingHereticEntity);
+                    hailingHereticEntity.moveTo(blockPos.relative(Direction.Axis.Z, -0).relative(Direction.Axis.Y, 2), hailingHereticEntity.getYRot(), hailingHereticEntity.getXRot());
                 }
 
                 b = capacity*1.3 > current;
@@ -143,7 +142,7 @@ public class LightBeamEntity extends Entity {
             }
 
         } else if (this.getLevel() == 1) {
-            for (PlayerEntity i : list) {
+            for (Player i : list) {
 
                 capacity = capacity + 30;
             }
@@ -154,21 +153,21 @@ public class LightBeamEntity extends Entity {
                 int a = random.nextInt(3);
                 current = current + mobSpawnIndex[a];
                 if (a == 0) {
-                    BlockPos blockPos = this.getBlockPos();
-                    AngelEntity angelEntity = new AngelEntity(HolyHellEntities.ANGEL, this.getWorld());
-                    this.getWorld().spawnEntity(angelEntity);
-                    angelEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), angelEntity.getYaw(), angelEntity.getPitch());
+                    BlockPos blockPos = this.blockPosition();
+                    AngelEntity angelEntity = new AngelEntity(HolyHellEntities.ANGEL, this.level());
+                    this.level().addFreshEntity(angelEntity);
+                    angelEntity.moveTo(blockPos.relative(Direction.Axis.Z, -0).relative(Direction.Axis.Y, 2), angelEntity.getYRot(), angelEntity.getXRot());
                 } else if (a == 1) {
-                    BlockPos blockPos = this.getBlockPos();
-                    KamikazeAngelEntity kamikazeAngelEntity = new KamikazeAngelEntity(HolyHellEntities.KAMIKAZE_ANGEL, this.getWorld());
-                    this.getWorld().spawnEntity(kamikazeAngelEntity);
-                    kamikazeAngelEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), kamikazeAngelEntity.getYaw(), kamikazeAngelEntity.getPitch());
+                    BlockPos blockPos = this.blockPosition();
+                    KamikazeAngelEntity kamikazeAngelEntity = new KamikazeAngelEntity(HolyHellEntities.KAMIKAZE_ANGEL, this.level());
+                    this.level().addFreshEntity(kamikazeAngelEntity);
+                    kamikazeAngelEntity.moveTo(blockPos.relative(Direction.Axis.Z, -0).relative(Direction.Axis.Y, 2), kamikazeAngelEntity.getYRot(), kamikazeAngelEntity.getXRot());
 
                 } else if (a == 2) {
-                    BlockPos blockPos = this.getBlockPos();
-                    HailingHereticEntity hailingHereticEntity = new HailingHereticEntity(HolyHellEntities.HAILING_HERETIC, this.getWorld());
-                    this.getWorld().spawnEntity(hailingHereticEntity);
-                    hailingHereticEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), hailingHereticEntity.getYaw(), hailingHereticEntity.getPitch());
+                    BlockPos blockPos = this.blockPosition();
+                    HailingHereticEntity hailingHereticEntity = new HailingHereticEntity(HolyHellEntities.HAILING_HERETIC, this.level());
+                    this.level().addFreshEntity(hailingHereticEntity);
+                    hailingHereticEntity.moveTo(blockPos.relative(Direction.Axis.Z, -0).relative(Direction.Axis.Y, 2), hailingHereticEntity.getYRot(), hailingHereticEntity.getXRot());
                 }
 
                 b = capacity > current;
@@ -180,7 +179,7 @@ public class LightBeamEntity extends Entity {
 
 
         } else if (this.getLevel() == 2) {
-            for (PlayerEntity i : list) {
+            for (Player i : list) {
 
                 capacity = capacity + 35;
             }
@@ -191,21 +190,21 @@ public class LightBeamEntity extends Entity {
                 int a = random.nextInt(3);
                 current = current + mobSpawnIndex[a];
                 if (a == 0) {
-                    BlockPos blockPos = this.getBlockPos();
-                    AngelEntity angelEntity = new AngelEntity(HolyHellEntities.ANGEL, this.getWorld());
-                    this.getWorld().spawnEntity(angelEntity);
-                    angelEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), angelEntity.getYaw(), angelEntity.getPitch());
+                    BlockPos blockPos = this.blockPosition();
+                    AngelEntity angelEntity = new AngelEntity(HolyHellEntities.ANGEL, this.level());
+                    this.level().addFreshEntity(angelEntity);
+                    angelEntity.moveTo(blockPos.relative(Direction.Axis.Z, -0).relative(Direction.Axis.Y, 2), angelEntity.getYRot(), angelEntity.getXRot());
                 } else if (a == 1) {
-                    BlockPos blockPos = this.getBlockPos();
-                    KamikazeAngelEntity kamikazeAngelEntity = new KamikazeAngelEntity(HolyHellEntities.KAMIKAZE_ANGEL, this.getWorld());
-                    this.getWorld().spawnEntity(kamikazeAngelEntity);
-                    kamikazeAngelEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), kamikazeAngelEntity.getYaw(), kamikazeAngelEntity.getPitch());
+                    BlockPos blockPos = this.blockPosition();
+                    KamikazeAngelEntity kamikazeAngelEntity = new KamikazeAngelEntity(HolyHellEntities.KAMIKAZE_ANGEL, this.level());
+                    this.level().addFreshEntity(kamikazeAngelEntity);
+                    kamikazeAngelEntity.moveTo(blockPos.relative(Direction.Axis.Z, -0).relative(Direction.Axis.Y, 2), kamikazeAngelEntity.getYRot(), kamikazeAngelEntity.getXRot());
 
                 } else if (a == 2) {
-                    BlockPos blockPos = this.getBlockPos();
-                    HailingHereticEntity hailingHereticEntity = new HailingHereticEntity(HolyHellEntities.HAILING_HERETIC, this.getWorld());
-                    this.getWorld().spawnEntity(hailingHereticEntity);
-                    hailingHereticEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), hailingHereticEntity.getYaw(), hailingHereticEntity.getPitch());
+                    BlockPos blockPos = this.blockPosition();
+                    HailingHereticEntity hailingHereticEntity = new HailingHereticEntity(HolyHellEntities.HAILING_HERETIC, this.level());
+                    this.level().addFreshEntity(hailingHereticEntity);
+                    hailingHereticEntity.moveTo(blockPos.relative(Direction.Axis.Z, -0).relative(Direction.Axis.Y, 2), hailingHereticEntity.getYRot(), hailingHereticEntity.getXRot());
                 }
 
                 b = capacity > current;
@@ -218,7 +217,7 @@ public class LightBeamEntity extends Entity {
 
 
         } else if (this.getLevel() == 3) {
-            for (PlayerEntity i : list) {
+            for (Player i : list) {
 
                 capacity = capacity + 30;
             }
@@ -229,32 +228,32 @@ public class LightBeamEntity extends Entity {
                 int a = random.nextInt(3);
                 current = current + mobSpawnIndex[a];
                 if (a == 0) {
-                    BlockPos blockPos = this.getBlockPos();
-                    AngelEntity angelEntity = new AngelEntity(HolyHellEntities.ANGEL, this.getWorld());
-                    this.getWorld().spawnEntity(angelEntity);
-                    angelEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), angelEntity.getYaw(), angelEntity.getPitch());
+                    BlockPos blockPos = this.blockPosition();
+                    AngelEntity angelEntity = new AngelEntity(HolyHellEntities.ANGEL, this.level());
+                    this.level().addFreshEntity(angelEntity);
+                    angelEntity.moveTo(blockPos.relative(Direction.Axis.Z, -0).relative(Direction.Axis.Y, 2), angelEntity.getYRot(), angelEntity.getXRot());
                 } else if (a == 1) {
-                    BlockPos blockPos = this.getBlockPos();
-                    KamikazeAngelEntity kamikazeAngelEntity = new KamikazeAngelEntity(HolyHellEntities.KAMIKAZE_ANGEL, this.getWorld());
-                    this.getWorld().spawnEntity(kamikazeAngelEntity);
-                    kamikazeAngelEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), kamikazeAngelEntity.getYaw(), kamikazeAngelEntity.getPitch());
+                    BlockPos blockPos = this.blockPosition();
+                    KamikazeAngelEntity kamikazeAngelEntity = new KamikazeAngelEntity(HolyHellEntities.KAMIKAZE_ANGEL, this.level());
+                    this.level().addFreshEntity(kamikazeAngelEntity);
+                    kamikazeAngelEntity.moveTo(blockPos.relative(Direction.Axis.Z, -0).relative(Direction.Axis.Y, 2), kamikazeAngelEntity.getYRot(), kamikazeAngelEntity.getXRot());
 
                 } else if (a == 2) {
-                    BlockPos blockPos = this.getBlockPos();
-                    HailingHereticEntity hailingHereticEntity = new HailingHereticEntity(HolyHellEntities.HAILING_HERETIC, this.getWorld());
-                    this.getWorld().spawnEntity(hailingHereticEntity);
-                    hailingHereticEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), hailingHereticEntity.getYaw(), hailingHereticEntity.getPitch());
+                    BlockPos blockPos = this.blockPosition();
+                    HailingHereticEntity hailingHereticEntity = new HailingHereticEntity(HolyHellEntities.HAILING_HERETIC, this.level());
+                    this.level().addFreshEntity(hailingHereticEntity);
+                    hailingHereticEntity.moveTo(blockPos.relative(Direction.Axis.Z, -0).relative(Direction.Axis.Y, 2), hailingHereticEntity.getYRot(), hailingHereticEntity.getXRot());
                 }
 
                 b = capacity > current;
 
             } while (b);
-            BlockPos blockPos = this.getBlockPos();
-            if (!this.getWorld().isClient()) {
+            BlockPos blockPos = this.blockPosition();
+            if (!this.level().isClientSide()) {
 
-                PalladinEntity palladinEntity = new PalladinEntity(HolyHellEntities.PALLADIN, this.getWorld());
-                this.getWorld().spawnEntity(palladinEntity);
-                palladinEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), palladinEntity.getYaw(), palladinEntity.getPitch());
+                PalladinEntity palladinEntity = new PalladinEntity(HolyHellEntities.PALLADIN, this.level());
+                this.level().addFreshEntity(palladinEntity);
+                palladinEntity.moveTo(blockPos.relative(Direction.Axis.Z, -0).relative(Direction.Axis.Y, 2), palladinEntity.getYRot(), palladinEntity.getXRot());
             }
 
             if (current > 30) {
@@ -264,7 +263,7 @@ public class LightBeamEntity extends Entity {
 
 
         } else if (this.getLevel() == 4) {
-            for (PlayerEntity i : list) {
+            for (Player i : list) {
 
                 capacity = capacity + 35;
             }
@@ -275,36 +274,36 @@ public class LightBeamEntity extends Entity {
                 int a = random.nextInt(3);
                 current = current + mobSpawnIndex[a];
                 if (a == 0) {
-                    BlockPos blockPos = this.getBlockPos();
-                    AngelEntity angelEntity = new AngelEntity(HolyHellEntities.ANGEL, this.getWorld());
-                    this.getWorld().spawnEntity(angelEntity);
-                    angelEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), angelEntity.getYaw(), angelEntity.getPitch());
+                    BlockPos blockPos = this.blockPosition();
+                    AngelEntity angelEntity = new AngelEntity(HolyHellEntities.ANGEL, this.level());
+                    this.level().addFreshEntity(angelEntity);
+                    angelEntity.moveTo(blockPos.relative(Direction.Axis.Z, -0).relative(Direction.Axis.Y, 2), angelEntity.getYRot(), angelEntity.getXRot());
                 } else if (a == 1) {
-                    BlockPos blockPos = this.getBlockPos();
-                    KamikazeAngelEntity kamikazeAngelEntity = new KamikazeAngelEntity(HolyHellEntities.KAMIKAZE_ANGEL, this.getWorld());
-                    this.getWorld().spawnEntity(kamikazeAngelEntity);
-                    kamikazeAngelEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), kamikazeAngelEntity.getYaw(), kamikazeAngelEntity.getPitch());
+                    BlockPos blockPos = this.blockPosition();
+                    KamikazeAngelEntity kamikazeAngelEntity = new KamikazeAngelEntity(HolyHellEntities.KAMIKAZE_ANGEL, this.level());
+                    this.level().addFreshEntity(kamikazeAngelEntity);
+                    kamikazeAngelEntity.moveTo(blockPos.relative(Direction.Axis.Z, -0).relative(Direction.Axis.Y, 2), kamikazeAngelEntity.getYRot(), kamikazeAngelEntity.getXRot());
 
                 } else if (a == 2) {
-                    BlockPos blockPos = this.getBlockPos();
-                    HailingHereticEntity hailingHereticEntity = new HailingHereticEntity(HolyHellEntities.HAILING_HERETIC, this.getWorld());
-                    this.getWorld().spawnEntity(hailingHereticEntity);
-                    hailingHereticEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), hailingHereticEntity.getYaw(), hailingHereticEntity.getPitch());
+                    BlockPos blockPos = this.blockPosition();
+                    HailingHereticEntity hailingHereticEntity = new HailingHereticEntity(HolyHellEntities.HAILING_HERETIC, this.level());
+                    this.level().addFreshEntity(hailingHereticEntity);
+                    hailingHereticEntity.moveTo(blockPos.relative(Direction.Axis.Z, -0).relative(Direction.Axis.Y, 2), hailingHereticEntity.getYRot(), hailingHereticEntity.getXRot());
                 }
 
                 b = capacity > current;
             } while (b);
 
             int c = random.nextInt(2);
-            BlockPos blockPos = this.getBlockPos();
-            if (!this.getWorld().isClient()) {
+            BlockPos blockPos = this.blockPosition();
+            if (!this.level().isClientSide()) {
 
                 for (int i = 0; i <= c; i++) {
 
 
-                    PalladinEntity palladinEntity = new PalladinEntity(HolyHellEntities.PALLADIN, this.getWorld());
-                    this.getWorld().spawnEntity(palladinEntity);
-                    palladinEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), palladinEntity.getYaw(), palladinEntity.getPitch());
+                    PalladinEntity palladinEntity = new PalladinEntity(HolyHellEntities.PALLADIN, this.level());
+                    this.level().addFreshEntity(palladinEntity);
+                    palladinEntity.moveTo(blockPos.relative(Direction.Axis.Z, -0).relative(Direction.Axis.Y, 2), palladinEntity.getYRot(), palladinEntity.getXRot());
                 }
             }
             if (current > 35) {
@@ -314,7 +313,7 @@ public class LightBeamEntity extends Entity {
 
 
         } else if (this.getLevel() == 5) {
-            for (PlayerEntity i : list) {
+            for (Player i : list) {
 
                 capacity = capacity + 40;
             }
@@ -325,21 +324,21 @@ public class LightBeamEntity extends Entity {
                 int a = random.nextInt(3);
                 current = current + mobSpawnIndex[a];
                 if (a == 0) {
-                    BlockPos blockPos = this.getBlockPos();
-                    AngelEntity angelEntity = new AngelEntity(HolyHellEntities.ANGEL, this.getWorld());
-                    this.getWorld().spawnEntity(angelEntity);
-                    angelEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), angelEntity.getYaw(), angelEntity.getPitch());
+                    BlockPos blockPos = this.blockPosition();
+                    AngelEntity angelEntity = new AngelEntity(HolyHellEntities.ANGEL, this.level());
+                    this.level().addFreshEntity(angelEntity);
+                    angelEntity.moveTo(blockPos.relative(Direction.Axis.Z, -0).relative(Direction.Axis.Y, 2), angelEntity.getYRot(), angelEntity.getXRot());
                 } else if (a == 1) {
-                    BlockPos blockPos = this.getBlockPos();
-                    KamikazeAngelEntity kamikazeAngelEntity = new KamikazeAngelEntity(HolyHellEntities.KAMIKAZE_ANGEL, this.getWorld());
-                    this.getWorld().spawnEntity(kamikazeAngelEntity);
-                    kamikazeAngelEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), kamikazeAngelEntity.getYaw(), kamikazeAngelEntity.getPitch());
+                    BlockPos blockPos = this.blockPosition();
+                    KamikazeAngelEntity kamikazeAngelEntity = new KamikazeAngelEntity(HolyHellEntities.KAMIKAZE_ANGEL, this.level());
+                    this.level().addFreshEntity(kamikazeAngelEntity);
+                    kamikazeAngelEntity.moveTo(blockPos.relative(Direction.Axis.Z, -0).relative(Direction.Axis.Y, 2), kamikazeAngelEntity.getYRot(), kamikazeAngelEntity.getXRot());
 
                 } else if (a == 2) {
-                    BlockPos blockPos = this.getBlockPos();
-                    HailingHereticEntity hailingHereticEntity = new HailingHereticEntity(HolyHellEntities.HAILING_HERETIC, this.getWorld());
-                    this.getWorld().spawnEntity(hailingHereticEntity);
-                    hailingHereticEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), hailingHereticEntity.getYaw(), hailingHereticEntity.getPitch());
+                    BlockPos blockPos = this.blockPosition();
+                    HailingHereticEntity hailingHereticEntity = new HailingHereticEntity(HolyHellEntities.HAILING_HERETIC, this.level());
+                    this.level().addFreshEntity(hailingHereticEntity);
+                    hailingHereticEntity.moveTo(blockPos.relative(Direction.Axis.Z, -0).relative(Direction.Axis.Y, 2), hailingHereticEntity.getYRot(), hailingHereticEntity.getXRot());
                 }
 
                 b = capacity > current;
@@ -347,17 +346,17 @@ public class LightBeamEntity extends Entity {
             } while (b);
 
             int c = random.nextInt(2);
-            BlockPos blockPos = this.getBlockPos();
-            if (!this.getWorld().isClient()) {
+            BlockPos blockPos = this.blockPosition();
+            if (!this.level().isClientSide()) {
                 for (int i = 0; i <= c; i++) {
 
-                    PalladinEntity palladinEntity = new PalladinEntity(HolyHellEntities.PALLADIN, this.getWorld());
-                    this.getWorld().spawnEntity(palladinEntity);
-                    palladinEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), palladinEntity.getYaw(), palladinEntity.getPitch());
+                    PalladinEntity palladinEntity = new PalladinEntity(HolyHellEntities.PALLADIN, this.level());
+                    this.level().addFreshEntity(palladinEntity);
+                    palladinEntity.moveTo(blockPos.relative(Direction.Axis.Z, -0).relative(Direction.Axis.Y, 2), palladinEntity.getYRot(), palladinEntity.getXRot());
                 }
-                BabOneEntity babEntity = new BabOneEntity(HolyHellEntities.BAB_ONE, this.getWorld());
-                this.getWorld().spawnEntity(babEntity);
-                babEntity.refreshPositionAndAngles(blockPos.offset(Direction.Axis.Z, -0).offset(Direction.Axis.Y, 2), babEntity.getYaw(), babEntity.getPitch());
+                BabOneEntity babEntity = new BabOneEntity(HolyHellEntities.BAB_ONE, this.level());
+                this.level().addFreshEntity(babEntity);
+                babEntity.moveTo(blockPos.relative(Direction.Axis.Z, -0).relative(Direction.Axis.Y, 2), babEntity.getYRot(), babEntity.getXRot());
             }
 
             if (current > capacity) {

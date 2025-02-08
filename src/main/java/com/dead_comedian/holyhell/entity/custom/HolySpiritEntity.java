@@ -1,20 +1,28 @@
 package com.dead_comedian.holyhell.entity.custom;
 
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 
-public class HolySpiritEntity extends HostileEntity {
+public class HolySpiritEntity extends Monster {
 
 
     ///////////////
@@ -33,16 +41,16 @@ public class HolySpiritEntity extends HostileEntity {
     //////////
 
 
-    public HolySpiritEntity(EntityType<? extends HostileEntity> entityType, World world) {
+    public HolySpiritEntity(EntityType<? extends Monster> entityType, Level world) {
         super(entityType, world);
-        this.experiencePoints = 10;
+        this.xpReward = 10;
     }
 
     @Override
     public void tick() {
         super.tick();
         if (this.getTarget() != null)  {
-            MaxHealth = this.getTarget().getAttributeValue(EntityAttributes.GENERIC_MAX_HEALTH);
+            MaxHealth = this.getTarget().getAttributeValue(Attributes.MAX_HEALTH);
             this.setHealth(this.getTarget().getHealth());
 
         }
@@ -51,32 +59,32 @@ public class HolySpiritEntity extends HostileEntity {
 
 
 
-        if (this.getWorld().isClient()) {
+        if (this.level().isClientSide()) {
             setupAnimationStates();
         }
     }
 
     @Override
-    protected void initGoals() {
-        this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new HolySpiritAttackGoal(this, 1.5f, true));
-        this.goalSelector.add(4, new WanderAroundFarGoal(this, 1D));
-        this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 4f));
-        this.goalSelector.add(6, new LookAroundGoal(this));
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new HolySpiritAttackGoal(this, 1.5f, true));
+        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1D));
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 4f));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
     }
 
-    public static DefaultAttributeContainer.Builder createHereticAttributes() {
-        return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, MaxHealth)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3f)
-                .add(EntityAttributes.GENERIC_ARMOR, 1.5f)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 8);
+    public static AttributeSupplier.Builder createHereticAttributes() {
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, MaxHealth)
+                .add(Attributes.MOVEMENT_SPEED, 0.3f)
+                .add(Attributes.ARMOR, 1.5f)
+                .add(Attributes.ATTACK_DAMAGE, 8);
     }
 
     @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(ATTACKING, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(ATTACKING, false);
 
     }
 
@@ -90,23 +98,23 @@ public class HolySpiritEntity extends HostileEntity {
         if (this.idleAnimationTimeout <= 0) {
             this.idleAnimationTimeout = this.random.nextInt(20) + 40;
 
-            this.idleAnimationState.start(this.age);
+            this.idleAnimationState.start(this.tickCount);
 
 
         } else {
             --this.idleAnimationTimeout;
         }
 
-        if (this.isAttacking() && attackAnimationTimeout <= 0) {
+        if (this.isAggressive() && attackAnimationTimeout <= 0) {
             attackAnimationTimeout = 40;
-            attackAnimationState.startIfNotRunning(this.age);
+            attackAnimationState.startIfStopped(this.tickCount);
 
 
         } else {
             --this.attackAnimationTimeout;
         }
 
-        if (!this.isAttacking()) {
+        if (!this.isAggressive()) {
             attackAnimationState.stop();
         }
 
@@ -114,9 +122,9 @@ public class HolySpiritEntity extends HostileEntity {
     }
 
     @Override
-    protected void updateLimbs(float posDelta) {
-        float f = this.getPose() == EntityPose.STANDING ? Math.min(posDelta * 6.0f, 1.0f) : 0.0f;
-        this.limbAnimator.updateLimbs(f, 0.2f);
+    protected void updateWalkAnimation(float posDelta) {
+        float f = this.getPose() == Pose.STANDING ? Math.min(posDelta * 6.0f, 1.0f) : 0.0f;
+        this.walkAnimation.update(f, 0.2f);
     }
 
 
@@ -134,7 +142,7 @@ public class HolySpiritEntity extends HostileEntity {
         private boolean shouldCountTillNextAttack = false;
 
 
-        public HolySpiritAttackGoal(PathAwareEntity mob, double speed, boolean pauseWhenMobIdle) {
+        public HolySpiritAttackGoal(PathfinderMob mob, double speed, boolean pauseWhenMobIdle) {
             super(mob, speed, pauseWhenMobIdle);
             entity = ((HolySpiritEntity) mob);
         }
@@ -149,31 +157,31 @@ public class HolySpiritEntity extends HostileEntity {
 
 
         @Override
-        protected void attack(LivingEntity pEnemy, double pDistToEnemySqr) {
+        protected void checkAndPerformAttack(LivingEntity pEnemy, double pDistToEnemySqr) {
             if (isEnemyWithinAttackDistance(pEnemy, pDistToEnemySqr)) {
                 shouldCountTillNextAttack = true;
 
 
                 if (isTimeToStartAttackAnimation()) {
-                    entity.setAttacking(true);
+                    entity.setAggressive(true);
                 }
 
                 if (isTimeToAttack()) {
-                    this.mob.getLookControl().lookAt(pEnemy.getX(), pEnemy.getEyeY(), pEnemy.getZ());
+                    this.mob.getLookControl().setLookAt(pEnemy.getX(), pEnemy.getEyeY(), pEnemy.getZ());
                     performAttack(pEnemy);
                 }
             } else {
 
                 resetAttackCooldown();
                 shouldCountTillNextAttack = false;
-                entity.setAttacking(false);
+                entity.setAggressive(false);
                 entity.attackAnimationTimeout = 0;
             }
         }
 
 
         private boolean isEnemyWithinAttackDistance(LivingEntity pEnemy, double pDistToEnemySqr) {
-            return pDistToEnemySqr <= this.getSquaredMaxAttackDistance(pEnemy);
+            return pDistToEnemySqr <= this.getAttackReachSqr(pEnemy);
         }
 
 
@@ -182,7 +190,7 @@ public class HolySpiritEntity extends HostileEntity {
         }
 
         protected void resetAttackCooldown() {
-            this.ticksUntilNextAttack = this.getTickCount(attackDelay * 2);
+            this.ticksUntilNextAttack = this.adjustedTickDelay(attackDelay * 2);
         }
 
         protected boolean isTimeToAttack() {
@@ -192,8 +200,8 @@ public class HolySpiritEntity extends HostileEntity {
         protected void performAttack(LivingEntity pEnemy) {
 
             this.resetAttackCooldown();
-            this.mob.swingHand(Hand.MAIN_HAND);
-            this.mob.tryAttack(pEnemy);
+            this.mob.swing(InteractionHand.MAIN_HAND);
+            this.mob.doHurtTarget(pEnemy);
         }
 
         @Override
@@ -202,14 +210,14 @@ public class HolySpiritEntity extends HostileEntity {
             if (shouldCountTillNextAttack) {
                 this.ticksUntilNextAttack = Math.max(this.ticksUntilNextAttack - 1, 0);
                 if (ticksUntilNextAttack == 0) {
-                    entity.setAttacking(false);
+                    entity.setAggressive(false);
                 }
             }
         }
 
         @Override
         public void stop() {
-            entity.setAttacking(false);
+            entity.setAggressive(false);
             super.stop();
         }
     }
@@ -217,28 +225,28 @@ public class HolySpiritEntity extends HostileEntity {
 
     // attacking
 
-    private static final TrackedData<Boolean> ATTACKING =
-            DataTracker.registerData(HolySpiritEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> ATTACKING =
+            SynchedEntityData.defineId(HolySpiritEntity.class, EntityDataSerializers.BOOLEAN);
 
-    public void setAttacking(boolean attacking) {
-        this.dataTracker.set(ATTACKING, attacking);
+    public void setAggressive(boolean attacking) {
+        this.entityData.set(ATTACKING, attacking);
     }
 
     @Override
-    public boolean isAttacking() {
-        return this.dataTracker.get(ATTACKING);
+    public boolean isAggressive() {
+        return this.entityData.get(ATTACKING);
     }
 
     @Override
-    public boolean tryAttack(Entity target) {
-        boolean bl = super.tryAttack(target);
+    public boolean doHurtTarget(Entity target) {
+        boolean bl = super.doHurtTarget(target);
         if (bl) {
-            float f = this.getWorld().getLocalDifficulty(this.getBlockPos()).getLocalDifficulty();
-            if (this.getMainHandStack().isEmpty() && this.isOnFire() && this.random.nextFloat() < f * 0.3F) {
-                target.setOnFireFor(2 * (int) f);
+            float f = this.level().getCurrentDifficultyAt(this.blockPosition()).getEffectiveDifficulty();
+            if (this.getMainHandItem().isEmpty() && this.isOnFire() && this.random.nextFloat() < f * 0.3F) {
+                target.setSecondsOnFire(2 * (int) f);
             }
         }
-        setAttacking(true);
+        setAggressive(true);
         return bl;
     }
 

@@ -1,78 +1,81 @@
 package com.dead_comedian.holyhell.block;
 
 import com.dead_comedian.holyhell.registries.HolyHellBlocks;
-import net.minecraft.block.*;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.BlockHitResult;
 
 public class CandelabraBlock extends Block {
-    protected final ParticleEffect particle;
-    public static final IntProperty CANDLE = IntProperty.of("candle", 0, 3);
-    public static final BooleanProperty LIT = BooleanProperty.of("lit");
+    protected final ParticleOptions particle;
+    public static final IntegerProperty CANDLE = IntegerProperty.create("candle", 0, 3);
+    public static final BooleanProperty LIT = BooleanProperty.create("lit");
 
-    public CandelabraBlock(AbstractBlock.Settings settings, ParticleEffect particle) {
+    public CandelabraBlock(BlockBehaviour.Properties settings, ParticleOptions particle) {
         super(settings);
         this.particle = particle;
-        this.setDefaultState((BlockState) this.getDefaultState().with(CANDLE, 0));
-        this.setDefaultState((BlockState) this.getDefaultState().with(LIT, false));
+        this.registerDefaultState((BlockState) this.defaultBlockState().setValue(CANDLE, 0));
+        this.registerDefaultState((BlockState) this.defaultBlockState().setValue(LIT, false));
     }
 
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        return direction == Direction.DOWN && !this.canPlaceAt(state, world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+        return direction == Direction.DOWN && !this.canSurvive(state, world, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
-    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        return sideCoversSmallSquare(world, pos.down(), Direction.UP);
+    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        return canSupportCenter(world, pos.below(), Direction.UP);
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        ItemStack itemStack = player.getStackInHand(hand);
-        if (itemStack.isOf(Items.FLINT_AND_STEEL) && !state.get(LIT)) {
-            world.setBlockState(pos, state.with(LIT, true));
-            return ActionResult.SUCCESS;
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        ItemStack itemStack = player.getItemInHand(hand);
+        if (itemStack.is(Items.FLINT_AND_STEEL) && !state.getValue(LIT)) {
+            world.setBlockAndUpdate(pos, state.setValue(LIT, true));
+            return InteractionResult.SUCCESS;
         }
-        if (state.get(LIT) && itemStack.isEmpty()) {
-            world.setBlockState(pos, state.with(LIT, false));
-            return ActionResult.SUCCESS;
+        if (state.getValue(LIT) && itemStack.isEmpty()) {
+            world.setBlockAndUpdate(pos, state.setValue(LIT, false));
+            return InteractionResult.SUCCESS;
         }
-        if (itemStack.isOf(Item.fromBlock(HolyHellBlocks.CANDELABRA)) && state.get(CANDLE) < 3) {
+        if (itemStack.is(Item.byBlock(HolyHellBlocks.CANDELABRA)) && state.getValue(CANDLE) < 3) {
            if (!player.isCreative()){
-            itemStack.decrement(1);}
-            world.setBlockState(pos, state.with(CANDLE, state.get(CANDLE) + 1));
+            itemStack.shrink(1);}
+            world.setBlockAndUpdate(pos, state.setValue(CANDLE, state.getValue(CANDLE) + 1));
 
-            return ActionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
 
-        return super.onUse(state, world, pos, player, hand, hit);
+        return super.use(state, world, pos, player, hand, hit);
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 
         builder.add(CANDLE);
         builder.add(LIT);
-        super.appendProperties(builder);
+        super.createBlockStateDefinition(builder);
     }
 
-    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
-        if (state.get(LIT)) {
+    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
+        if (state.getValue(LIT)) {
             double d = pos.getX();
             double e = pos.getY();
             double f = pos.getZ();
@@ -99,11 +102,11 @@ public class CandelabraBlock extends Block {
             double f7;
 
 
-            if (state.get(CANDLE) == 0) {
+            if (state.getValue(CANDLE) == 0) {
                 d = pos.getX() + 0.5;
                 e = pos.getY() + 0.9;
                 f = pos.getZ() + 0.5;
-            } else if (state.get(CANDLE) == 1) {
+            } else if (state.getValue(CANDLE) == 1) {
                 d = pos.getX() + 0.3;
                 e = pos.getY() + 1.1;
                 f = pos.getZ() + 0.5;
@@ -119,7 +122,7 @@ public class CandelabraBlock extends Block {
                 world.addParticle(this.particle, d1, e1, f1, 0.0, 0.0, 0.0);
                 world.addParticle(this.particle, d2, e2, f2, 0.0, 0.0, 0.0);
                 world.addParticle(this.particle, d3, e3, f3, 0.0, 0.0, 0.0);
-            } else if (state.get(CANDLE) == 2) {
+            } else if (state.getValue(CANDLE) == 2) {
                 d = pos.getX() + 0.5;
                 e = pos.getY() + 1.1;
                 f = pos.getZ() + 0.5;
@@ -139,7 +142,7 @@ public class CandelabraBlock extends Block {
                 world.addParticle(this.particle, d2, e2, f2, 0.0, 0.0, 0.0);
                 world.addParticle(this.particle, d3, e3, f3, 0.0, 0.0, 0.0);
                 world.addParticle(this.particle, d4, e4, f4, 0.0, 0.0, 0.0);
-            } else if (state.get(CANDLE) == 3) {
+            } else if (state.getValue(CANDLE) == 3) {
                 d = pos.getX() + 0.5;
                 e = pos.getY() + 1.1;
                 f = pos.getZ() + 0.35;
