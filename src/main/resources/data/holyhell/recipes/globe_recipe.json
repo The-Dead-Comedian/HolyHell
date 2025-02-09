@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+
+    "X": {
+      "item": "holyhell:baptized_plate"
+    },
+    "#": {
+      "item": "holyhell:saint_eye"
+    }
+  },
+  "pattern": [
+    " XX",
+    " #X",
+    " XX"
+  ],
+  "result": {
+    "item": "holyhell:globe"
+  },
+  "show_notification": true
+}

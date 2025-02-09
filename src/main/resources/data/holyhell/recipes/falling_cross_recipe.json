@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+
+    "X": {
+      "item": "minecraft:stone"
+    }
+  },
+  "pattern": [
+    "X X",
+    " X ",
+    "X X"
+  ],
+  "result": {
+    "item": "holyhell:falling_cross"
+  },
+  "show_notification": true
+}

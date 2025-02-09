@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "candle=0": {
+      "model": "holyhell:block/candelabra_1",
+      "y": 0
+    },
+    "candle=1": {
+      "model": "holyhell:block/candelabra_2",
+      "y": 0
+    }, "candle=2": {
+      "model": "holyhell:block/candelabra_3",
+      "y": 0
+    }, "candle=3": {
+      "model": "holyhell:block/candelabra_4",
+      "y": 0
+    }
+
+
+  }
+}
