@@ -77,3 +77,9 @@ h1, h2, h3, h4, h5, h6, h7{
    display: flex;
    flex-direction: column;
 }
+
+@media (max-width: 800px){
+  .buff_holder {
+    animation: none
+  }
+}
