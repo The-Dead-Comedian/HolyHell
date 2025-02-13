@@ -4,6 +4,7 @@
     64,
     64
   ],
+  "render_type": "minecraft:cutout",
   "textures": {
     "1": "holyhell:block/divining_table",
     "particle": "holyhell:block/divining_table"

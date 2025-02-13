@@ -4,6 +4,7 @@
     64,
     64
   ],
+  "render_type": "minecraft:cutout",
   "textures": {
     "3": "holyhell:block/globe",
     "particle": "holyhell:block/globe"

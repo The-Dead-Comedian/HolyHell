@@ -1,5 +1,6 @@
 {
 	"credit": "Made with Blockbench",
+	"render_type": "minecraft:cutout",
 	"textures": {
 		"1": "holyhell:block/candleholder_1",
 		"particle": "holyhell:block/candleholder_1"

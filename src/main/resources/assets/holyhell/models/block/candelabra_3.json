@@ -1,5 +1,6 @@
 {
 	"credit": "Made with Blockbench",
+	"render_type": "minecraft:cutout",
 	"textures": {
 		"0": "holyhell:block/candelabra_3",
 		"particle": "holyhell:block/candelabra_3"
