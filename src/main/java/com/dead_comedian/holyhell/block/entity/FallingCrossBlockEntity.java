@@ -5,12 +5,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Fallable;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
-import javax.swing.*;
-import java.util.Collection;
+
 import java.util.List;
 
 import static net.minecraft.world.level.block.FallingBlock.isFree;
@@ -28,22 +28,21 @@ public class FallingCrossBlockEntity extends BlockEntity {
     }
 
 
-
     public void tick(Level world, BlockPos pos, BlockState state) {
-
 
 
         for (Entity entity : getEntitiesOnBlock(world, pos)) {
             if (isFree(world.getBlockState(pos.below())) && pos.getY() >= world.getMinBuildHeight()) {
                 FallingBlockEntity fallingBlockEntity = FallingBlockEntity.fall(world, pos, state);
                 this.configureFallingBlockEntity(fallingBlockEntity);
-                getEntitiesOnBlock(world, pos).removeAll(getEntitiesOnBlock(world,pos));
+                getEntitiesOnBlock(world, pos).removeAll(getEntitiesOnBlock(world, pos));
             }
         }
     }
 
     protected void configureFallingBlockEntity(FallingBlockEntity entity) {
         entity.setHurtsEntities(6.0F, 40);
+
     }
 
 

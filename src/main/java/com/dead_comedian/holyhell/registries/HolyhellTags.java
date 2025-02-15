@@ -3,7 +3,7 @@ package com.dead_comedian.holyhell.registries;
 
 import com.dead_comedian.holyhell.HolyHell;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
@@ -22,10 +22,6 @@ public class HolyhellTags {
     }
 
     public static class Blocks{
-
-
-        public static final TagKey<Block> POWERS_TABLE =
-                createTag("powers_table");
 
         public static final TagKey<Block> DOME_CLEARS_OUT =
                 createTag("dome_clears_out");

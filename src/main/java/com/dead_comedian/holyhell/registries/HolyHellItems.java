@@ -6,6 +6,7 @@ import com.dead_comedian.holyhell.item.custom.SaintEyeItem;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ShieldItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -20,6 +21,8 @@ public class HolyHellItems {
     public static final RegistryObject<Item> SAINT_EYE = ITEMS.register("saint_eye",
             () -> new SaintEyeItem(new Item.Properties().food(HolyHellFood.SAINT_EYE)));
 
+    public static final RegistryObject<Item> HOLY_SHIELD = ITEMS.register("holy_shield",
+            () -> new ShieldItem(new Item.Properties().durability(1000)));
 //    public static final Item HOLY_GRAIL = registerItem("holy_grail", new HolyGrailItem(HolyhellToolMaterial.GRAIL,12, -2.6F, new FabricItemSettings()));
 //    public static final Item HOLY_SHIELD = registerItem("holy_shield", new HolyShieldItem(new FabricItemSettings().maxDamage(1000)));
 //    public static final Item BLINDING_BOMB = registerItem("blinding_bomb", new BlindingBombItem(new FabricItemSettings()));

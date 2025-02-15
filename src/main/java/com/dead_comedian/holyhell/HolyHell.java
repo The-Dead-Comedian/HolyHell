@@ -32,9 +32,11 @@ public class HolyHell
         MinecraftForge.EVENT_BUS.register(this);
 
         context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
-        HolyHellCreativeTab.register(modEventBus);
+
         HolyHellItems.register(modEventBus);
+        HolyHellSound.register(modEventBus);
         HolyHellBlocks.register(modEventBus);
+        HolyHellCreativeTab.register(modEventBus);
         HolyHellBlockEntities.register(modEventBus);
     }
 
