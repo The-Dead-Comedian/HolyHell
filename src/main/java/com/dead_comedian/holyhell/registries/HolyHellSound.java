@@ -17,6 +17,9 @@ public class HolyHellSound {
 
     public static final RegistryObject<SoundEvent> HOLY_SHIELD_BLOCK = registerSoundEvents("holy_shield_block");
 
+    public static final RegistryObject<SoundEvent> RINGS_HOLD = registerSoundEvents("rings_hold");
+    public static final RegistryObject<SoundEvent> RINGS_START = registerSoundEvents("rings_start");
+
     private static RegistryObject<SoundEvent> registerSoundEvents(String name) {
         return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(HolyHell.MOD_ID, name)));
     }

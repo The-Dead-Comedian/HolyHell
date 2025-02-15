@@ -16,5 +16,17 @@
     "sounds": [
       "holyhell:holy_shield_block"
     ]
+  },
+  "rings_hold": {
+    "subtitle": "sounds.holyhell.rings_hold",
+    "sounds": [
+      "holyhell:rings_hold"
+    ]
+  },
+  "rings_start": {
+    "subtitle": "sounds.holyhell.rings_start",
+    "sounds": [
+      "holyhell:rings_start"
+    ]
   }
 }

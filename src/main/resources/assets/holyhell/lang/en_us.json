@@ -47,10 +47,14 @@
 
 
   "effect.holyhell.clarity": "Clarity",
-  "sounds.holyhell.clarity_music": "Metal Detector Jingle",
   "effect.holyhell.jesistance": "Jesistance",
-  "effect.holyhell.enlightened": "Enlightened",
   "effect.holyhell.confusion": "Confusion",
+
+  "sounds.holyhell.clarity_music": "Metal Detector Jingle",
+  "sounds.holyhell.cross_fall": "Cross Lands",
+  "sounds.holyhell.holy_shield_block": "Holy Shield Blocks",
+
+
 
   "creativetab.holyhell_tab": "Holy Trinkets"
 }

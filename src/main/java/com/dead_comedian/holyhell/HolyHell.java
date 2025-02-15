@@ -36,6 +36,7 @@ public class HolyHell
         HolyHellItems.register(modEventBus);
         HolyHellSound.register(modEventBus);
         HolyHellBlocks.register(modEventBus);
+        HolyHellEffects.register(modEventBus);
         HolyHellCreativeTab.register(modEventBus);
         HolyHellBlockEntities.register(modEventBus);
     }
