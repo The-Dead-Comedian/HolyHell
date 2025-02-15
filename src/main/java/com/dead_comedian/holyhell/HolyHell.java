@@ -45,6 +45,7 @@ public class HolyHell
         HolyHellEffects.register(modEventBus);
         HolyHellCreativeTab.register(modEventBus);
         HolyHellBlockEntities.register(modEventBus);
+
     }
     private void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(HolyHellModelLayers.RELIGIOUS_RINGS, ReligiousRingsLowerFeatureRenderer::getTexturedModelData);
@@ -70,7 +71,7 @@ public class HolyHell
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-
+            event.enqueueWork(HolyHellItemProperties::addCustomItemProperties);
         }
     }
 }
