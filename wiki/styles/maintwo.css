@@ -88,17 +88,6 @@ html {
   grid-gap: 0px;
   cursor: default;
 }
-
-.boxes2 {
-  display: grid;
-  align-content: center;
-  grid-template-columns: repeat(9, calc(var(--slot-size) + 4px));
-  grid-auto-rows: calc(var(--slot-size) + 4px);
-  grid-gap: 0px;
-  margin-bottom: 6px;
-  cursor: default;
-}
-
 .boxes3 {
   display: grid;
   align-content: center;
@@ -149,24 +138,6 @@ h1 {
   .buff_holder {
     animation: none
   }
-}
-.copperplusplus{
-  background-image: url("https://epxzzy.github.io/creations/icons/cog.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: var(--slot-size);
-  width: var(--slot-size);
-  display: block;
-  cursor: default;
-}
-.papple{
-  background-image: url("https://epxzzy.github.io/creations/icons/pappleicon.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: var(--slot-size);
-  width: var(--slot-size);
-  display: block;
-  cursor: default;
 }
 .tooltip {
   text-decoration: none;

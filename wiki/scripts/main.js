@@ -29,17 +29,4 @@ var pos = function (o, x, y, event) {
 }
 
 minetip.style.display = "none";
-//arrange
-function allowDrop(ev) {
-  ev.preventDefault();
-}
 
-function drag(ev) {
-  ev.dataTransfer.setData("all", ev.target.id);
-}
-
-function drop(ev) {
-  ev.preventDefault();
-  var data = ev.dataTransfer.getData("all");
-  ev.target.appendChild(document.getElementById(data));
-}
