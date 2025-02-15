@@ -47,7 +47,7 @@ public class FallingCrossBlock extends BaseEntityBlock implements EntityBlock, F
             entity.hurt(pLevel.damageSources().fallingBlock(entity), 20);
 
         }
-        pLevel.playSound(null, pPos, HolyHellSound.CROSS_FALL.get(), SoundSource.BLOCKS,3,1);
+        pLevel.playSound(null, pPos, HolyHellSound.CROSS_FALL.get(), SoundSource.BLOCKS,3,1+pLevel.random.nextFloat());
 
     }
 
