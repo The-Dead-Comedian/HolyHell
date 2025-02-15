@@ -8,8 +8,12 @@
     "defaultRequire": 1
   },
   "mixins": [
+    "ArmorTimerEntityMixin",
     "HolyShieldMixin",
     "HolyShieldSoundMixin",
     "ReligiousRingsMixin"
+  ],
+  "client": [
+    "FeatureRendererMixin"
   ]
 }

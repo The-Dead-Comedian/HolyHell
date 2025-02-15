@@ -27,6 +27,12 @@ public class HolyHellCreativeTab {
                         pOutput.accept(HolyHellItems.HOLY_SHIELD.get());
                         pOutput.accept(HolyHellItems.RELIGIOUS_RINGS.get());
 
+                        pOutput.accept(HolyHellItems.EVANGELIST_HELMET.get());
+                        pOutput.accept(HolyHellItems.EVANGELIST_CHESTPLATE.get());
+                        pOutput.accept(HolyHellItems.EVANGELIST_LEGGINGS.get());
+                        pOutput.accept(HolyHellItems.EVANGELIST_BOOTS   .get());
+
+
                         pOutput.accept(HolyHellBlocks.DIVINING_TABLE.get());
                         pOutput.accept(HolyHellBlocks.GLOBE.get());
                         pOutput.accept(HolyHellBlocks.CANDELABRA.get());

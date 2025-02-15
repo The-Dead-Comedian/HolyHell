@@ -2,10 +2,13 @@ package com.dead_comedian.holyhell.registries;
 
 
 import com.dead_comedian.holyhell.HolyHell;
+import com.dead_comedian.holyhell.item.HolyhellArmorMaterials;
+import com.dead_comedian.holyhell.item.custom.EvangelistArmorItem;
 import com.dead_comedian.holyhell.item.custom.ReligiousRingsItem;
 import com.dead_comedian.holyhell.item.custom.SaintEyeItem;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.food.Foods;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ShieldItem;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -25,6 +28,8 @@ public class HolyHellItems {
             () -> new ShieldItem(new Item.Properties().durability(1000)));
     public static final RegistryObject<Item> RELIGIOUS_RINGS = ITEMS.register("religious_rings",
             () -> new ReligiousRingsItem(new Item.Properties()));
+
+
 //    public static final Item HOLY_GRAIL = registerItem("holy_grail", new HolyGrailItem(HolyhellToolMaterial.GRAIL,12, -2.6F, new FabricItemSettings()));
 //    public static final Item HOLY_SHIELD = registerItem("holy_shield", new HolyShieldItem(new FabricItemSettings().maxDamage(1000)));
 //    public static final Item BLINDING_BOMB = registerItem("blinding_bomb", new BlindingBombItem(new FabricItemSettings()));
@@ -48,7 +53,14 @@ public class HolyHellItems {
     public static final RegistryObject<Item> KEBAB = ITEMS.register("kebab",
             () -> new Item(new Item.Properties().food(Foods.BEEF)));
 
-
+    public static final RegistryObject<Item> EVANGELIST_HELMET = ITEMS.register("evangelist_helmet",
+            () -> new EvangelistArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.HELMET,new Item.Properties()));
+    public static final RegistryObject<Item> EVANGELIST_CHESTPLATE = ITEMS.register("evangelist_chestplate",
+            () -> new EvangelistArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.CHESTPLATE,new Item.Properties()));
+    public static final RegistryObject<Item> EVANGELIST_LEGGINGS = ITEMS.register("evangelist_leggings",
+            () -> new EvangelistArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.LEGGINGS,new Item.Properties()));
+    public static final RegistryObject<Item> EVANGELIST_BOOTS = ITEMS.register("evangelist_boots",
+            () -> new EvangelistArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.BOOTS,new Item.Properties()));
 //    public static final Item EVANGELIST_HELMET = registerItem("evangelist_helmet", new EvangelistArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.HELMET, new FabricItemSettings()));
 //    public static final Item EVANGELIST_CHESTPLATE = registerItem("evangelist_chestplate", new EvangelistArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
 //    public static final Item EVANGELIST_LEGGINGS = registerItem("evangelist_leggings", new EvangelistArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
