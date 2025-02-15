@@ -4,6 +4,7 @@ package com.dead_comedian.holyhell.registries;
 import com.dead_comedian.holyhell.HolyHell;
 import com.dead_comedian.holyhell.item.HolyhellArmorMaterials;
 import com.dead_comedian.holyhell.item.custom.EvangelistArmorItem;
+import com.dead_comedian.holyhell.item.custom.GlobularDomeItem;
 import com.dead_comedian.holyhell.item.custom.ReligiousRingsItem;
 import com.dead_comedian.holyhell.item.custom.SaintEyeItem;
 import net.minecraft.world.food.FoodProperties;
@@ -29,6 +30,8 @@ public class HolyHellItems {
     public static final RegistryObject<Item> RELIGIOUS_RINGS = ITEMS.register("religious_rings",
             () -> new ReligiousRingsItem(new Item.Properties()));
 
+    public static final RegistryObject<Item> GLOBULAR_DOME = ITEMS.register("globular_dome",
+            () -> new GlobularDomeItem(new Item.Properties()));
 
 //    public static final Item HOLY_GRAIL = registerItem("holy_grail", new HolyGrailItem(HolyhellToolMaterial.GRAIL,12, -2.6F, new FabricItemSettings()));
 //    public static final Item HOLY_SHIELD = registerItem("holy_shield", new HolyShieldItem(new FabricItemSettings().maxDamage(1000)));

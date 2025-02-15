@@ -9,6 +9,8 @@
   },
   "mixins": [
     "ArmorTimerEntityMixin",
+    "GlobularDomeImmunityMixin",
+    "GlobularDomePosMixin",
     "HolyShieldMixin",
     "HolyShieldSoundMixin",
     "ReligiousRingsMixin"
