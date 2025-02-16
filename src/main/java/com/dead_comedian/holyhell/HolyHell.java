@@ -3,6 +3,8 @@ package com.dead_comedian.holyhell;
 
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsLowerFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsUpperFeatureRenderer;
+import com.dead_comedian.holyhell.client.renderer.non_living.FallingSwordRenderer;
+import com.dead_comedian.holyhell.client.renderer.non_living.FireBallRenderer;
 import com.dead_comedian.holyhell.client.renderer.non_living.GlobularDomeRenderer;
 import com.dead_comedian.holyhell.registries.*;
 import com.mojang.logging.LogUtils;
@@ -72,8 +74,9 @@ public class HolyHell {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             EntityRenderers.register(HolyHellEntities.GLOBULAR_DOME.get(), GlobularDomeRenderer::new);
+            EntityRenderers.register(HolyHellEntities.FALLING_SWORD.get(), FallingSwordRenderer::new);
             EntityRenderers.register(HolyHellEntities.BLINDING_BOMB.get(), ThrownItemRenderer::new);
-
+            EntityRenderers.register(HolyHellEntities.FIREBALL.get(), FireBallRenderer::new);
             event.enqueueWork(HolyHellItemProperties::addCustomItemProperties);
         }
     }
