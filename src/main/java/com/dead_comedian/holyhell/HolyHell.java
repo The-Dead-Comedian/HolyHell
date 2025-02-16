@@ -8,6 +8,7 @@ import com.dead_comedian.holyhell.registries.*;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.core.LayeredRegistryAccess;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -71,6 +72,7 @@ public class HolyHell {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             EntityRenderers.register(HolyHellEntities.GLOBULAR_DOME.get(), GlobularDomeRenderer::new);
+            EntityRenderers.register(HolyHellEntities.BLINDING_BOMB.get(), ThrownItemRenderer::new);
 
             event.enqueueWork(HolyHellItemProperties::addCustomItemProperties);
         }

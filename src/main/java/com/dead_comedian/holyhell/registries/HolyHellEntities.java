@@ -2,7 +2,9 @@ package com.dead_comedian.holyhell.registries;
 
 
 import com.dead_comedian.holyhell.HolyHell;
+import com.dead_comedian.holyhell.entity.non_living.BlindingBombEntity;
 import com.dead_comedian.holyhell.entity.non_living.GlobularDomeEntity;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -26,6 +28,10 @@ public class HolyHellEntities {
     public static final RegistryObject<EntityType<GlobularDomeEntity>> GLOBULAR_DOME =
             ENTITY_TYPES.register("globular_dome", () -> EntityType.Builder.of(GlobularDomeEntity::new, MobCategory.MISC)
                     .sized(3f, 3f).build("globular_dome"));
+    public static final RegistryObject<EntityType<BlindingBombEntity>> BLINDING_BOMB =
+            ENTITY_TYPES.register("blinding_bomb", () -> EntityType.Builder.<BlindingBombEntity>of(BlindingBombEntity::new, MobCategory.MISC)
+                    .sized(3f, 3f).build("blinding_bomb"));
+
 
 //    public static final EntityType<AngelEntity> ANGEL = Registry.register(BuiltInRegistries.ENTITY_TYPE,
 //            new ResourceLocation(Holyhell.MOD_ID, "angel"),
