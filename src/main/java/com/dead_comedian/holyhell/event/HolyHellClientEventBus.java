@@ -7,6 +7,7 @@ import com.dead_comedian.holyhell.client.model.entity.KamikazeModel;
 import com.dead_comedian.holyhell.client.model.entity.non_living.FallingSwordModel;
 import com.dead_comedian.holyhell.client.model.entity.non_living.FireBallModel;
 import com.dead_comedian.holyhell.client.model.entity.non_living.GlobularDomeModel;
+import com.dead_comedian.holyhell.client.model.entity.non_living.SwordCrossModel;
 import com.dead_comedian.holyhell.particle.LightRingParticle;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
 import com.dead_comedian.holyhell.registries.HolyhellParticles;
@@ -23,6 +24,7 @@ public class HolyHellClientEventBus {
         event.registerLayerDefinition(HolyHellModelLayers.GLOBULAR_DOME, GlobularDomeModel::createBodyLayer);
         event.registerLayerDefinition(HolyHellModelLayers.FALLING_SWORD, FallingSwordModel::createBodyLayer);
         event.registerLayerDefinition(HolyHellModelLayers.FIREBALL, FireBallModel::createBodyLayer);
+        event.registerLayerDefinition(HolyHellModelLayers.SWORD_CROSS, SwordCrossModel::getTexturedModelData);
 
         event.registerLayerDefinition(HolyHellModelLayers.HERETIC, HereticModel::createBodyLayer);
         event.registerLayerDefinition(HolyHellModelLayers.ANGEL, AngelModel::createBodyLayer);

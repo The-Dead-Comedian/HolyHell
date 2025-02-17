@@ -10,6 +10,7 @@ import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsUpperFea
 import com.dead_comedian.holyhell.client.renderer.non_living.FallingSwordRenderer;
 import com.dead_comedian.holyhell.client.renderer.non_living.FireBallRenderer;
 import com.dead_comedian.holyhell.client.renderer.non_living.GlobularDomeRenderer;
+import com.dead_comedian.holyhell.client.renderer.non_living.SwordCrossRenderer;
 import com.dead_comedian.holyhell.registries.*;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -80,7 +81,7 @@ public class HolyHell {
             EntityRenderers.register(HolyHellEntities.FALLING_SWORD.get(), FallingSwordRenderer::new);
             EntityRenderers.register(HolyHellEntities.BLINDING_BOMB.get(), ThrownItemRenderer::new);
             EntityRenderers.register(HolyHellEntities.FIREBALL.get(), FireBallRenderer::new);
-
+            EntityRenderers.register(HolyHellEntities.SWORD_CROSS.get(), SwordCrossRenderer::new);
 
             EntityRenderers.register(HolyHellEntities.ANGEL.get(), AngelRenderer::new);
             EntityRenderers.register(HolyHellEntities.KAMIKAZE.get(), KamikazeRenderer::new);

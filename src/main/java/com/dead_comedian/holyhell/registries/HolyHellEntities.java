@@ -5,10 +5,7 @@ import com.dead_comedian.holyhell.HolyHell;
 import com.dead_comedian.holyhell.entity.AngelEntity;
 import com.dead_comedian.holyhell.entity.HereticEntity;
 import com.dead_comedian.holyhell.entity.KamikazeEntity;
-import com.dead_comedian.holyhell.entity.non_living.BlindingBombEntity;
-import com.dead_comedian.holyhell.entity.non_living.FallingSwordEntity;
-import com.dead_comedian.holyhell.entity.non_living.FireBallEntity;
-import com.dead_comedian.holyhell.entity.non_living.GlobularDomeEntity;
+import com.dead_comedian.holyhell.entity.non_living.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -52,7 +49,9 @@ public static final RegistryObject<EntityType<AngelEntity>> ANGEL =
     public static final RegistryObject<EntityType<FireBallEntity>> FIREBALL =
             ENTITY_TYPES.register("fireball", () -> EntityType.Builder.<FireBallEntity>of(FireBallEntity::new, MobCategory.MISC)
                     .sized(0.5f, 0.25f).build("fireball"));
-
+    public static final RegistryObject<EntityType<SwordCrossEntity>> SWORD_CROSS =
+            ENTITY_TYPES.register("sword_cross", () -> EntityType.Builder.<SwordCrossEntity>of(SwordCrossEntity::new, MobCategory.MISC)
+                    .sized(0.5f, 0.25f).build("sword_cross"));
 //    public static final EntityType<PalladinEntity> PALLADIN = Registry.register(BuiltInRegistries.ENTITY_TYPE,
 //            new ResourceLocation(Holyhell.MOD_ID, "palladin"),
 //            FabricEntityTypeBuilder.create(MobCategory.CREATURE, PalladinEntity::new)

@@ -2,6 +2,7 @@ package com.dead_comedian.holyhell.registries;
 
 
 import com.dead_comedian.holyhell.HolyHell;
+import com.dead_comedian.holyhell.item.HolyHellToolMaterial;
 import com.dead_comedian.holyhell.item.HolyhellArmorMaterials;
 import com.dead_comedian.holyhell.item.custom.*;
 import net.minecraft.world.food.FoodProperties;
@@ -24,6 +25,10 @@ public class HolyHellItems {
 
     public static final RegistryObject<Item> SAINT_EYE = ITEMS.register("saint_eye",
             () -> new SaintEyeItem(new Item.Properties().food(HolyHellFood.SAINT_EYE)));
+
+    public static final RegistryObject<HolyGrailItem> HOLY_GRAIL = ITEMS.register("holy_grail",
+            () -> new HolyGrailItem(HolyHellToolMaterial.GRAIL,12, -2.6F, new Item.Properties()));
+
     public static final RegistryObject<Item> HOLY_SHIELD = ITEMS.register("holy_shield",
             () -> new ShieldItem(new Item.Properties().durability(1000)));
     public static final RegistryObject<Item> RELIGIOUS_RINGS = ITEMS.register("religious_rings",
@@ -42,8 +47,8 @@ public class HolyHellItems {
             () ->new ForgeSpawnEggItem(HolyHellEntities.HERETIC, 0xffefbf, 0xd19822,new Item.Properties()));
 
 
-    //    public static final Item HOLY_GRAIL = registerItem("holy_grail", new HolyGrailItem(HolyhellToolMaterial.GRAIL,12, -2.6F, new FabricItemSettings()));
-//  public static final Item PALLADIN_SPAWN_EGG = registerItem("palladin_spawn_egg", new SpawnEggItem(HolyHellEntities.PALLADIN, 0xffefbf, 0xd19822, new FabricItemSettings()));
+
+       //  public static final Item PALLADIN_SPAWN_EGG = registerItem("palladin_spawn_egg", new SpawnEggItem(HolyHellEntities.PALLADIN, 0xffefbf, 0xd19822, new FabricItemSettings()));
 //    public static final Item BAB_SPAWN_EGG = registerItem("bab_spawn_egg", new SpawnEggItem(HolyHellEntities.BAB_ONE, 0xffefbf, 0xf5c842, new FabricItemSettings()));
 
     public static final RegistryObject<Item> HOLY_TEAR = ITEMS.register("holy_tear",
