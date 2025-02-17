@@ -5,6 +5,7 @@ import com.dead_comedian.holyhell.HolyHell;
 import com.dead_comedian.holyhell.entity.AngelEntity;
 import com.dead_comedian.holyhell.entity.HereticEntity;
 import com.dead_comedian.holyhell.entity.KamikazeEntity;
+import com.dead_comedian.holyhell.entity.PalladinEntity;
 import com.dead_comedian.holyhell.entity.non_living.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -36,6 +37,10 @@ public static final RegistryObject<EntityType<AngelEntity>> ANGEL =
             ENTITY_TYPES.register("heretic", () -> EntityType.Builder.of(HereticEntity::new, MobCategory.CREATURE)
                     .sized(1.5f, 1.2f).build("heretic"));
 
+    public static final RegistryObject<EntityType<PalladinEntity>> PALLADIN     =
+            ENTITY_TYPES.register("palladin", () -> EntityType.Builder.of(PalladinEntity::new, MobCategory.CREATURE)
+                    .sized(1.5f, 2.5f).build("palladin"));
+
 // NON LIVING
     public static final RegistryObject<EntityType<GlobularDomeEntity>> GLOBULAR_DOME =
             ENTITY_TYPES.register("globular_dome", () -> EntityType.Builder.of(GlobularDomeEntity::new, MobCategory.MISC)
@@ -52,11 +57,7 @@ public static final RegistryObject<EntityType<AngelEntity>> ANGEL =
     public static final RegistryObject<EntityType<SwordCrossEntity>> SWORD_CROSS =
             ENTITY_TYPES.register("sword_cross", () -> EntityType.Builder.<SwordCrossEntity>of(SwordCrossEntity::new, MobCategory.MISC)
                     .sized(0.5f, 0.25f).build("sword_cross"));
-//    public static final EntityType<PalladinEntity> PALLADIN = Registry.register(BuiltInRegistries.ENTITY_TYPE,
-//            new ResourceLocation(Holyhell.MOD_ID, "palladin"),
-//            FabricEntityTypeBuilder.create(MobCategory.CREATURE, PalladinEntity::new)
-//                    .dimensions(EntityDimensions.fixed(1.5f, 2.5f)).build());
-//
+
 //    public static final EntityType<BabOneEntity> BAB_ONE = Registry.register(BuiltInRegistries.ENTITY_TYPE,
 //            new ResourceLocation(Holyhell.MOD_ID, "bab_one"),
 //            FabricEntityTypeBuilder.create(MobCategory.CREATURE, BabOneEntity::new)
@@ -76,13 +77,6 @@ public static final RegistryObject<EntityType<AngelEntity>> ANGEL =
 //            new ResourceLocation(Holyhell.MOD_ID, "holy_sprit"),
 //            FabricEntityTypeBuilder.create(MobCategory.CREATURE, HolySpiritEntity::new)
 //                    .dimensions(EntityDimensions.fixed(0.8f, 0.8f)).build());
-//
-
-
-//    public static final EntityType<SwordCrossEntity> SWORD_CROSS = Registry.register(BuiltInRegistries.ENTITY_TYPE,
-//            new ResourceLocation(Holyhell.MOD_ID, "sword_cross"),
-//            FabricEntityTypeBuilder.<SwordCrossEntity>create(MobCategory.CREATURE, SwordCrossEntity::new)
-//                    .dimensions(EntityDimensions.fixed(0.5f, 2f)).build());
 //
 
 

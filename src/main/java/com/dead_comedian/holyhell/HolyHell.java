@@ -4,6 +4,7 @@ package com.dead_comedian.holyhell;
 import com.dead_comedian.holyhell.client.renderer.AngelRenderer;
 import com.dead_comedian.holyhell.client.renderer.HereticRenderer;
 import com.dead_comedian.holyhell.client.renderer.KamikazeRenderer;
+import com.dead_comedian.holyhell.client.renderer.PalladinRenderer;
 import com.dead_comedian.holyhell.client.renderer.feature.AtheistAmazementFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsLowerFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsUpperFeatureRenderer;
@@ -86,6 +87,7 @@ public class HolyHell {
             EntityRenderers.register(HolyHellEntities.ANGEL.get(), AngelRenderer::new);
             EntityRenderers.register(HolyHellEntities.KAMIKAZE.get(), KamikazeRenderer::new);
             EntityRenderers.register(HolyHellEntities.HERETIC.get(), HereticRenderer::new);
+            EntityRenderers.register(HolyHellEntities.PALLADIN.get(), PalladinRenderer::new);
             event.enqueueWork(HolyHellItemProperties::addCustomItemProperties);
         }
     }

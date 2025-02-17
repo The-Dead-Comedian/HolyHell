@@ -45,6 +45,8 @@ public class HolyHellItems {
             () ->new ForgeSpawnEggItem(HolyHellEntities.KAMIKAZE, 0xffefbf, 0xd19822,new Item.Properties()));
     public static final RegistryObject<Item> HERETIC_SPAWN_EGG = ITEMS.register("heretic_spawn_egg",
             () ->new ForgeSpawnEggItem(HolyHellEntities.HERETIC, 0xffefbf, 0xd19822,new Item.Properties()));
+    public static final RegistryObject<Item> PALLADIN_SPAWN_EGG = ITEMS.register("palladin_spawn_egg",
+            () ->new ForgeSpawnEggItem(HolyHellEntities.PALLADIN, 0xffefbf, 0xd19822,new Item.Properties()));
 
 
 
