@@ -2,8 +2,8 @@ package com.dead_comedian.holyhell.client.renderer;
 
 
 import com.dead_comedian.holyhell.HolyHell;
-import com.dead_comedian.holyhell.client.model.entity.KamikazeAngelModel;
-import com.dead_comedian.holyhell.entity.KamikazeAngelEntity;
+import com.dead_comedian.holyhell.client.model.entity.KamikazeModel;
+import com.dead_comedian.holyhell.entity.KamikazeEntity;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -12,20 +12,20 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 
-public class KamikazeAngelRenderer extends MobRenderer<KamikazeAngelEntity, KamikazeAngelModel<KamikazeAngelEntity>> {
+public class KamikazeRenderer extends MobRenderer<KamikazeEntity, KamikazeModel<KamikazeEntity>> {
     private static final ResourceLocation TEXTURE = new ResourceLocation(HolyHell.MOD_ID, "textures/entity/kamikaze_angel.png");
 
-    public KamikazeAngelRenderer(EntityRendererProvider.Context context) {
-        super(context, new KamikazeAngelModel<>(context.bakeLayer(HolyHellModelLayers.KAMIKAZE_ANGEL)), 0.6f);
+    public KamikazeRenderer(EntityRendererProvider.Context context) {
+        super(context, new KamikazeModel<>(context.bakeLayer(HolyHellModelLayers.KAMIKAZE_ANGEL)), 0.6f);
     }
 
     @Override
-    public ResourceLocation getTextureLocation(KamikazeAngelEntity entity) {
+    public ResourceLocation getTextureLocation(KamikazeEntity entity) {
         return TEXTURE;
     }
 
     @Override
-    public void render(KamikazeAngelEntity mobEntity, float f, float g, PoseStack matrixStack,
+    public void render(KamikazeEntity mobEntity, float f, float g, PoseStack matrixStack,
                        MultiBufferSource vertexConsumerProvider, int i) {
 
 

@@ -1,5 +1,6 @@
 package com.dead_comedian.holyhell.mixin;
 
+import com.dead_comedian.holyhell.client.renderer.feature.AtheistAmazementFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsUpperFeatureRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
@@ -22,7 +23,7 @@ public abstract class FeatureRendererMixin {
         ((PlayerRenderer) (Object) this).addLayer(new ReligiousRingsLowerFeatureRenderer<>(
                 ((RenderLayerParent) (Object) this), ctx.getModelSet()));
 
-//        ((PlayerRenderer) (Object) this).addLayer(new AtheistAmazementFeatureRenderer<>(
-//                ((RenderLayerParent) (Object) this), ctx.getModelSet()));
+        ((PlayerRenderer) (Object) this).addLayer(new AtheistAmazementFeatureRenderer<>(
+               ((RenderLayerParent) (Object) this), ctx.getModelSet()));
     }
 }

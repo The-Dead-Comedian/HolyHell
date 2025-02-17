@@ -3,7 +3,8 @@ package com.dead_comedian.holyhell.client.model.entity;// Made with Blockbench 4
 // Paste this class into your mod and generate all required imports
 
 
-import com.dead_comedian.holyhell.entity.KamikazeAngelEntity;
+import com.dead_comedian.holyhell.client.animation.ModAnimations;
+import com.dead_comedian.holyhell.entity.KamikazeEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HierarchicalModel;
@@ -11,11 +12,11 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
-public class KamikazeAngelModel<T extends KamikazeAngelEntity> extends HierarchicalModel<T> {
+public class KamikazeModel<T extends KamikazeEntity> extends HierarchicalModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
 	private final ModelPart body;
 
-	public KamikazeAngelModel(ModelPart root) {
+	public KamikazeModel(ModelPart root) {
 		this.body = root.getChild("body");
 	}
 
@@ -40,7 +41,8 @@ public class KamikazeAngelModel<T extends KamikazeAngelEntity> extends Hierarchi
 
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-
+		this.root().getAllParts().forEach(ModelPart::resetPose);
+		this.animateWalk(ModAnimations.KAMIKAZE_FLY2, limbSwing, limbSwingAmount, 2f, 2.5f);
 	}
 
 	@Override

@@ -15,7 +15,7 @@
 
   "item.holyhell.angel_spawn_egg": "Angel Spawn Egg",
   "item.holyhell.heretic_spawn_egg": "Heretic Spawn Egg",
-  "item.holyhell.kamikaze_angel_spawn_egg": "Kamikaze Angel Spawn Egg",
+  "item.holyhell.kamikaze_spawn_egg": "Kamikaze Spawn Egg",
   "item.holyhell.palladin_spawn_egg": "Palladin Spawn Egg",
   "item.holyhell.bab_spawn_egg": "Bab Spawn Egg",
 
@@ -35,10 +35,9 @@
 
 
   "entity.holyhell.angel" : "Angel",
-  "entity.holyhell.hailing_heretic": "Hailing Heretic",
-  "entity.holyhell.kamikaze_angel": "Kamikaze Angel",
+  "entity.holyhell.heretic": "Heretic",
+  "entity.holyhell.kamikaze": "Kamikaze",
   "entity.holyhell.palladin" : "Palladin",
-  "entity.holyhell.light_beam": "Light Beam",
   "entity.holyhell.holy_spirit": "Holy Spirit",
   "entity.holyhell.bab1": "Level 1 Bab",
   "entity.holyhell.bab2": "Level 2 Bab",

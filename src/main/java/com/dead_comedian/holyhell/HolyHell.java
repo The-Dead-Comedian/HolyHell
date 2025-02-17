@@ -2,7 +2,9 @@ package com.dead_comedian.holyhell;
 
 
 import com.dead_comedian.holyhell.client.renderer.AngelRenderer;
-import com.dead_comedian.holyhell.client.renderer.KamikazeAngelRenderer;
+import com.dead_comedian.holyhell.client.renderer.HereticRenderer;
+import com.dead_comedian.holyhell.client.renderer.KamikazeRenderer;
+import com.dead_comedian.holyhell.client.renderer.feature.AtheistAmazementFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsLowerFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsUpperFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.non_living.FallingSwordRenderer;
@@ -10,10 +12,8 @@ import com.dead_comedian.holyhell.client.renderer.non_living.FireBallRenderer;
 import com.dead_comedian.holyhell.client.renderer.non_living.GlobularDomeRenderer;
 import com.dead_comedian.holyhell.registries.*;
 import com.mojang.logging.LogUtils;
-import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.core.LayeredRegistryAccess;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -58,6 +58,7 @@ public class HolyHell {
     private void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(HolyHellModelLayers.RELIGIOUS_RINGS, ReligiousRingsLowerFeatureRenderer::getTexturedModelData);
         event.registerLayerDefinition(HolyHellModelLayers.RELIGIOUS_RINGSV, ReligiousRingsUpperFeatureRenderer::getTexturedModelData);
+        event.registerLayerDefinition(HolyHellModelLayers.ATHEIST_AMAZEMENT, AtheistAmazementFeatureRenderer::getTexturedModelData);
 
     }
 
@@ -82,7 +83,8 @@ public class HolyHell {
 
 
             EntityRenderers.register(HolyHellEntities.ANGEL.get(), AngelRenderer::new);
-            EntityRenderers.register(HolyHellEntities.KAMIKAZE_ANGEL.get(), KamikazeAngelRenderer::new);
+            EntityRenderers.register(HolyHellEntities.KAMIKAZE.get(), KamikazeRenderer::new);
+            EntityRenderers.register(HolyHellEntities.HERETIC.get(), HereticRenderer::new);
             event.enqueueWork(HolyHellItemProperties::addCustomItemProperties);
         }
     }

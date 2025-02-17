@@ -13,8 +13,8 @@ public class HolyHellModelLayers {
             new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "angel"), "main");
     public static final ModelLayerLocation PALLADIN =
             new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "palladin"), "main");
-    public static final ModelLayerLocation HAILING_HERETIC =
-            new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "hailing_heretic"), "main");
+    public static final ModelLayerLocation HERETIC =
+            new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "heretic"), "main");
     public static final ModelLayerLocation HOLY_SPIRIT =
             new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "holy_spirit"), "main");
     public static final ModelLayerLocation KAMIKAZE_ANGEL =

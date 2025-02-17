@@ -46,7 +46,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 import java.util.function.Predicate;
 
-public class KamikazeAngelEntity extends Monster implements FlyingAnimal {
+public class KamikazeEntity extends Monster implements FlyingAnimal {
 
 
     ///////////////
@@ -70,7 +70,7 @@ public class KamikazeAngelEntity extends Monster implements FlyingAnimal {
     // MISC //
     //////////
 
-    public KamikazeAngelEntity(EntityType<? extends Monster> entityType, Level world) {
+    public KamikazeEntity(EntityType<? extends Monster> entityType, Level world) {
         super(entityType, world);
         this.moveControl = new FlyingMoveControl(this, 20, true);
         this.setPathfindingMalus(BlockPathTypes.LAVA, -1.0F);
@@ -242,17 +242,17 @@ public class KamikazeAngelEntity extends Monster implements FlyingAnimal {
         }
 
         public boolean canUse() {
-            return KamikazeAngelEntity.this.navigation.isDone() && KamikazeAngelEntity.this.random.nextInt(10) == 0;
+            return KamikazeEntity.this.navigation.isDone() && KamikazeEntity.this.random.nextInt(10) == 0;
         }
 
         public boolean canContinueToUse() {
-            return KamikazeAngelEntity.this.navigation.isInProgress();
+            return KamikazeEntity.this.navigation.isInProgress();
         }
 
         public void start() {
             Vec3 vec3d = this.getRandomLocation();
             if (vec3d != null) {
-                KamikazeAngelEntity.this.navigation.moveTo(KamikazeAngelEntity.this.navigation.createPath(BlockPos.containing(vec3d), 1), 1.0);
+                KamikazeEntity.this.navigation.moveTo(KamikazeEntity.this.navigation.createPath(BlockPos.containing(vec3d), 1), 1.0);
             }
 
         }
@@ -260,17 +260,17 @@ public class KamikazeAngelEntity extends Monster implements FlyingAnimal {
         @Nullable
         private Vec3 getRandomLocation() {
             Vec3 vec3d2;
-            vec3d2 = KamikazeAngelEntity.this.getViewVector(0.0F);
+            vec3d2 = KamikazeEntity.this.getViewVector(0.0F);
 
-            Vec3 vec3d3 = HoverRandomPos.getPos(KamikazeAngelEntity.this, 8, 7, vec3d2.x, vec3d2.z, 1.5707964F, 3, 1);
-            return vec3d3 != null ? vec3d3 : AirAndWaterRandomPos.getPos(KamikazeAngelEntity.this, 8, 4, -2, vec3d2.x, vec3d2.z, 1.5707963705062866);
+            Vec3 vec3d3 = HoverRandomPos.getPos(KamikazeEntity.this, 8, 7, vec3d2.x, vec3d2.z, 1.5707964F, 3, 1);
+            return vec3d3 != null ? vec3d3 : AirAndWaterRandomPos.getPos(KamikazeEntity.this, 8, 4, -2, vec3d2.x, vec3d2.z, 1.5707963705062866);
         }
 
     }
 
 
     class KamikazeExplodeGoal extends Goal {
-        private final KamikazeAngelEntity entity;
+        private final KamikazeEntity entity;
         private int timeSinceAttack;
         private double speednt;
         private final PathNavigation navigation;
@@ -281,7 +281,7 @@ public class KamikazeAngelEntity extends Monster implements FlyingAnimal {
 
         public KamikazeExplodeGoal(PathfinderMob mob, double speed, boolean pauseWhenMobIdle) {
 
-            entity = ((KamikazeAngelEntity) mob);
+            entity = ((KamikazeEntity) mob);
             speednt = speed;
             this.navigation = mob.getNavigation();
             this.targetPredicate = TargetingConditions.forCombat().range(this.entity.getAttributeValue(Attributes.FOLLOW_RANGE)).selector((Predicate<LivingEntity>) targetPredicate);
@@ -336,7 +336,7 @@ public class KamikazeAngelEntity extends Monster implements FlyingAnimal {
     // attacking
 
     private static final EntityDataAccessor<Boolean> ATTACKING =
-            SynchedEntityData.defineId(KamikazeAngelEntity.class, EntityDataSerializers.BOOLEAN);
+            SynchedEntityData.defineId(KamikazeEntity.class, EntityDataSerializers.BOOLEAN);
 
     public void setAggressive(boolean attacking) {
         this.entityData.set(ATTACKING, attacking);

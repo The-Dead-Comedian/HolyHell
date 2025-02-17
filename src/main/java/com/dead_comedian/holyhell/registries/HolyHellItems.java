@@ -10,6 +10,7 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.item.SpawnEggItem;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -34,16 +35,15 @@ public class HolyHellItems {
             () -> new BlindingBombItem(new Item.Properties()));
 
     public static final RegistryObject<Item> ANGEL_SPAWN_EGG = ITEMS.register("angel_spawn_egg",
-            () ->new SpawnEggItem(HolyHellEntities.ANGEL.get(), 0xffefbf, 0xd19822,new Item.Properties()));
-    public static final RegistryObject<Item> KAMIKAZE_ANGEL_SPAWN_EGG = ITEMS.register("kamikaze_angel_spawn_egg",
-            () ->new SpawnEggItem(HolyHellEntities.KAMIKAZE_ANGEL.get(), 0xffefbf, 0xd19822,new Item.Properties()));
+            () ->new ForgeSpawnEggItem(HolyHellEntities.ANGEL, 0xffefbf, 0xd19822,new Item.Properties()));
+    public static final RegistryObject<Item> KAMIKAZE_SPAWN_EGG = ITEMS.register("kamikaze_spawn_egg",
+            () ->new ForgeSpawnEggItem(HolyHellEntities.KAMIKAZE, 0xffefbf, 0xd19822,new Item.Properties()));
+    public static final RegistryObject<Item> HERETIC_SPAWN_EGG = ITEMS.register("heretic_spawn_egg",
+            () ->new ForgeSpawnEggItem(HolyHellEntities.HERETIC, 0xffefbf, 0xd19822,new Item.Properties()));
 
 
     //    public static final Item HOLY_GRAIL = registerItem("holy_grail", new HolyGrailItem(HolyhellToolMaterial.GRAIL,12, -2.6F, new FabricItemSettings()));
 //  public static final Item PALLADIN_SPAWN_EGG = registerItem("palladin_spawn_egg", new SpawnEggItem(HolyHellEntities.PALLADIN, 0xffefbf, 0xd19822, new FabricItemSettings()));
-//    public static final Item ANGEL_SPAWN_EGG = registerItem("angel_spawn_egg", new SpawnEggItem(HolyHellEntities.ANGEL, 0xffefbf, 0xd19822, new FabricItemSettings()));
-//    public static final Item KAMIKAZE_ANGEL_SPAWN_EGG = registerItem("kamikaze_angel_spawn_egg", new SpawnEggItem(HolyHellEntities.KAMIKAZE_ANGEL, 0xffefbf, 0xd19822, new FabricItemSettings()));
-//    public static final Item HERETIC_SPAWN_EGG = registerItem("heretic_spawn_egg", new SpawnEggItem(HolyHellEntities.HAILING_HERETIC, 0xffefbf, 0xf5c842, new FabricItemSettings()));
 //    public static final Item BAB_SPAWN_EGG = registerItem("bab_spawn_egg", new SpawnEggItem(HolyHellEntities.BAB_ONE, 0xffefbf, 0xf5c842, new FabricItemSettings()));
 
     public static final RegistryObject<Item> HOLY_TEAR = ITEMS.register("holy_tear",

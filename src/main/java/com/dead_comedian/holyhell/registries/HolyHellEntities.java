@@ -3,12 +3,12 @@ package com.dead_comedian.holyhell.registries;
 
 import com.dead_comedian.holyhell.HolyHell;
 import com.dead_comedian.holyhell.entity.AngelEntity;
-import com.dead_comedian.holyhell.entity.KamikazeAngelEntity;
+import com.dead_comedian.holyhell.entity.HereticEntity;
+import com.dead_comedian.holyhell.entity.KamikazeEntity;
 import com.dead_comedian.holyhell.entity.non_living.BlindingBombEntity;
 import com.dead_comedian.holyhell.entity.non_living.FallingSwordEntity;
 import com.dead_comedian.holyhell.entity.non_living.FireBallEntity;
 import com.dead_comedian.holyhell.entity.non_living.GlobularDomeEntity;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -28,11 +28,17 @@ public class HolyHellEntities {
 
 //    MOBS
 public static final RegistryObject<EntityType<AngelEntity>> ANGEL =
-        ENTITY_TYPES.register("angel", () -> EntityType.Builder.of(AngelEntity::new, MobCategory.MONSTER)
-                .sized(3f, 3f).build("angel"));
-    public static final RegistryObject<EntityType<KamikazeAngelEntity>> KAMIKAZE_ANGEL =
-            ENTITY_TYPES.register("kamikaze_angel", () -> EntityType.Builder.of(KamikazeAngelEntity::new, MobCategory.MONSTER)
-                    .sized(3f, 3f).build("kamikaze_angel"));
+        ENTITY_TYPES.register("angel", () -> EntityType.Builder.of(AngelEntity::new, MobCategory.CREATURE)
+                .sized(0.8f, 1.5f).build("angel"));
+
+    public static final RegistryObject<EntityType<KamikazeEntity>> KAMIKAZE     =
+            ENTITY_TYPES.register("kamikaze", () -> EntityType.Builder.of(KamikazeEntity::new, MobCategory.CREATURE)
+                    .sized(0.8f, 1.5f).build("kamikaze"));
+
+    public static final RegistryObject<EntityType<HereticEntity>> HERETIC     =
+            ENTITY_TYPES.register("heretic", () -> EntityType.Builder.of(HereticEntity::new, MobCategory.CREATURE)
+                    .sized(1.5f, 1.2f).build("heretic"));
+
 // NON LIVING
     public static final RegistryObject<EntityType<GlobularDomeEntity>> GLOBULAR_DOME =
             ENTITY_TYPES.register("globular_dome", () -> EntityType.Builder.of(GlobularDomeEntity::new, MobCategory.MISC)
@@ -46,18 +52,7 @@ public static final RegistryObject<EntityType<AngelEntity>> ANGEL =
     public static final RegistryObject<EntityType<FireBallEntity>> FIREBALL =
             ENTITY_TYPES.register("fireball", () -> EntityType.Builder.<FireBallEntity>of(FireBallEntity::new, MobCategory.MISC)
                     .sized(0.5f, 0.25f).build("fireball"));
-//    public static final EntityType<AngelEntity> ANGEL = Registry.register(BuiltInRegistries.ENTITY_TYPE,
-//            new ResourceLocation(Holyhell.MOD_ID, "angel"),
-//            FabricEntityTypeBuilder.create(MobCategory.CREATURE, AngelEntity::new)
-//                    .dimensions(EntityDimensions.fixed(0.8f, 1.5f)).build());
-//    public static final EntityType<KamikazeAngelEntity> KAMIKAZE_ANGEL = Registry.register(BuiltInRegistries.ENTITY_TYPE,
-//            new ResourceLocation(Holyhell.MOD_ID, "kamikaze_angel"),
-//            FabricEntityTypeBuilder.create(MobCategory.CREATURE, KamikazeAngelEntity::new)
-//                    .dimensions(EntityDimensions.fixed(0.8f, 0.8f)).build());
-//    public static final EntityType<HailingHereticEntity> HAILING_HERETIC = Registry.register(BuiltInRegistries.ENTITY_TYPE,
-//            new ResourceLocation(Holyhell.MOD_ID, "hailing_heretic"),
-//            FabricEntityTypeBuilder.create(MobCategory.CREATURE, HailingHereticEntity::new)
-//                    .dimensions(EntityDimensions.fixed(1.5f, 1.2f)).build());
+
 //    public static final EntityType<PalladinEntity> PALLADIN = Registry.register(BuiltInRegistries.ENTITY_TYPE,
 //            new ResourceLocation(Holyhell.MOD_ID, "palladin"),
 //            FabricEntityTypeBuilder.create(MobCategory.CREATURE, PalladinEntity::new)
