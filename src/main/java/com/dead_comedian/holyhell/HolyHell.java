@@ -1,6 +1,8 @@
 package com.dead_comedian.holyhell;
 
 
+import com.dead_comedian.holyhell.client.renderer.AngelRenderer;
+import com.dead_comedian.holyhell.client.renderer.KamikazeAngelRenderer;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsLowerFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsUpperFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.non_living.FallingSwordRenderer;
@@ -77,6 +79,10 @@ public class HolyHell {
             EntityRenderers.register(HolyHellEntities.FALLING_SWORD.get(), FallingSwordRenderer::new);
             EntityRenderers.register(HolyHellEntities.BLINDING_BOMB.get(), ThrownItemRenderer::new);
             EntityRenderers.register(HolyHellEntities.FIREBALL.get(), FireBallRenderer::new);
+
+
+            EntityRenderers.register(HolyHellEntities.ANGEL.get(), AngelRenderer::new);
+            EntityRenderers.register(HolyHellEntities.KAMIKAZE_ANGEL.get(), KamikazeAngelRenderer::new);
             event.enqueueWork(HolyHellItemProperties::addCustomItemProperties);
         }
     }

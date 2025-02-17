@@ -9,6 +9,7 @@ import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ShieldItem;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -31,7 +32,14 @@ public class HolyHellItems {
             () -> new GlobularDomeItem(new Item.Properties()));
     public static final RegistryObject<Item> BLINDING_BOMB = ITEMS.register("blinding_bomb",
             () -> new BlindingBombItem(new Item.Properties()));
-//    public static final Item HOLY_GRAIL = registerItem("holy_grail", new HolyGrailItem(HolyhellToolMaterial.GRAIL,12, -2.6F, new FabricItemSettings()));
+
+    public static final RegistryObject<Item> ANGEL_SPAWN_EGG = ITEMS.register("angel_spawn_egg",
+            () ->new SpawnEggItem(HolyHellEntities.ANGEL.get(), 0xffefbf, 0xd19822,new Item.Properties()));
+    public static final RegistryObject<Item> KAMIKAZE_ANGEL_SPAWN_EGG = ITEMS.register("kamikaze_angel_spawn_egg",
+            () ->new SpawnEggItem(HolyHellEntities.KAMIKAZE_ANGEL.get(), 0xffefbf, 0xd19822,new Item.Properties()));
+
+
+    //    public static final Item HOLY_GRAIL = registerItem("holy_grail", new HolyGrailItem(HolyhellToolMaterial.GRAIL,12, -2.6F, new FabricItemSettings()));
 //  public static final Item PALLADIN_SPAWN_EGG = registerItem("palladin_spawn_egg", new SpawnEggItem(HolyHellEntities.PALLADIN, 0xffefbf, 0xd19822, new FabricItemSettings()));
 //    public static final Item ANGEL_SPAWN_EGG = registerItem("angel_spawn_egg", new SpawnEggItem(HolyHellEntities.ANGEL, 0xffefbf, 0xd19822, new FabricItemSettings()));
 //    public static final Item KAMIKAZE_ANGEL_SPAWN_EGG = registerItem("kamikaze_angel_spawn_egg", new SpawnEggItem(HolyHellEntities.KAMIKAZE_ANGEL, 0xffefbf, 0xd19822, new FabricItemSettings()));

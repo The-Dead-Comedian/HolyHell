@@ -2,6 +2,8 @@ package com.dead_comedian.holyhell.registries;
 
 
 import com.dead_comedian.holyhell.HolyHell;
+import com.dead_comedian.holyhell.entity.AngelEntity;
+import com.dead_comedian.holyhell.entity.KamikazeAngelEntity;
 import com.dead_comedian.holyhell.entity.non_living.BlindingBombEntity;
 import com.dead_comedian.holyhell.entity.non_living.FallingSwordEntity;
 import com.dead_comedian.holyhell.entity.non_living.FireBallEntity;
@@ -24,8 +26,13 @@ public class HolyHellEntities {
 
 
 
-//    //MOBS
-//
+//    MOBS
+public static final RegistryObject<EntityType<AngelEntity>> ANGEL =
+        ENTITY_TYPES.register("angel", () -> EntityType.Builder.of(AngelEntity::new, MobCategory.MONSTER)
+                .sized(3f, 3f).build("angel"));
+    public static final RegistryObject<EntityType<KamikazeAngelEntity>> KAMIKAZE_ANGEL =
+            ENTITY_TYPES.register("kamikaze_angel", () -> EntityType.Builder.of(KamikazeAngelEntity::new, MobCategory.MONSTER)
+                    .sized(3f, 3f).build("kamikaze_angel"));
 // NON LIVING
     public static final RegistryObject<EntityType<GlobularDomeEntity>> GLOBULAR_DOME =
             ENTITY_TYPES.register("globular_dome", () -> EntityType.Builder.of(GlobularDomeEntity::new, MobCategory.MISC)

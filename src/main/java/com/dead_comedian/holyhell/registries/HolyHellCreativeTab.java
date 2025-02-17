@@ -41,7 +41,8 @@ public class HolyHellCreativeTab {
                         pOutput.accept(HolyHellItems.EVANGELIST_LEGGINGS.get());
                         pOutput.accept(HolyHellItems.EVANGELIST_BOOTS.get());
 
-
+                        pOutput.accept(HolyHellItems.ANGEL_SPAWN_EGG.get());
+                        pOutput.accept(HolyHellItems.KAMIKAZE_ANGEL_SPAWN_EGG.get());
                     })
                     .build());
 
