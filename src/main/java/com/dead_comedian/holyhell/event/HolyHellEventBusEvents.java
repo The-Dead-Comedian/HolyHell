@@ -2,10 +2,7 @@ package com.dead_comedian.holyhell.event;
 
 
 import com.dead_comedian.holyhell.HolyHell;
-import com.dead_comedian.holyhell.entity.AngelEntity;
-import com.dead_comedian.holyhell.entity.HereticEntity;
-import com.dead_comedian.holyhell.entity.KamikazeEntity;
-import com.dead_comedian.holyhell.entity.PalladinEntity;
+import com.dead_comedian.holyhell.entity.*;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -19,5 +16,10 @@ public class HolyHellEventBusEvents {
         event.put(HolyHellEntities.KAMIKAZE.get(), KamikazeEntity.createKamikazeAttributes().build());
         event.put(HolyHellEntities.HERETIC.get(), HereticEntity.createHereticAttributes().build());
         event.put(HolyHellEntities.PALLADIN.get(), PalladinEntity.createPalladinAttributes().build());
+        event.put(HolyHellEntities.BAB_ONE.get(), BabOneEntity.createBabOneAttributes().build());
+        event.put(HolyHellEntities.BAB_TWO.get(), BabTwoEntity.createBabTwoAttributes().build());
+        event.put(HolyHellEntities.BAB_THREE.get(), BabThreeEntity.createBabThreeAttributes().build());
+        event.put(HolyHellEntities.HOLY_SPIRIT.get(), HolySpiritEntity.createHolySpiritAttributes().build());
+
     }
 }

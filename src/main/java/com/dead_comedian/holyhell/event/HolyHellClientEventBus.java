@@ -1,6 +1,10 @@
 package com.dead_comedian.holyhell.event;
 
 import com.dead_comedian.holyhell.HolyHell;
+import com.dead_comedian.holyhell.client.model.BabOneModel;
+import com.dead_comedian.holyhell.client.model.BabThreeModel;
+import com.dead_comedian.holyhell.client.model.BabTwoModel;
+import com.dead_comedian.holyhell.client.model.HolySpiritModel;
 import com.dead_comedian.holyhell.client.model.entity.AngelModel;
 import com.dead_comedian.holyhell.client.model.entity.HereticModel;
 import com.dead_comedian.holyhell.client.model.entity.KamikazeModel;
@@ -30,7 +34,12 @@ public class HolyHellClientEventBus {
         event.registerLayerDefinition(HolyHellModelLayers.HERETIC, HereticModel::createBodyLayer);
         event.registerLayerDefinition(HolyHellModelLayers.ANGEL, AngelModel::createBodyLayer);
         event.registerLayerDefinition(HolyHellModelLayers.KAMIKAZE_ANGEL, KamikazeModel::createBodyLayer);
+        event.registerLayerDefinition(HolyHellModelLayers.BAB, BabOneModel::getTexturedModelData);
+        event.registerLayerDefinition(HolyHellModelLayers.BAB1, BabTwoModel::getTexturedModelData);
+        event.registerLayerDefinition(HolyHellModelLayers.BAB2, BabThreeModel::getTexturedModelData);
+        event.registerLayerDefinition(HolyHellModelLayers.HOLY_SPIRIT, HolySpiritModel  ::getTexturedModelData);
         event.registerLayerDefinition(HolyHellModelLayers.PALLADIN, PalladinModel::getTexturedModelData);
+
     }
     @SubscribeEvent
     public static void registerParticleFactories(RegisterParticleProvidersEvent event) {

@@ -1,10 +1,7 @@
 package com.dead_comedian.holyhell;
 
 
-import com.dead_comedian.holyhell.client.renderer.AngelRenderer;
-import com.dead_comedian.holyhell.client.renderer.HereticRenderer;
-import com.dead_comedian.holyhell.client.renderer.KamikazeRenderer;
-import com.dead_comedian.holyhell.client.renderer.PalladinRenderer;
+import com.dead_comedian.holyhell.client.renderer.*;
 import com.dead_comedian.holyhell.client.renderer.feature.AtheistAmazementFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsLowerFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsUpperFeatureRenderer;
@@ -12,6 +9,7 @@ import com.dead_comedian.holyhell.client.renderer.non_living.FallingSwordRendere
 import com.dead_comedian.holyhell.client.renderer.non_living.FireBallRenderer;
 import com.dead_comedian.holyhell.client.renderer.non_living.GlobularDomeRenderer;
 import com.dead_comedian.holyhell.client.renderer.non_living.SwordCrossRenderer;
+import com.dead_comedian.holyhell.entity.BabOneEntity;
 import com.dead_comedian.holyhell.registries.*;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -88,6 +86,10 @@ public class HolyHell {
             EntityRenderers.register(HolyHellEntities.KAMIKAZE.get(), KamikazeRenderer::new);
             EntityRenderers.register(HolyHellEntities.HERETIC.get(), HereticRenderer::new);
             EntityRenderers.register(HolyHellEntities.PALLADIN.get(), PalladinRenderer::new);
+            EntityRenderers.register(HolyHellEntities.BAB_ONE.get(), BabOneRenderer::new);
+            EntityRenderers.register(HolyHellEntities.BAB_TWO.get(), BabTwoRenderer::new);
+            EntityRenderers.register(HolyHellEntities.BAB_THREE .get(), BabThreeRenderer::new);
+            EntityRenderers.register(HolyHellEntities.HOLY_SPIRIT.get(), HolySpiritRenderer::new);
             event.enqueueWork(HolyHellItemProperties::addCustomItemProperties);
         }
     }
