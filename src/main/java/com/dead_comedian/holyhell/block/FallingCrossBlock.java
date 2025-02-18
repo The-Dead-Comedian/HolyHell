@@ -5,8 +5,11 @@ import com.dead_comedian.holyhell.registries.HolyHellBlockEntities;
 
 
 import com.dead_comedian.holyhell.registries.HolyHellSound;
+import com.dead_comedian.holyhell.registries.HolyhellParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -32,6 +35,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Random;
 
 public class FallingCrossBlock extends BaseEntityBlock implements EntityBlock, Fallable {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -45,15 +49,20 @@ public class FallingCrossBlock extends BaseEntityBlock implements EntityBlock, F
         List<Entity> wiw = pLevel.getEntities(null, new AABB(pPos).inflate(1, 1, 1));
         for (Entity entity : wiw) {
             entity.hurt(pLevel.damageSources().fallingBlock(entity), 20);
-
         }
-        pLevel.playSound(null, pPos, HolyHellSound.CROSS_FALL.get(), SoundSource.BLOCKS,3,1+pLevel.random.nextFloat());
+        for (int i = 0; i < 20; i++) {
+
+            if (pLevel instanceof ServerLevel) {
+                ((ServerLevel) pLevel).sendParticles(ParticleTypes.CAMPFIRE_SIGNAL_SMOKE.getType(), (double)pPos.getX(), (double)pPos.getY(),(double) pPos.getZ(), 15, 1.0, 1.0, 1.0,0.2);
+            }
+        }
+        pLevel.playSound(null, pPos, HolyHellSound.CROSS_FALL.get(), SoundSource.BLOCKS, 3, 1 + pLevel.random.nextFloat());
 
     }
 
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        pLevel.playLocalSound(pPos, HolyHellSound.CROSS_FALL.get(), SoundSource.BLOCKS,6,1,true);
+        pLevel.playLocalSound(pPos, HolyHellSound.CROSS_FALL.get(), SoundSource.BLOCKS, 6, 1, true);
 
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }

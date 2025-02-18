@@ -30,7 +30,6 @@ public abstract class GlobularDomePosMixin extends LivingEntity {
         for (Entity entity : entityBelow) {
             if (this.canCollideWith(entity) && entity instanceof GlobularDomeEntity) {
                 double x = this.getX();
-                double y = this.getY();
                 double z = this.getZ();
                 this.teleportToWithTicket(x, entity.getY(), z);
 
