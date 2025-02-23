@@ -68,7 +68,7 @@ public class HolyHellBlocks {
                     .strength(3F)
                     .noOcclusion()
                     .requiresCorrectToolForDrops()
-                    .sound(SoundType.LANTERN)
+                    .sound(HolyHellSound.CANDELABRA_SOUNDS)
                     .lightLevel(CandelabraBlock.LIGHT_EMISSION),ParticleTypes.FLAME));
 
     public static final RegistryObject<Block> CANDLE_HOLDER = registerBlock("candleholder",
@@ -79,7 +79,7 @@ public class HolyHellBlocks {
                     .strength(3F)
                     .noOcclusion()
                     .requiresCorrectToolForDrops()
-                    .sound(SoundType.LANTERN)
+                    .sound(HolyHellSound.CANDELABRA_SOUNDS)
                     .lightLevel(CandleholderBlock.LIGHT_EMISSION),ParticleTypes.FLAME));
 
     public static final RegistryObject<Block> FALLING_CROSS = registerBlock("falling_cross",

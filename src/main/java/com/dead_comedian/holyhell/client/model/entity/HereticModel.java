@@ -11,14 +11,16 @@ import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import org.joml.Math;
 
 public class HereticModel<T extends HereticEntity> extends HierarchicalModel<T> {
 
 	private final ModelPart hole;
-
+	private final ModelPart head;
 
 	public HereticModel(ModelPart root) {
 		this.hole = root.getChild("hole");
+		this.head = root.getChild("hole").getChild("bottom").getChild("body").getChild("head");
 
 	}
 
@@ -53,10 +55,19 @@ public class HereticModel<T extends HereticEntity> extends HierarchicalModel<T> 
 	@Override
 	public void setupAnim(HereticEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+		this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
 		this.animateWalk(ModAnimations.HERETIC_WALK, limbSwing, limbSwingAmount, 2f, 2.5f);
 
 		this.animate(entity.attackAnimationState, ModAnimations.HERETIC_ATTACK, ageInTicks, 1f);
 
+	}
+
+	private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {
+		pNetHeadYaw = Math.clamp(pNetHeadYaw, -30.0F, 30.0F);
+		pHeadPitch = Math.clamp(pHeadPitch, -25.0F, 45.0F);
+
+		this.head.yRot = pNetHeadYaw * ((float) Math.PI / 180F);
+		this.head.xRot = pHeadPitch * ((float) Math.PI / 180F);
 	}
 
 	@Override

@@ -5,6 +5,7 @@ import com.dead_comedian.holyhell.registries.HolyHellEffects;
 import javax.swing.*;
 
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
@@ -23,7 +24,7 @@ public class ReligiousRingsItem extends Item {
         if (!world.isClientSide()) {
 
             user.addEffect(new MobEffectInstance(HolyHellEffects.JESISTANCE.get(), 2000, 1));
-
+            return InteractionResultHolder.success(user.getItemInHand(hand));
         }
         if (!user.isCreative()) {
             user.getItemInHand(hand).shrink(1);

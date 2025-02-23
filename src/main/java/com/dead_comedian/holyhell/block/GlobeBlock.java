@@ -14,6 +14,9 @@ public class GlobeBlock extends HorizontalDirectionalBlock {
     public GlobeBlock(Properties settings) {
         super(settings);
     }
+
+
+
     @Override
     public RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
@@ -24,6 +27,8 @@ public class GlobeBlock extends HorizontalDirectionalBlock {
     public BlockState getStateForPlacement(BlockPlaceContext p_49820_) {
         return this.defaultBlockState().setValue(FACING, p_49820_.getHorizontalDirection().getOpposite());
     }
+
+
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_49915_) {

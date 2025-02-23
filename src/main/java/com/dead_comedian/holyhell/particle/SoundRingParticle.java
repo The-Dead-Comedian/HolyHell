@@ -2,6 +2,7 @@
 package com.dead_comedian.holyhell.particle;
 
 
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
@@ -10,17 +11,17 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+
 import java.util.function.Consumer;
 
-public class LightRingParticle extends TextureSheetParticle {
+public class SoundRingParticle extends TextureSheetParticle {
 
 
     private static final Vector3f field_38334 = (new Vector3f(0.5F, 0.5F, 0.5F)).normalize();
     private static final Vector3f field_38335 = new Vector3f(-1.0F, -1.0F, 0.0F);
 
 
-    public LightRingParticle(ClientLevel world, double xCoord, double yCoord, double zCoord,
+    public SoundRingParticle(ClientLevel world, double xCoord, double yCoord, double zCoord,
                              SpriteSet spriteSet, double xd, double yd, double zd) {
         super(world, xCoord, yCoord, zCoord, xd, yd, zd);
 
@@ -58,7 +59,7 @@ public class LightRingParticle extends TextureSheetParticle {
 
         public Particle createParticle(SimpleParticleType particleType, ClientLevel clientWorld,
                                        double x, double y, double z, double xd, double yd, double zd) {
-            return new LightRingParticle(clientWorld, x, y, z, this.sprites, xd, yd, zd);
+            return new SoundRingParticle(clientWorld, x, y, z, this.sprites, xd, yd, zd);
         }
     }
 
@@ -68,11 +69,10 @@ public class LightRingParticle extends TextureSheetParticle {
         this.buildGeometry(vertexConsumer, camera, tickDelta, (quaternion) -> {
             quaternion.mul((new Quaternionf()).rotationX(-36.14F));
         });
+
         this.buildGeometry(vertexConsumer, camera, tickDelta, (quaternion) -> {
             quaternion.mul((new Quaternionf()).rotationYXZ(-(float)Math.PI, 36.14F, 0.0F));
         });
-
-
 
     }
 
@@ -115,7 +115,7 @@ public class LightRingParticle extends TextureSheetParticle {
 
         public Particle createParticle(SimpleParticleType particleType, ClientLevel level, double pX, double pY, double pZ,
                                        double pXSpeed, double pYSpeed, double pZSpeed) {
-            return new LightRingParticle(level, pX, pY, pZ,  this.spriteSet, pXSpeed, pYSpeed, pZSpeed);
+            return new SoundRingParticle(level, pX, pY, pZ,  this.spriteSet, pXSpeed, pYSpeed, pZSpeed);
         }
     }
 }

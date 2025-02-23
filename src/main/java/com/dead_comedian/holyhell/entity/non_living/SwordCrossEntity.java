@@ -2,6 +2,8 @@ package com.dead_comedian.holyhell.entity.non_living;
 
 
 import java.util.List;
+
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -10,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class SwordCrossEntity extends AbstractArrow {
+public class SwordCrossEntity extends Entity {
 
     int cooldown;
 
@@ -31,11 +33,19 @@ public class SwordCrossEntity extends AbstractArrow {
     }
 
     @Override
-    protected void onHitBlock(BlockHitResult blockHitResult) {
-        super.onHitBlock(blockHitResult);
+    protected void readAdditionalSaveData(CompoundTag pCompound) {
 
     }
 
+    @Override
+    protected void addAdditionalSaveData(CompoundTag pCompound) {
+
+    }
+
+    @Override
+    protected void defineSynchedData() {
+
+    }
 
     @Override
     public void tick() {
@@ -66,11 +76,5 @@ public class SwordCrossEntity extends AbstractArrow {
     public boolean canCollideWith(Entity other) {
         return canCollide(this, other);
     }
-
-    @Override
-    protected ItemStack getPickupItem() {
-        return null;
-    }
-
 
 }

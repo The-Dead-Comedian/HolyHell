@@ -2,7 +2,7 @@ package com.dead_comedian.holyhell.client.renderer;
 
 
 import com.dead_comedian.holyhell.HolyHell;
-import com.dead_comedian.holyhell.client.model.BabOneModel;
+import com.dead_comedian.holyhell.client.model.entity.BabOneModel;
 
 import com.dead_comedian.holyhell.entity.BabOneEntity;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;

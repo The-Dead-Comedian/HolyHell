@@ -9,7 +9,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntity.class)
-public abstract class HolyShieldSoundMixin {
+public abstract class LivingEntityMixin {
+
+    //Holy Shield Sound
     @Inject(
             method = "handleEntityEvent",
             at = @At(value = "HEAD"), cancellable = true)

@@ -25,6 +25,10 @@ public class HolyHellModelLayers {
             new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "bab1"), "main");
     public static final ModelLayerLocation BAB2 =
             new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "bab2"), "main");
+    public static final ModelLayerLocation CHERUB =
+            new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "cherub"), "main");
+
+
 
     public static final ModelLayerLocation FIREBALL =
             new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "fireball"), "main");
@@ -34,16 +38,11 @@ public class HolyHellModelLayers {
             new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "sword_cross"), "main");
     public static final ModelLayerLocation GLOBULAR_DOME =
             new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "globular_dome"), "main");
-    public static final ModelLayerLocation BLINDING_BOMB =
-            new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "blinding_bomb"), "main");
-
 
 
     public static final ModelLayerLocation RELIGIOUS_RINGS =
             new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "religious_rings"), "main");
     public static final ModelLayerLocation RELIGIOUS_RINGSV =
             new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "religious_ringsv"), "main");
-    public static final ModelLayerLocation ATHEIST_AMAZEMENT =
-            new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "atheist_amazement"), "main");
 
 }

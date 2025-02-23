@@ -50,6 +50,9 @@ public static final RegistryObject<EntityType<AngelEntity>> ANGEL =
     public static final RegistryObject<EntityType<HolySpiritEntity>> HOLY_SPIRIT     =
             ENTITY_TYPES.register("holy_spirit", () -> EntityType.Builder.of(HolySpiritEntity::new, MobCategory.CREATURE)
                     .sized(0.8f, 0.8f).build("holy_spirit"));
+    public static final RegistryObject<EntityType<CherubEntity>> CHERUB     =
+            ENTITY_TYPES.register("cherub", () -> EntityType.Builder.of(CherubEntity::new, MobCategory.CREATURE)
+                    .sized(0.8f, 1.1f).build("cherub"));
 
 // NON LIVING
     public static final RegistryObject<EntityType<GlobularDomeEntity>> GLOBULAR_DOME =
@@ -67,7 +70,6 @@ public static final RegistryObject<EntityType<AngelEntity>> ANGEL =
     public static final RegistryObject<EntityType<SwordCrossEntity>> SWORD_CROSS =
             ENTITY_TYPES.register("sword_cross", () -> EntityType.Builder.<SwordCrossEntity>of(SwordCrossEntity::new, MobCategory.MISC)
                     .sized(0.5f, 0.25f).build("sword_cross"));
-
 
 
 

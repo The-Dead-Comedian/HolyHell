@@ -3,7 +3,7 @@ package com.dead_comedian.holyhell.client.renderer;
 
 
 import com.dead_comedian.holyhell.HolyHell;
-import com.dead_comedian.holyhell.client.model.BabThreeModel;
+import com.dead_comedian.holyhell.client.model.entity.BabThreeModel;
 import com.dead_comedian.holyhell.entity.BabThreeEntity;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;

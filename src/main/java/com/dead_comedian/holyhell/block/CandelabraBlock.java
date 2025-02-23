@@ -1,10 +1,13 @@
 package com.dead_comedian.holyhell.block;
 
 import com.dead_comedian.holyhell.registries.HolyHellBlocks;
+import com.dead_comedian.holyhell.registries.HolyHellSound;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -54,6 +57,8 @@ public class CandelabraBlock extends Block {
     ItemStack itemStack = pPlayer.getItemInHand(pHand);
         if (itemStack.is(Items.FLINT_AND_STEEL) && !pState.getValue(LIT)) {
             pLevel.setBlock(pPos, pState.setValue(LIT, true), 11);
+            pLevel.playLocalSound(pPos, HolyHellSound.CANDELABRA_LIGHT.get(), SoundSource.BLOCKS, 1, 1 + pLevel.random.nextInt(), false);
+
             return InteractionResult.SUCCESS;
         }
         if (pState.getValue(LIT) && itemStack.isEmpty()) {
@@ -64,7 +69,7 @@ public class CandelabraBlock extends Block {
            if (!pPlayer.isCreative()){
             itemStack.shrink(1);}
             pLevel.setBlock(pPos, pState.setValue(CANDLE, pState.getValue(CANDLE) + 1),11);
-
+            pLevel.playLocalSound(pPos, HolyHellSound.CANDELABRA_PLACE.get(), SoundSource.BLOCKS, 1, 1 + pLevel.random.nextInt(), false);
             return InteractionResult.SUCCESS;
         }
 

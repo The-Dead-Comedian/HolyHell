@@ -8,13 +8,9 @@
     "defaultRequire": 1
   },
   "mixins": [
-    "ArmorTimerEntityMixin",
-    "GlobularDomeImmunityMixin",
-    "GlobularDomePosMixin",
-    "HolyShieldMixin",
-    "HolyShieldSoundMixin",
-    "ReligiousRingsMixin",
-    "SwordCrossEntityMixin"
+    "PlayerEntityMixin",
+    "LivingEntityMixin"
+
   ],
   "client": [
     "FeatureRendererMixin"

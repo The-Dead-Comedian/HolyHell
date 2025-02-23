@@ -1,19 +1,12 @@
 package com.dead_comedian.holyhell.event;
 
 import com.dead_comedian.holyhell.HolyHell;
-import com.dead_comedian.holyhell.client.model.BabOneModel;
-import com.dead_comedian.holyhell.client.model.BabThreeModel;
-import com.dead_comedian.holyhell.client.model.BabTwoModel;
-import com.dead_comedian.holyhell.client.model.HolySpiritModel;
-import com.dead_comedian.holyhell.client.model.entity.AngelModel;
-import com.dead_comedian.holyhell.client.model.entity.HereticModel;
-import com.dead_comedian.holyhell.client.model.entity.KamikazeModel;
-import com.dead_comedian.holyhell.client.model.entity.PalladinModel;
-import com.dead_comedian.holyhell.client.model.entity.non_living.FallingSwordModel;
-import com.dead_comedian.holyhell.client.model.entity.non_living.FireBallModel;
-import com.dead_comedian.holyhell.client.model.entity.non_living.GlobularDomeModel;
-import com.dead_comedian.holyhell.client.model.entity.non_living.SwordCrossModel;
+import com.dead_comedian.holyhell.client.model.entity.*;
+import com.dead_comedian.holyhell.client.model.entity.non_living.*;
 import com.dead_comedian.holyhell.particle.LightRingParticle;
+import com.dead_comedian.holyhell.particle.SoundRingParticle;
+import com.dead_comedian.holyhell.particle.StunParticle1;
+import com.dead_comedian.holyhell.particle.StunParticle2;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
 import com.dead_comedian.holyhell.registries.HolyhellParticles;
 import net.minecraftforge.api.distmarker.Dist;
@@ -31,6 +24,8 @@ public class HolyHellClientEventBus {
         event.registerLayerDefinition(HolyHellModelLayers.FIREBALL, FireBallModel::createBodyLayer);
         event.registerLayerDefinition(HolyHellModelLayers.SWORD_CROSS, SwordCrossModel::getTexturedModelData);
 
+        
+
         event.registerLayerDefinition(HolyHellModelLayers.HERETIC, HereticModel::createBodyLayer);
         event.registerLayerDefinition(HolyHellModelLayers.ANGEL, AngelModel::createBodyLayer);
         event.registerLayerDefinition(HolyHellModelLayers.KAMIKAZE_ANGEL, KamikazeModel::createBodyLayer);
@@ -39,10 +34,13 @@ public class HolyHellClientEventBus {
         event.registerLayerDefinition(HolyHellModelLayers.BAB2, BabThreeModel::getTexturedModelData);
         event.registerLayerDefinition(HolyHellModelLayers.HOLY_SPIRIT, HolySpiritModel  ::getTexturedModelData);
         event.registerLayerDefinition(HolyHellModelLayers.PALLADIN, PalladinModel::getTexturedModelData);
-
+        event.registerLayerDefinition(HolyHellModelLayers.CHERUB, CherubModel::createBodyLayer);
     }
     @SubscribeEvent
     public static void registerParticleFactories(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(HolyhellParticles.LIGHT_RING.get(), LightRingParticle.Provider::new);
+        event.registerSpriteSet(HolyhellParticles.SOUND_RING.get(), SoundRingParticle.Provider::new);
+        event.registerSpriteSet(HolyhellParticles.STUN.get(), StunParticle1.Provider::new);
+        event.registerSpriteSet(HolyhellParticles.STUN2.get(), StunParticle2.Provider::new);
     }
 }

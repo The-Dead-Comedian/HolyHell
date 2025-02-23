@@ -1,8 +1,10 @@
 package com.dead_comedian.holyhell.entity;
 
+import com.dead_comedian.holyhell.registries.HolyhellParticles;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -33,7 +35,6 @@ public class HereticEntity extends Monster {
     ///////////////
 
 
-
     public final AnimationState attackAnimationState = new AnimationState();
     public int attackAnimationTimeout = 0;
     int tick1;
@@ -48,27 +49,12 @@ public class HereticEntity extends Monster {
         this.xpReward = 10;
     }
 
-    public void safetyMeasure() {
-
-
-        if (HereticAttackGoal.render) {
-
-            tick1++;
-
-            if (tick1 == 20) {
-                tick1 = 0;
-                HereticAttackGoal.render = false;
-
-
-            }
-        }
-    }
 
     @Override
     public void tick() {
         super.tick();
 
-        safetyMeasure();
+
         if (this.level().isClientSide()) {
             setupAnimationStates();
         }
@@ -143,7 +129,6 @@ public class HereticEntity extends Monster {
         private int attackDelay = 15;
         private int ticksUntilNextAttack = 15;
         private boolean shouldCountTillNextAttack = false;
-        public static boolean render = false;
 
         public HereticAttackGoal(PathfinderMob mob, double speed, boolean pauseWhenMobIdle) {
             super(mob, speed, pauseWhenMobIdle);
@@ -163,7 +148,7 @@ public class HereticEntity extends Monster {
         protected void checkAndPerformAttack(LivingEntity pEnemy, double pDistToEnemySqr) {
             if (isEnemyWithinAttackDistance(pEnemy, pDistToEnemySqr)) {
                 shouldCountTillNextAttack = true;
-
+                System.out.println("wiw");
 
                 if (isTimeToStartAttackAnimation()) {
                     entity.setAggressive(true);
@@ -171,30 +156,47 @@ public class HereticEntity extends Monster {
 
                 if (isTimeToAttack()) {
                     this.mob.getLookControl().setLookAt(pEnemy.getX(), pEnemy.getEyeY(), pEnemy.getZ());
-                    render = true;
 
                     if (!pEnemy.isBlocking()) {
-                        pEnemy.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20, 99));
-                    }else {
-                        this.entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 30, 99));
+                        pEnemy.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 255));
+                        if (pEnemy.level() instanceof ServerLevel world) {
+                            world.sendParticles(HolyhellParticles.STUN.get(),
+                                    pEnemy.getX(),
+                                    pEnemy.getEyeY() + 0.3F,
+                                    pEnemy.getZ() - 0.5,
+                                    1, 0, 0, 0, 0);
+
+                            world.sendParticles(HolyhellParticles.STUN2.get(),
+                                    pEnemy.getX(),
+                                    pEnemy.getEyeY() + 0.3F,
+                                    pEnemy.getZ() + 0.5,
+                                    1, 0, 0, 0, 0);
+                        }
+                    } else {
+                        if (this.entity.level() instanceof ServerLevel world) {
+                            world.sendParticles(HolyhellParticles.STUN.get(),
+                                    this.entity.getX(),
+                                    this.entity.getEyeY() + 0.3F,
+                                    this.entity.getZ() - 0.5,
+                                    1, 0, 0.1, 0, 1);
+
+                            world.sendParticles(HolyhellParticles.STUN2.get(),
+                                    this.entity.getX(),
+                                    this.entity.getEyeY() + 0.3F,
+                                    this.entity.getZ() + 0.5,
+                                    1, 0, 0.1, 0, 1);
+                        }
+                        this.entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 255));
                     }
 
                     performAttack(pEnemy);
                 }
             } else {
-                render = false;
-
                 resetAttackCooldown();
                 shouldCountTillNextAttack = false;
                 entity.setAggressive(false);
                 entity.attackAnimationTimeout = 0;
             }
-        }
-
-
-
-        public static boolean shouldRender() {
-            return render;
         }
 
         private boolean isEnemyWithinAttackDistance(LivingEntity pEnemy, double pDistToEnemySqr) {
@@ -225,7 +227,7 @@ public class HereticEntity extends Monster {
         public void tick() {
             super.tick();
 
-            safetyMeasure();
+
             if (shouldCountTillNextAttack) {
                 this.ticksUntilNextAttack = Math.max(this.ticksUntilNextAttack - 1, 0);
                 if (ticksUntilNextAttack == 0) {

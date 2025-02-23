@@ -2,7 +2,7 @@ package com.dead_comedian.holyhell.client.renderer;
 
 
 import com.dead_comedian.holyhell.HolyHell;
-import com.dead_comedian.holyhell.client.model.HolySpiritModel;
+import com.dead_comedian.holyhell.client.model.entity.HolySpiritModel;
 import com.dead_comedian.holyhell.entity.HolySpiritEntity;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;

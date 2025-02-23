@@ -17,13 +17,15 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import org.joml.Math;
 
 public class PalladinModel<T extends PalladinEntity> extends HierarchicalModel<T> {
     private final ModelPart body;
+    private final ModelPart head;
 
     public PalladinModel(ModelPart root) {
         this.body = root.getChild("body");
-
+        this.head = root.getChild("body").getChild("torso").getChild("head");
     }
     public static LayerDefinition getTexturedModelData() {
         MeshDefinition modelData = new MeshDefinition();
@@ -53,6 +55,7 @@ public class PalladinModel<T extends PalladinEntity> extends HierarchicalModel<T
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
+        this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
         this.animateWalk(ModAnimations.PALLADIN_WALK, limbSwing, limbSwingAmount, 2f, 2.5f);
         this.animate(entity.idleAnimationState, ModAnimations.PALLADIN_IDLE, ageInTicks, 1f);
         this.animate(entity.attackAnimationState, ModAnimations.PALLADIN_CAST, ageInTicks, 1f);
@@ -60,6 +63,13 @@ public class PalladinModel<T extends PalladinEntity> extends HierarchicalModel<T
     @Override
     public void renderToBuffer(PoseStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
         body.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+    }
+    private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {
+        pNetHeadYaw = Math.clamp(pNetHeadYaw, -30.0F, 30.0F);
+        pHeadPitch = Math.clamp(pHeadPitch, -25.0F, 45.0F);
+
+        this.head.yRot = pNetHeadYaw * ((float) Math.PI / 180F);
+        this.head.xRot = pHeadPitch * ((float) Math.PI / 180F);
     }
 
     @Override

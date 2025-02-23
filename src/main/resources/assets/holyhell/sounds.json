@@ -23,10 +23,28 @@
       "holyhell:rings_hold"
     ]
   },
-  "rings_start": {
-    "subtitle": "sounds.holyhell.rings_start",
+  "candelabra_place": {
+    "subtitle": "sounds.holyhell.candelabra_place",
     "sounds": [
-      "holyhell:rings_start"
+      "holyhell:candelabra_place"
+    ]
+  },
+  "candelabra_light": {
+    "subtitle": "sounds.holyhell.candelabra_light",
+    "sounds": [
+      "holyhell:candelabra_light"
+    ]
+  },
+  "divining_table_interact": {
+    "subtitle": "sounds.holyhell.divining_table_interact",
+    "sounds": [
+      "holyhell:divining_table_interact"
+    ]
+  },
+  "globe_spin": {
+    "subtitle": "sounds.holyhell.globe_spin",
+    "sounds": [
+      "holyhell:globe_spin"
     ]
   }
 }

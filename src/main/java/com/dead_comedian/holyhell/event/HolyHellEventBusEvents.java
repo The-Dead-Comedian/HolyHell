@@ -20,6 +20,7 @@ public class HolyHellEventBusEvents {
         event.put(HolyHellEntities.BAB_TWO.get(), BabTwoEntity.createBabTwoAttributes().build());
         event.put(HolyHellEntities.BAB_THREE.get(), BabThreeEntity.createBabThreeAttributes().build());
         event.put(HolyHellEntities.HOLY_SPIRIT.get(), HolySpiritEntity.createHolySpiritAttributes().build());
+        event.put(HolyHellEntities.CHERUB.get(), CherubEntity.createCherubAttributes().build());
 
     }
 }

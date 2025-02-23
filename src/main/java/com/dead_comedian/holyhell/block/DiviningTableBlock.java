@@ -1,6 +1,10 @@
 package com.dead_comedian.holyhell.block;
 
 
+import com.dead_comedian.holyhell.entity.BabTwoEntity;
+import com.dead_comedian.holyhell.entity.CherubEntity;
+import com.dead_comedian.holyhell.registries.HolyHellEntities;
+import com.dead_comedian.holyhell.registries.HolyHellSound;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -36,7 +40,10 @@ public class DiviningTableBlock extends HorizontalDirectionalBlock {
 
     @Override
         public InteractionResult use(BlockState p_60503_, Level p_60504_, BlockPos p_60505_, Player p_60506_, InteractionHand p_60507_, BlockHitResult p_60508_) {
-        p_60504_.playLocalSound(p_60505_, SoundEvents.ENDER_DRAGON_GROWL, SoundSource.BLOCKS, 1, 1, false);
+        p_60504_.playLocalSound(p_60505_, HolyHellSound.DIVINING_TABLE_INTERACT.get(), SoundSource.BLOCKS, 1, 1 + p_60504_.random.nextInt(), false);
+        CherubEntity cherubEntity = new CherubEntity(HolyHellEntities.CHERUB.get(), p_60504_);
+        p_60504_.addFreshEntity(cherubEntity);
+        cherubEntity.moveTo(p_60505_.offset(0,1,0), cherubEntity.getYRot(), cherubEntity.getXRot());
         return InteractionResult.SUCCESS;
     }
 
