@@ -66,18 +66,18 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             //    this.level().playSound(null, this.blockPosition(), HolyHellSound.RINGS_HOLD.get(), SoundSource.PLAYERS, 0.2f, 1);
             //}
             if(effectually.getDuration() >= 2000){
-               this.level().playSound((Player)null, this.blockPosition(),HolyHellSound.RINGS_INTRO.get(), SoundSource.PLAYERS, 1.2f, 1);
+               this.level().playSound((Player)null, this.blockPosition(),HolyHellSound.RINGS_INTRO.get(), SoundSource.PLAYERS, 0.2f, 1);
                return;
             }
             if(effectually.getDuration() > 3.5*20){
                 if(tickCount % 70 == 1){
-                    this.level().playSound((Player)null, this.blockPosition(),HolyHellSound.RINGS_HOLD.get(), SoundSource.PLAYERS, 1.2f, 1);
+                    this.level().playSound((Player)null, this.blockPosition(),HolyHellSound.RINGS_HOLD.get(), SoundSource.PLAYERS, 0.2f, 1);
                 }
                 return;
             }
             if(effectually.getDuration() < 3.5*20 && effectually.getDuration() != 0){
                 if(tickCount % 70 == 1){
-                    this.level().playSound((Player)null, this.blockPosition(),HolyHellSound.RINGS_OUTRO.get(), SoundSource.PLAYERS, 1.2f, 1);
+                    this.level().playSound((Player)null, this.blockPosition(),HolyHellSound.RINGS_OUTRO.get(), SoundSource.PLAYERS, 0.2f, 1);
 
                 }
             }
