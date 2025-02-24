@@ -9,6 +9,7 @@ import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.decoration.ArmorStand;
@@ -60,11 +61,27 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
         //Religious Rings
         if (this.hasEffect(HolyHellEffects.JESISTANCE.get())) {
-            if (tickCount % 70 ==1) {
-                this.level().playSound(null, this.blockPosition(), HolyHellSound.RINGS_HOLD.get(), SoundSource.PLAYERS, 0.2f, 1);
+            MobEffectInstance effectually =  this.getEffect(HolyHellEffects.JESISTANCE.get());
+            //if (tickCount % 70 ==1) {
+            //    this.level().playSound(null, this.blockPosition(), HolyHellSound.RINGS_HOLD.get(), SoundSource.PLAYERS, 0.2f, 1);
+            //}
+            if(effectually.getDuration() >= 2000){
+               this.level().playSound((Player)null, this.blockPosition(),HolyHellSound.RINGS_INTRO.get(), SoundSource.PLAYERS, 1.2f, 1);
+               return;
+            }
+            if(effectually.getDuration() > 3.5*20){
+                if(tickCount % 70 == 1){
+                    this.level().playSound((Player)null, this.blockPosition(),HolyHellSound.RINGS_HOLD.get(), SoundSource.PLAYERS, 1.2f, 1);
+                }
+                return;
+            }
+            if(effectually.getDuration() < 3.5*20 && effectually.getDuration() != 0){
+                if(tickCount % 70 == 1){
+                    this.level().playSound((Player)null, this.blockPosition(),HolyHellSound.RINGS_OUTRO.get(), SoundSource.PLAYERS, 1.2f, 1);
+
+                }
             }
         }
-
     }
 
 

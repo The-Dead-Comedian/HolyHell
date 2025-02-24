@@ -30,4 +30,5 @@ public class JesistenceEffect extends MobEffect {
         System.out.println(repeat);
         return super.isDurationEffectTick(pDuration, pAmplifier);
     }
+
 }

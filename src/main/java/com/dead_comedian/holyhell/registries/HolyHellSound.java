@@ -20,6 +20,8 @@ public class HolyHellSound {
     public static final RegistryObject<SoundEvent> HOLY_SHIELD_BLOCK = registerSoundEvents("holy_shield_block");
 
     public static final RegistryObject<SoundEvent> RINGS_HOLD = registerSoundEvents("rings_hold");
+    public static final RegistryObject<SoundEvent> RINGS_INTRO = registerSoundEvents("rings_intro");
+    public static final RegistryObject<SoundEvent> RINGS_OUTRO = registerSoundEvents("rings_outro");
 
     public static final RegistryObject<SoundEvent> CANDELABRA_PLACE = registerSoundEvents("candelabra_place");
     public static final RegistryObject<SoundEvent> CANDELABRA_LIGHT = registerSoundEvents("candelabra_light");

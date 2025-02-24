@@ -23,6 +23,19 @@
       "holyhell:rings_hold"
     ]
   },
+  "rings_intro": {
+    "subtitle": "sounds.holyhell.rings_intro",
+    "sounds": [
+      "holyhell:rings_intro"
+    ]
+  },
+  "rings_outro": {
+    "subtitle": "sounds.holyhell.rings_outro",
+    "sounds": [
+      "holyhell:rings_outro"
+    ]
+  },
+
   "candelabra_place": {
     "subtitle": "sounds.holyhell.candelabra_place",
     "sounds": [
