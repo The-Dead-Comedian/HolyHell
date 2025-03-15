@@ -24,6 +24,18 @@ public class HolyhellParticles {
     public static final RegistryObject<SimpleParticleType> STUN2  =
             PARTICLE_TYPES.register("stun2", () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> EYE0  =
+            PARTICLE_TYPES.register("eye_0", () -> new SimpleParticleType(true));
+
+    public static final RegistryObject<SimpleParticleType> EYE1  =
+            PARTICLE_TYPES.register("eye_1", () -> new SimpleParticleType(true));
+
+    public static final RegistryObject<SimpleParticleType> EYE2  =
+            PARTICLE_TYPES.register("eye_2", () -> new SimpleParticleType(true));
+
+    public static final RegistryObject<SimpleParticleType> EYE3 =
+            PARTICLE_TYPES.register("eye_3", () -> new SimpleParticleType(true));
+
     public static void register(IEventBus eventBus) {
         PARTICLE_TYPES.register(eventBus);
     }

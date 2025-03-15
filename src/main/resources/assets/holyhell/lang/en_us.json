@@ -10,6 +10,7 @@
   "item.holyhell.holy_arrow": "Holy Arrow",
   "item.holyhell.baptized_plate": "Baptized Plate",
   "item.holyhell.enhanced_silk": "Enhanced Silk",
+  "item.holyhell.kebab": "Kebab",
 
 
 
@@ -53,6 +54,9 @@
   "sounds.holyhell.cross_fall": "Cross Lands",
   "sounds.holyhell.holy_shield_block": "Holy Shield Blocks",
 
+  "sounds.holyhell.rings_hold": "Rings Hold",
+  "sounds.holyhell.rings_intro": "Rings Intro",
+  "sounds.holyhell.rings_outro": "Rings Outro",
 
 
   "creativetab.holyhell_tab": "Holy Trinkets"

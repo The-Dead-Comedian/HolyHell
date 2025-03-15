@@ -148,7 +148,6 @@ public class HereticEntity extends Monster {
         protected void checkAndPerformAttack(LivingEntity pEnemy, double pDistToEnemySqr) {
             if (isEnemyWithinAttackDistance(pEnemy, pDistToEnemySqr)) {
                 shouldCountTillNextAttack = true;
-                System.out.println("wiw");
 
                 if (isTimeToStartAttackAnimation()) {
                     entity.setAggressive(true);

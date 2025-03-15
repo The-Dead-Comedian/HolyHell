@@ -220,7 +220,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Unique
     private static double getKnockback(Player player, LivingEntity attacked, Vec3 distance) {
         player.level().addParticle(HolyhellParticles.LIGHT_RING.get(), player.getX(), player.getY(), player.getZ(), 1, 1, 1);
-        System.out.println("x " + player.getX() + "/n y:" + player.getZ() + "/n z:" + player.getZ());
         return ((3.5 - distance.length()) * 0.699999988079071 * (double) (player.fallDistance > 5.0F ? 2 : 1) * (1.0 - attacked.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE)) * 5);
 
     }

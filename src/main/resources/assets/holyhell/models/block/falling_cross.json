@@ -5,7 +5,6 @@
 	"textures": {
 		"1": "holyhell:block/falling_cross",
 		"particle": "holyhell:block/falling_cross"
-
 	},
 	"elements": [
 		{
@@ -173,7 +172,7 @@
 		},
 		"gui": {
 			"rotation": [-90, -140, 0],
-			"scale": [0.34, 4, 0.34]
+			"scale": [0.34, 0.34, 0.34]
 		},
 		"fixed": {
 			"rotation": [-89, -180, 0],

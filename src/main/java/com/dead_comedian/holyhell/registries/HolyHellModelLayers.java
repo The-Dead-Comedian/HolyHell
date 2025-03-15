@@ -7,7 +7,8 @@ import net.minecraft.resources.ResourceLocation;
 
 public class HolyHellModelLayers {
 
-
+    public static final ModelLayerLocation GLOBE =
+            new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "globe"), "main");
 
     public static final ModelLayerLocation ANGEL =
             new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "angel"), "main");

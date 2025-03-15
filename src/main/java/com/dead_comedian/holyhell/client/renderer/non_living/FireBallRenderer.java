@@ -11,12 +11,13 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
 
 import net.minecraft.client.renderer.entity.ArrowRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 
 
-public class FireBallRenderer extends ArrowRenderer<FireBallEntity> {
+public class FireBallRenderer extends EntityRenderer<FireBallEntity> {
     int timer = 1;
     private static final ResourceLocation TEXTURE1 = new ResourceLocation(HolyHell.MOD_ID, "textures/entity/fireball/fireball1.png");
     private static final ResourceLocation TEXTURE2 = new ResourceLocation(HolyHell.MOD_ID, "textures/entity/fireball/fireball2.png");

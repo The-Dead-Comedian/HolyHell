@@ -1,11 +1,10 @@
 package com.dead_comedian.holyhell.entity;
 
 
+import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import com.dead_comedian.holyhell.registries.HolyhellParticles;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -16,23 +15,19 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.ai.util.AirAndWaterRandomPos;
 import net.minecraft.world.entity.ai.util.HoverRandomPos;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.level.pathfinder.Path;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.event.level.NoteBlockEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
-import java.util.function.Predicate;
 
 
 public class CherubEntity extends Monster implements FlyingAnimal {
@@ -44,8 +39,10 @@ public class CherubEntity extends Monster implements FlyingAnimal {
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
 
-
-
+    double capacity = 20;
+    int wave_level = 0;
+    int current = 0;
+    int[] mobSpawnIndex = new int[]{2, 3, 5};
 
 
     //////////
@@ -67,6 +64,76 @@ public class CherubEntity extends Monster implements FlyingAnimal {
         if (this.level().isClientSide()) {
             setupAnimationStates();
         }
+
+
+        if (wave_level == 1) {
+
+
+            LivingEntity lastAttacker = this.getLastAttacker();
+            double y = 0;
+            if (lastAttacker != null) {
+                y = lastAttacker.getY();
+            }
+            int retries = 0;
+
+
+            int radius = 7;
+            boolean b;
+            capacity = 20 * 1.3;
+
+            do {
+
+                double angle = random.nextDouble() * 2 * Math.PI;
+                double x = radius * Math.cos(angle);
+                double z = radius * Math.sin(angle);
+
+                int a = random.nextInt(3);
+                current = (int) ((current + mobSpawnIndex[a]));
+
+                BlockPos centerPos = this.blockPosition();
+                BlockPos spawnPos = new BlockPos((int) (centerPos.getX() + x), (int) y, (int) (centerPos.getZ() + z));
+
+                if (!this.level().getBlockState(spawnPos).isAir()) {
+                    while (retries < 10) {
+                        y++;
+                        spawnPos = new BlockPos((int) x, (int) y, (int) z);
+                        retries++;
+                    }
+                }
+
+                if (!this.level().getBlockState(spawnPos).isAir()) {
+                    while (retries == 10) {
+                        radius--;
+                        spawnPos = new BlockPos((int) x, (int) y, (int) z);
+                        retries++;
+                    }
+                }
+
+
+
+                if (a == 1) {
+                    BlockPos blockPos = this.blockPosition();
+                    AngelEntity angelEntity = new AngelEntity(HolyHellEntities.ANGEL.get(), this.level());
+                    this.level().addFreshEntity(angelEntity);
+                    angelEntity.moveTo(spawnPos, angelEntity.getYRot(), angelEntity.getXRot());
+                } else if (a == 2) {
+                    BlockPos blockPos = this.blockPosition();
+                    HereticEntity hereticEntity = new HereticEntity(HolyHellEntities.HERETIC.get(), this.level());
+                    this.level().addFreshEntity(hereticEntity);
+                    hereticEntity.moveTo(spawnPos, hereticEntity.getYRot(), hereticEntity.getXRot());
+                }
+
+                b = capacity * 1.3 > current;
+
+            } while (b);
+
+
+            if (current > capacity) {
+                current = 0;
+                wave_level = 0;
+                this.kill();
+            }
+        }
     }
 
     @Override
@@ -80,22 +147,23 @@ public class CherubEntity extends Monster implements FlyingAnimal {
     }
 
     public static AttributeSupplier.Builder createCherubAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 15f)
-                .add(Attributes.FLYING_SPEED, 1)
-                .add(Attributes.MOVEMENT_SPEED, 0.7)
-                .add(Attributes.FOLLOW_RANGE, 15.0);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 15f).add(Attributes.FLYING_SPEED, 1).add(Attributes.MOVEMENT_SPEED, 0.7).add(Attributes.FOLLOW_RANGE, 15.0);
     }
 
     @Override
     public boolean hurt(DamageSource pSource, float pAmount) {
-        if(this.level() instanceof ServerLevel){
-            ((ServerLevel) this.level()).sendParticles(HolyhellParticles.SOUND_RING.get(),this.getX(),this.getY(),this.getZ(),1,0,0,0,0);
+        if (this.level() instanceof ServerLevel) {
+            ((ServerLevel) this.level()).sendParticles(HolyhellParticles.SOUND_RING.get(), this.getX(), this.getY(), this.getZ(), 1, 0, 0, 0, 0);
         }
+
+        if (pAmount < 5) {
+            wave_level = 1;
+        }
+
+
         return super.hurt(pSource, pAmount);
 
     }
-
-
 
 
     ////////////////

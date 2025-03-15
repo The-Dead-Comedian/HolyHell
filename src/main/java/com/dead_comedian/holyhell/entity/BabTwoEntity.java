@@ -170,7 +170,6 @@ public class BabTwoEntity extends TamableAnimal {
             }
         }
         setAggressive(true);
-        System.out.println(ATTACKING);
         return bl;
     }
 
