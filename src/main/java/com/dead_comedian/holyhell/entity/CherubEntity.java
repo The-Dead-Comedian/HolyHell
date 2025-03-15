@@ -131,7 +131,7 @@ public class CherubEntity extends Monster implements FlyingAnimal {
             if (current > capacity) {
                 current = 0;
                 wave_level = 0;
-                this.kill();
+                this.discard();
             }
         }
     }
