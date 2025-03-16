@@ -30,7 +30,7 @@ public class HolyHellClientEventBus {
         event.registerLayerDefinition(HolyHellModelLayers.KAMIKAZE_ANGEL, KamikazeModel::createBodyLayer);
         event.registerLayerDefinition(HolyHellModelLayers.BAB, BabOneModel::getTexturedModelData);
         event.registerLayerDefinition(HolyHellModelLayers.BAB1, BabTwoModel::getTexturedModelData);
-        event.registerLayerDefinition(HolyHellModelLayers.BAB2, BabThreeModel::getTexturedModelData);
+        event.registerLayerDefinition(HolyHellModelLayers.BAB2, BabThreeModel::createBodyLayer);
         event.registerLayerDefinition(HolyHellModelLayers.HOLY_SPIRIT, HolySpiritModel  ::getTexturedModelData);
         event.registerLayerDefinition(HolyHellModelLayers.PALLADIN, PalladinModel::getTexturedModelData);
         event.registerLayerDefinition(HolyHellModelLayers.CHERUB, CherubModel::createBodyLayer);

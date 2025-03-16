@@ -21,28 +21,40 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 public class BabThreeModel <T extends BabThreeEntity> extends HierarchicalModel<T> {
 	private final ModelPart bone;
 
+
+
+
+
 	public BabThreeModel(ModelPart root) {
 		this.bone = root.getChild("bone");
 
 	}
-	public static LayerDefinition getTexturedModelData() {
-		MeshDefinition modelData = new MeshDefinition();
-		PartDefinition modelPartData = modelData.getRoot();
-		PartDefinition bone = modelPartData.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, 24.0F, 0.0F, 0.0F, 1.5708F, 0.0F));
 
-		PartDefinition torso = bone.addOrReplaceChild("torso", CubeListBuilder.create().texOffs(0, 0).addBox(-6.0F, -0.5F, -6.0F, 12.0F, 4.0F, 12.0F, new CubeDeformation(0.0F))
-		.texOffs(0, 16).addBox(-6.0F, -2.5F, -6.0F, 12.0F, 2.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -8.5F, 0.0F));
+	public static LayerDefinition createBodyLayer() {
+		MeshDefinition meshdefinition = new MeshDefinition();
+		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition head = torso.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 30).addBox(-5.0F, -3.5F, -5.0F, 10.0F, 7.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -4.0F, 0.0F));
+		PartDefinition bone = partdefinition.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, 20.9F, 0.0F, 0.0F, 1.5708F, 0.0F));
 
-		PartDefinition right_arm = torso.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(40, 43).addBox(-2.5F, -2.0F, -4.0F, 5.0F, 8.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 1.5F, -7.0F));
+		PartDefinition head = bone.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.offset(0.0F, 1.1F, 0.0F));
 
-		PartDefinition left_arm = torso.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(40, 43).addBox(-2.5F, -2.0F, -1.5F, 5.0F, 8.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 1.5F, 7.5F));
+		PartDefinition right_arm = head.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(0, 17).addBox(-1.5F, -1.0F, -2.5F, 3.0F, 8.0F, 3.0F, new CubeDeformation(0.0F))
+				.texOffs(48, 27).addBox(-2.0F, -1.5F, -3.0F, 4.0F, 8.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-0.5F, -5.0F, -5.5F));
 
-		PartDefinition left_leg = bone.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 47).addBox(-2.0F, -0.5F, -2.0F, 4.0F, 5.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -4.5F, 3.0F));
+		PartDefinition left_arm = head.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(0, 17).addBox(-1.5F, -1.0F, -0.5F, 3.0F, 8.0F, 3.0F, new CubeDeformation(0.0F))
+				.texOffs(48, 27).mirror().addBox(-2.0F, -1.5F, -1.0F, 4.0F, 8.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-0.5F, -5.0F, 5.5F));
 
-		PartDefinition right_leg = bone.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 47).addBox(-2.0F, -0.5F, -2.0F, 4.0F, 5.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -4.5F, -3.0F));
-		return LayerDefinition.create(modelData, 64, 64);
+		PartDefinition bone2 = head.addOrReplaceChild("bone2", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, -7.0F, -5.0F, 10.0F, 7.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+
+		PartDefinition robe = head.addOrReplaceChild("robe", CubeListBuilder.create().texOffs(20, 41).addBox(-5.5F, -10.0F, -5.5F, 11.0F, 12.0F, 11.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+
+		PartDefinition trail = robe.addOrReplaceChild("trail", CubeListBuilder.create().texOffs(-7, 53).addBox(-4.0F, 0.0F, -5.5F, 8.0F, 0.0F, 11.0F, new CubeDeformation(0.0F)), PartPose.offset(-9.5F, 2.001F, 0.0F));
+
+		PartDefinition left_leg = bone.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(12, 17).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 1.1F, 2.0F));
+
+		PartDefinition right_leg = bone.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(12, 17).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 1.1F, -2.0F));
+
+		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
