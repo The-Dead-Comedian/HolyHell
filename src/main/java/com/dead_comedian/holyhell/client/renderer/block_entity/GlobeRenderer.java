@@ -6,31 +6,25 @@ import com.dead_comedian.holyhell.client.model.entity.non_living.GlobeModel;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Axis;
-import net.minecraft.client.model.BookModel;
-import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import net.minecraft.world.level.block.entity.EnchantmentTableBlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class GlobeRender implements BlockEntityRenderer<GlobeBlockEntity> {
+public class GlobeRenderer implements BlockEntityRenderer<GlobeBlockEntity> {
     /**
      * The texture for the book above the enchantment table.
      */
     public static final Material BOOK_LOCATION = new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation(HolyHell.MOD_ID, "textures/entity/globe.png"));
     private final GlobeModel bookModel;
     public int time=0;
-    public GlobeRender(BlockEntityRendererProvider.Context pContext) {
+    public GlobeRenderer(BlockEntityRendererProvider.Context pContext) {
         this.bookModel = new GlobeModel(pContext.bakeLayer(HolyHellModelLayers.GLOBE));
     }
 

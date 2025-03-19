@@ -1,9 +1,8 @@
 package com.dead_comedian.holyhell;
 
 
-import com.dead_comedian.holyhell.block.entity.GlobeBlockEntity;
 import com.dead_comedian.holyhell.client.renderer.*;
-import com.dead_comedian.holyhell.client.renderer.block_entity.GlobeRender;
+import com.dead_comedian.holyhell.client.renderer.block_entity.GlobeRenderer;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsLowerFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsUpperFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.non_living.*;
@@ -79,6 +78,7 @@ public class HolyHell {
             EntityRenderers.register(HolyHellEntities.SWORD_CROSS.get(), SwordCrossRenderer::new);
 
 
+
             EntityRenderers.register(HolyHellEntities.ANGEL.get(), AngelRenderer::new);
             EntityRenderers.register(HolyHellEntities.KAMIKAZE.get(), KamikazeRenderer::new);
             EntityRenderers.register(HolyHellEntities.HERETIC.get(), HereticRenderer::new);
@@ -89,7 +89,7 @@ public class HolyHell {
             EntityRenderers.register(HolyHellEntities.HOLY_SPIRIT.get(), HolySpiritRenderer::new);
             EntityRenderers.register(HolyHellEntities.CHERUB.get(), CherubRenderer::new);
 
-            BlockEntityRenderers.register(HolyHellBlockEntities.GLOBE_BLOCK_ENTITY.get(), GlobeRender::new);
+            BlockEntityRenderers.register(HolyHellBlockEntities.GLOBE_BLOCK_ENTITY.get(), GlobeRenderer::new);
             event.enqueueWork(HolyHellItemProperties::addCustomItemProperties);
         }
     }
