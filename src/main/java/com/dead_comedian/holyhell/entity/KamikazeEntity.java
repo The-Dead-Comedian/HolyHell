@@ -88,7 +88,7 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
         }
 
         if (!isAlive()) {
-            this.explode(1.5d);
+            this.explode(0.6d);
         }
 
 
