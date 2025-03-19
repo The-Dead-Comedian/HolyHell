@@ -85,7 +85,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         }
     }
 
-
     @ModifyVariable(method = "hurt", at = @At(value = "HEAD"))
     private float modifyDamage(float value, DamageSource source) {
 
@@ -110,7 +109,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     }
 
-
     @Inject(method = "attack", at = @At(value = "HEAD"))
     private void attack(Entity target, CallbackInfo ci) {
         //Sword Cross
@@ -133,7 +131,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
 
     }
-
 
     //Shield
     @Unique
@@ -180,7 +177,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
         });
     }
-
 
     @Unique
     private static Predicate<LivingEntity> getKnockbackPredicate(Player player, Entity attacked) {
