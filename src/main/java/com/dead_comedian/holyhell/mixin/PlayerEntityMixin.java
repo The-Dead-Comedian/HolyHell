@@ -6,6 +6,7 @@ import com.dead_comedian.holyhell.item.custom.EvangelistArmorItem;
 import com.dead_comedian.holyhell.registries.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -61,23 +62,23 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
         //Religious Rings
         if (this.hasEffect(HolyHellEffects.JESISTANCE.get())) {
-            MobEffectInstance effectually =  this.getEffect(HolyHellEffects.JESISTANCE.get());
+            MobEffectInstance effectually = this.getEffect(HolyHellEffects.JESISTANCE.get());
             //if (tickCount % 70 ==1) {
             //    this.level().playSound(null, this.blockPosition(), HolyHellSound.RINGS_HOLD.get(), SoundSource.PLAYERS, 0.2f, 1);
             //}
-            if(effectually.getDuration() >= 2000){
-               this.level().playSound((Player)null, this.blockPosition(),HolyHellSound.RINGS_INTRO.get(), SoundSource.PLAYERS, 0.2f, 1);
-               return;
+            if (effectually.getDuration() >= 2000) {
+                this.level().playSound((Player) null, this.blockPosition(), HolyHellSound.RINGS_INTRO.get(), SoundSource.PLAYERS, 0.2f, 1);
+                return;
             }
-            if(effectually.getDuration() > 3.5*20){
-                if(tickCount % 70 == 1){
-                    this.level().playSound((Player)null, this.blockPosition(),HolyHellSound.RINGS_HOLD.get(), SoundSource.PLAYERS, 0.2f, 1);
+            if (effectually.getDuration() > 3.5 * 20) {
+                if (tickCount % 70 == 1) {
+                    this.level().playSound((Player) null, this.blockPosition(), HolyHellSound.RINGS_HOLD.get(), SoundSource.PLAYERS, 0.2f, 1);
                 }
                 return;
             }
-            if(effectually.getDuration() < 3.5*20 && effectually.getDuration() != 0){
-                if(tickCount % 70 == 1){
-                    this.level().playSound((Player)null, this.blockPosition(),HolyHellSound.RINGS_OUTRO.get(), SoundSource.PLAYERS, 0.2f, 1);
+            if (effectually.getDuration() < 3.5 * 20 && effectually.getDuration() != 0) {
+                if (tickCount % 70 == 1) {
+                    this.level().playSound((Player) null, this.blockPosition(), HolyHellSound.RINGS_OUTRO.get(), SoundSource.PLAYERS, 0.2f, 1);
 
                 }
             }
@@ -143,7 +144,13 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         if (((Player) (Object) this).isBlocking() && (((Player) (Object) this).getMainHandItem().is(HolyHellItems.HOLY_SHIELD.get()) ||
                 ((Player) (Object) this).getOffhandItem().is(HolyHellItems.HOLY_SHIELD.get()))) {
             {
-
+                if (((Player) (Object) this).level() instanceof ServerLevel world) {
+                    world.sendParticles(HolyhellParticles.SOUND_RING.get(),
+                            ((Player) (Object) this).getX(),
+                            ((Player) (Object) this).getEyeY(),
+                            ((Player) (Object) this).getZ(),
+                            1, 0, 0.1, 0, 0);
+                }
                 AABB userHitbox = new AABB(((Player) (Object) this).blockPosition()).inflate(3);
                 List<Entity> list = ((Player) (Object) this).level().getEntitiesOfClass(Entity.class, userHitbox);
                 for (Entity i : list) {
