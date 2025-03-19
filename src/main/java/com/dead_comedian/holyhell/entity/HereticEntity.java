@@ -171,21 +171,6 @@ public class HereticEntity extends Monster {
                                     pEnemy.getZ() + 0.5,
                                     1, 0, 0, 0, 0);
                         }
-                    } else {
-                        if (this.entity.level() instanceof ServerLevel world) {
-                            world.sendParticles(HolyhellParticles.STUN.get(),
-                                    this.entity.getX(),
-                                    this.entity.getEyeY() + 0.3F,
-                                    this.entity.getZ() - 0.5,
-                                    1, 0, 0.1, 0, 1);
-
-                            world.sendParticles(HolyhellParticles.STUN2.get(),
-                                    this.entity.getX(),
-                                    this.entity.getEyeY() + 0.3F,
-                                    this.entity.getZ() + 0.5,
-                                    1, 0, 0.1, 0, 1);
-                        }
-                        this.entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 255));
                     }
 
                     performAttack(pEnemy);

@@ -1,5 +1,6 @@
 package com.dead_comedian.holyhell.mixin;
 
+import com.dead_comedian.holyhell.entity.HereticEntity;
 import com.dead_comedian.holyhell.entity.non_living.GlobularDomeEntity;
 import com.dead_comedian.holyhell.entity.non_living.SwordCrossEntity;
 import com.dead_comedian.holyhell.item.custom.EvangelistArmorItem;
@@ -11,6 +12,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.decoration.ArmorStand;
@@ -38,6 +40,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 public abstract class PlayerEntityMixin extends LivingEntity {
 
+    @Unique
+    int holyhell$blockingCounter = 0;
+
 
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, Level world) {
         super(entityType, world);
@@ -46,6 +51,19 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Inject(method = "tick", at = @At(value = "HEAD"))
     private void tick(CallbackInfo ci) {
+
+        if (((Player) (Object) this).isBlocking() && (((Player) (Object) this).getMainHandItem().is(HolyHellItems.HOLY_SHIELD.get()) || ((Player) (Object) this).getOffhandItem().is(HolyHellItems.HOLY_SHIELD.get()))) {
+
+
+            holyhell$blockingCounter++;
+            System.out.println(holyhell$blockingCounter);
+
+
+        } else {
+            holyhell$blockingCounter = 0;
+        }
+
+
         //Globular Dome
         List<Entity> entityBelow = this.level().getEntities(this, this.getBoundingBox().inflate(-0.1));
         for (Entity entity : entityBelow) {
@@ -91,8 +109,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         //Jesistence
         if (source.getEntity() != null) {
 
-            return source.getEntity().getType().is(HolyhellTags.Entities.MAGIC_DEALING_MOBS) ||
-                    source.is(HolyhellTags.DamageTypes.MAGIC_DAMAGE) ? 0 : value;
+            return source.getEntity().getType().is(HolyhellTags.Entities.MAGIC_DEALING_MOBS) || source.is(HolyhellTags.DamageTypes.MAGIC_DAMAGE) ? 0 : value;
         }
 
         //Globular Dome
@@ -138,15 +155,23 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Inject(method = "hurt", at = @At(value = "HEAD"))
     private void modifyDamage(DamageSource damageSource, float f, CallbackInfoReturnable<Boolean> cir) {
-        if (((Player) (Object) this).isBlocking() && (((Player) (Object) this).getMainHandItem().is(HolyHellItems.HOLY_SHIELD.get()) ||
-                ((Player) (Object) this).getOffhandItem().is(HolyHellItems.HOLY_SHIELD.get()))) {
+        if (((Player) (Object) this).isBlocking() && (((Player) (Object) this).getMainHandItem().is(HolyHellItems.HOLY_SHIELD.get()) || ((Player) (Object) this).getOffhandItem().is(HolyHellItems.HOLY_SHIELD.get()))) {
             {
+
+                if (damageSource.getEntity() instanceof HereticEntity heretic && holyhell$blockingCounter <= 20) {
+
+                    if (heretic.level() instanceof ServerLevel world) {
+                        world.sendParticles(HolyhellParticles.STUN.get(), heretic.getX(), heretic.getEyeY() + 0.3F, heretic.getZ() - 0.5, 1, 0, 0.1, 0, 1);
+
+                        world.sendParticles(HolyhellParticles.STUN2.get(), heretic.getX(), heretic.getEyeY() + 0.3F, heretic.getZ() + 0.5, 1, 0, 0.1, 0, 1);
+                    }
+                    heretic.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 255));
+
+                }
+
+
                 if (((Player) (Object) this).level() instanceof ServerLevel world) {
-                    world.sendParticles(HolyhellParticles.SOUND_RING.get(),
-                            ((Player) (Object) this).getX(),
-                            ((Player) (Object) this).getEyeY(),
-                            ((Player) (Object) this).getZ(),
-                            1, 0, 0.1, 0, 0);
+                    world.sendParticles(HolyhellParticles.SOUND_RING.get(), ((Player) (Object) this).getX(), ((Player) (Object) this).getEyeY(), ((Player) (Object) this).getZ(), 1, 0, 0.1, 0, 0);
                 }
                 AABB userHitbox = new AABB(((Player) (Object) this).blockPosition()).inflate(3);
                 List<Entity> list = ((Player) (Object) this).level().getEntitiesOfClass(Entity.class, userHitbox);
@@ -168,6 +193,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             double d = getKnockback(player, entity, vec3d);
             Vec3 vec3d2 = vec3d.normalize().scale(d);
             if (d > 0.0) {
+                attacked.push(vec3d2.x * 0.1, 0.1, vec3d2.z * 0.1);
                 entity.push(vec3d2.x * 0.1, 0.1, vec3d2.z * 0.1);
                 if (entity instanceof ServerPlayer) {
                     ServerPlayer serverPlayerEntity = (ServerPlayer) entity;
