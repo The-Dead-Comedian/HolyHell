@@ -11,6 +11,6 @@ public class HolyHellFood {
     }
 
     static{
-    SAINT_EYE = (new FoodProperties.Builder()).nutrition(1).saturationMod(0.8F).effect(new MobEffectInstance(MobEffects.CONFUSION, 200, 2), 1.0F).build();
+    SAINT_EYE = (new FoodProperties.Builder()).nutrition(1).saturationMod(0.8F).build();
 }
 }

@@ -29,6 +29,9 @@ public class HolyHellItems {
     public static final RegistryObject<HolyGrailItem> HOLY_GRAIL = ITEMS.register("holy_grail",
             () -> new HolyGrailItem(HolyHellToolMaterial.GRAIL,12, -2.6F, new Item.Properties()));
 
+    public static final RegistryObject<SacrificialKatarItem> SACRIFICIAL_KATAR = ITEMS.register("sacrificial_katar",
+            () -> new SacrificialKatarItem(HolyHellToolMaterial.GRAIL,12, -2.6F, new Item.Properties()));
+
     public static final RegistryObject<Item> HOLY_SHIELD = ITEMS.register("holy_shield",
             () -> new ShieldItem(new Item.Properties().durability(1000)));
     public static final RegistryObject<Item> RELIGIOUS_RINGS = ITEMS.register("religious_rings",

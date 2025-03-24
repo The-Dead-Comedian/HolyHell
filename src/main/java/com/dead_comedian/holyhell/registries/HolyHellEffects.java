@@ -1,6 +1,7 @@
 package com.dead_comedian.holyhell.registries;
 
 import com.dead_comedian.holyhell.HolyHell;
+import com.dead_comedian.holyhell.effect.BloodlustEffect;
 import com.dead_comedian.holyhell.effect.ClarityEffect;
 import com.dead_comedian.holyhell.effect.ConfusionEffect;
 import com.dead_comedian.holyhell.effect.JesistenceEffect;
@@ -29,6 +30,9 @@ public class HolyHellEffects {
 
     public static final RegistryObject<ConfusionEffect> CONFUSION = MOB_EFFECTS.register("confusion",
             () -> new ConfusionEffect(MobEffectCategory.NEUTRAL, 0x36ebab));
+
+    public static final RegistryObject<BloodlustEffect> BLOODLUST = MOB_EFFECTS.register("bloodlust",
+            () -> new BloodlustEffect(MobEffectCategory.NEUTRAL, 0x36ebab));
 
     public static final RegistryObject<JesistenceEffect> JESISTANCE = MOB_EFFECTS.register("jesistance",
             () -> new JesistenceEffect(MobEffectCategory.BENEFICIAL, 0x36ebab));

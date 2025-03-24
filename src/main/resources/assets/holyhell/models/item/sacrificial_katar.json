@@ -1,0 +1,18 @@
+{
+	"parent": "minecraft:item/handheld",
+	"loader": "forge:separate_transforms",
+	"base": {
+		"parent": "holyhell:item/sacrificial_katar_3d"
+	},
+	"perspectives": {
+		"gui": {
+			"parent": "holyhell:item/sacrificial_katar_2d",
+			"ground": {
+				"parent": "holyhell:item/sacrificial_katar_2d"
+			},
+			"fixed": {
+				"parent": "holyhell:item/sacrificial_katar_2d"
+			}
+		}
+	}
+}

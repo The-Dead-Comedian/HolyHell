@@ -6,6 +6,8 @@ import com.dead_comedian.holyhell.client.renderer.block_entity.GlobeRenderer;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsLowerFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsUpperFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.non_living.*;
+import com.dead_comedian.holyhell.event.HolyHellEventBusEvents;
+import com.dead_comedian.holyhell.event.RegenerationHandler;
 import com.dead_comedian.holyhell.registries.*;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
@@ -28,7 +30,6 @@ import org.slf4j.Logger;
 public class HolyHell {
     //
     public static final String MOD_ID = "holyhell";
-    // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public HolyHell(FMLJavaModLoadingContext context) {
@@ -50,6 +51,7 @@ public class HolyHell {
         HolyHellCreativeTab.register(modEventBus);
         HolyHellBlockEntities.register(modEventBus);
 
+        RegenerationHandler.register();
     }
 
     private void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {

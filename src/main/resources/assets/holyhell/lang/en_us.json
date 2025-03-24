@@ -2,12 +2,12 @@
   "item.holyhell.saint_eye" : "Saint Eye",
   "item.holyhell.holy_tear" : "Holy Tear",
   "item.holyhell.holy_grail" : "Holy Grail",
+  "item.holyhell.sacrificial_katar" : "Sacrificial Katar",
   "item.holyhell.holy_shield" : "Holy Shield",
   "item.holyhell.religious_rings" : "Religious Rings",
   "item.holyhell.blinding_bomb": "Blinding Bomb",
   "item.holyhell.globular_dome": "Globular Dome",
 
-  "item.holyhell.holy_arrow": "Holy Arrow",
   "item.holyhell.baptized_plate": "Baptized Plate",
   "item.holyhell.enhanced_silk": "Enhanced Silk",
   "item.holyhell.kebab": "Kebab",
@@ -49,6 +49,8 @@
   "effect.holyhell.clarity": "Clarity",
   "effect.holyhell.jesistance": "Jesistance",
   "effect.holyhell.confusion": "Confusion",
+  "effect.holyhell.bloodlust": "Bloodlust",
+
 
   "sounds.holyhell.clarity_music": "Metal Detector Jingle",
   "sounds.holyhell.cross_fall": "Cross Lands",

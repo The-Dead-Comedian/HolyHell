@@ -8,6 +8,7 @@ import com.dead_comedian.holyhell.particle.*;
 import com.dead_comedian.holyhell.registries.HolyHellBlockEntities;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
 import com.dead_comedian.holyhell.registries.HolyhellParticles;
+import net.minecraft.client.particle.AttackSweepParticle;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
@@ -51,6 +52,8 @@ public class HolyHellClientEventBus {
         event.registerSpriteSet(HolyhellParticles.SOUND_RING.get(), SoundRingParticle.Provider::new);
         event.registerSpriteSet(HolyhellParticles.STUN.get(), StunParticle1.Provider::new);
         event.registerSpriteSet(HolyhellParticles.STUN2.get(), StunParticle2.Provider::new);
+
+        event.registerSpriteSet(HolyhellParticles.SWEEP_ATTACK.get(), AttackSweepParticle.Provider::new);
 
         event.registerSpriteSet(HolyhellParticles.EYE0.get(), EyeParticle0.Provider::new);
         event.registerSpriteSet(HolyhellParticles.EYE1.get(), EyeParticle1.Provider::new);

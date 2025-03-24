@@ -2,23 +2,20 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "X": {
-      "item": "holyhell:baptized_plate"
-    },
     "#": {
-      "item": "holyhell:saint_eye"
+      "item": "minecraft:iron_ingot"
     },
-    "Y": {
+    "X": {
       "item": "holyhell:holy_tear"
     }
   },
   "pattern": [
-    "XYX",
-    "Y#Y",
-    "XYX"
+    "XXX",
+    "X#X",
+    "XXX"
   ],
   "result": {
-    "item": "holyhell:blinding_bomb"
+    "item": "holyhell:baptized_plate"
   },
   "show_notification": true
 }
