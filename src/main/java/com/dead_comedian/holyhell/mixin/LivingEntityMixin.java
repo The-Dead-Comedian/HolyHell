@@ -22,6 +22,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.Objects;
+
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements Attackable, net.minecraftforge.common.extensions.IForgeLivingEntity {
@@ -41,23 +43,23 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, ne
         Entity entity = pDamageSource.getEntity();
         if (entity instanceof LivingEntity) {
             if (((LivingEntity) entity).hasEffect(HolyHellEffects.BLOODLUST.get())) {
-                ((LivingEntity) entity).setHealth((float) (((LivingEntity) (Object) this).getAttribute(Attributes.MAX_HEALTH).getBaseValue() * 0.3F));
+                ((LivingEntity) entity).setHealth((float) (((LivingEntity) entity).getHealth() + ((LivingEntity) (Object) this).getAttribute(Attributes.MAX_HEALTH).getBaseValue() * 0.3F));
             }
 
-            if(((LivingEntity)(Object)this) instanceof RangedAttackMob){
-                ((LivingEntity)(Object)this).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200, 1));
+            if (((LivingEntity) (Object) this) instanceof RangedAttackMob) {
+                ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200, 1));
 
             }
-            if(((LivingEntity)(Object)this) instanceof FlyingAnimal){
-                ((LivingEntity)(Object)this).addEffect(new MobEffectInstance(MobEffects.JUMP, 200, 1));
+            if (((LivingEntity) (Object) this) instanceof FlyingAnimal) {
+                ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.JUMP, 200, 1));
 
             }
-            if(((LivingEntity)(Object)this) instanceof Monster){
-                ((LivingEntity)(Object)this).addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 200, 1));
+            if (((LivingEntity) (Object) this) instanceof Monster) {
+                ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 200, 1));
 
             }
-            if(((LivingEntity)(Object)this) instanceof Animal){
-                ((LivingEntity)(Object)this).addEffect(new MobEffectInstance(MobEffects.SATURATION, 200, 1));
+            if (((LivingEntity) (Object) this) instanceof Animal) {
+                ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.SATURATION, 200, 1));
 
             }
         }
