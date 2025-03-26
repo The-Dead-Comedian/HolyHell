@@ -30,6 +30,7 @@ public class HolyHellSound {
 
     public static final RegistryObject<SoundEvent> SACRIFICE = registerSoundEvents("sacrifice");
     public static final RegistryObject<SoundEvent> SWORD_SLASH = registerSoundEvents("sword_slash");
+    public static final RegistryObject<SoundEvent> GLOBULAR_DOME = registerSoundEvents("globular_dome");
 
 
     public static final ForgeSoundType CANDELABRA_SOUNDS = new ForgeSoundType(1f, 1f,

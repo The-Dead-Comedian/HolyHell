@@ -2,7 +2,9 @@ package com.dead_comedian.holyhell.item.custom;
 
 import com.dead_comedian.holyhell.entity.non_living.GlobularDomeEntity;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
+import com.dead_comedian.holyhell.registries.HolyHellSound;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -28,6 +30,8 @@ public class GlobularDomeItem extends Item {
         globularDomeEntity.moveTo(blockPos, globularDomeEntity.getYRot(), globularDomeEntity.getXRot());
         globularDomeEntity.setUser(owner);
         user.getCooldowns().addCooldown(this, 200);
+        world.playSound(user,user.blockPosition(), HolyHellSound.GLOBULAR_DOME.get(), SoundSource.PLAYERS,0.8f,1);
+
 
         if (!user.isCreative()) {
             user.getItemInHand(hand).shrink(1);

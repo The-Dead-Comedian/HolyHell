@@ -2,6 +2,7 @@ package com.dead_comedian.holyhell.item.custom;
 
 
 import com.dead_comedian.holyhell.entity.non_living.BlindingBombEntity;
+import com.dead_comedian.holyhell.registries.HolyHellSound;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;

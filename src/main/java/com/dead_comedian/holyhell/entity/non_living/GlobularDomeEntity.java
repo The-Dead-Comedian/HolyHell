@@ -1,12 +1,12 @@
 package com.dead_comedian.holyhell.entity.non_living;
 
-import com.dead_comedian.holyhell.registries.HolyHellEntities;
+import com.dead_comedian.holyhell.registries.HolyHellSound;
 import com.dead_comedian.holyhell.registries.HolyhellParticles;
 import com.dead_comedian.holyhell.registries.HolyhellTags;
-import java.util.Iterator;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -114,6 +114,7 @@ public class GlobularDomeEntity extends Entity {
 
 
                 this.level().addParticle(HolyhellParticles.LIGHT_RING.get(), this.getRandomX(0.1),  this.getY(0.5), this.getRandomZ(0.1), 0.0, 0.0, 0.0);
+                this.level().playSound(this, this.blockPosition(), HolyHellSound.CROSS_FALL.get(), SoundSource.PLAYERS,1f,1f);
 
             }}
     }

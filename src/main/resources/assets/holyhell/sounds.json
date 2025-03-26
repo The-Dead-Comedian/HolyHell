@@ -65,6 +65,12 @@
     "sounds": [
       "holyhell:sacrifice"
     ]
-  }
+  },
+  "globular_dome": {
+    "subtitle": "sounds.holyhell.globular_dome",
+    "sounds": [
+      "holyhell:globular_dome"
+    ]
+  },
 
 }
