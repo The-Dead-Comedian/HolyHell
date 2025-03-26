@@ -28,6 +28,10 @@ public class HolyHellSound {
     public static final RegistryObject<SoundEvent> DIVINING_TABLE_INTERACT = registerSoundEvents("divining_table_interact");
     public static final RegistryObject<SoundEvent> GLOBE_SPIN = registerSoundEvents("globe_spin");
 
+    public static final RegistryObject<SoundEvent> SACRIFICE = registerSoundEvents("sacrifice");
+    public static final RegistryObject<SoundEvent> SWORD_SLASH = registerSoundEvents("sword_slash");
+
+
     public static final ForgeSoundType CANDELABRA_SOUNDS = new ForgeSoundType(1f, 1f,
             () -> SoundEvents.LANTERN_BREAK, () -> SoundEvents.LANTERN_STEP, HolyHellSound.CANDELABRA_PLACE,
             () -> SoundEvents.LANTERN_HIT, () -> SoundEvents.LANTERN_FALL);

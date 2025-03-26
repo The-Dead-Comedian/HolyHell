@@ -54,10 +54,17 @@
       "holyhell:divining_table_interact"
     ]
   },
-  "globe_spin": {
-    "subtitle": "sounds.holyhell.globe_spin",
+  "sword_slash": {
+    "subtitle": "sounds.holyhell.sword_slash",
     "sounds": [
-      "holyhell:globe_spin"
+      "holyhell:sword_slash"
+    ]
+  },
+  "sacrifice": {
+    "subtitle": "sounds.holyhell.sacrifice",
+    "sounds": [
+      "holyhell:sacrifice"
     ]
   }
+
 }

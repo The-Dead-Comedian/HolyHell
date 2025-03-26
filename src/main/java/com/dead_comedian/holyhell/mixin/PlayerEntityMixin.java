@@ -135,6 +135,12 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             SwordCrossEntity swordCrossEntity = new SwordCrossEntity(HolyHellEntities.SWORD_CROSS.get(), this.level());
             this.level().addFreshEntity(swordCrossEntity);
             swordCrossEntity.moveTo(blockPos, swordCrossEntity.getYRot(), swordCrossEntity.getXRot());
+            this.level().playSound(this, this.blockPosition(), HolyHellSound.SWORD_SLASH.get(), SoundSource.PLAYERS, 0.5f, 1f);
+
+        }
+        if (itemStack.is(HolyHellItems.SACRIFICIAL_KATAR.get())) {
+
+            this.level().playSound(this, this.blockPosition(), HolyHellSound.SWORD_SLASH.get(), SoundSource.PLAYERS, 0.5f, 2f);
 
         }
         //Armor Timer

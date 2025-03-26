@@ -2,9 +2,11 @@ package com.dead_comedian.holyhell.item.custom;
 
 
 import com.dead_comedian.holyhell.registries.HolyHellEffects;
+import com.dead_comedian.holyhell.registries.HolyHellSound;
 import com.dead_comedian.holyhell.registries.HolyhellParticles;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -34,6 +36,7 @@ public class SacrificialKatarItem extends SwordItem {
             }
 
             pPlayer.addEffect(new MobEffectInstance(HolyHellEffects.BLOODLUST.get(), 2000, 0));
+            pPlayer.level().playSound(pPlayer, pPlayer.blockPosition(), HolyHellSound.SACRIFICE.get(), SoundSource.PLAYERS, 1f, 1f);
 
             this.damageItem(pPlayer.getItemInHand(pUsedHand), 1, pPlayer, player -> {
             });
