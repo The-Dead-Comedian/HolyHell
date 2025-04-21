@@ -91,20 +91,20 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, ne
 
     }
 
-    //Holy Shield Sound
-    @Inject(
-            method = "handleEntityEvent",
-            at = @At(value = "HEAD"), cancellable = true)
-    private void holyhell$HandleEntityEventCustom(byte pId, CallbackInfo ci) {
-        if (pId == 29) {
-            LivingEntity that = ((LivingEntity) (Object) this);
-            if (that.getMainHandItem().is(HolyHellItems.HOLY_SHIELD.get())) {
-                that.playSound(HolyHellSound.HOLY_SHIELD_BLOCK.get(), 1F, 0.8F + that.level().random.nextFloat() * 0.4F);
-                ci.cancel();
-                return;
-            }
-            return;
-        }
-        return;
-    }
+//    //Holy Shield Sound
+//    @Inject(
+//            method = "handleEntityEvent",
+//            at = @At(value = "HEAD"), cancellable = true)
+//    private void holyhell$HandleEntityEventCustom(byte pId, CallbackInfo ci) {
+//        if (pId == 29) {
+//            LivingEntity that = ((LivingEntity) (Object) this);
+//            if (that.getMainHandItem().is(HolyHellItems.HOLY_SHIELD.get())) {
+//                that.playSound(HolyHellSound.HOLY_SHIELD_BLOCK.get(), 0.09F, 0.8F + that.level().random.nextFloat() * 0.4F);
+//                ci.cancel();
+//                return;
+//            }
+//            return;
+//        }
+//        return;
+//    }
 }

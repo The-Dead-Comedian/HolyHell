@@ -179,14 +179,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                 if (((Player) (Object) this).level() instanceof ServerLevel world) {
                     world.sendParticles(HolyhellParticles.SOUND_RING.get(), ((Player) (Object) this).getX(), ((Player) (Object) this).getEyeY(), ((Player) (Object) this).getZ(), 1, 0, 0.1, 0, 0);
                 }
-                AABB userHitbox = new AABB(((Player) (Object) this).blockPosition()).inflate(3);
-                List<Entity> list = ((Player) (Object) this).level().getEntitiesOfClass(Entity.class, userHitbox);
-                for (Entity i : list) {
-                    if (i != ((Player) (Object) this)) {
-                        knockbackNearbyEntities(((Player) (Object) this).level(), ((Player) (Object) this), i);
-                        holyhell$spawnParticle = true;
-                    }
-                }
             }
         }
     }

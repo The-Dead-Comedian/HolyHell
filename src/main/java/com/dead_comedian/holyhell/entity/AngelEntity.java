@@ -291,9 +291,8 @@ public class AngelEntity extends Monster implements RangedAttackMob {
 
                 float f = (float) Math.sqrt(d0) / this.attackRadius;
                 float f1 = Mth.clamp(f, 0.1F, 1.0F);
-                for (int i = 0; i <= 10; i++) {
                     this.rangedAttackMob.performRangedAttack(this.target, f1);
-                }
+
                 this.attackTime = Mth.floor(f * (float) (this.attackIntervalMax - this.attackIntervalMin) + (float) this.attackIntervalMin);
             } else if (this.attackTime < 0) {
                 this.attackTime = Mth.floor(Mth.lerp(Math.sqrt(d0) / (double) this.attackRadius, (double) this.attackIntervalMin, (double) this.attackIntervalMax));

@@ -14,7 +14,7 @@ import net.minecraft.world.phys.BlockHitResult;
 
 public class FireBallEntity extends AbstractArrow {
 
-
+    private static final double ARROW_BASE_DAMAGE = 2.0D;
     public FireBallEntity(EntityType<? extends AbstractArrow> entityType, double d, double e, double f, Level world) {
         super(entityType, world);
         this.setPosRaw(d, e, f);
@@ -44,6 +44,10 @@ public class FireBallEntity extends AbstractArrow {
         this.discard();
     }
 
+    @Override
+    public void setBaseDamage(double pBaseDamage) {
+        super.setBaseDamage(6.0);
+    }
 
     @Override
     protected ItemStack getPickupItem() {
@@ -54,10 +58,8 @@ public class FireBallEntity extends AbstractArrow {
     @Override
     public void playerTouch(Player player) {
         super.playerTouch(player);
-        if(!player.isDamageSourceBlocked(player.level().damageSources().mobProjectile(this,player.getLastHurtByMob()))){
-            player.hurt(player.level().damageSources().magic(), 5.0F);
-            this.discard();
-        }
+
+
 
     }
 
