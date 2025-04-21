@@ -48,6 +48,7 @@ public class HolyHellCreativeTab {
                         pOutput.accept(HolyHellItems.HERETIC_SPAWN_EGG.get());
                         pOutput.accept(HolyHellItems.PALLADIN_SPAWN_EGG.get());
                         pOutput.accept(HolyHellItems.BAB_SPAWN_EGG.get());
+                        pOutput.accept(HolyHellItems.DEVOUT_SPAWN_EGG.get());
                     })
                     .build());
 

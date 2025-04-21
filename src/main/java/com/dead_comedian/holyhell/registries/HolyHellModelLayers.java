@@ -10,6 +10,9 @@ public class HolyHellModelLayers {
     public static final ModelLayerLocation GLOBE =
             new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "globe"), "main");
 
+
+    public static final ModelLayerLocation DEVOUT =
+            new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "devout"), "main");
     public static final ModelLayerLocation ANGEL =
             new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "angel"), "main");
     public static final ModelLayerLocation PALLADIN =
@@ -28,6 +31,8 @@ public class HolyHellModelLayers {
             new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "bab2"), "main");
     public static final ModelLayerLocation CHERUB =
             new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "cherub"), "main");
+    public static final ModelLayerLocation HOLY_COW =
+            new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "holy_cow"), "main");
 
 
 
@@ -39,6 +44,8 @@ public class HolyHellModelLayers {
             new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "sword_cross"), "main");
     public static final ModelLayerLocation GLOBULAR_DOME =
             new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "globular_dome"), "main");
+    public static final ModelLayerLocation GATE =
+            new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "gate"), "main");
 
 
     public static final ModelLayerLocation RELIGIOUS_RINGS =

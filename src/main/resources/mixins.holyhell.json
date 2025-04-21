@@ -8,9 +8,8 @@
     "defaultRequire": 1
   },
   "mixins": [
-    "PlayerEntityMixin",
-    "LivingEntityMixin"
-
+    "LivingEntityMixin",
+    "PlayerEntityMixin"
   ],
   "client": [
     "FeatureRendererMixin"

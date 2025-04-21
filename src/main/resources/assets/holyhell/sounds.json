@@ -73,4 +73,29 @@
     ]
   },
 
+
+
+  "angel_flutter": {
+    "subtitle": "sounds.holyhell.angel_flutter",
+    "sounds": [
+      "holyhell:angel_flutter"
+    ]
+  },
+  "angel_explode": {
+    "subtitle": "sounds.holyhell.angel_explode",
+    "sounds": [
+      "holyhell:angel_explode"
+    ]
+  },
+  "angel_hurt": {
+  "subtitle": "sounds.holyhell.angel_hurt",
+  "sounds": [
+    "holyhell:angel_hurt"
+  ]
+}, "angel_idle": {
+  "subtitle": "sounds.holyhell.angel_idle",
+  "sounds": [
+    "holyhell:angel_idle"
+  ]
+}
 }

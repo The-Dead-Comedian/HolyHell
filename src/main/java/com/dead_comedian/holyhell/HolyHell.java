@@ -6,6 +6,7 @@ import com.dead_comedian.holyhell.client.renderer.block_entity.GlobeRenderer;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsLowerFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsUpperFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.non_living.*;
+import com.dead_comedian.holyhell.event.HolyCowSpawnHandler;
 import com.dead_comedian.holyhell.event.HolyHellEventBusEvents;
 import com.dead_comedian.holyhell.event.RegenerationHandler;
 import com.dead_comedian.holyhell.registries.*;
@@ -52,6 +53,7 @@ public class HolyHell {
         HolyHellBlockEntities.register(modEventBus);
 
         RegenerationHandler.register();
+        HolyCowSpawnHandler.register();
     }
 
     private void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
@@ -73,6 +75,7 @@ public class HolyHell {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+            EntityRenderers.register(HolyHellEntities.GATE.get(), GateRenderer::new);
             EntityRenderers.register(HolyHellEntities.GLOBULAR_DOME.get(), GlobularDomeRenderer::new);
             EntityRenderers.register(HolyHellEntities.FALLING_SWORD.get(), FallingSwordRenderer::new);
             EntityRenderers.register(HolyHellEntities.BLINDING_BOMB.get(), ThrownItemRenderer::new);
@@ -90,6 +93,8 @@ public class HolyHell {
             EntityRenderers.register(HolyHellEntities.BAB_THREE .get(), BabThreeRenderer::new);
             EntityRenderers.register(HolyHellEntities.HOLY_SPIRIT.get(), HolySpiritRenderer::new);
             EntityRenderers.register(HolyHellEntities.CHERUB.get(), CherubRenderer::new);
+            EntityRenderers.register(HolyHellEntities.HOLY_COW.get(), HolyCowRenderer::new);
+            EntityRenderers.register(HolyHellEntities.DEVOUT.get(), DevoutRenderer::new);
 
             BlockEntityRenderers.register(HolyHellBlockEntities.GLOBE_BLOCK_ENTITY.get(), GlobeRenderer::new);
             event.enqueueWork(HolyHellItemProperties::addCustomItemProperties);

@@ -1,6 +1,8 @@
 package com.dead_comedian.holyhell.entity.non_living;
 
 import com.dead_comedian.holyhell.registries.HolyHellItems;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 
@@ -29,6 +31,12 @@ public class FireBallEntity extends AbstractArrow {
         return false;
     }
 
+
+
+    @Override
+    protected SoundEvent getDefaultHitGroundSoundEvent() {
+            return SoundEvents.FIRE_EXTINGUISH;
+    }
 
     @Override
     protected void onHitBlock(BlockHitResult blockHitResult) {

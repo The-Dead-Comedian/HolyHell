@@ -53,8 +53,20 @@ public static final RegistryObject<EntityType<AngelEntity>> ANGEL =
     public static final RegistryObject<EntityType<CherubEntity>> CHERUB     =
             ENTITY_TYPES.register("cherub", () -> EntityType.Builder.of(CherubEntity::new, MobCategory.CREATURE)
                     .sized(0.8f, 1.1f).build("cherub"));
+    public static final RegistryObject<EntityType<HolyCowEntity>> HOLY_COW     =
+            ENTITY_TYPES.register("holy_cow", () -> EntityType.Builder.of(HolyCowEntity::new, MobCategory.CREATURE)
+                    .sized(0.8f, 1.1f).build("holy_cow"));
 
-// NON LIVING
+    public static final RegistryObject<EntityType<DevoutEntity>> DEVOUT     =
+            ENTITY_TYPES.register("devout", () -> EntityType.Builder.of(DevoutEntity::new, MobCategory.CREATURE)
+                    .sized(0.8f, 3f).build("devout"));
+
+
+    // NON LIVING
+public static final RegistryObject<EntityType<GateEntity>> GATE =
+        ENTITY_TYPES.register("gate", () -> EntityType.Builder.of(GateEntity::new, MobCategory.MISC)
+                .sized(1f, 1f).build("gate"));
+
     public static final RegistryObject<EntityType<GlobularDomeEntity>> GLOBULAR_DOME =
             ENTITY_TYPES.register("globular_dome", () -> EntityType.Builder.of(GlobularDomeEntity::new, MobCategory.MISC)
                     .sized(3f, 3f).build("globular_dome"));

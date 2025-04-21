@@ -1,6 +1,7 @@
 package com.dead_comedian.holyhell.entity;
 
 
+import com.dead_comedian.holyhell.entity.non_living.GateEntity;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import com.dead_comedian.holyhell.registries.HolyhellParticles;
 import net.minecraft.core.BlockPos;
@@ -118,6 +119,9 @@ public class CherubEntity extends Monster implements FlyingAnimal {
                         retries++;
                     }
                 }
+                GateEntity gateEntity = new GateEntity(HolyHellEntities.GATE.get(), this.level());
+                this.level().addFreshEntity(gateEntity);
+                gateEntity.moveTo(spawnPos, gateEntity.getYRot(), gateEntity.getXRot());
 
 
                 if (a == 0) {
@@ -196,6 +200,9 @@ public class CherubEntity extends Monster implements FlyingAnimal {
                         retries++;
                     }
                 }
+                GateEntity gateEntity = new GateEntity(HolyHellEntities.GATE.get(), this.level());
+                this.level().addFreshEntity(gateEntity);
+                gateEntity.moveTo(spawnPos, gateEntity.getYRot(), gateEntity.getXRot());
 
 
                 if (a == 0) {
@@ -282,28 +289,27 @@ public class CherubEntity extends Monster implements FlyingAnimal {
                     }
                 }
 
+                GateEntity gateEntity = new GateEntity(HolyHellEntities.GATE.get(), this.level());
+                this.level().addFreshEntity(gateEntity);
+                gateEntity.moveTo(spawnPos, gateEntity.getYRot(), gateEntity.getXRot());
 
                 if (a == 0) {
-                    BlockPos blockPos = this.blockPosition();
                     KamikazeEntity kamikazeEntity = new KamikazeEntity(HolyHellEntities.KAMIKAZE.get(), this.level());
                     this.level().addFreshEntity(kamikazeEntity);
                     kamikazeEntity.moveTo(spawnPos, kamikazeEntity.getYRot(), kamikazeEntity.getXRot());
                     current = (int) ((current + mobSpawnIndex[a]));
                 }
                 if (a == 1) {
-                    BlockPos blockPos = this.blockPosition();
                     AngelEntity angelEntity = new AngelEntity(HolyHellEntities.ANGEL.get(), this.level());
                     this.level().addFreshEntity(angelEntity);
                     angelEntity.moveTo(spawnPos, angelEntity.getYRot(), angelEntity.getXRot());
                     current = (int) ((current + mobSpawnIndex[a]));
                 } else if (a == 2) {
-                    BlockPos blockPos = this.blockPosition();
                     HereticEntity hereticEntity = new HereticEntity(HolyHellEntities.HERETIC.get(), this.level());
                     this.level().addFreshEntity(hereticEntity);
                     hereticEntity.moveTo(spawnPos, hereticEntity.getYRot(), hereticEntity.getXRot());
                     current = (int) ((current + mobSpawnIndex[a]));
                 } else if (a == 3) {
-                    BlockPos blockPos = this.blockPosition();
                     PalladinEntity palladinEntity = new PalladinEntity(HolyHellEntities.PALLADIN.get(), this.level());
                     this.level().addFreshEntity(palladinEntity);
                     palladinEntity.moveTo(spawnPos, palladinEntity.getYRot(), palladinEntity.getXRot());
@@ -364,9 +370,12 @@ public class CherubEntity extends Monster implements FlyingAnimal {
                     }
                 }
 
+                GateEntity gateEntity = new GateEntity(HolyHellEntities.GATE.get(), this.level());
+                this.level().addFreshEntity(gateEntity);
+                gateEntity.moveTo(spawnPos, gateEntity.getYRot(), gateEntity.getXRot());
 
                 if (a == 0) {
-                    BlockPos blockPos = this.blockPosition();
+
                     KamikazeEntity kamikazeEntity = new KamikazeEntity(HolyHellEntities.KAMIKAZE.get(), this.level());
                     this.level().addFreshEntity(kamikazeEntity);
                     kamikazeEntity.moveTo(spawnPos, kamikazeEntity.getYRot(), kamikazeEntity.getXRot());
