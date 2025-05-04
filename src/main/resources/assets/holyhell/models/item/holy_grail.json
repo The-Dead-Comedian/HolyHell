@@ -6,13 +6,13 @@
   },
   "perspectives": {
     "gui": {
-      "parent": "holyhell:item/holy_grail_2d",
-      "ground": {
-        "parent": "holyhell:item/holy_grail_2d"
-      },
-      "fixed": {
-        "parent": "holyhell:item/holy_grail_2d"
-      }
+      "parent": "holyhell:item/holy_grail_2d"
+    },
+    "ground": {
+      "parent": "holyhell:item/holy_grail_2d"
+    },
+    "fixed": {
+      "parent": "holyhell:item/holy_grail_2d"
     }
   }
 }
