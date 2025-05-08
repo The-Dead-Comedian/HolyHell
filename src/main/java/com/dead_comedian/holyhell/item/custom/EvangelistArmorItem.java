@@ -1,6 +1,7 @@
 package com.dead_comedian.holyhell.item.custom;
 
 import com.dead_comedian.holyhell.item.HolyhellArmorMaterials;
+import net.minecraft.world.item.ArmorMaterials;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -40,7 +41,7 @@ public class EvangelistArmorItem extends ArmorItem {
             protection = protection + 1;
             armorMaterial.setProtection(type, protection);
         }else if(time <= 1){
-            armorMaterial.setProtection(type, 0);
+            armorMaterial.setProtection(type, ArmorMaterials.IRON.getDefenseForType(type));
             protection = 0;
             uhm=0;
         }

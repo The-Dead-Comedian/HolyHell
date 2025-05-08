@@ -5,14 +5,17 @@
     "#": {
       "item": "minecraft:iron_ingot"
     },
+    "Y": {
+      "item": "minecraft:gold_ingot"
+    },
     "X": {
       "item": "holyhell:holy_tear"
     }
   },
   "pattern": [
-    "XXX",
-    "X#X",
-    "XXX"
+    "XYX",
+    "Y#Y",
+    "XYX"
   ],
   "result": {
     "item": "holyhell:baptized_plate"
