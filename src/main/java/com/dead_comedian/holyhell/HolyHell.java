@@ -2,16 +2,14 @@ package com.dead_comedian.holyhell;
 
 
 import com.dead_comedian.holyhell.client.renderer.*;
-import com.dead_comedian.holyhell.client.renderer.block_entity.GlobeRenderer;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsLowerFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsUpperFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.non_living.*;
 import com.dead_comedian.holyhell.event.HolyCowSpawnHandler;
-import com.dead_comedian.holyhell.event.HolyHellEventBusEvents;
+
 import com.dead_comedian.holyhell.event.RegenerationHandler;
 import com.dead_comedian.holyhell.registries.*;
 import com.mojang.logging.LogUtils;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraftforge.api.distmarker.Dist;
@@ -96,7 +94,6 @@ public class HolyHell {
             EntityRenderers.register(HolyHellEntities.HOLY_COW.get(), HolyCowRenderer::new);
             EntityRenderers.register(HolyHellEntities.DEVOUT.get(), DevoutRenderer::new);
 
-            BlockEntityRenderers.register(HolyHellBlockEntities.GLOBE_BLOCK_ENTITY.get(), GlobeRenderer::new);
             event.enqueueWork(HolyHellItemProperties::addCustomItemProperties);
         }
     }

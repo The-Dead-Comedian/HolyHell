@@ -3,7 +3,6 @@ package com.dead_comedian.holyhell.event;
 import com.dead_comedian.holyhell.HolyHell;
 import com.dead_comedian.holyhell.client.model.entity.*;
 import com.dead_comedian.holyhell.client.model.entity.non_living.*;
-import com.dead_comedian.holyhell.client.renderer.block_entity.GlobeRenderer;
 import com.dead_comedian.holyhell.particle.*;
 import com.dead_comedian.holyhell.registries.HolyHellBlockEntities;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
@@ -39,15 +38,9 @@ public class HolyHellClientEventBus {
         event.registerLayerDefinition(HolyHellModelLayers.HOLY_COW, HolyCowModel::createBodyLayer);
         event.registerLayerDefinition(HolyHellModelLayers.DEVOUT, DevoutModel::createBodyLayer);
 
-        event.registerLayerDefinition(HolyHellModelLayers.GLOBE, GlobeModel::createBodyLayer);
     }
 
-    @SubscribeEvent
-    public static void registerBER(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerBlockEntityRenderer(HolyHellBlockEntities.GLOBE_BLOCK_ENTITY.get(),
-                GlobeRenderer::new);
 
-    }
 
     @SubscribeEvent
     public static void registerParticleFactories(RegisterParticleProvidersEvent event) {

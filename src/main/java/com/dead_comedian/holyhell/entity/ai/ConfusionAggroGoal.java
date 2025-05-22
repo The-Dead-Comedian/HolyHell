@@ -1,4 +1,4 @@
-package com.dead_comedian.holyhell.client.model.entity.ai;
+package com.dead_comedian.holyhell.entity.ai;
 
 import com.dead_comedian.holyhell.registries.HolyHellEffects;
 import net.minecraft.core.BlockPos;

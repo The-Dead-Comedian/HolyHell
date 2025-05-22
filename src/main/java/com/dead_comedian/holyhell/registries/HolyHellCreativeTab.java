@@ -32,7 +32,6 @@ public class HolyHellCreativeTab {
                         pOutput.accept(HolyHellItems.BLINDING_BOMB.get());
 
                         pOutput.accept(HolyHellBlocks.DIVINING_TABLE.get());
-                        pOutput.accept(HolyHellBlocks.GLOBE.get());
                         pOutput.accept(HolyHellBlocks.CANDELABRA.get());
                         pOutput.accept(HolyHellBlocks.CANDLE_HOLDER.get());
                         pOutput.accept(HolyHellBlocks.STONE_CROSS.get());

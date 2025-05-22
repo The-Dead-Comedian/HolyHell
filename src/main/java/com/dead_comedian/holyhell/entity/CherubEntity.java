@@ -5,7 +5,6 @@ import com.dead_comedian.holyhell.entity.non_living.GateEntity;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import com.dead_comedian.holyhell.registries.HolyhellParticles;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -25,7 +24,6 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.level.NoteBlockEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
@@ -36,6 +34,7 @@ public class CherubEntity extends Monster implements FlyingAnimal {
     // VARIABLES //
     ///////////////
 
+    public boolean hasSpawnedBab;
 
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
@@ -60,6 +59,8 @@ public class CherubEntity extends Monster implements FlyingAnimal {
 
     public CherubEntity(EntityType<? extends Monster> entityType, Level world) {
         super(entityType, world);
+        this.hasSpawnedBab=false;
+
         this.moveControl = new FlyingMoveControl(this, 20, true);
         this.setPathfindingMalus(BlockPathTypes.LAVA, -1.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
@@ -90,6 +91,8 @@ public class CherubEntity extends Monster implements FlyingAnimal {
             boolean b;
             capacity = 20 * 1.3;
 
+
+
             do {
 
                 double angle = random.nextDouble() * 2 * Math.PI;
@@ -101,9 +104,15 @@ public class CherubEntity extends Monster implements FlyingAnimal {
 
                 BlockPos centerPos = this.blockPosition();
                 BlockPos spawnPos = new BlockPos((int) (centerPos.getX() + x), (int) y, (int) (centerPos.getZ() + z));
-                BabOneEntity babOneEntity = new BabOneEntity(HolyHellEntities.BAB_ONE.get(), this.level());
-                this.level().addFreshEntity(babOneEntity);
-                babOneEntity.moveTo(spawnPos, babOneEntity.getYRot(), babOneEntity.getXRot());
+
+                if (hasSpawnedBab==false) {
+                    BabOneEntity babOneEntity = new BabOneEntity(HolyHellEntities.BAB_ONE.get(), this.level());
+                    this.level().addFreshEntity(babOneEntity);
+                    babOneEntity.moveTo(spawnPos, babOneEntity.getYRot(), babOneEntity.getXRot());
+
+                    hasSpawnedBab = true;
+                }
+
                 if (!this.level().getBlockState(spawnPos).isAir()) {
                     while (retries < 10) {
                         y++;
@@ -182,9 +191,15 @@ public class CherubEntity extends Monster implements FlyingAnimal {
 
                 BlockPos centerPos = this.blockPosition();
                 BlockPos spawnPos = new BlockPos((int) (centerPos.getX() + x), (int) y, (int) (centerPos.getZ() + z));
-                BabOneEntity babOneEntity = new BabOneEntity(HolyHellEntities.BAB_ONE.get(), this.level());
-                this.level().addFreshEntity(babOneEntity);
-                babOneEntity.moveTo(spawnPos, babOneEntity.getYRot(), babOneEntity.getXRot());
+
+                if (hasSpawnedBab==false) {
+                    BabOneEntity babOneEntity = new BabOneEntity(HolyHellEntities.BAB_ONE.get(), this.level());
+                    this.level().addFreshEntity(babOneEntity);
+                    babOneEntity.moveTo(spawnPos, babOneEntity.getYRot(), babOneEntity.getXRot());
+
+                    hasSpawnedBab = true;
+                }
+
                 if (!this.level().getBlockState(spawnPos).isAir()) {
                     while (retries < 10) {
                         y++;
@@ -258,6 +273,7 @@ public class CherubEntity extends Monster implements FlyingAnimal {
             boolean b;
             capacity = 20 * 1.6;
 
+
             do {
 
                 double angle = random.nextDouble() * 2 * Math.PI;
@@ -269,9 +285,14 @@ public class CherubEntity extends Monster implements FlyingAnimal {
 
                 BlockPos centerPos = this.blockPosition();
                 BlockPos spawnPos = new BlockPos((int) (centerPos.getX() + x), (int) y, (int) (centerPos.getZ() + z));
-                BabOneEntity babOneEntity = new BabOneEntity(HolyHellEntities.BAB_ONE.get(), this.level());
-                this.level().addFreshEntity(babOneEntity);
-                babOneEntity.moveTo(spawnPos, babOneEntity.getYRot(), babOneEntity.getXRot());
+
+                if (hasSpawnedBab==false) {
+                    BabOneEntity babOneEntity = new BabOneEntity(HolyHellEntities.BAB_ONE.get(), this.level());
+                    this.level().addFreshEntity(babOneEntity);
+                    babOneEntity.moveTo(spawnPos, babOneEntity.getYRot(), babOneEntity.getXRot());
+
+                    hasSpawnedBab = true;
+                }
 
                 if (!this.level().getBlockState(spawnPos).isAir()) {
                     while (retries < 10) {
@@ -342,6 +363,7 @@ public class CherubEntity extends Monster implements FlyingAnimal {
             boolean b;
             capacity = 20 * 3;
 
+
             do {
 
                 double angle = random.nextDouble() * 2 * Math.PI;
@@ -350,10 +372,15 @@ public class CherubEntity extends Monster implements FlyingAnimal {
 
                 int a = random.nextInt(4);
 
-
                 BlockPos centerPos = this.blockPosition();
                 BlockPos spawnPos = new BlockPos((int) (centerPos.getX() + x), (int) y, (int) (centerPos.getZ() + z));
+                if (hasSpawnedBab==false) {
+                    BabOneEntity babOneEntity = new BabOneEntity(HolyHellEntities.BAB_ONE.get(), this.level());
+                    this.level().addFreshEntity(babOneEntity);
+                    babOneEntity.moveTo(spawnPos, babOneEntity.getYRot(), babOneEntity.getXRot());
 
+                    hasSpawnedBab = true;
+                }
                 if (!this.level().getBlockState(spawnPos).isAir()) {
                     while (retries < 10) {
                         y++;

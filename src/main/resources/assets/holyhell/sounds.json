@@ -5,12 +5,6 @@
       "holyhell:clarity_music"
     ]
   },
-  "cross_fall": {
-    "subtitle": "sounds.holyhell.cross_fall",
-    "sounds": [
-      "holyhell:cross_fall"
-    ]
-  },
   "holy_shield_block": {
     "subtitle": "sounds.holyhell.holy_shield_block",
     "sounds": [

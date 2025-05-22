@@ -15,7 +15,6 @@ public class HolyHellSound {
             DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, HolyHell.MOD_ID);
 
 
-    public static final RegistryObject<SoundEvent> CROSS_FALL = registerSoundEvents("cross_fall");
 
     public static final RegistryObject<SoundEvent> HOLY_SHIELD_BLOCK = registerSoundEvents("holy_shield_block");
 
@@ -26,7 +25,7 @@ public class HolyHellSound {
     public static final RegistryObject<SoundEvent> CANDELABRA_PLACE = registerSoundEvents("candelabra_place");
     public static final RegistryObject<SoundEvent> CANDELABRA_LIGHT = registerSoundEvents("candelabra_light");
     public static final RegistryObject<SoundEvent> DIVINING_TABLE_INTERACT = registerSoundEvents("divining_table_interact");
-    public static final RegistryObject<SoundEvent> GLOBE_SPIN = registerSoundEvents("globe_spin");
+
 
     public static final RegistryObject<SoundEvent> SACRIFICE = registerSoundEvents("sacrifice");
     public static final RegistryObject<SoundEvent> SWORD_SLASH = registerSoundEvents("sword_slash");

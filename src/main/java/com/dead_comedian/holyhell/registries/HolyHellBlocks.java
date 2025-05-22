@@ -51,15 +51,6 @@ public class HolyHellBlocks {
                     .sound(SoundType.STONE)));
 
 
-    public static final RegistryObject<Block> GLOBE = registerBlock("globe",
-            () -> new GlobeBlock(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.COLOR_GREEN)
-                    .instrument(NoteBlockInstrument.BASS)
-                    .strength(2.3F)
-                    .noOcclusion()
-                    .requiresCorrectToolForDrops()
-                    .sound(SoundType.WOOD)));
-
     public static final RegistryObject<Block> CANDELABRA = registerBlock("candelabra",
             () -> new CandelabraBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_GREEN)
