@@ -33,38 +33,7 @@ public class CherubRenderer extends MobRenderer<CherubEntity, CherubModel<Cherub
     @Override
     public void render(CherubEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack,
                        MultiBufferSource pBuffer, int pPackedLight) {
-//        if ( !pEntity.isInvisible()) {
-//           ColoredParticleInitialData data = new ColoredParticleInitialData(0xFFFF77);
-//
-//
-//
-//            pMatrixStack.pushPose();
-//				List<TrailPoint> positions = ((PositionTrackedEntity) CherubEntity).getPastPositions();
-//				VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setRenderType(getTrailRenderType());
-//
-//				float size = 0.15f;
-//				float alpha = 1f;	y
-//
-//				float x = (float) Mth.lerp(pPartialTicks, pEntity.prevX, pEntity.getX());
-//				float y = (float) Mth.lerp(pPartialTicks, pEntity.prevY, pEntity.getY());
-//				float z = (float) Mth.lerp(pPartialTicks, pEntity.prevZ, pEntity.getZ());
-//
-//            pMatrixStack.translate(-x, -y, -z);
-//				builder.setColor(new Color(0xFFFF77))
-//					.setAlpha(alpha)
-//					.renderTrail(pMatrixStack,
-//						positions,
-//						f -> Mth.sqrt(f) * size,
-//						f -> builder.setAlpha((float) Math.cbrt(Math.max(0, (alpha * f) - 0.1f)))
-//					)
-//					.renderTrail(pMatrixStack,
-//						positions,
-//						f -> (Mth.sqrt(f) * size) / 1.5f,
-//						f -> builder.setAlpha((float) Math.cbrt(Math.max(0, (((alpha * f) / 1.5f) - 0.1f))))
-//					);
-//
-//				pMatrixStack.popPose();
-//			}
+
 
         super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
     }
