@@ -86,7 +86,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
 
             }
-
+            entityBelow.removeAll(entityBelow);
 
         }
 
@@ -130,7 +130,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             }
 
         }
-
+        entityBelow.removeAll(entityBelow);
         return value;
 
     }

@@ -48,6 +48,7 @@ public class FallingCrossBlock extends BaseEntityBlock implements EntityBlock, F
                 ((ServerLevel) pLevel).sendParticles(ParticleTypes.CAMPFIRE_SIGNAL_SMOKE.getType(), (double) pPos.getX(), (double) pPos.getY(), (double) pPos.getZ(), 15, 1.0, 1.0, 1.0, 0.2);
             }
         }
+        wiw.removeAll(wiw);
 
     }
 

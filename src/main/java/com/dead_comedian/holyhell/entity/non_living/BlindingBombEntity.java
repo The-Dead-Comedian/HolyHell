@@ -53,6 +53,7 @@ public class BlindingBombEntity extends ThrowableItemProjectile {
             i.addEffect(new MobEffectInstance(HolyHellEffects.CONFUSION.get(), 200 ,1));
 
         }
+        list.removeAll(list);
     }
     protected void explode(double power) {
         this.explode((DamageSource)null, power);
@@ -92,6 +93,7 @@ public class BlindingBombEntity extends ThrowableItemProjectile {
                 i.addEffect(new MobEffectInstance(HolyHellEffects.CONFUSION.get(), 200 ,1));
 
             }
+            list.removeAll(list);
             this.discard();
         }
         this.explode(-1);

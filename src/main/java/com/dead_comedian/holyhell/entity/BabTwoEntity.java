@@ -27,6 +27,7 @@ import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 
 public class BabTwoEntity extends TamableAnimal {
@@ -83,9 +84,10 @@ public class BabTwoEntity extends TamableAnimal {
                         this.discard();
                         i.discard();
                     }
-            }
+                }
             }
         }
+        entityBelow.removeAll(entityBelow);
         if (this.level().isClientSide()) {
             setupAnimationStates();
         }
@@ -174,9 +176,6 @@ public class BabTwoEntity extends TamableAnimal {
     }
 
 
-
-
-
     ///////////
     // TAMED //
     ///////////
@@ -186,7 +185,6 @@ public class BabTwoEntity extends TamableAnimal {
         this.entityData.set(TAMED, tamed);
         super.setTame(tamed);
     }
-
 
 
     ///////////////
@@ -205,8 +203,6 @@ public class BabTwoEntity extends TamableAnimal {
     public boolean canCollideWith(Entity other) {
         return canCollide(this, other);
     }
-
-
 
 
 }
