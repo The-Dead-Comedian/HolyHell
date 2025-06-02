@@ -84,7 +84,7 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
         super.tick();
 
         if (!isAlive()) {
-            this.explode(0.5d);
+            this.explode(1d);
             this.level().addParticle(HolyhellParticles.KAMIKAZE_EXPLOSION.get(), this.getX(), this.getY(), this.getZ(), 0.1, 0.1, 0.1);
             this.discard();
         }
@@ -107,7 +107,7 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
     }
 
     public static AttributeSupplier.Builder createKamikazeAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 15f)
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 5f)
                 .add(Attributes.FLYING_SPEED, 1)
                 .add(Attributes.MOVEMENT_SPEED, 0.7)
                 .add(Attributes.ATTACK_DAMAGE, 2.0)
@@ -314,7 +314,7 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
                 timeSinceAttack++;
 
             } else {
-                this.navigation.moveTo(this.entity.getTarget(), this.speednt * 1.5);
+                this.navigation.moveTo(this.entity.getTarget(), this.speednt * 2);
                 if (this.entity.getIsHit()) {
                     setIsHit(false);
                     this.timeSinceAttack = 0;

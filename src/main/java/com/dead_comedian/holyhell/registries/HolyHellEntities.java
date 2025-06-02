@@ -25,19 +25,12 @@ public class HolyHellEntities {
 public static final RegistryObject<EntityType<AngelEntity>> ANGEL =
         ENTITY_TYPES.register("angel", () -> EntityType.Builder.of(AngelEntity::new, MobCategory.CREATURE)
                 .sized(0.8f, 1.5f).build("angel"));
-
     public static final RegistryObject<EntityType<KamikazeEntity>> KAMIKAZE     =
             ENTITY_TYPES.register("kamikaze", () -> EntityType.Builder.of(KamikazeEntity::new, MobCategory.CREATURE)
-                    .sized(0.8f, 1.5f).build("kamikaze"));
-
+                    .sized(0.8f, 0.8f).build("kamikaze"));
     public static final RegistryObject<EntityType<HereticEntity>> HERETIC     =
             ENTITY_TYPES.register("heretic", () -> EntityType.Builder.of(HereticEntity::new, MobCategory.CREATURE)
-                    .sized(1.5f, 1.2f).build("heretic"));
-
-    public static final RegistryObject<EntityType<PalladinEntity>> PALLADIN     =
-            ENTITY_TYPES.register("palladin", () -> EntityType.Builder.of(PalladinEntity::new, MobCategory.CREATURE)
-                    .sized(1.5f, 2.5f).build("palladin"));
-
+                    .sized(1f, 1.2f).build("heretic"));
     public static final RegistryObject<EntityType<BabOneEntity>> BAB_ONE     =
             ENTITY_TYPES.register("bab_one", () -> EntityType.Builder.of(BabOneEntity::new, MobCategory.CREATURE)
                     .sized(0.8f, 0.6f).build("bab_one"));
@@ -56,10 +49,13 @@ public static final RegistryObject<EntityType<AngelEntity>> ANGEL =
     public static final RegistryObject<EntityType<HolyCowEntity>> HOLY_COW     =
             ENTITY_TYPES.register("holy_cow", () -> EntityType.Builder.of(HolyCowEntity::new, MobCategory.CREATURE)
                     .sized(0.8f, 1.1f).build("holy_cow"));
-
-    public static final RegistryObject<EntityType<DevoutEntity>> DEVOUT     =
-            ENTITY_TYPES.register("devout", () -> EntityType.Builder.of(DevoutEntity::new, MobCategory.CREATURE)
-                    .sized(0.8f, 3f).build("devout"));
+//
+//    public static final RegistryObject<EntityType<DevoutEntity>> DEVOUT     =
+//            ENTITY_TYPES.register("devout", () -> EntityType.Builder.of(DevoutEntity::new, MobCategory.CREATURE)
+//                    .sized(0.8f, 3f).build("devout"));
+//    public static final RegistryObject<EntityType<PalladinEntity>> PALLADIN     =
+//            ENTITY_TYPES.register("palladin", () -> EntityType.Builder.of(PalladinEntity::new, MobCategory.CREATURE)
+//                    .sized(1.5f, 2.5f).build("palladin"));
 
 
     // NON LIVING
@@ -73,16 +69,17 @@ public static final RegistryObject<EntityType<GateEntity>> GATE =
     public static final RegistryObject<EntityType<BlindingBombEntity>> BLINDING_BOMB =
             ENTITY_TYPES.register("blinding_bomb", () -> EntityType.Builder.<BlindingBombEntity>of(BlindingBombEntity::new, MobCategory.MISC)
                     .sized(0.5f, 0.2f).build("blinding_bomb"));
-    public static final RegistryObject<EntityType<FallingSwordEntity>> FALLING_SWORD =
-            ENTITY_TYPES.register("falling_sword", () -> EntityType.Builder.<FallingSwordEntity>of(FallingSwordEntity::new, MobCategory.MISC)
-                    .sized(0.5f, 2f).build("falling_sword"));
+
     public static final RegistryObject<EntityType<FireBallEntity>> FIREBALL =
             ENTITY_TYPES.register("fireball", () -> EntityType.Builder.<FireBallEntity>of(FireBallEntity::new, MobCategory.MISC)
                     .sized(0.5f, 0.25f).build("fireball"));
-    public static final RegistryObject<EntityType<SwordCrossEntity>> SWORD_CROSS =
-            ENTITY_TYPES.register("sword_cross", () -> EntityType.Builder.<SwordCrossEntity>of(SwordCrossEntity::new, MobCategory.MISC)
-                    .sized(0.5f, 0.25f).build("sword_cross"));
 
+//    public static final RegistryObject<EntityType<SwordCrossEntity>> SWORD_CROSS =
+//            ENTITY_TYPES.register("sword_cross", () -> EntityType.Builder.<SwordCrossEntity>of(SwordCrossEntity::new, MobCategory.MISC)
+//                    .sized(0.5f, 0.25f).build("sword_cross"));
+//    public static final RegistryObject<EntityType<FallingSwordEntity>> FALLING_SWORD =
+//            ENTITY_TYPES.register("falling_sword", () -> EntityType.Builder.<FallingSwordEntity>of(FallingSwordEntity::new, MobCategory.MISC)
+//                    .sized(0.5f, 2f).build("falling_sword"));
 
 
 

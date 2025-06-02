@@ -72,9 +72,9 @@ public class HereticEntity extends Monster {
 
     public static AttributeSupplier.Builder createHereticAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 25)
-                .add(Attributes.MOVEMENT_SPEED, 0.3f)
-                .add(Attributes.ARMOR, 1.5f)
+                .add(Attributes.MAX_HEALTH, 30)
+                .add(Attributes.MOVEMENT_SPEED, 0.4f)
+                .add(Attributes.ARMOR, 1.7f)
                 .add(Attributes.ATTACK_DAMAGE, 8);
     }
 
@@ -95,7 +95,7 @@ public class HereticEntity extends Monster {
 
 
         if (this.isAggressive() && attackAnimationTimeout <= 0) {
-            attackAnimationTimeout = 30;
+            attackAnimationTimeout = 45;
             attackAnimationState.startIfStopped(this.tickCount);
 
 

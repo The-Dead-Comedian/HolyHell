@@ -7,6 +7,8 @@ import com.dead_comedian.holyhell.registries.HolyhellParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -48,9 +50,9 @@ public class CherubEntity extends Monster implements FlyingAnimal {
      * 0 = Kamikaze
      * 1 = Angel
      * 2 = Heretic
-     * 3 = Devout (palladin for now)
+     * 3 = Devout (paladin for now)(none existent for now)
      * */
-    int[] mobSpawnIndex = new int[]{2, 3, 4, 7};
+    int[] mobSpawnIndex = new int[]{5, 3, 4};
 
 
     //////////
@@ -59,7 +61,7 @@ public class CherubEntity extends Monster implements FlyingAnimal {
 
     public CherubEntity(EntityType<? extends Monster> entityType, Level world) {
         super(entityType, world);
-        this.hasSpawnedBab=false;
+        this.hasSpawnedBab = false;
 
         this.moveControl = new FlyingMoveControl(this, 20, true);
         this.setPathfindingMalus(BlockPathTypes.LAVA, -1.0F);
@@ -80,32 +82,31 @@ public class CherubEntity extends Monster implements FlyingAnimal {
 
 
             LivingEntity lastAttacker = this.getLastAttacker();
-            double y = 0;
+            double spawnY = 0;
             if (lastAttacker != null) {
-                y = lastAttacker.getY();
+                spawnY = lastAttacker.getY()-4;
             }
             int retries = 0;
 
 
-            int radius = 7;
+            int radius = 12;
             boolean b;
             capacity = 20 * 1.3;
-
 
 
             do {
 
                 double angle = random.nextDouble() * 2 * Math.PI;
-                double x = radius * Math.cos(angle);
-                double z = radius * Math.sin(angle);
+                double spawnX = radius * Math.cos(angle);
+                double spawnZ = radius * Math.sin(angle);
 
-                int a = random.nextInt(3);
+                int mobIndex = random.nextInt(3);
 
 
                 BlockPos centerPos = this.blockPosition();
-                BlockPos spawnPos = new BlockPos((int) (centerPos.getX() + x), (int) y, (int) (centerPos.getZ() + z));
+                BlockPos spawnPos = new BlockPos((int) (centerPos.getX() + spawnX), (int) spawnY, (int) (centerPos.getZ() + spawnZ));
 
-                if (hasSpawnedBab==false) {
+                if (!hasSpawnedBab) {
                     BabOneEntity babOneEntity = new BabOneEntity(HolyHellEntities.BAB_ONE.get(), this.level());
                     this.level().addFreshEntity(babOneEntity);
                     babOneEntity.moveTo(spawnPos, babOneEntity.getYRot(), babOneEntity.getXRot());
@@ -113,47 +114,49 @@ public class CherubEntity extends Monster implements FlyingAnimal {
                     hasSpawnedBab = true;
                 }
 
-                if (!this.level().getBlockState(spawnPos).isAir()) {
-                    while (retries < 10) {
-                        y++;
-                        spawnPos = new BlockPos((int) x, (int) y, (int) z);
-                        retries++;
+                    if (!this.level().getBlockState(spawnPos).isAir() || this.level().getBlockState(spawnPos.below()).isAir()) {
+                        while (retries < 10) {
+                            spawnY++;
+                            spawnPos = new BlockPos((int) spawnX, (int) spawnY, (int) spawnZ);
+                            retries++;
+                        }
                     }
-                }
 
-                if (!this.level().getBlockState(spawnPos).isAir()) {
-                    while (retries == 10) {
-                        radius--;
-                        spawnPos = new BlockPos((int) x, (int) y, (int) z);
-                        retries++;
+                    if (!this.level().getBlockState(spawnPos).isAir()) {
+                        while (retries == 10) {
+                            radius--;
+                            spawnPos = new BlockPos((int) spawnX, (int) spawnY, (int) spawnZ);
+                            retries++;
+                        }
                     }
-                }
                 GateEntity gateEntity = new GateEntity(HolyHellEntities.GATE.get(), this.level());
                 this.level().addFreshEntity(gateEntity);
                 gateEntity.moveTo(spawnPos, gateEntity.getYRot(), gateEntity.getXRot());
 
 
-                if (a == 0) {
-
-                    KamikazeEntity kamikazeEntity = new KamikazeEntity(HolyHellEntities.KAMIKAZE.get(), this.level());
-                    this.level().addFreshEntity(kamikazeEntity);
-                    kamikazeEntity.moveTo(spawnPos, kamikazeEntity.getYRot(), kamikazeEntity.getXRot());
-                    current = (int) ((current + mobSpawnIndex[a]));
+                switch (mobIndex) {
+                    case 0:
+                        KamikazeEntity kamikazeEntity = new KamikazeEntity(HolyHellEntities.KAMIKAZE.get(), this.level());
+                        this.level().addFreshEntity(kamikazeEntity);
+                        kamikazeEntity.moveTo(spawnPos, kamikazeEntity.getYRot(), kamikazeEntity.getXRot());
+                        kamikazeEntity.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20));
+                        current = current + mobSpawnIndex[mobIndex];
+                        break;
+                    case 1:
+                        AngelEntity angelEntity = new AngelEntity(HolyHellEntities.ANGEL.get(), this.level());
+                        this.level().addFreshEntity(angelEntity);
+                        angelEntity.moveTo(spawnPos, angelEntity.getYRot(), angelEntity.getXRot());
+                        angelEntity.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20));
+                        current = current + mobSpawnIndex[mobIndex];
+                        break;
+                    case 2:
+                        HereticEntity hereticEntity = new HereticEntity(HolyHellEntities.HERETIC.get(), this.level());
+                        this.level().addFreshEntity(hereticEntity);
+                        hereticEntity.moveTo(spawnPos, hereticEntity.getYRot(), hereticEntity.getXRot());
+                        hereticEntity.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20));
+                        current = current + mobSpawnIndex[mobIndex];
+                        break;
                 }
-                if (a == 1) {
-
-                    AngelEntity angelEntity = new AngelEntity(HolyHellEntities.ANGEL.get(), this.level());
-                    this.level().addFreshEntity(angelEntity);
-                    angelEntity.moveTo(spawnPos, angelEntity.getYRot(), angelEntity.getXRot());
-                    current = (int) ((current + mobSpawnIndex[a]));
-                } else if (a == 2) {
-
-                    HereticEntity hereticEntity = new HereticEntity(HolyHellEntities.HERETIC.get(), this.level());
-                    this.level().addFreshEntity(hereticEntity);
-                    hereticEntity.moveTo(spawnPos, hereticEntity.getYRot(), hereticEntity.getXRot());
-                    current = (int) ((current + mobSpawnIndex[a]));
-                }
-
                 b = capacity * 1.3 > current;
 
             } while (b);
@@ -186,13 +189,13 @@ public class CherubEntity extends Monster implements FlyingAnimal {
                 double x = radius * Math.cos(angle);
                 double z = radius * Math.sin(angle);
 
-                int a = random.nextInt(4);
+                int mobIndex = random.nextInt(3);
 
 
                 BlockPos centerPos = this.blockPosition();
                 BlockPos spawnPos = new BlockPos((int) (centerPos.getX() + x), (int) y, (int) (centerPos.getZ() + z));
 
-                if (hasSpawnedBab==false) {
+                if (!hasSpawnedBab) {
                     BabOneEntity babOneEntity = new BabOneEntity(HolyHellEntities.BAB_ONE.get(), this.level());
                     this.level().addFreshEntity(babOneEntity);
                     babOneEntity.moveTo(spawnPos, babOneEntity.getYRot(), babOneEntity.getXRot());
@@ -220,32 +223,30 @@ public class CherubEntity extends Monster implements FlyingAnimal {
                 gateEntity.moveTo(spawnPos, gateEntity.getYRot(), gateEntity.getXRot());
 
 
-                if (a == 0) {
-
-                    KamikazeEntity kamikazeEntity = new KamikazeEntity(HolyHellEntities.KAMIKAZE.get(), this.level());
-                    this.level().addFreshEntity(kamikazeEntity);
-                    kamikazeEntity.moveTo(spawnPos, kamikazeEntity.getYRot(), kamikazeEntity.getXRot());
-                    current = (int) ((current + mobSpawnIndex[a]));
+                switch (mobIndex) {
+                    case 0:
+                        KamikazeEntity kamikazeEntity = new KamikazeEntity(HolyHellEntities.KAMIKAZE.get(), this.level());
+                        this.level().addFreshEntity(kamikazeEntity);
+                        kamikazeEntity.moveTo(spawnPos, kamikazeEntity.getYRot(), kamikazeEntity.getXRot());
+                        kamikazeEntity.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20));
+                        current = current + mobSpawnIndex[mobIndex];
+                        break;
+                    case 1:
+                        AngelEntity angelEntity = new AngelEntity(HolyHellEntities.ANGEL.get(), this.level());
+                        this.level().addFreshEntity(angelEntity);
+                        angelEntity.moveTo(spawnPos, angelEntity.getYRot(), angelEntity.getXRot());
+                        angelEntity.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20));
+                        current = current + mobSpawnIndex[mobIndex];
+                        break;
+                    case 2:
+                        HereticEntity hereticEntity = new HereticEntity(HolyHellEntities.HERETIC.get(), this.level());
+                        this.level().addFreshEntity(hereticEntity);
+                        hereticEntity.moveTo(spawnPos, hereticEntity.getYRot(), hereticEntity.getXRot());
+                        hereticEntity.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20));
+                        current = current + mobSpawnIndex[mobIndex];
+                        break;
                 }
-                if (a == 1) {
 
-                    AngelEntity angelEntity = new AngelEntity(HolyHellEntities.ANGEL.get(), this.level());
-                    this.level().addFreshEntity(angelEntity);
-                    angelEntity.moveTo(spawnPos, angelEntity.getYRot(), angelEntity.getXRot());
-                    current = (int) ((current + mobSpawnIndex[a]));
-                } else if (a == 2) {
-
-                    HereticEntity hereticEntity = new HereticEntity(HolyHellEntities.HERETIC.get(), this.level());
-                    this.level().addFreshEntity(hereticEntity);
-                    hereticEntity.moveTo(spawnPos, hereticEntity.getYRot(), hereticEntity.getXRot());
-                    current = (int) ((current + mobSpawnIndex[a]));
-                } else if (a == 3) {
-
-                    PalladinEntity palladinEntity = new PalladinEntity(HolyHellEntities.PALLADIN.get(), this.level());
-                    this.level().addFreshEntity(palladinEntity);
-                    palladinEntity.moveTo(spawnPos, palladinEntity.getYRot(), palladinEntity.getXRot());
-                    current = (int) ((current + mobSpawnIndex[a]));
-                }
 
                 b = capacity * 1.3 > current;
 
@@ -271,96 +272,6 @@ public class CherubEntity extends Monster implements FlyingAnimal {
 
             int radius = 7;
             boolean b;
-            capacity = 20 * 1.6;
-
-
-            do {
-
-                double angle = random.nextDouble() * 2 * Math.PI;
-                double x = radius * Math.cos(angle);
-                double z = radius * Math.sin(angle);
-
-                int a = random.nextInt(4);
-
-
-                BlockPos centerPos = this.blockPosition();
-                BlockPos spawnPos = new BlockPos((int) (centerPos.getX() + x), (int) y, (int) (centerPos.getZ() + z));
-
-                if (hasSpawnedBab==false) {
-                    BabOneEntity babOneEntity = new BabOneEntity(HolyHellEntities.BAB_ONE.get(), this.level());
-                    this.level().addFreshEntity(babOneEntity);
-                    babOneEntity.moveTo(spawnPos, babOneEntity.getYRot(), babOneEntity.getXRot());
-
-                    hasSpawnedBab = true;
-                }
-
-                if (!this.level().getBlockState(spawnPos).isAir()) {
-                    while (retries < 10) {
-                        y++;
-                        spawnPos = new BlockPos((int) x, (int) y, (int) z);
-                        retries++;
-                    }
-                }
-
-                if (!this.level().getBlockState(spawnPos).isAir()) {
-                    while (retries == 10) {
-                        radius--;
-                        spawnPos = new BlockPos((int) x, (int) y, (int) z);
-                        retries++;
-                    }
-                }
-
-                GateEntity gateEntity = new GateEntity(HolyHellEntities.GATE.get(), this.level());
-                this.level().addFreshEntity(gateEntity);
-                gateEntity.moveTo(spawnPos, gateEntity.getYRot(), gateEntity.getXRot());
-
-                if (a == 0) {
-                    KamikazeEntity kamikazeEntity = new KamikazeEntity(HolyHellEntities.KAMIKAZE.get(), this.level());
-                    this.level().addFreshEntity(kamikazeEntity);
-                    kamikazeEntity.moveTo(spawnPos, kamikazeEntity.getYRot(), kamikazeEntity.getXRot());
-                    current = (int) ((current + mobSpawnIndex[a]));
-                }
-                if (a == 1) {
-                    AngelEntity angelEntity = new AngelEntity(HolyHellEntities.ANGEL.get(), this.level());
-                    this.level().addFreshEntity(angelEntity);
-                    angelEntity.moveTo(spawnPos, angelEntity.getYRot(), angelEntity.getXRot());
-                    current = (int) ((current + mobSpawnIndex[a]));
-                } else if (a == 2) {
-                    HereticEntity hereticEntity = new HereticEntity(HolyHellEntities.HERETIC.get(), this.level());
-                    this.level().addFreshEntity(hereticEntity);
-                    hereticEntity.moveTo(spawnPos, hereticEntity.getYRot(), hereticEntity.getXRot());
-                    current = (int) ((current + mobSpawnIndex[a]));
-                } else if (a == 3) {
-                    PalladinEntity palladinEntity = new PalladinEntity(HolyHellEntities.PALLADIN.get(), this.level());
-                    this.level().addFreshEntity(palladinEntity);
-                    palladinEntity.moveTo(spawnPos, palladinEntity.getYRot(), palladinEntity.getXRot());
-                    current = (int) ((current + mobSpawnIndex[a]));
-                }
-
-                b = capacity * 1.3 > current;
-
-            } while (b);
-
-
-            if (current > capacity) {
-                current = 0;
-                wave_level = 0;
-                this.discard();
-            }
-        }
-        if (wave_level == 4) {
-
-
-            LivingEntity lastAttacker = this.getLastAttacker();
-            double y = 0;
-            if (lastAttacker != null) {
-                y = lastAttacker.getY();
-            }
-            int retries = 0;
-
-
-            int radius = 7;
-            boolean b;
             capacity = 20 * 3;
 
 
@@ -374,7 +285,7 @@ public class CherubEntity extends Monster implements FlyingAnimal {
 
                 BlockPos centerPos = this.blockPosition();
                 BlockPos spawnPos = new BlockPos((int) (centerPos.getX() + x), (int) y, (int) (centerPos.getZ() + z));
-                if (hasSpawnedBab==false) {
+                if (!hasSpawnedBab) {
                     BabOneEntity babOneEntity = new BabOneEntity(HolyHellEntities.BAB_ONE.get(), this.level());
                     this.level().addFreshEntity(babOneEntity);
                     babOneEntity.moveTo(spawnPos, babOneEntity.getYRot(), babOneEntity.getXRot());
@@ -406,7 +317,7 @@ public class CherubEntity extends Monster implements FlyingAnimal {
                     KamikazeEntity kamikazeEntity = new KamikazeEntity(HolyHellEntities.KAMIKAZE.get(), this.level());
                     this.level().addFreshEntity(kamikazeEntity);
                     kamikazeEntity.moveTo(spawnPos, kamikazeEntity.getYRot(), kamikazeEntity.getXRot());
-                    current = (int) ((current + mobSpawnIndex[a]));
+                    current = current + mobSpawnIndex[a];
                 }
 
                 b = capacity * 1.3 > current;
@@ -444,14 +355,12 @@ public class CherubEntity extends Monster implements FlyingAnimal {
             ((ServerLevel) this.level()).sendParticles(HolyhellParticles.SOUND_RING.get(), this.getX(), this.getY(), this.getZ(), 1, 0, 0, 0, 0);
         }
 
-        if (pAmount <= 5) {
+        if (pAmount <= 9) {
             wave_level = 1;
-        } else if (pAmount <= 7) {
+        } else if (pAmount <= 15) {
             wave_level = 2;
-        } else if (pAmount <= 11) {
+        } else if (pAmount > 15) {
             wave_level = 3;
-        } else if (pAmount >= 20) {
-            wave_level = 4;
         }
 
 

@@ -15,6 +15,9 @@ public class HolyhellParticles {
     public static final RegistryObject<SimpleParticleType> LIGHT_RING  =
             PARTICLE_TYPES.register("light_ring", () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> KAMIKAZE_EXPLOSION  =
+            PARTICLE_TYPES.register("kamikaze_explosion", () -> new SimpleParticleType(true));
+
     public static final RegistryObject<SimpleParticleType> SWEEP_ATTACK  =
             PARTICLE_TYPES.register("sweep_attack", () -> new SimpleParticleType(true));
 

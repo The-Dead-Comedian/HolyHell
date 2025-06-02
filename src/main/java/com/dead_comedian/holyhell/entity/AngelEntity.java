@@ -74,7 +74,7 @@ public class AngelEntity extends Monster implements RangedAttackMob {
         this.goalSelector.addGoal(0, new FloatGoal(this));
 
 
-        this.goalSelector.addGoal(1, new RangedAttackGoal(this, 1, 20, 15.0F, 7, 10, 20, 900));
+        this.goalSelector.addGoal(1, new RangedAttackGoal(this, 1, 40, 10.0F, 7, 10, 20, 900));
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1D));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 4f));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
@@ -85,7 +85,7 @@ public class AngelEntity extends Monster implements RangedAttackMob {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 10)
                 .add(Attributes.MOVEMENT_SPEED, 0.2f)
-                .add(Attributes.ARMOR, 0.8f)
+                .add(Attributes.ARMOR, 1.3f)
                 .add(Attributes.ATTACK_DAMAGE, 2);
     }
 

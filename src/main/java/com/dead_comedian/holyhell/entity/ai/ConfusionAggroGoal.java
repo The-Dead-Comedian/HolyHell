@@ -31,7 +31,6 @@ public class ConfusionAggroGoal extends Goal {
 
     @Override
     public void tick() {
-        BlockPos blockPos= entity.blockPosition();
         entity.setTarget( this.entity.level().getNearestEntity(this.entity.level().getEntitiesOfClass(Monster.class, this.getSearchBox(this.entity.getAttributeValue(Attributes.FOLLOW_RANGE)), (livingEntity) -> true), this.targetPredicate, this.entity, this.entity.getX(), this.entity.getEyeY(), this.entity.getZ()));
     }
     protected AABB getSearchBox(double distance) {

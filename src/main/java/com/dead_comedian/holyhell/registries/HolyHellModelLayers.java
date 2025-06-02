@@ -9,12 +9,8 @@ public class HolyHellModelLayers {
 
 
 
-    public static final ModelLayerLocation DEVOUT =
-            new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "devout"), "main");
     public static final ModelLayerLocation ANGEL =
             new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "angel"), "main");
-    public static final ModelLayerLocation PALLADIN =
-            new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "palladin"), "main");
     public static final ModelLayerLocation HERETIC =
             new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "heretic"), "main");
     public static final ModelLayerLocation HOLY_SPIRIT =
@@ -36,10 +32,6 @@ public class HolyHellModelLayers {
 
     public static final ModelLayerLocation FIREBALL =
             new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "fireball"), "main");
-    public static final ModelLayerLocation FALLING_SWORD =
-            new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "falling_sword"), "main");
-    public static final ModelLayerLocation SWORD_CROSS =
-            new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "sword_cross"), "main");
     public static final ModelLayerLocation GLOBULAR_DOME =
             new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "globular_dome"), "main");
     public static final ModelLayerLocation GATE =

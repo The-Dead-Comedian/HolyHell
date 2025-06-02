@@ -30,9 +30,9 @@ public class GlobularDomeItem extends Item {
         globularDomeEntity.moveTo(blockPos, globularDomeEntity.getYRot(), globularDomeEntity.getXRot());
         globularDomeEntity.setUser(owner);
         user.getCooldowns().addCooldown(this, 200);
-        world.playSound(user,user.blockPosition(), HolyHellSound.GLOBULAR_DOME.get(), SoundSource.PLAYERS,0.8f,1);
+        world.playSound(user,user.blockPosition(), HolyHellSound.STONE_CRACK.get(), SoundSource.PLAYERS,0.8f,1);
 
-        world.playLocalSound(user.blockPosition(), HolyHellSound.GLOBULAR_DOME.get(), SoundSource.PLAYERS, 1, 1, true);
+        world.playLocalSound(user.blockPosition(), HolyHellSound.STONE_CRACK.get(), SoundSource.PLAYERS, 1, 1, true);
 
         if (!user.isCreative()) {
             user.getItemInHand(hand).shrink(1);

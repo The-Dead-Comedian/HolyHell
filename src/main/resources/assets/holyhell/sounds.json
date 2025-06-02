@@ -59,10 +59,10 @@
       "holyhell:sacrifice"
     ]
   },
-  "globular_dome": {
-    "subtitle": "sounds.holyhell.globular_dome",
+  "stone_crack": {
+    "subtitle": "sounds.holyhell.stone_crack",
     "sounds": [
-      "holyhell:globular_dome"
+      "holyhell:stone_crack"
     ]
   },
   "angel_flutter": {
@@ -71,10 +71,10 @@
       "holyhell:angel_flutter"
     ]
   },
-  "angel_explode": {
-    "subtitle": "sounds.holyhell.angel_explode",
+  "angel_shoot": {
+    "subtitle": "sounds.holyhell.angel_shoot",
     "sounds": [
-      "holyhell:angel_explode"
+      "holyhell:angel_shoot"
     ]
   },
   "angel_hurt": {

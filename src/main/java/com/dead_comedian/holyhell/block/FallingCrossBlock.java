@@ -2,8 +2,6 @@ package com.dead_comedian.holyhell.block;
 
 import com.dead_comedian.holyhell.block.entity.FallingCrossBlockEntity;
 import com.dead_comedian.holyhell.registries.HolyHellBlockEntities;
-
-
 import com.dead_comedian.holyhell.registries.HolyHellSound;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -11,6 +9,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
@@ -36,15 +35,17 @@ public class FallingCrossBlock extends BaseEntityBlock implements EntityBlock, F
     @Override
     public void onLand(Level pLevel, BlockPos pPos, BlockState pState, BlockState pReplaceableState, FallingBlockEntity pFallingBlock) {
         List<Entity> wiw = pLevel.getEntities(null, new AABB(pPos).inflate(1, 1, 1));
-        pLevel.playSound(pFallingBlock,pFallingBlock    .blockPosition(), HolyHellSound.GLOBULAR_DOME.get(), SoundSource.PLAYERS,0.8f,1);
 
+        if (!pFallingBlock.isSilent()) {
+            pLevel.playSound((Player) null, pPos, HolyHellSound.STONE_CRACK.get(), SoundSource.BLOCKS, 0.8f, 1);
+        }
         for (Entity entity : wiw) {
             entity.hurt(pLevel.damageSources().fallingBlock(entity), 20);
         }
         for (int i = 0; i < 20; i++) {
 
             if (pLevel instanceof ServerLevel) {
-                ((ServerLevel) pLevel).sendParticles(ParticleTypes.CAMPFIRE_SIGNAL_SMOKE.getType(), (double)pPos.getX(), (double)pPos.getY(),(double) pPos.getZ(), 15, 1.0, 1.0, 1.0,0.2);
+                ((ServerLevel) pLevel).sendParticles(ParticleTypes.CAMPFIRE_SIGNAL_SMOKE.getType(), (double) pPos.getX(), (double) pPos.getY(), (double) pPos.getZ(), 15, 1.0, 1.0, 1.0, 0.2);
             }
         }
 

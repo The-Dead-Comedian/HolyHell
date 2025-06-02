@@ -15,7 +15,6 @@ public class HolyHellSound {
             DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, HolyHell.MOD_ID);
 
 
-
     public static final RegistryObject<SoundEvent> HOLY_SHIELD_BLOCK = registerSoundEvents("holy_shield_block");
 
     public static final RegistryObject<SoundEvent> RINGS_HOLD = registerSoundEvents("rings_hold");
@@ -29,12 +28,12 @@ public class HolyHellSound {
 
     public static final RegistryObject<SoundEvent> SACRIFICE = registerSoundEvents("sacrifice");
     public static final RegistryObject<SoundEvent> SWORD_SLASH = registerSoundEvents("sword_slash");
-    public static final RegistryObject<SoundEvent> GLOBULAR_DOME = registerSoundEvents("globular_dome");
+    public static final RegistryObject<SoundEvent> STONE_CRACK = registerSoundEvents("stone_crack");
 
 
 
     public static final RegistryObject<SoundEvent> ANGEL_FLUTTER = registerSoundEvents("angel_flutter");
-    public static final RegistryObject<SoundEvent> ANGEL_SHOOT = registerSoundEvents("angel_explode");
+    public static final RegistryObject<SoundEvent> ANGEL_SHOOT = registerSoundEvents("angel_shoot");
     public static final RegistryObject<SoundEvent> ANGEL_HURT = registerSoundEvents("angel_hurt");
     public static final RegistryObject<SoundEvent> ANGEL_IDLE = registerSoundEvents("angel_idle");
 

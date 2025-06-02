@@ -23,7 +23,5 @@ public abstract class FeatureRendererMixin {
         ((PlayerRenderer) (Object) this).addLayer(new ReligiousRingsLowerFeatureRenderer<>(
                 ((RenderLayerParent) (Object) this), ctx.getModelSet()));
 
-//        ((PlayerRenderer) (Object) this).addLayer(new AtheistAmazementFeatureRenderer<>(
-//               ((RenderLayerParent) (Object) this), ctx.getModelSet()));
    }
 }

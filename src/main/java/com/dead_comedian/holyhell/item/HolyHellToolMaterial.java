@@ -8,7 +8,7 @@ import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public enum HolyHellToolMaterial implements Tier {
-    GRAIL(5, 1500, 11.0f, 5.0f, 25, () -> Ingredient.of(HolyHellItems.BAPTIZED_PLATE.get()));
+    GRAIL(5, 1500, 11.0f, 0.0f, 25, () -> Ingredient.of(HolyHellItems.BAPTIZED_PLATE.get()));
 
     private final int miningLevel;
     private final int itemDurability;

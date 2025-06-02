@@ -1,13 +1,12 @@
 {
   "item.holyhell.saint_eye" : "Saint Eye",
-  "item.holyhell.holy_tear" : "Holy Tear",
-  "item.holyhell.holy_grail" : "Holy Grail",
   "item.holyhell.sacrificial_katar" : "Sacrificial Katar",
   "item.holyhell.holy_shield" : "Holy Shield",
   "item.holyhell.religious_rings" : "Religious Rings",
   "item.holyhell.blinding_bomb": "Blinding Bomb",
   "item.holyhell.globular_dome": "Globular Dome",
 
+  "item.holyhell.holy_tear" : "Holy Tear",
   "item.holyhell.baptized_plate": "Baptized Plate",
   "item.holyhell.enhanced_silk": "Enhanced Silk",
   "item.holyhell.kebab": "Kebab",
@@ -17,7 +16,6 @@
   "item.holyhell.angel_spawn_egg": "Angel Spawn Egg",
   "item.holyhell.heretic_spawn_egg": "Heretic Spawn Egg",
   "item.holyhell.kamikaze_spawn_egg": "Kamikaze Spawn Egg",
-  "item.holyhell.palladin_spawn_egg": "Palladin Spawn Egg",
   "item.holyhell.bab_spawn_egg": "Bab Spawn Egg",
 
 
@@ -37,13 +35,17 @@
   "entity.holyhell.angel" : "Angel",
   "entity.holyhell.heretic": "Heretic",
   "entity.holyhell.kamikaze": "Kamikaze",
-  "entity.holyhell.palladin" : "Palladin",
   "entity.holyhell.holy_spirit": "Holy Spirit",
   "entity.holyhell.bab1": "Level 1 Bab",
   "entity.holyhell.bab2": "Level 2 Bab",
   "entity.holyhell.bab3": "Level 3 Bab",
+  "entity.holyhell.cherub": "Cherub",
+  "entity.holyhell.holy_cow": "Holy Cow",
 
-
+  "entity.holyhell.gate": "Gate",
+  "entity.holyhell.globular_dome": "Globular Dome",
+  "entity.holyhell.blinding_bomb": "Blinding Bomb",
+  "entity.holyhell.fireball": "Holy Fireball",
 
   "effect.holyhell.clarity": "Clarity",
   "effect.holyhell.jesistance": "Jesistance",
@@ -55,9 +57,22 @@
   "sounds.holyhell.cross_fall": "Cross Lands",
   "sounds.holyhell.holy_shield_block": "Holy Shield Blocks",
 
-  "sounds.holyhell.rings_hold": "Rings Hold",
-  "sounds.holyhell.rings_intro": "Rings Intro",
-  "sounds.holyhell.rings_outro": "Rings Outro",
+  "sounds.holyhell.rings_hold": "Rings Hum",
+  "sounds.holyhell.rings_intro": "Rings Fade In",
+  "sounds.holyhell.rings_outro": "Rings Fade Out",
+
+  "sounds.holyhell.candelabra_place": "Candelabra Is Placed",
+  "sounds.holyhell.candelabra_light": "Candelabra Is Lit",
+  "sounds.holyhell.divining_table_interact": "Divining Table Vocalizes",
+
+  "sounds.holyhell.sacrifice": "Sacrifice",
+  "sounds.holyhell.sword_slash": "Weapon Slashes",
+  "sounds.holyhell.stone_crack": "Stone Cracks",
+
+  "sounds.holyhell.angel_flutter": "Angel Flutters",
+  "sounds.holyhell.angel_shoot": "Angel Shoot",
+  "sounds.holyhell.angel_hurt": "Angel Hurts",
+  "sounds.holyhell.angel_idle": "Angel Hums",
 
 
   "creativetab.holyhell_tab": "Holy Trinkets"

@@ -24,7 +24,7 @@ public class HolyHellCreativeTab {
                         pOutput.accept(HolyHellItems.ENHANCED_SILK.get());
                         pOutput.accept(HolyHellItems.KEBAB.get());
 
-                        pOutput.accept(HolyHellItems.HOLY_GRAIL.get());
+
                         pOutput.accept(HolyHellItems.SACRIFICIAL_KATAR.get());
                         pOutput.accept(HolyHellItems.HOLY_SHIELD.get());
                         pOutput.accept(HolyHellItems.RELIGIOUS_RINGS.get());
@@ -45,9 +45,7 @@ public class HolyHellCreativeTab {
                         pOutput.accept(HolyHellItems.ANGEL_SPAWN_EGG.get());
                         pOutput.accept(HolyHellItems.KAMIKAZE_SPAWN_EGG.get());
                         pOutput.accept(HolyHellItems.HERETIC_SPAWN_EGG.get());
-                        pOutput.accept(HolyHellItems.PALLADIN_SPAWN_EGG.get());
                         pOutput.accept(HolyHellItems.BAB_SPAWN_EGG.get());
-                        pOutput.accept(HolyHellItems.DEVOUT_SPAWN_EGG.get());
                     })
                     .build());
 

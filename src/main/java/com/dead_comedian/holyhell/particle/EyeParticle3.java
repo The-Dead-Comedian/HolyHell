@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 
-public class EyeParticle3 extends TextureSheetParticle {
+public class    EyeParticle3 extends TextureSheetParticle {
     private final SpriteSet spriteProvider;
 
 

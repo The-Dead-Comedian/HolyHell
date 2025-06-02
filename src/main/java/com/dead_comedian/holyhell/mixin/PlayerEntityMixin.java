@@ -2,24 +2,22 @@ package com.dead_comedian.holyhell.mixin;
 
 import com.dead_comedian.holyhell.entity.HereticEntity;
 import com.dead_comedian.holyhell.entity.non_living.GlobularDomeEntity;
-import com.dead_comedian.holyhell.entity.non_living.SwordCrossEntity;
+
 import com.dead_comedian.holyhell.item.custom.EvangelistArmorItem;
 import com.dead_comedian.holyhell.registries.*;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
+
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.TamableAnimal;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.Abilities;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -27,11 +25,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
-import java.util.function.Predicate;
 
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -39,6 +33,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Player.class)
 
 public abstract class PlayerEntityMixin extends LivingEntity {
+
+
+    @Shadow
+    @Final
+    private Abilities abilities;
+
+    @Shadow
+    public abstract Iterable<ItemStack> getArmorSlots();
+
+    @Shadow
+    public abstract Inventory getInventory();
 
     @Unique
     int holyhell$blockingCounter = 0;
@@ -49,8 +54,15 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     }
 
+
     @Inject(method = "tick", at = @At(value = "HEAD"))
     private void tick(CallbackInfo ci) {
+
+//
+//        this.abilities.mayfly = this.getInventory().getArmor(1).is(HolyHellItems.EVANGELIST_LEGGINGS.get());
+//        if(!this.abilities.mayfly){
+//            this.abilities.flying=false;
+//        }
 
         if (((Player) (Object) this).isBlocking() && (((Player) (Object) this).getMainHandItem().is(HolyHellItems.HOLY_SHIELD.get()) || ((Player) (Object) this).getOffhandItem().is(HolyHellItems.HOLY_SHIELD.get()))) {
 
@@ -81,9 +93,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         //Religious Rings
         if (this.hasEffect(HolyHellEffects.JESISTANCE.get())) {
             MobEffectInstance effectually = this.getEffect(HolyHellEffects.JESISTANCE.get());
-            //if (tickCount % 70 ==1) {
-            //    this.level().playSound(null, this.blockPosition(), HolyHellSound.RINGS_HOLD.get(), SoundSource.PLAYERS, 0.2f, 1);
-            //}
             if (effectually.getDuration() >= 2000) {
                 this.level().playSound((Player) null, this.blockPosition(), HolyHellSound.RINGS_INTRO.get(), SoundSource.PLAYERS, 0.2f, 1);
                 return;
@@ -130,14 +139,9 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     private void attack(Entity target, CallbackInfo ci) {
         //Sword Cross
         ItemStack itemStack = this.getItemInHand(this.getUsedItemHand());
-        if (itemStack.is(HolyHellItems.HOLY_GRAIL.get())) {
-            BlockPos blockPos = target.blockPosition();
-            SwordCrossEntity swordCrossEntity = new SwordCrossEntity(HolyHellEntities.SWORD_CROSS.get(), this.level());
-            this.level().addFreshEntity(swordCrossEntity);
-            swordCrossEntity.moveTo(blockPos, swordCrossEntity.getYRot(), swordCrossEntity.getXRot());
-            this.level().playSound(this, this.blockPosition(), HolyHellSound.SWORD_SLASH.get(), SoundSource.PLAYERS, 0.5f, 1f);
-
-        }
+//        if (itemStack.is(HolyHellItems.HOLY_GRAIL.get())) {
+//            this.level().playSound(this, this.blockPosition(), HolyHellSound.SWORD_SLASH.get(), SoundSource.PLAYERS, 0.5f, 1f);
+//        }
         if (itemStack.is(HolyHellItems.SACRIFICIAL_KATAR.get())) {
 
             this.level().playSound(this, this.blockPosition(), HolyHellSound.SWORD_SLASH.get(), SoundSource.PLAYERS, 0.5f, 2f);
