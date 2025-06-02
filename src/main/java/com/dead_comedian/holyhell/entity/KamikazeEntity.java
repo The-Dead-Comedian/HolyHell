@@ -1,12 +1,13 @@
 package com.dead_comedian.holyhell.entity;
 
 
-
+import com.dead_comedian.holyhell.registries.HolyhellParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -33,7 +34,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Explosion;
-import net.minecraft.world.level.ExplosionDamageCalculator;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
@@ -53,17 +53,17 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
     // VARIABLES //
     ///////////////
 
-    int safetyMargin = 0;
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
     public boolean isHit = false;
 
 
-    public boolean getIsHit(){
+    public boolean getIsHit() {
         return isHit;
     }
-    public void setIsHit(boolean boolea){
-        isHit=boolea;
+
+    public void setIsHit(boolean boolea) {
+        isHit = boolea;
     }
 
     //////////
@@ -83,12 +83,10 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
     public void tick() {
         super.tick();
 
-        if (isAlive() && safetyMargin < 200) {
-            safetyMargin++;
-        }
-
         if (!isAlive()) {
-            this.explode(0.6d);
+            this.explode(0.5d);
+            this.level().addParticle(HolyhellParticles.KAMIKAZE_EXPLOSION.get(), this.getX(), this.getY(), this.getZ(), 0.1, 0.1, 0.1);
+            this.discard();
         }
 
 
@@ -120,7 +118,6 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(ATTACKING, false);
-
     }
 
 
@@ -200,19 +197,15 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
         return false;
     }
 
+
     protected void explode(double power) {
-        this.explode((DamageSource) null, power);
-    }
 
-    protected void explode(@Nullable DamageSource damageSource, double power) {
         if (!this.level().isClientSide) {
-            double d = Math.sqrt(power);
-            if (d > 5.0) {
-                d = 5.0;
-            }
 
-            this.level().explode(this, damageSource, (ExplosionDamageCalculator) null, this.getX(), this.getY(), this.getZ(), (float) (4.0 + this.random.nextDouble() * 1.5 * d), false, Level.ExplosionInteraction.TNT);
+
+            this.level().explode(this, this.getX(), this.getY(), this.getZ(), (float)( 3 * power), Level.ExplosionInteraction.MOB);
             this.discard();
+
         }
 
     }
@@ -220,10 +213,8 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
     @Override
     public void playerTouch(Player player) {
         super.playerTouch(player);
+        this.kill();
 
-        if (safetyMargin == 200) {
-            this.explode(1.5d);
-        }
     }
 
     @Override
@@ -275,7 +266,7 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
         private double speednt;
         private final PathNavigation navigation;
         @Nullable
-        protected LivingEntity targetEntity;
+        protected LivingEntity targetHostileEntity;
         protected TargetingConditions targetPredicate;
 
 
@@ -289,7 +280,6 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
         }
 
 
-
         @Override
         public boolean canUse() {
             return entity.getTarget() != null;
@@ -298,17 +288,19 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
         @Override
         public void start() {
             super.start();
-            timeSinceAttack =0;
+            timeSinceAttack = 0;
         }
 
-        public void findClosestTarget(){
-            this.targetEntity = this.entity.level().getNearestEntity(this.entity.level().getEntitiesOfClass(Monster.class, this.getSearchBox(this.entity.getAttributeValue(Attributes.FOLLOW_RANGE)), (livingEntity) -> true), this.targetPredicate, this.entity, this.entity.getX(), this.entity.getEyeY(), this.entity.getZ());
+        public void findClosestTarget() {
+            this.targetHostileEntity = this.entity.level().getNearestEntity(this.entity.level().getEntitiesOfClass(Monster.class, this.getSearchBox(this.entity.getAttributeValue(Attributes.FOLLOW_RANGE)), (livingEntity) -> true), this.targetPredicate, this.entity, this.entity.getX(), this.entity.getEyeY(), this.entity.getZ());
         }
+
         protected AABB getSearchBox(double distance) {
             return this.entity.getBoundingBox().inflate(distance, 1.0, distance);
         }
+
         public boolean startMovingTo(Entity entity, double speed) {
-            Path path = this.navigation.createPath( this.targetEntity.getBlockX() + random.nextInt(1),this.targetEntity.getBlockY() + 2,this.targetEntity.getBlockZ() + random.nextInt(1),1);
+            Path path = this.navigation.createPath(this.targetHostileEntity.getBlockX() + random.nextInt(1), this.targetHostileEntity.getBlockY() + 2, this.targetHostileEntity.getBlockZ() + random.nextInt(1), 1);
             return path != null && this.navigation.moveTo(path, speed);
         }
 
@@ -316,21 +308,20 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
         public void tick() {
             super.tick();
             this.findClosestTarget();
-            if(timeSinceAttack < 50   && this.targetEntity!=null){
+            if (timeSinceAttack < 50 && this.targetHostileEntity != null && !(targetHostileEntity instanceof KamikazeEntity)) {
 
-                this.startMovingTo(this.targetEntity, this.speednt * 0.8);
+                this.startMovingTo(this.targetHostileEntity, this.speednt * 0.8);
                 timeSinceAttack++;
 
-            }else{
-                this.navigation.moveTo(this.entity.getTarget(), this.speednt*1.5);
-                if(this.entity.getIsHit()){
+            } else {
+                this.navigation.moveTo(this.entity.getTarget(), this.speednt * 1.5);
+                if (this.entity.getIsHit()) {
                     setIsHit(false);
-                    this.timeSinceAttack=0;
+                    this.timeSinceAttack = 0;
                 }
             }
         }
     }
-
 
 
     // attacking
@@ -363,11 +354,12 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
 
     @Override
     public boolean isInvulnerableTo(DamageSource damageSource) {
-        if (!(damageSource.getDirectEntity() instanceof AbstractArrow) ) {
-            if(damageSource.getDirectEntity()!=null){
-                this.addDeltaMovement(damageSource.getDirectEntity().getLookAngle());}
+        if (!(damageSource.getDirectEntity() instanceof AbstractArrow) && damageSource.is(DamageTypes.GENERIC_KILL)) {
+            if (damageSource.getDirectEntity() != null) {
+                this.addDeltaMovement(damageSource.getDirectEntity().getLookAngle());
+            }
             setIsHit(true);
-            return true;
+            return false;
         } else {
             return super.isInvulnerableTo(damageSource);
         }
