@@ -1,24 +1,17 @@
 package com.dead_comedian.holyhell.item.custom;
 
 import com.dead_comedian.holyhell.item.HolyhellArmorMaterials;
-import net.minecraft.world.item.ArmorMaterials;
-import org.jetbrains.annotations.Nullable;
+import com.dead_comedian.holyhell.registries.HolyHellEffects;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.player.Player;
 
-import java.util.List;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
 public class EvangelistArmorItem extends ArmorItem {
 
     HolyhellArmorMaterials armorMaterial;
-    int protection;
-    String protectionStr;
-    int time = 2;
-    int uhm =0;
 
     public EvangelistArmorItem(HolyhellArmorMaterials material, Type type, Properties settings) {
         super(material, type, settings);
@@ -26,33 +19,63 @@ public class EvangelistArmorItem extends ArmorItem {
 
     }
 
-    public void setTime(int timer) {
-        time = timer;
-    }
-
-
     @Override
-    public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
-        super.inventoryTick(stack, world, entity, slot, selected);
-        time=time+1;
-        if (time == 6000 * (uhm * 0.5) && time <=15001) {
+    public void onInventoryTick(ItemStack stack, Level level, Player player, int slotIndex, int selectedIndex) {
+        super.onInventoryTick(stack, level, player, slotIndex, selectedIndex);
 
-            uhm = uhm +1;
-            protection = protection + 1;
-            armorMaterial.setProtection(type, protection);
-        }else if(time <= 1){
-            armorMaterial.setProtection(type, ArmorMaterials.IRON.getDefenseForType(type));
-            protection = 0;
-            uhm=0;
+        if ((hasCorrectHelmOn(HolyhellArmorMaterials.EVANGELIST, player) ||
+                hasCorrectChestOn(HolyhellArmorMaterials.EVANGELIST, player) ||
+                hasCorrectLegOn(HolyhellArmorMaterials.EVANGELIST, player) ||
+                hasCorrectBootsOn(HolyhellArmorMaterials.EVANGELIST, player))
+                && (!player.hasEffect(HolyHellEffects.DIVINE_PROTECTION_COOLDOWN.get())
+                && player.getHealth() >= player.getMaxHealth())) {
+
+            player.addEffect(new MobEffectInstance(HolyHellEffects.DIVINE_PROTECTION.get(), 100));
+
+
+        } else {
+            player.removeEffect(HolyHellEffects.DIVINE_PROTECTION.get());
         }
     }
 
-    @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag context) {
-        super.appendHoverText(stack, world, tooltip, context);
-        protection = armorMaterial.getDefenseForType(type);
-        protectionStr = Integer.toString(protection);
-        tooltip.add(Component.nullToEmpty("Protection: " + protectionStr));
+    private boolean hasCorrectHelmOn(HolyhellArmorMaterials material, Player player) {
 
+        if (!(player.getInventory().getArmor(3).getItem() instanceof ArmorItem)) {
+            return false;
+        }
+        ArmorItem helmet = ((ArmorItem) player.getInventory().getArmor(3).getItem());
+
+        return helmet.getMaterial() == material;
+    }
+
+    private boolean hasCorrectChestOn(HolyhellArmorMaterials material, Player player) {
+
+        if (!(player.getInventory().getArmor(2).getItem() instanceof ArmorItem)) {
+            return false;
+        }
+        ArmorItem breastplate = ((ArmorItem) player.getInventory().getArmor(2).getItem());
+
+        return breastplate.getMaterial() == material;
+    }
+
+    private boolean hasCorrectLegOn(HolyhellArmorMaterials material, Player player) {
+        if (!(player.getInventory().getArmor(1).getItem() instanceof ArmorItem)) {
+            return false;
+        }
+
+        ArmorItem leggings = ((ArmorItem) player.getInventory().getArmor(1).getItem());
+
+        return leggings.getMaterial() == material;
+    }
+
+    private boolean hasCorrectBootsOn(HolyhellArmorMaterials material, Player player) {
+        if (!(player.getInventory().getArmor(0).getItem() instanceof ArmorItem)) {
+            return false;
+        }
+
+        ArmorItem boots = ((ArmorItem) player.getInventory().getArmor(0).getItem());
+
+
+        return boots.getMaterial() == material;
     }
 }

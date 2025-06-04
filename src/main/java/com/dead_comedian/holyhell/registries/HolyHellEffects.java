@@ -1,10 +1,7 @@
 package com.dead_comedian.holyhell.registries;
 
 import com.dead_comedian.holyhell.HolyHell;
-import com.dead_comedian.holyhell.effect.BloodlustEffect;
-import com.dead_comedian.holyhell.effect.ClarityEffect;
-import com.dead_comedian.holyhell.effect.ConfusionEffect;
-import com.dead_comedian.holyhell.effect.JesistenceEffect;
+import com.dead_comedian.holyhell.effect.*;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -27,6 +24,13 @@ public class HolyHellEffects {
                     .addAttributeModifier(Attributes.MOVEMENT_SPEED,
                             "7107DE5E-7CE8-4030-940E-514C1F160890", -0.25f,
                             AttributeModifier.Operation.MULTIPLY_TOTAL));
+
+    public static final RegistryObject<DivineProtectionEffect> DIVINE_PROTECTION = MOB_EFFECTS.register("divine_protection",
+            () -> new DivineProtectionEffect(MobEffectCategory.BENEFICIAL, 0x36ebab));
+
+
+    public static final RegistryObject<DivineProtectionCooldownEffect> DIVINE_PROTECTION_COOLDOWN = MOB_EFFECTS.register("divine_protection_cooldown",
+            () -> new DivineProtectionCooldownEffect(MobEffectCategory.NEUTRAL, 0x36ebab));
 
     public static final RegistryObject<ConfusionEffect> CONFUSION = MOB_EFFECTS.register("confusion",
             () -> new ConfusionEffect(MobEffectCategory.NEUTRAL, 0x36ebab));

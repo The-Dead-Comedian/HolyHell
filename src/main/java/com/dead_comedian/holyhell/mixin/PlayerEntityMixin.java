@@ -3,7 +3,7 @@ package com.dead_comedian.holyhell.mixin;
 import com.dead_comedian.holyhell.entity.HereticEntity;
 import com.dead_comedian.holyhell.entity.non_living.GlobularDomeEntity;
 
-import com.dead_comedian.holyhell.item.custom.EvangelistArmorItem;
+import com.dead_comedian.holyhell.item.HolyhellArmorMaterials;
 import com.dead_comedian.holyhell.registries.*;
 import net.minecraft.server.level.ServerLevel;
 
@@ -12,10 +12,11 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.player.Abilities;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -25,6 +26,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
+import java.util.Set;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -34,47 +36,45 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 public abstract class PlayerEntityMixin extends LivingEntity {
 
-
     @Shadow
-    @Final
-    private Abilities abilities;
-
-    @Shadow
-    public abstract Iterable<ItemStack> getArmorSlots();
-
-    @Shadow
-    public abstract Inventory getInventory();
+    public abstract void resetAttackStrengthTicker();
 
     @Unique
     int holyhell$blockingCounter = 0;
-
 
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, Level world) {
         super(entityType, world);
 
     }
 
+    @Unique
+    public int countArmorPieces(Player player, ArmorMaterial material) {
+        int count = 0;
+
+        // Iterate through all armor slots (helmet, chestplate, leggings, boots)
+        for (ItemStack armorStack : player.getArmorSlots()) {
+            if (!armorStack.isEmpty() && armorStack.getItem() instanceof ArmorItem armorItem) {
+                if (armorItem.getMaterial() == material) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+
 
     @Inject(method = "tick", at = @At(value = "HEAD"))
     private void tick(CallbackInfo ci) {
 
-//
-//        this.abilities.mayfly = this.getInventory().getArmor(1).is(HolyHellItems.EVANGELIST_LEGGINGS.get());
-//        if(!this.abilities.mayfly){
-//            this.abilities.flying=false;
-//        }
-
-        if (((Player) (Object) this).isBlocking() && (((Player) (Object) this).getMainHandItem().is(HolyHellItems.HOLY_SHIELD.get()) || ((Player) (Object) this).getOffhandItem().is(HolyHellItems.HOLY_SHIELD.get()))) {
-
+        if ((this.isBlocking() && this.getMainHandItem().is(HolyHellItems.HOLY_SHIELD.get()) || this.getOffhandItem().is(HolyHellItems.HOLY_SHIELD.get()))) {
 
             holyhell$blockingCounter++;
             System.out.println(holyhell$blockingCounter);
 
-
         } else {
             holyhell$blockingCounter = 0;
         }
-
 
         //Globular Dome
         List<Entity> entityBelow = this.level().getEntities(this, this.getBoundingBox().inflate(-0.1));
@@ -86,7 +86,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
 
             }
-            entityBelow.removeAll(entityBelow);
+
 
         }
 
@@ -121,6 +121,32 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             return source.getEntity().getType().is(HolyhellTags.Entities.MAGIC_DEALING_MOBS) || source.is(HolyhellTags.DamageTypes.MAGIC_DAMAGE) ? 0 : value;
         }
 
+        if (this.hasEffect(HolyHellEffects.DIVINE_PROTECTION.get())) {
+
+            switch (countArmorPieces(((Player) (Object) this), HolyhellArmorMaterials.EVANGELIST)) {
+                case 1:
+                    this.addEffect(new MobEffectInstance(HolyHellEffects.DIVINE_PROTECTION_COOLDOWN.get(), 1200, 1));
+                    break;
+                case 2:
+                    this.addEffect(new MobEffectInstance(HolyHellEffects.DIVINE_PROTECTION_COOLDOWN.get(), 1000, 2));
+                    break;
+                case 3:
+                    this.addEffect(new MobEffectInstance(HolyHellEffects.DIVINE_PROTECTION_COOLDOWN.get(), 800, 3));
+                    break;
+                case 4:
+                    this.addEffect(new MobEffectInstance(HolyHellEffects.DIVINE_PROTECTION_COOLDOWN.get(), 600, 4));
+                    break;
+
+            }
+            if (this.level() instanceof ServerLevel world) {
+                world.sendParticles(HolyhellParticles.LIGHT_RING.get(), this.getX(), this.getEyeY(), this.getZ(), 1, 0, 0.1, 0, 0);
+
+            }
+
+            return 0;
+        }
+
+
         //Globular Dome
         List<Entity> entityBelow = this.level().getEntities(this, this.getBoundingBox().inflate(-0.1));
         for (Entity entity : entityBelow) {
@@ -147,25 +173,15 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             this.level().playSound(this, this.blockPosition(), HolyHellSound.SWORD_SLASH.get(), SoundSource.PLAYERS, 0.5f, 2f);
 
         }
-        //Armor Timer
-        for (ItemStack armorStack : ((Player) (Object) this).getArmorSlots()) {
-
-            if ((armorStack.getItem() instanceof EvangelistArmorItem)) {
-                ((EvangelistArmorItem) armorStack.getItem()).setTime(0);
-
-            }
-        }
 
 
     }
 
-    //Shield
-    @Unique
-    public boolean holyhell$spawnParticle = false;
-
     @Inject(method = "hurt", at = @At(value = "HEAD"))
     private void modifyDamage(DamageSource damageSource, float f, CallbackInfoReturnable<Boolean> cir) {
-        if (((Player) (Object) this).isBlocking() && (((Player) (Object) this).getMainHandItem().is(HolyHellItems.HOLY_SHIELD.get()) || ((Player) (Object) this).getOffhandItem().is(HolyHellItems.HOLY_SHIELD.get()))) {
+
+
+        if (this.isBlocking() && this.getMainHandItem().is(HolyHellItems.HOLY_SHIELD.get()) || this.getOffhandItem().is(HolyHellItems.HOLY_SHIELD.get())) {
             {
 
                 if (damageSource.getEntity() instanceof HereticEntity heretic && holyhell$blockingCounter <= 20) {
@@ -180,8 +196,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                 }
 
 
-                if (((Player) (Object) this).level() instanceof ServerLevel world) {
-                    world.sendParticles(HolyhellParticles.SOUND_RING.get(), ((Player) (Object) this).getX(), ((Player) (Object) this).getEyeY(), ((Player) (Object) this).getZ(), 1, 0, 0.1, 0, 0);
+                if (this.level() instanceof ServerLevel world) {
+                    world.sendParticles(HolyhellParticles.SOUND_RING.get(), this.getX(), this.getEyeY(), this.getZ(), 1, 0, 0.1, 0, 0);
                 }
             }
         }

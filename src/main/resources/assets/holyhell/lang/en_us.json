@@ -51,11 +51,13 @@
   "effect.holyhell.jesistance": "Jesistance",
   "effect.holyhell.confusion": "Confusion",
   "effect.holyhell.bloodlust": "Bloodlust",
-
+  "effect.holyhell.divine_protection": "Divine Protection",
+  "effect.holyhell.divine_protection_cooldown": "Divine Cooldown",
 
   "sounds.holyhell.clarity_music": "Metal Detector Jingle",
   "sounds.holyhell.cross_fall": "Cross Lands",
   "sounds.holyhell.holy_shield_block": "Holy Shield Blocks",
+
 
   "sounds.holyhell.rings_hold": "Rings Hum",
   "sounds.holyhell.rings_intro": "Rings Fade In",
