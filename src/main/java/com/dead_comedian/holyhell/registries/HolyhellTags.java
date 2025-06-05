@@ -36,6 +36,10 @@ public class HolyhellTags {
         public static final TagKey<DamageType> MAGIC_DAMAGE =
                 createTag("magic_damage");
 
+        public static final TagKey<DamageType> DIVINE_PROTECTION_IGNORE =
+                createTag("divine_protection_ignore");
+
+
         private static TagKey<DamageType> createTag(String name) {
             return TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(HolyHell.MOD_ID, name));
         }

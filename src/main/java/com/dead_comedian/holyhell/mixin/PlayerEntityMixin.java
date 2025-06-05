@@ -70,7 +70,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         if ((this.isBlocking() && this.getMainHandItem().is(HolyHellItems.HOLY_SHIELD.get()) || this.getOffhandItem().is(HolyHellItems.HOLY_SHIELD.get()))) {
 
             holyhell$blockingCounter++;
-            System.out.println(holyhell$blockingCounter);
+
 
         } else {
             holyhell$blockingCounter = 0;
@@ -121,31 +121,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             return source.getEntity().getType().is(HolyhellTags.Entities.MAGIC_DEALING_MOBS) || source.is(HolyhellTags.DamageTypes.MAGIC_DAMAGE) ? 0 : value;
         }
 
-        if (this.hasEffect(HolyHellEffects.DIVINE_PROTECTION.get())) {
 
-            switch (countArmorPieces(((Player) (Object) this), HolyhellArmorMaterials.EVANGELIST)) {
-                case 1:
-                    this.addEffect(new MobEffectInstance(HolyHellEffects.DIVINE_PROTECTION_COOLDOWN.get(), 1200, 1));
-                    break;
-                case 2:
-                    this.addEffect(new MobEffectInstance(HolyHellEffects.DIVINE_PROTECTION_COOLDOWN.get(), 1000, 2));
-                    break;
-                case 3:
-                    this.addEffect(new MobEffectInstance(HolyHellEffects.DIVINE_PROTECTION_COOLDOWN.get(), 800, 3));
-                    break;
-                case 4:
-                    this.addEffect(new MobEffectInstance(HolyHellEffects.DIVINE_PROTECTION_COOLDOWN.get(), 600, 4));
-                    break;
-
-            }
-            if (this.level() instanceof ServerLevel world) {
-                world.sendParticles(HolyhellParticles.LIGHT_RING.get(), this.getX(), this.getEyeY(), this.getZ(), 1, 0, 0.1, 0, 0);
-
-            }
-
-            return 0;
-        }
-
+        System.out.println(source);
 
         //Globular Dome
         List<Entity> entityBelow = this.level().getEntities(this, this.getBoundingBox().inflate(-0.1));
@@ -177,10 +154,40 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     }
 
-    @Inject(method = "hurt", at = @At(value = "HEAD"))
+    @Inject(method = "hurt", at = @At(value = "HEAD"), cancellable = true)
     private void modifyDamage(DamageSource damageSource, float f, CallbackInfoReturnable<Boolean> cir) {
 
+        // Divine Prot
+        if (this.hasEffect(HolyHellEffects.DIVINE_PROTECTION.get())
+        && !damageSource.is(HolyhellTags.DamageTypes.DIVINE_PROTECTION_IGNORE)
+        ) {
 
+            switch (countArmorPieces(((Player) (Object) this), HolyhellArmorMaterials.EVANGELIST)) {
+                case 1:
+                    this.addEffect(new MobEffectInstance(HolyHellEffects.DIVINE_PROTECTION_COOLDOWN.get(), 1200, 1));
+                    break;
+                case 2:
+                    this.addEffect(new MobEffectInstance(HolyHellEffects.DIVINE_PROTECTION_COOLDOWN.get(), 1000, 2));
+                    break;
+                case 3:
+                    this.addEffect(new MobEffectInstance(HolyHellEffects.DIVINE_PROTECTION_COOLDOWN.get(), 800, 3));
+                    break;
+                case 4:
+                    this.addEffect(new MobEffectInstance(HolyHellEffects.DIVINE_PROTECTION_COOLDOWN.get(), 600, 4));
+                    break;
+
+            }
+            if (this.level() instanceof ServerLevel world) {
+                world.sendParticles(HolyhellParticles.LIGHT_RING.get(), this.getX(), this.getEyeY(), this.getZ(), 1, 0, 0.1, 0, 0);
+
+            }
+
+            cir.cancel();
+
+        }
+
+
+        //holy shield
         if (this.isBlocking() && this.getMainHandItem().is(HolyHellItems.HOLY_SHIELD.get()) || this.getOffhandItem().is(HolyHellItems.HOLY_SHIELD.get())) {
             {
 
