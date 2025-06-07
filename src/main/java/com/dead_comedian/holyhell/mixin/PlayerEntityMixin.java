@@ -188,7 +188,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
 
         //holy shield
-        if (this.isBlocking() && this.getMainHandItem().is(HolyHellItems.HOLY_SHIELD.get()) || this.getOffhandItem().is(HolyHellItems.HOLY_SHIELD.get())) {
+        if (this.isBlocking() && (this.getMainHandItem().is(HolyHellItems.HOLY_SHIELD.get()) || this.getOffhandItem().is(HolyHellItems.HOLY_SHIELD.get()))) {
             {
 
                 if (damageSource.getEntity() instanceof HereticEntity heretic && holyhell$blockingCounter <= 20) {
