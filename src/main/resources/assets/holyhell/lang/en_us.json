@@ -36,9 +36,9 @@
   "entity.holyhell.heretic": "Heretic",
   "entity.holyhell.kamikaze": "Kamikaze",
   "entity.holyhell.holy_spirit": "Holy Spirit",
-  "entity.holyhell.bab1": "Level 1 Bab",
-  "entity.holyhell.bab2": "Level 2 Bab",
-  "entity.holyhell.bab3": "Level 3 Bab",
+  "entity.holyhell.bab_one": "Level 1 Bab",
+  "entity.holyhell.bab_two": "Level 2 Bab",
+  "entity.holyhell.bab_three": "Level 3 Bab",
   "entity.holyhell.cherub": "Cherub",
   "entity.holyhell.holy_cow": "Holy Cow",
 
