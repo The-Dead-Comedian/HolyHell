@@ -1,11 +1,13 @@
 package com.dead_comedian.holyhell.entity;
 
 
+import com.dead_comedian.holyhell.registries.HolyHellSound;
 import com.dead_comedian.holyhell.registries.HolyhellParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.AnimationState;
@@ -56,7 +58,7 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
     public boolean isHit = false;
-
+    public int flutterLoop = 24;
 
     public boolean getIsHit() {
         return isHit;
@@ -82,7 +84,13 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
     @Override
     public void tick() {
         super.tick();
-
+        flutterLoop--;
+        if (flutterLoop >= 23) {
+            this.playSound(HolyHellSound.CHERUB_FLUTTER.get(), 1F, 1F);
+        }
+        if (flutterLoop <= 0) {
+            flutterLoop = 24;
+        }
         if (!isAlive()) {
             this.explode(1d);
             this.level().addParticle(HolyhellParticles.KAMIKAZE_EXPLOSION.get(), this.getX(), this.getY(), this.getZ(), 0.1, 0.1, 0.1);
@@ -168,7 +176,7 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
 
     private void setupAnimationStates() {
         if (this.idleAnimationTimeout <= 0) {
-            this.idleAnimationTimeout = this.random.nextInt(20) + 40;
+            this.idleAnimationTimeout = this.random.nextInt(25) + 50;
 
             this.idleAnimationState.start(this.tickCount);
 
@@ -364,4 +372,7 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
             return super.isInvulnerableTo(damageSource);
         }
     }
+
+
+
 }

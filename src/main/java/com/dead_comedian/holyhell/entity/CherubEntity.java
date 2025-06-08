@@ -428,7 +428,7 @@ public class CherubEntity extends Monster implements FlyingAnimal {
 
     private void setupAnimationStates() {
         if (this.idleAnimationTimeout <= 0) {
-            this.idleAnimationTimeout = this.random.nextInt(20) + 40;
+            this.idleAnimationTimeout = this.random.nextInt(25) + 50;
 
             this.idleAnimationState.start(this.tickCount);
 
