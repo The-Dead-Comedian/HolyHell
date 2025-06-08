@@ -3,13 +3,16 @@ package com.dead_comedian.holyhell.entity;
 
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import com.dead_comedian.holyhell.registries.HolyHellItems;
+import com.dead_comedian.holyhell.registries.HolyHellSound;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
@@ -27,6 +30,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -81,6 +85,7 @@ public class BabOneEntity extends TamableAnimal {
                         babTwoEntity.setTame(true);
                         babTwoEntity.tame((Player) this.getOwner());
                         babTwoEntity.moveTo(blockPos, babTwoEntity.getYRot(), babTwoEntity.getXRot());
+                        this.playSound(HolyHellSound.BAB_MERGE.get(),1F,1F);
                         this.discard();
                         i.discard();
                     }
@@ -167,6 +172,34 @@ public class BabOneEntity extends TamableAnimal {
         return canCollide(this, other);
     }
 
+    /////////
+    //SOUND//
+    /////////
+
+    protected SoundEvent getStepSound() {
+        return HolyHellSound.BAB_WALK.get();
+    }
+
+    protected void playStepSound(BlockPos pPos, BlockState pBlock) {
+        this.playSound(this.getStepSound(), 0.7F, 1.0F);
+    }
+
+    @org.jetbrains.annotations.Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return HolyHellSound.BAB_IDLE.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
+        return HolyHellSound.BAB_HURT.get();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return HolyHellSound.BAB_DIE.get();
+    }
 
     ///////////
     // TAMED //
@@ -194,7 +227,7 @@ public class BabOneEntity extends TamableAnimal {
             if (!player.isCreative()) {
                 itemStack.shrink(1);
             }
-
+            this.playSound(HolyHellSound.BAB_TAME.get(),1F,1F);
             return InteractionResult.SUCCESS;
         }
 

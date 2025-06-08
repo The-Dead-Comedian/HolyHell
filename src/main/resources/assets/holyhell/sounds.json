@@ -88,5 +88,59 @@
     "sounds": [
       "holyhell:angel_idle"
     ]
+  },
+  "bab_idle": {
+    "subtitle": "sounds.holyhell.bab_idle",
+    "sounds": [
+      "holyhell:bab_idle"
+    ]
+  },
+  "bab_walk": {
+    "subtitle": "sounds.holyhell.bab_walk",
+    "sounds": [
+      "holyhell:bab_walk"
+    ]
+  },
+  "bab_leg_walk": {
+    "subtitle": "sounds.holyhell.bab_leg_walk",
+    "sounds": [
+      "holyhell:bab_leg_walk"
+    ]
+  },
+  "bab_hurt": {
+    "subtitle": "sounds.holyhell.bab_hurt",
+    "sounds": [
+      "holyhell:bab_hurt"
+    ]
+  },
+  "bab_die": {
+    "subtitle": "sounds.holyhell.bab_die",
+    "sounds": [
+      "holyhell:bab_die"
+    ]
+  },
+  "bab_2_attack": {
+    "subtitle": "sounds.holyhell.bab_2_attack",
+    "sounds": [
+      "holyhell:bab_2_attack"
+    ]
+  },
+  "bab_3_attack": {
+    "subtitle": "sounds.holyhell.bab_3_attack",
+    "sounds": [
+      "holyhell:bab_3_attack"
+    ]
+  },
+  "bab_tame": {
+    "subtitle": "sounds.holyhell.bab_tame",
+    "sounds": [
+      "holyhell:bab_tame"
+    ]
+  },
+  "bab_merge": {
+    "subtitle": "sounds.holyhell.bab_merge",
+    "sounds": [
+      "holyhell:bab_merge"
+    ]
   }
 }

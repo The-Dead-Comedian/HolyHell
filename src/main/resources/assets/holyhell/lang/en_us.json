@@ -71,10 +71,21 @@
   "sounds.holyhell.sword_slash": "Weapon Slashes",
   "sounds.holyhell.stone_crack": "Stone Cracks",
 
+
   "sounds.holyhell.angel_flutter": "Angel Flutters",
-  "sounds.holyhell.angel_shoot": "Angel Shoot",
+  "sounds.holyhell.angel_shoot": "Angel Shoots",
   "sounds.holyhell.angel_hurt": "Angel Hurts",
   "sounds.holyhell.angel_idle": "Angel Hums",
+
+  "sounds.holyhell.bab_walk": "Bab Slithers",
+  "sounds.holyhell.bab_leg_walk": "Bab Walks",
+  "sounds.holyhell.bab_die": "Bab Die",
+  "sounds.holyhell.bab_hurt": "Bab Hurts",
+  "sounds.holyhell.bab_2_attack": "Bab Attacks",
+  "sounds.holyhell.bab_3_attack": "Bab Sumons",
+  "sounds.holyhell.bab_tame": "Bab Tames",
+  "sounds.holyhell.bab_merge": "Bab Merges",
+  "sounds.holyhell.bab_idle": "Bab Idles",
 
 
   "creativetab.holyhell_tab": "Holy Trinkets"
