@@ -47,6 +47,9 @@ public class HolyHellSound {
     public static final RegistryObject<SoundEvent> BAB_TAME = registerSoundEvents("bab_tame");
     public static final RegistryObject<SoundEvent> BAB_MERGE = registerSoundEvents("bab_merge");
 
+    public static final RegistryObject<SoundEvent> BELL_RING = registerSoundEvents("bell_ring");
+    public static final RegistryObject<SoundEvent> CHERUB_FLUTTER = registerSoundEvents("cherub_flutter");
+
 
     public static final ForgeSoundType CANDELABRA_SOUNDS = new ForgeSoundType(1f, 1f,
             () -> SoundEvents.LANTERN_BREAK, () -> SoundEvents.LANTERN_STEP, HolyHellSound.CANDELABRA_PLACE,

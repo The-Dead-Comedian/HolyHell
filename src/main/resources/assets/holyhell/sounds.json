@@ -142,5 +142,17 @@
     "sounds": [
       "holyhell:bab_merge"
     ]
+  },
+  "bell_ring": {
+    "subtitle": "sounds.holyhell.bell_ring",
+    "sounds": [
+      "holyhell:bell_ring"
+    ]
+  },
+  "cherub_flutter": {
+    "subtitle": "sounds.holyhell.cherub_flutter",
+    "sounds": [
+      "holyhell:cherub_flutter"
+    ]
   }
 }

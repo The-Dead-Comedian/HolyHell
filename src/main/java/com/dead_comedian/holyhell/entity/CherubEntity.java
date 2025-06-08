@@ -3,6 +3,7 @@ package com.dead_comedian.holyhell.entity;
 
 import com.dead_comedian.holyhell.entity.non_living.GateEntity;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
+import com.dead_comedian.holyhell.registries.HolyHellSound;
 import com.dead_comedian.holyhell.registries.HolyhellParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -37,7 +38,7 @@ public class CherubEntity extends Monster implements FlyingAnimal {
     ///////////////
 
     public boolean hasSpawnedBab;
-
+    public int flutterLoop = 24;
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
 
@@ -77,6 +78,14 @@ public class CherubEntity extends Monster implements FlyingAnimal {
             setupAnimationStates();
         }
 
+        flutterLoop--;
+        if (flutterLoop >= 23) {
+            this.playSound(HolyHellSound.CHERUB_FLUTTER.get(), 1F, 1F);
+        }
+        if (flutterLoop <= 0) {
+            flutterLoop = 24;
+        }
+
 
         if (wave_level == 1) {
 
@@ -84,7 +93,7 @@ public class CherubEntity extends Monster implements FlyingAnimal {
             LivingEntity lastAttacker = this.getLastAttacker();
             double spawnY = 0;
             if (lastAttacker != null) {
-                spawnY = lastAttacker.getY()-4;
+                spawnY = lastAttacker.getY() - 4;
             }
             int retries = 0;
 
@@ -114,21 +123,21 @@ public class CherubEntity extends Monster implements FlyingAnimal {
                     hasSpawnedBab = true;
                 }
 
-                    if (!this.level().getBlockState(spawnPos).isAir() || this.level().getBlockState(spawnPos.below()).isAir()) {
-                        while (retries < 10) {
-                            spawnY++;
-                            spawnPos = new BlockPos((int) spawnX, (int) spawnY, (int) spawnZ);
-                            retries++;
-                        }
+                if (!this.level().getBlockState(spawnPos).isAir() || this.level().getBlockState(spawnPos.below()).isAir()) {
+                    while (retries < 10) {
+                        spawnY++;
+                        spawnPos = new BlockPos((int) spawnX, (int) spawnY, (int) spawnZ);
+                        retries++;
                     }
+                }
 
-                    if (!this.level().getBlockState(spawnPos).isAir()) {
-                        while (retries == 10) {
-                            radius--;
-                            spawnPos = new BlockPos((int) spawnX, (int) spawnY, (int) spawnZ);
-                            retries++;
-                        }
+                if (!this.level().getBlockState(spawnPos).isAir()) {
+                    while (retries == 10) {
+                        radius--;
+                        spawnPos = new BlockPos((int) spawnX, (int) spawnY, (int) spawnZ);
+                        retries++;
                     }
+                }
                 GateEntity gateEntity = new GateEntity(HolyHellEntities.GATE.get(), this.level());
                 this.level().addFreshEntity(gateEntity);
                 gateEntity.moveTo(spawnPos, gateEntity.getYRot(), gateEntity.getXRot());
@@ -165,6 +174,7 @@ public class CherubEntity extends Monster implements FlyingAnimal {
             if (current > capacity) {
                 current = 0;
                 wave_level = 0;
+                this.playSound(HolyHellSound.BELL_RING.get(),1F,1F);
                 this.discard();
             }
         }
@@ -256,6 +266,7 @@ public class CherubEntity extends Monster implements FlyingAnimal {
             if (current > capacity) {
                 current = 0;
                 wave_level = 0;
+                this.playSound(HolyHellSound.BELL_RING.get(),1F,1F);
                 this.discard();
             }
         }
@@ -328,6 +339,7 @@ public class CherubEntity extends Monster implements FlyingAnimal {
             if (current > capacity) {
                 current = 0;
                 wave_level = 0;
+                this.playSound(HolyHellSound.BELL_RING.get(),1F,1F);
                 this.discard();
             }
         }
