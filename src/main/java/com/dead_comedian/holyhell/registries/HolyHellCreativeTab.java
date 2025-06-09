@@ -22,8 +22,6 @@ public class HolyHellCreativeTab {
                         pOutput.accept(HolyHellItems.HOLY_TEAR.get());
                         pOutput.accept(HolyHellItems.BAPTIZED_PLATE.get());
                         pOutput.accept(HolyHellItems.ENHANCED_SILK.get());
-                        pOutput.accept(HolyHellItems.KEBAB.get());
-
 
                         pOutput.accept(HolyHellItems.SACRIFICIAL_KATAR.get());
                         pOutput.accept(HolyHellItems.HOLY_SHIELD.get());

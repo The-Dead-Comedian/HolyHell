@@ -38,8 +38,18 @@
     display: block;
     cursor: default;
 }
-.holygrail {
-    background-image: url("https://epxzzy.github.io/holyhell/src/main/resources/assets/holyhell/textures/item/holy_grail.png");
+.katar {
+    background-image: url("https://epxzzy.github.io/holyhell/src/main/resources/assets/holyhell/textures/item/sacrificial_katar.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    height: 29px;
+    width: 29px;
+    display: block;
+    cursor: default;
+}
+.shield {
+    background-image: url("https://epxzzy.github.io/holyhell/wiki/item_icons/holy_shield.png");
     background-size: cover;
     background-repeat: no-repeat;
     image-rendering: pixelated;
@@ -118,7 +128,16 @@
     display: block;
     cursor: default;
 }
-.candel {
+.diving {
+    background-image: url("https://epxzzy.github.io/holyhell/wiki/block_icons/divining_table.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    height: 29px;
+    width: 29px;
+    display: block;
+    cursor: default;
+}.candel {
     background-image: url("https://epxzzy.github.io/holyhell/src/main/resources/assets/holyhell/textures/item/candelabra.png");
     background-size: cover;
     background-repeat: no-repeat;
@@ -149,7 +168,7 @@
     cursor: default;
 }
 .fcross{
-    background-image: url("https://epxzzy.github.io/holyhell/src/main/resources/assets/holyhell/textures/item/stone_cross.png");
+    background-image: url("https://epxzzy.github.io/holyhell/wiki/block_icons/falling_cross.png");
     background-size: cover;
     background-repeat: no-repeat;
     image-rendering: pixelated;
