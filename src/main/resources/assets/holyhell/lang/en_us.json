@@ -77,6 +77,11 @@
   "sounds.holyhell.angel_hurt": "Angel Hurts",
   "sounds.holyhell.angel_idle": "Angel Hums",
 
+  "sounds.holyhell.heretic_attack": "Heretic Attacks",
+  "sounds.holyhell.heretic_death": "Heretic Dies",
+  "sounds.holyhell.heretic_hurt": "Heretic Hurts",
+  "sounds.holyhell.heretic_idle": "Heretic Growls",
+
   "sounds.holyhell.bab_walk": "Bab Slithers",
   "sounds.holyhell.bab_leg_walk": "Bab Walks",
   "sounds.holyhell.bab_die": "Bab Die",
@@ -89,6 +94,10 @@
 
   "sounds.holyhell.bell_ring": "Bell Rings",
   "sounds.holyhell.cherub_flutter": "Cherub Or Kamikaze Flies",
+
+  "sounds.holyhell.holy_spirit_death": "Holy Spirit Dies",
+  "sounds.holyhell.stun": "Entity Is Stunned",
+
 
 
 

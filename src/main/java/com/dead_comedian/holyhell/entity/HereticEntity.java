@@ -1,11 +1,15 @@
 package com.dead_comedian.holyhell.entity;
 
+import com.dead_comedian.holyhell.registries.HolyHellSound;
 import com.dead_comedian.holyhell.registries.HolyhellParticles;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AnimationState;
@@ -26,6 +30,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class HereticEntity extends Monster {
 
@@ -157,6 +162,7 @@ public class HereticEntity extends Monster {
                     this.mob.getLookControl().setLookAt(pEnemy.getX(), pEnemy.getEyeY(), pEnemy.getZ());
 
                     if (!pEnemy.isBlocking()) {
+                        this.mob.playSound(HolyHellSound.STUN.get(),1F,1F);
                         pEnemy.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 255));
                         if (pEnemy.level() instanceof ServerLevel world) {
                             world.sendParticles(HolyhellParticles.STUN.get(),
@@ -251,8 +257,30 @@ public class HereticEntity extends Monster {
                 target.setSecondsOnFire(2 * (int) f);
             }
         }
+        this.playSound(HolyHellSound.HERETIC_ATTACK.get(), 1F, 1F);
         setAggressive(true);
         return bl;
+    }
+
+    //////////
+    //SOUNDS//
+    //////////
+
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return HolyHellSound.HERETIC_DEATH.get();
+    }
+
+    @org.jetbrains.annotations.Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return HolyHellSound.HERETIC_IDLE.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
+        return HolyHellSound.HERETIC_HURT.get();
     }
 
 

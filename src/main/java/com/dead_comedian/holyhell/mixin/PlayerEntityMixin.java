@@ -199,7 +199,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                         world.sendParticles(HolyhellParticles.STUN2.get(), heretic.getX(), heretic.getEyeY() + 0.3F, heretic.getZ() + 0.5, 1, 0, 0.1, 0, 1);
                     }
                     heretic.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 255));
-
+                    heretic.playSound(HolyHellSound.STUN.get(),1F,1F);
                 }
 
 

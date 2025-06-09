@@ -154,5 +154,42 @@
     "sounds": [
       "holyhell:cherub_flutter"
     ]
+  },
+  "holy_spirit_death": {
+    "subtitle": "sounds.holyhell.holy_spirit_death",
+    "sounds": [
+      "holyhell:holy_spirit_death"
+    ]
+  },
+
+  "heretic_attack": {
+    "subtitle": "sounds.holyhell.heretic_attack",
+    "sounds": [
+      "holyhell:heretic_attack"
+    ]
+  },
+  "heretic_death": {
+    "subtitle": "sounds.holyhell.heretic_death",
+    "sounds": [
+      "holyhell:heretic_death"
+    ]
+  },
+  "heretic_hurt": {
+    "subtitle": "sounds.holyhell.heretic_hurt",
+    "sounds": [
+      "holyhell:heretic_hurt"
+    ]
+  },
+  "heretic_idle": {
+    "subtitle": "sounds.holyhell.heretic_idle",
+    "sounds": [
+      "holyhell:heretic_idle"
+    ]
+  },
+  "stun": {
+    "subtitle": "sounds.holyhell.stun",
+    "sounds": [
+      "holyhell:stun"
+    ]
   }
 }

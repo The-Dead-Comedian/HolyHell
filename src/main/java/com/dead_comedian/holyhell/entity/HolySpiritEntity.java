@@ -1,8 +1,10 @@
 package com.dead_comedian.holyhell.entity;
 
+import com.dead_comedian.holyhell.registries.HolyHellSound;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
@@ -250,7 +252,15 @@ public class HolySpiritEntity extends Monster {
         return bl;
     }
 
+    //////////
+    //SOUNDS//
+    //////////
 
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return HolyHellSound.HOLY_SPIRIT_DEATH.get();
+    }
 }
 
 

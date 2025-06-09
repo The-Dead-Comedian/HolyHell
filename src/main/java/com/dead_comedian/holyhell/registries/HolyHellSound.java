@@ -37,6 +37,11 @@ public class HolyHellSound {
     public static final RegistryObject<SoundEvent> ANGEL_HURT = registerSoundEvents("angel_hurt");
     public static final RegistryObject<SoundEvent> ANGEL_IDLE = registerSoundEvents("angel_idle");
 
+    public static final RegistryObject<SoundEvent> HERETIC_ATTACK = registerSoundEvents("heretic_attack");
+    public static final RegistryObject<SoundEvent> HERETIC_DEATH = registerSoundEvents("heretic_death");
+    public static final RegistryObject<SoundEvent> HERETIC_HURT = registerSoundEvents("heretic_hurt");
+    public static final RegistryObject<SoundEvent> HERETIC_IDLE = registerSoundEvents("heretic_idle");
+
     public static final RegistryObject<SoundEvent> BAB_WALK = registerSoundEvents("bab_walk");
     public static final RegistryObject<SoundEvent> BAB_LEG_WALK = registerSoundEvents("bab_leg_walk");
     public static final RegistryObject<SoundEvent> BAB_DIE = registerSoundEvents("bab_die");
@@ -49,6 +54,10 @@ public class HolyHellSound {
 
     public static final RegistryObject<SoundEvent> BELL_RING = registerSoundEvents("bell_ring");
     public static final RegistryObject<SoundEvent> CHERUB_FLUTTER = registerSoundEvents("cherub_flutter");
+
+    public static final RegistryObject<SoundEvent> HOLY_SPIRIT_DEATH = registerSoundEvents("holy_spirit_death");
+
+    public static final RegistryObject<SoundEvent> STUN = registerSoundEvents("stun");
 
 
     public static final ForgeSoundType CANDELABRA_SOUNDS = new ForgeSoundType(1f, 1f,
