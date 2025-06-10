@@ -177,6 +177,62 @@
     display: block;
     cursor: default;
 }
+.cherub{
+    background-image: url("https://epxzzy.github.io/holyhell/wiki/item_icons/cherub_spawn_egg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    height: 29px;
+    width: 29px;
+    display: block;
+    cursor: default;
+}
+.angel{
+    background-image: url("https://epxzzy.github.io/holyhell/wiki/item_icons/angel_spawn_egg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    height: 29px;
+    width: 29px;
+    display: block;
+    cursor: default;
+}.kamikaze{
+    background-image: url("https://epxzzy.github.io/holyhell/wiki/item_icons/kamikaze_spawn_egg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    height: 29px;
+    width: 29px;
+    display: block;
+    cursor: default;
+}.heretic{
+    background-image: url("https://epxzzy.github.io/holyhell/wiki/item_icons/heretic_spawn_egg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    height: 29px;
+    width: 29px;
+    display: block;
+    cursor: default;
+}.bab{
+    background-image: url("https://epxzzy.github.io/holyhell/wiki/item_icons/bab_spawn_egg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    height: 29px;
+    width: 29px;
+    display: block;
+    cursor: default;
+}.spirit{
+    background-image: url("https://epxzzy.github.io/holyhell/wiki/item_icons/spirit_spawn_egg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    height: 29px;
+    width: 29px;
+    display: block;
+    cursor: default;
+}
 .missing{
     background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.forgecdn.net%2Favatars%2F44%2F335%2F636030690961068207.png&f=1&nofb=1&ipt=420786c1ad6da8304dfa7a8be59f6ffa03b37106c99a64a88b8d520adfa75379&ipo=images");
     background-size: cover;
