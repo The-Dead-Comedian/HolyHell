@@ -206,15 +206,15 @@
     display: block;
     cursor: default;
 }.heretic{
-    background-image: url("https://epxzzy.github.io/holyhell/wiki/item_icons/heretic_spawn_egg.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    image-rendering: pixelated;
-    height: 29px;
-    width: 29px;
-    display: block;
-    cursor: default;
-}.bab{
+     background-image: url("https://epxzzy.github.io/holyhell/wiki/item_icons/heretic_spawn_egg.png");
+     background-size: cover;
+     background-repeat: no-repeat;
+     image-rendering: pixelated;
+     height: 29px;
+     width: 29px;
+     display: block;
+     cursor: default;
+ }.bab{
     background-image: url("https://epxzzy.github.io/holyhell/wiki/item_icons/bab_spawn_egg.png");
     background-size: cover;
     background-repeat: no-repeat;
