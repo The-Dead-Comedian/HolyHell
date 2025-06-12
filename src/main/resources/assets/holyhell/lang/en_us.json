@@ -99,7 +99,12 @@
   "sounds.holyhell.stun": "Entity Is Stunned",
 
 
-
+  "advancements.holyhell.blinding_bomb": "Obtain Blinding Bomb",
+  "advancements.holyhell.falling_cross": "Get killed by a Falling Cross",
+  "advancements.holyhell.find_church.description": "Enter a church",
+  "advancements.holyhell.find_church.title": "Grace Be Upon you",
+  "advancements.holyhell.divine_retribution.title": "Divine Retribution",
+  "advancements.holyhell.divine_retribution.description": "Hit a Cherub",
 
   "creativetab.holyhell_tab": "Holy Trinkets"
 }

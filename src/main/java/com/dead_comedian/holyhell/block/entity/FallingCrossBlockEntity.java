@@ -33,6 +33,7 @@ public class FallingCrossBlockEntity extends BlockEntity {
                 FallingBlockEntity fallingBlockEntity = FallingBlockEntity.fall(world, pos, state);
                 this.configureFallingBlockEntity(fallingBlockEntity);
                 getEntitiesOnBlock(world, pos).removeAll(getEntitiesOnBlock(world, pos));
+                System.out.println(fallingBlockEntity.getBlockState());
             }
         }
     }
