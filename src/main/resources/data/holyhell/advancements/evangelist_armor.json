@@ -1,0 +1,57 @@
+{
+  "parent": "holyhell:find_church",
+  "criteria": {
+    "netherite_armor": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "holyhell:evangelist_helmet"
+            ]
+          },
+          {
+            "items": [
+              "holyhell:evangelist_chestplate"
+            ]
+          },
+          {
+            "items": [
+              "holyhell:evangelist_leggings"
+            ]
+          },
+          {
+            "items": [
+              "holyhell:evangelist_boots"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.holyhell.evangelist_armor.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "holyhell:evangelist_helmet",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.holyhell.evangelist_armor.title"
+    }
+  },
+  "requirements": [
+    [
+      "netherite_armor"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": true
+}
