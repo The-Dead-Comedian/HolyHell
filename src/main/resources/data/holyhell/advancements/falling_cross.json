@@ -1,29 +1,22 @@
-  {
-    "display": {
-      "icon": {
-        "item": "holyhell:falling_cross"
-      },
-      "title": "CEASARRRRRRR",
-      "description": {
-        "translate": "advancements.holyhell.falling_cross"
-      }
+{
+  "display": {
+    "icon": {
+      "item": "holyhell:falling_cross"
     },
-    "parent": "holyhell:find_church",
-    "criteria": {
-      "requirement": {
-        "trigger": "minecraft:entity_killed_player",
-        "conditions": {
-          "player": {
-            "type": "minecraft:player"
-          },
-          "killing_blow": {
-            "direct_entity": {
-              "type": "minecraft:falling_block",
-              "nbt": "{BlockState:{holyhell:falling_cross}}"
-
-            }
-          }
+    "title": "CEASARRRRRRR",
+    "description": {
+      "translate": "advancements.holyhell.falling_cross"
+    }
+  },
+  "parent": "holyhell:find_church",
+  "criteria": {
+    "requirement": {
+      "trigger": "holyhell:killed_by_cross",
+      "conditions": {
+        "player": {
+          "type": "minecraft:player"
         }
       }
     }
   }
+}

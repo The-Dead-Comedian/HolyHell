@@ -5,6 +5,7 @@ import com.dead_comedian.holyhell.client.renderer.*;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsLowerFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsUpperFeatureRenderer;
 import com.dead_comedian.holyhell.client.renderer.non_living.*;
+import com.dead_comedian.holyhell.event.DeathHandler;
 import com.dead_comedian.holyhell.event.HolyCowSpawnHandler;
 
 import com.dead_comedian.holyhell.event.RegenerationHandler;
@@ -51,6 +52,7 @@ public class HolyHell {
         HolyHellBlockEntities.register(modEventBus);
         HolyHellCriteriaTriggers.init();
 
+        DeathHandler.register();
         RegenerationHandler.register();
         HolyCowSpawnHandler.register();
     }
