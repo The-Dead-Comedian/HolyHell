@@ -48,6 +48,15 @@ public class HereticEntity extends Monster {
     // MISC //
     //////////
 
+    @Override
+    public boolean isInvulnerableTo(DamageSource pSource) {
+        if (pSource.getEntity() instanceof KamikazeEntity) {
+            return true;
+        } else {
+            return super.isInvulnerableTo(pSource);
+        }
+
+    }
 
     public HereticEntity(EntityType<? extends Monster> entityType, Level world) {
         super(entityType, world);
@@ -212,6 +221,8 @@ public class HereticEntity extends Monster {
             this.mob.swing(InteractionHand.MAIN_HAND);
             this.mob.doHurtTarget(pEnemy);
         }
+
+
 
         @Override
         public void tick() {

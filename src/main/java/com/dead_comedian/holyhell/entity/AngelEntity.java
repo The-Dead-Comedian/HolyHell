@@ -52,6 +52,17 @@ public class AngelEntity extends Monster implements RangedAttackMob {
         super(entityType, world);
     }
 
+
+    @Override
+    public boolean isInvulnerableTo(DamageSource pSource) {
+        if (pSource.getEntity() instanceof KamikazeEntity) {
+            return true;
+        } else {
+            return super.isInvulnerableTo(pSource);
+        }
+
+    }
+
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
@@ -291,14 +302,12 @@ public class AngelEntity extends Monster implements RangedAttackMob {
 
                 float f = (float) Math.sqrt(d0) / this.attackRadius;
                 float f1 = Mth.clamp(f, 0.1F, 1.0F);
-                    this.rangedAttackMob.performRangedAttack(this.target, f1);
+                this.rangedAttackMob.performRangedAttack(this.target, f1);
 
                 this.attackTime = Mth.floor(f * (float) (this.attackIntervalMax - this.attackIntervalMin) + (float) this.attackIntervalMin);
             } else if (this.attackTime < 0) {
                 this.attackTime = Mth.floor(Mth.lerp(Math.sqrt(d0) / (double) this.attackRadius, (double) this.attackIntervalMin, (double) this.attackIntervalMax));
             }
-
-
 
 
             this.circleTimer++;
