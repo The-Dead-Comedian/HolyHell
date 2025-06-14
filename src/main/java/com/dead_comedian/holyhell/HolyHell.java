@@ -49,6 +49,7 @@ public class HolyHell {
         HolyhellParticles.register(modEventBus);
         HolyHellCreativeTab.register(modEventBus);
         HolyHellBlockEntities.register(modEventBus);
+        HolyHellCriteriaTriggers.init();
 
         RegenerationHandler.register();
         HolyCowSpawnHandler.register();
@@ -84,7 +85,7 @@ public class HolyHell {
             EntityRenderers.register(HolyHellEntities.HERETIC.get(), HereticRenderer::new);
             EntityRenderers.register(HolyHellEntities.BAB_ONE.get(), BabOneRenderer::new);
             EntityRenderers.register(HolyHellEntities.BAB_TWO.get(), BabTwoRenderer::new);
-            EntityRenderers.register(HolyHellEntities.BAB_THREE .get(), BabThreeRenderer::new);
+            EntityRenderers.register(HolyHellEntities.BAB_THREE.get(), BabThreeRenderer::new);
             EntityRenderers.register(HolyHellEntities.HOLY_SPIRIT.get(), HolySpiritRenderer::new);
             EntityRenderers.register(HolyHellEntities.CHERUB.get(), CherubRenderer::new);
             EntityRenderers.register(HolyHellEntities.HOLY_COW.get(), HolyCowRenderer::new);

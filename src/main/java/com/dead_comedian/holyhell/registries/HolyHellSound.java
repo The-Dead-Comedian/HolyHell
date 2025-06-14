@@ -58,6 +58,7 @@ public class HolyHellSound {
     public static final RegistryObject<SoundEvent> HOLY_SPIRIT_DEATH = registerSoundEvents("holy_spirit_death");
 
     public static final RegistryObject<SoundEvent> STUN = registerSoundEvents("stun");
+    public static final RegistryObject<SoundEvent> DIVINE_PROTECTION = registerSoundEvents("divine_prot");
 
 
     public static final ForgeSoundType CANDELABRA_SOUNDS = new ForgeSoundType(1f, 1f,

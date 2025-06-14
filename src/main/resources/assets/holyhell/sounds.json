@@ -191,5 +191,10 @@
     "sounds": [
       "holyhell:stun"
     ]
-  }
+  },  "divine_prot": {
+  "subtitle": "sounds.holyhell.divine_prot",
+  "sounds": [
+    "holyhell:divine_prot"
+  ]
+}
 }

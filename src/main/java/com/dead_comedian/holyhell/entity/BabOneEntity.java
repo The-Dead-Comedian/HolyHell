@@ -1,6 +1,7 @@
 package com.dead_comedian.holyhell.entity;
 
 
+import com.dead_comedian.holyhell.registries.HolyHellCriteriaTriggers;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import com.dead_comedian.holyhell.registries.HolyHellItems;
 import com.dead_comedian.holyhell.registries.HolyHellSound;
@@ -9,6 +10,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -43,8 +45,6 @@ public class BabOneEntity extends TamableAnimal {
     ///////////////
     private static final EntityDataAccessor<Boolean> TAMED = SynchedEntityData.defineId(BabOneEntity.class, EntityDataSerializers.BOOLEAN);
     private static final Ingredient TEMPT_ITEMS = Ingredient.of(HolyHellItems.HOLY_TEAR.get());
-
-
 
 
     public final AnimationState Lvl1IdleAnimationState = new AnimationState();
@@ -85,7 +85,10 @@ public class BabOneEntity extends TamableAnimal {
                         babTwoEntity.setTame(true);
                         babTwoEntity.tame((Player) this.getOwner());
                         babTwoEntity.moveTo(blockPos, babTwoEntity.getYRot(), babTwoEntity.getXRot());
-                        this.playSound(HolyHellSound.BAB_MERGE.get(),1F,1F);
+                        this.playSound(HolyHellSound.BAB_MERGE.get(), 1F, 1F);
+                        if (this.getOwner() instanceof  ServerPlayer) {
+                            HolyHellCriteriaTriggers.BAB_MERGE.trigger((ServerPlayer) this.getOwner());
+                        }
                         this.discard();
                         i.discard();
                     }
@@ -100,7 +103,7 @@ public class BabOneEntity extends TamableAnimal {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(3,  new TemptGoal(this, 1.4D, TEMPT_ITEMS, false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.4D, TEMPT_ITEMS, false));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1D));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 4f));
@@ -212,7 +215,9 @@ public class BabOneEntity extends TamableAnimal {
         ItemStack itemStack = player.getItemInHand(hand);
         if (itemStack.is(Items.STICK) && !this.isTame()) {
             this.discard();
-
+            if (player instanceof ServerPlayer) {
+                HolyHellCriteriaTriggers.KEBAB.trigger((ServerPlayer) player);
+            }
             player.addItem(HolyHellItems.KEBAB.get().getDefaultInstance());
             if (!player.isCreative()) {
                 itemStack.shrink(1);
@@ -227,7 +232,7 @@ public class BabOneEntity extends TamableAnimal {
             if (!player.isCreative()) {
                 itemStack.shrink(1);
             }
-            this.playSound(HolyHellSound.BAB_TAME.get(),1F,1F);
+            this.playSound(HolyHellSound.BAB_TAME.get(), 1F, 1F);
             return InteractionResult.SUCCESS;
         }
 
@@ -240,7 +245,6 @@ public class BabOneEntity extends TamableAnimal {
         this.entityData.set(TAMED, tamed);
         super.setTame(tamed);
     }
-
 
 
 }

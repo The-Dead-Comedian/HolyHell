@@ -165,15 +165,19 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             switch (countArmorPieces(((Player) (Object) this), HolyhellArmorMaterials.EVANGELIST)) {
                 case 1:
                     this.addEffect(new MobEffectInstance(HolyHellEffects.DIVINE_PROTECTION_COOLDOWN.get(), 1200, 1));
+                  this.level().playSound(null, ((Player)(Object)this).blockPosition(), HolyHellSound.DIVINE_PROTECTION.get(), SoundSource.PLAYERS);
                     break;
                 case 2:
                     this.addEffect(new MobEffectInstance(HolyHellEffects.DIVINE_PROTECTION_COOLDOWN.get(), 1000, 2));
+                    this.level().playSound(null, ((Player)(Object)this).blockPosition(), HolyHellSound.DIVINE_PROTECTION.get(), SoundSource.PLAYERS);
                     break;
                 case 3:
                     this.addEffect(new MobEffectInstance(HolyHellEffects.DIVINE_PROTECTION_COOLDOWN.get(), 800, 3));
+                    this.level().playSound(null, ((Player)(Object)this).blockPosition(), HolyHellSound.DIVINE_PROTECTION.get(), SoundSource.PLAYERS);
                     break;
                 case 4:
                     this.addEffect(new MobEffectInstance(HolyHellEffects.DIVINE_PROTECTION_COOLDOWN.get(), 600, 4));
+                    this.level().playSound(null, ((Player)(Object)this).blockPosition(), HolyHellSound.DIVINE_PROTECTION.get(), SoundSource.PLAYERS);
                     break;
 
             }

@@ -85,7 +85,7 @@ public class AngelEntity extends Monster implements RangedAttackMob {
         this.goalSelector.addGoal(0, new FloatGoal(this));
 
 
-        this.goalSelector.addGoal(1, new RangedAttackGoal(this, 1, 40, 10.0F, 7, 10, 20, 900));
+        this.goalSelector.addGoal(1, new net.minecraft.world.entity.ai.goal.RangedAttackGoal(this, 1.25D, 20, 10.0F));
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1D));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 4f));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
