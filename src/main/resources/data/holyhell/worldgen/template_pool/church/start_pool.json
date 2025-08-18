@@ -1,0 +1,27 @@
+{
+
+  "name": "holyhell:church/start_pool",
+
+  "fallback": "minecraft:empty",
+
+
+  "elements": [
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "holyhell:church",
+
+        "processors": "holyhell:church_generic_degradation",
+        "processors": "holyhell:church_cross_gen",
+
+
+        "projection": "rigid",
+
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

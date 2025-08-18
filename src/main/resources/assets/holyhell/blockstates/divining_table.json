@@ -1,0 +1,17 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "holyhell:block/divining_table",
+      "y": 0
+    },"facing=east": {
+      "model": "holyhell:block/divining_table",
+      "y": 90
+    },"facing=south": {
+      "model": "holyhell:block/divining_table",
+      "y": 180
+    },"facing=west": {
+      "model": "holyhell:block/divining_table",
+      "y": -90
+    }
+  }
+}

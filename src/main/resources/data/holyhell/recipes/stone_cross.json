@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+
+    "X": {
+      "item": "minecraft:stone"
+    }
+  },
+  "pattern": [
+    " X ",
+    "XXX",
+    " X "
+  ],
+  "result": {
+    "item": "holyhell:stone_cross"
+  },
+  "show_notification": true
+}

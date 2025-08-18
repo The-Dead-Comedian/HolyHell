@@ -1,0 +1,10 @@
+ {
+  "replace": false,
+  "values": [
+    "holyhell:candleholder",
+    "holyhell:candelabra",
+    "holyhell:divining_table",
+    "holyhell:stone_cross",
+    "holyhell:falling_cross"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:iron_ingot"
+    },
+    "Y": {
+      "item": "minecraft:gold_ingot"
+    },
+    "X": {
+      "item": "holyhell:holy_tear"
+    }
+  },
+  "pattern": [
+    "XYX",
+    "Y#Y",
+    "XYX"
+  ],
+  "result": {
+    "item": "holyhell:baptized_plate"
+  },
+  "show_notification": true
+}

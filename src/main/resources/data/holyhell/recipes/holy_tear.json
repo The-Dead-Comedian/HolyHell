@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+
+
+    "#": {
+      "item": "holyhell:saint_eye"
+    }
+  },
+  "pattern": [
+    "   ",
+    " # ",
+    "   "
+  ],
+  "result": {
+    "item": "holyhell:holy_tear"
+  },
+  "show_notification": true
+}

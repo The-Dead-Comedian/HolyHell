@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "item": "holyhell:falling_cross"
+    },
+    "title": "CEASARRRRRRR",
+    "description": {
+      "translate": "advancements.holyhell.falling_cross"
+    }
+  },
+  "parent": "holyhell:find_church",
+  "criteria": {
+    "requirement": {
+      "trigger": "holyhell:killed_by_cross",
+      "conditions": {
+        "player": {
+          "type": "minecraft:player"
+        }
+      }
+    }
+  }
+}
