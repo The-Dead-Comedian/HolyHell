@@ -13,6 +13,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CandleBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -81,6 +82,54 @@ public class HolyHellBlocks {
                     .noOcclusion()
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.STONE)));
+
+
+
+
+    public static final RegistryObject<Block> COBBLED_MARBLE = registerBlock("cobbled_marble",
+            () -> new HorizontalDirectionalBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.TERRACOTTA_WHITE)
+                    .strength(3F)
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.STONE)) {
+            });
+
+    public static final RegistryObject<Block> MARBLE = registerBlock("marble",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.TERRACOTTA_WHITE)
+                    .strength(3F)
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.STONE)) {
+            });
+
+    public static final RegistryObject<Block> MARBLE_BRICKS = registerBlock("marble_bricks",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.TERRACOTTA_WHITE)
+                    .strength(3F)
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.STONE)) {
+            });
+
+    public static final RegistryObject<Block> CRACKED_MARBLE_BRICKS = registerBlock("cracked_marble_bricks",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.TERRACOTTA_WHITE)
+                    .strength(3F)
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.STONE)) {
+            });
+
+    public static final RegistryObject<Block> MARBLE_COLLUMN = registerBlock("marble_collumn",
+            () -> new MarbleCollumnBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.TERRACOTTA_WHITE)
+                    .strength(3F)
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.STONE)) {
+            });
 
 
 

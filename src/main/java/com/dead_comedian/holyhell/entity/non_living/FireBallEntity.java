@@ -14,7 +14,7 @@ public class FireBallEntity extends AbstractArrow {
 
     public FireBallEntity(EntityType<? extends AbstractArrow> entityType, double d, double e, double f, Level world) {
         super(entityType, world);
-        this.setPosRaw(d, e, f);
+//        this.setPosRaw(d, e, f);
 
     }
 
@@ -38,7 +38,7 @@ public class FireBallEntity extends AbstractArrow {
     @Override
     protected void onHitBlock(BlockHitResult blockHitResult) {
         super.onHitBlock(blockHitResult);
-        this.discard();
+//        this.discard();
     }
 
     @Override
@@ -49,15 +49,6 @@ public class FireBallEntity extends AbstractArrow {
     @Override
     protected ItemStack getPickupItem() {
         return null;
-    }
-
-
-    @Override
-    public void playerTouch(Player player) {
-        super.playerTouch(player);
-
-
-
     }
 
 

@@ -3,7 +3,9 @@ package com.dead_comedian.holyhell.block.entity;
 import com.dead_comedian.holyhell.registries.HolyHellBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -29,19 +31,14 @@ public class FallingCrossBlockEntity extends BlockEntity {
 
 
         for (Entity entity : getEntitiesOnBlock(world, pos)) {
-            if (world.getBlockState(pos.below()).isAir() && pos.getY() >= world.getMinBuildHeight()) {
+            if (world.getBlockState(pos.below()).isAir() && pos.getY() >= world.getMinBuildHeight() && entity instanceof LivingEntity) {
                 FallingBlockEntity fallingBlockEntity = FallingBlockEntity.fall(world, pos, state);
-                this.configureFallingBlockEntity(fallingBlockEntity);
                 getEntitiesOnBlock(world, pos).removeAll(getEntitiesOnBlock(world, pos));
-                System.out.println(fallingBlockEntity.getBlockState());
             }
         }
     }
 
-    protected void configureFallingBlockEntity(FallingBlockEntity entity) {
-        entity.setHurtsEntities(6.0F, 40);
 
-    }
 
 
 }

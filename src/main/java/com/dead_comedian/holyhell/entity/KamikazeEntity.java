@@ -211,7 +211,7 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
         if (!this.level().isClientSide) {
 
 
-            this.level().explode(this, this.getX(), this.getY(), this.getZ(), (float)( 3 * power), Level.ExplosionInteraction.MOB);
+            this.level().explode(this, this.getX(), this.getY(), this.getZ(), (float) (3 * power), Level.ExplosionInteraction.MOB);
             this.discard();
 
         }
@@ -347,20 +347,6 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
     }
 
     @Override
-    public boolean doHurtTarget(Entity target) {
-        boolean bl = super.doHurtTarget(target);
-        if (bl) {
-            float f = this.level().getCurrentDifficultyAt(this.blockPosition()).getEffectiveDifficulty();
-            if (this.getMainHandItem().isEmpty() && this.isOnFire() && this.random.nextFloat() < f * 0.3F) {
-                target.setSecondsOnFire(2 * (int) f);
-            }
-        }
-        setAggressive(true);
-        return bl;
-    }
-
-
-    @Override
     public boolean isInvulnerableTo(DamageSource damageSource) {
         if (!(damageSource.getDirectEntity() instanceof AbstractArrow) && damageSource.is(DamageTypes.GENERIC_KILL)) {
             if (damageSource.getDirectEntity() != null) {
@@ -372,7 +358,6 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
             return super.isInvulnerableTo(damageSource);
         }
     }
-
 
 
 }
