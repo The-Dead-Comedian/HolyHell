@@ -8,10 +8,7 @@ import com.dead_comedian.holyhell.item.HolyhellArmorMaterials;
 import com.dead_comedian.holyhell.item.custom.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.food.Foods;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ShieldItem;
-import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.item.*;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -26,7 +23,7 @@ public class HolyHellItems {
             () -> new SaintEyeItem(new Item.Properties().food(HolyHellFood.SAINT_EYE)));
 
     public static final DeferredHolder<Item, SacrificialKatarItem> SACRIFICIAL_KATAR = ITEMS.register("sacrificial_katar",
-            () -> new SacrificialKatarItem(HolyHellToolMaterial.GRAIL,6, -2F, new Item.Properties()));
+            () -> new SacrificialKatarItem(HolyHellToolMaterial.GRAIL, new Item.Properties().attributes(SacrificialKatarItem.createAttributes(Tiers.DIAMOND, 6, -2F))));
 
     public static final DeferredHolder<Item,ShieldItem> HOLY_SHIELD = ITEMS.register("holy_shield",
             () -> new ShieldItem(new Item.Properties().durability(1000)));
