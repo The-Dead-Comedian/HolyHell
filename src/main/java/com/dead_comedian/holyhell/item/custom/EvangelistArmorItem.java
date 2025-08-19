@@ -17,7 +17,7 @@ public class EvangelistArmorItem extends ArmorItem {
     HolyhellArmorMaterials armorMaterial;
 
     public EvangelistArmorItem(HolyhellArmorMaterials material, Type type, Properties settings) {
-        super(material, type, settings);
+        super((Holder<ArmorMaterial>) material, type, settings);
         armorMaterial = material;
 
     }
