@@ -66,7 +66,7 @@ public class StoneCrossBlock extends HorizontalDirectionalBlock {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-     return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection());
+        return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection());
     }
 
     @Override
@@ -102,54 +102,45 @@ public class StoneCrossBlock extends HorizontalDirectionalBlock {
     }
 
     @Override
-    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
-        super.playerDestroy(level, player, pos, state, blockEntity, tool);
-
-
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         Direction facing = state.getValue(FACING);
         int piece = state.getValue(PIECE);
-
-        // Get offset direction based on facing
         Offset offset = switch (facing) {
-            case NORTH -> new Offset(piece >= 3 ? -1 : 1, 0);  // X offset
-            case SOUTH -> new Offset(piece >= 3 ? 1 : -1, 0);  // Flipped X offset
-            case EAST -> new Offset(0, piece >= 3 ? -1 : 1);   // Z offset
-            case WEST -> new Offset(0, piece >= 3 ? 1 : -1);   // Flipped Z offset
+            case NORTH -> new Offset(piece >= 3 ? -1 : 1, 0);
+            case SOUTH -> new Offset(piece >= 3 ? 1 : -1, 0);
+            case EAST -> new Offset(0, piece >= 3 ? -1 : 1);
+            case WEST -> new Offset(0, piece >= 3 ? 1 : -1);
             default -> new Offset(0, 0);
         };
-
-        // Get removal pattern based on piece type
         BlockRemovalPattern pattern = switch (piece) {
             case 0, 3 -> new BlockRemovalPattern(
-                    new int[]{ 1, 2 },      // vertical offsets for first column
-                    new int[]{ 0, 1, 2 }    // vertical offsets for second column
+                    new int[]{1, 2},
+                    new int[]{0, 1, 2}
             );
             case 1, 4 -> new BlockRemovalPattern(
-                    new int[]{ -1, 0, 1 },  // vertical offsets for first column
-                    new int[]{ -1, 0, 1 }   // vertical offsets for second column
+                    new int[]{-1, 0, 1},
+                    new int[]{-1, 0, 1}
             );
             case 2, 5 -> new BlockRemovalPattern(
-                    new int[]{ -2, -1, 0 }, // vertical offsets for first column
-                    new int[]{ -2, -1, 0 }  // vertical offsets for second column
+                    new int[]{-2, -1, 0},
+                    new int[]{-2, -1, 0}
             );
             default -> null;
         };
 
         if (pattern != null) {
-            // Remove blocks in first column (center)
             for (int yOffset : pattern.firstColumn()) {
                 removeBlockWithDirectionalPattern(level, pos, 0, yOffset, 0, facing);
             }
 
-            // Remove blocks in second column (offset)
             for (int yOffset : pattern.secondColumn()) {
                 removeBlockWithDirectionalPattern(level, pos, offset.x(), yOffset, offset.z(), facing);
             }
         }
+        return super.playerWillDestroy(level, pos, state, player);
     }
 
     private void removeBlockWithDirectionalPattern(Level level, BlockPos pPos, int xOffset, int yOffset, int zOffset, Direction facing) {
-        // Apply directional transformations
         BlockPos targetPos = switch (facing) {
             case NORTH -> pPos.offset(xOffset, yOffset, zOffset);
             case SOUTH -> pPos.offset(xOffset, yOffset, -zOffset);  // Flip Z
@@ -161,6 +152,9 @@ public class StoneCrossBlock extends HorizontalDirectionalBlock {
         level.removeBlock(targetPos, false);
     }
 
-    private record BlockRemovalPattern(int[] firstColumn, int[] secondColumn) {}
-    private record Offset(int x, int z) {}
+    private record BlockRemovalPattern(int[] firstColumn, int[] secondColumn) {
+    }
+
+    private record Offset(int x, int z) {
+    }
 }

@@ -167,7 +167,7 @@ public class CandleholderBlock extends Block {
     }
 
     @Override
-    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (state.getValue(PIECE) == 1) {
             level.removeBlock(pos.above(), false);
             level.removeBlock(pos.below(), false);
@@ -180,6 +180,8 @@ public class CandleholderBlock extends Block {
             level.removeBlock(pos.above(), false);
             level.removeBlock(pos.above().above(), false);
         }
-        super.playerDestroy(level, player, pos, state, blockEntity, tool);
+        return super.playerWillDestroy(level, pos, state, player);
     }
+
+
 }

@@ -20,8 +20,8 @@ public class HolyHellBlockEntities {
                     FallingCrossBlockEntity::new, HolyHellBlocks.FALLING_CROSS.get()).build(null));
 
     public static final Supplier<BlockEntityType<DiviningTableBlockEntity>> DIVINING_TABLE_BLOCK_ENTITY =
-            BLOCK_ENTITIES.register("divining_block_entity", () -> BlockEntityType.Builder.of(
-                    DiviningTableBlockEntity::new, HolyHellBlocks.FALLING_CROSS.get()).build(null));
+            BLOCK_ENTITIES.register("divining_table_block_entity", () -> BlockEntityType.Builder.of(
+                    DiviningTableBlockEntity::new, HolyHellBlocks.DIVINING_TABLE.get()).build(null));
 
 
     public static void register(IEventBus eventBus) {
