@@ -6,6 +6,7 @@ import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import com.dead_comedian.holyhell.registries.HolyHellItems;
 import com.dead_comedian.holyhell.registries.HolyHellSound;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -26,6 +27,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -40,15 +43,17 @@ import java.util.List;
 public class BabOneEntity extends TamableAnimal {
 
 
+
     ///////////////
     // VARIABLES //
     ///////////////
-    private static final EntityDataAccessor<Boolean> TAMED = SynchedEntityData.defineId(BabOneEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final Ingredient TEMPT_ITEMS = Ingredient.of(HolyHellItems.HOLY_TEAR.get());
 
+    private static final Ingredient TEMPT_ITEMS = Ingredient.of(HolyHellItems.HOLY_TEAR.get());
+    private static final EntityDataAccessor<Boolean> TAMED = SynchedEntityData.defineId(BabOneEntity.class, EntityDataSerializers.BOOLEAN);
 
     public final AnimationState Lvl1IdleAnimationState = new AnimationState();
     private int Lvl1IdleAnimationTimeout = 0;
+
     //////////
     // MISC //
     //////////
@@ -63,11 +68,23 @@ public class BabOneEntity extends TamableAnimal {
         return null;
     }
 
-
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
-        this.entityData.set(TAMED, false);
+
+        builder.define(TAMED, false);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag nbt) {
+        super.addAdditionalSaveData(nbt);
+        nbt.putBoolean("Tamed", this.isTame());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag nbt) {
+        super.readAdditionalSaveData(nbt);
+        this.setTame(nbt.getBoolean("Tamed"), false);
     }
 
     @Override
@@ -76,7 +93,7 @@ public class BabOneEntity extends TamableAnimal {
 
         List<Entity> entityBelow = this.level().getEntities(this, this.getBoundingBox().inflate(0.1, 0.1, 0.1));
         for (Entity i : entityBelow) {
-            if (i instanceof BabOneEntity && i != this) {
+            if (i instanceof BabOneEntity) {
                 if (this.isTame() && (this.getOwner() == ((BabOneEntity) i).getOwner() || !((BabOneEntity) i).isTame())) {
                     if (this.canCollideWith(i)) {
 
@@ -86,10 +103,6 @@ public class BabOneEntity extends TamableAnimal {
                         babTwoEntity.setTame(true,false);
                         babTwoEntity.tame((Player) this.getOwner());
                         babTwoEntity.moveTo(blockPos, babTwoEntity.getYRot(), babTwoEntity.getXRot());
-                        this.playSound(HolyHellSound.BAB_MERGE.get(), 1F, 1F);
-                        if (this.getOwner() instanceof ServerPlayer) {
-                            HolyHellCriteriaTriggers.BAB_MERGE.trigger((ServerPlayer) this.getOwner());
-                        }
                         this.discard();
                         i.discard();
                     }
@@ -104,115 +117,23 @@ public class BabOneEntity extends TamableAnimal {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.4D, TEMPT_ITEMS, false));
+        this.goalSelector.addGoal(3,  new TemptGoal(this, 1.4D, TEMPT_ITEMS, false));
+
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1D));
+        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1D));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 4f));
-        this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0, 10.0F, 2.0F));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Monster.class, 6, 1, 1));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0, 10.0F, 2.0F));
+
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createLivingAttributes().add(Attributes.MAX_HEALTH, 10).add(Attributes.MOVEMENT_SPEED, 0.2f).add(Attributes.ARMOR, 0.4f);
-    }
-
-    ///////////////
-    // ANIMATION //
-    ///////////////
-
-
-    private void setupAnimationStates() {
-
-        if (this.Lvl1IdleAnimationTimeout <= 0) {
-            this.Lvl1IdleAnimationTimeout = this.random.nextInt(20) + 40;
-            this.Lvl1IdleAnimationState.start(this.tickCount);
-        } else {
-            --this.Lvl1IdleAnimationTimeout;
-        }
-    }
-
-
-    @Override
-    protected void updateWalkAnimation(float posDelta) {
-        float f = this.getPose() == Pose.STANDING ? Math.min(posDelta * 6.0f, 1.0f) : 0.0f;
-        this.walkAnimation.update(f, 0.2f);
-    }
-
-
-    ////////
-    // AI //
-    ////////
-
-
-    //  attacking
-    private static final EntityDataAccessor<Boolean> ATTACKING = SynchedEntityData.defineId(BabOneEntity.class, EntityDataSerializers.BOOLEAN);
-
-    public void setAggressive(boolean attacking) {
-        this.entityData.set(ATTACKING, attacking);
-    }
-
-    @Override
-    public boolean isAggressive() {
-        return this.entityData.get(ATTACKING);
-    }
-
-
-    ///////////////
-    // COLLISION //
-    ///////////////
-
-    public static boolean canCollide(Entity entity, Entity other) {
-        return other instanceof BabOneEntity || other instanceof BabTwoEntity && entity.isAlive();
-    }
-
-    @Override
-    public boolean canBeCollidedWith() {
-        return this.isAlive();
-    }
-
-    public boolean canCollideWith(Entity other) {
-        return canCollide(this, other);
-    }
-
-    /////////
-    //SOUND//
-    /////////
-
-    protected SoundEvent getStepSound() {
-        return HolyHellSound.BAB_WALK.get();
-    }
-
-    protected void playStepSound(BlockPos pPos, BlockState pBlock) {
-        this.playSound(this.getStepSound(), 0.7F, 1.0F);
-    }
-
-    @org.jetbrains.annotations.Nullable
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return HolyHellSound.BAB_IDLE.get();
-    }
-
-    @Override
-    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return HolyHellSound.BAB_HURT.get();
-    }
-
-    @Nullable
-    @Override
-    protected SoundEvent getDeathSound() {
-        return HolyHellSound.BAB_DIE.get();
-    }
-
-    ///////////
-    // TAMED //
-    ///////////
-
-
-    @Override
-    public boolean isFood(ItemStack itemStack) {
-        return false;
+        return Mob.createLivingAttributes()
+                .add(Attributes.MAX_HEALTH, 15)
+                .add(Attributes.MOVEMENT_SPEED, 0.2f)
+                .add(Attributes.ARMOR, 0.8f)
+                .add(Attributes.ATTACK_DAMAGE, 12.0)
+                .add(Attributes.FOLLOW_RANGE, 10);
     }
 
     @Override
@@ -245,6 +166,39 @@ public class BabOneEntity extends TamableAnimal {
         return super.mobInteract(player, hand);
     }
 
+
+
+    ///////////////
+    // ANIMATION //
+    ///////////////
+
+
+
+    private void setupAnimationStates() {
+
+        if (this.Lvl1IdleAnimationTimeout <= 0) {
+            this.Lvl1IdleAnimationTimeout = this.random.nextInt(20) + 40;
+            this.Lvl1IdleAnimationState.start(this.tickCount);
+        } else {
+            --this.Lvl1IdleAnimationTimeout;
+        }
+    }
+
+
+    @Override
+    protected void updateWalkAnimation(float posDelta) {
+        float f = this.getPose() == Pose.STANDING ? Math.min(posDelta * 6.0f, 1.0f) : 0.0f;
+        this.walkAnimation.update(f, 0.2f);
+    }
+
+
+
+
+
+    ///////////
+    // TAMED //
+    ///////////
+
     @Override
     public void setTame(boolean tame, boolean applyTamingSideEffects) {
         super.setTame(tame, applyTamingSideEffects);
@@ -252,7 +206,60 @@ public class BabOneEntity extends TamableAnimal {
     }
 
 
+    ///////////////
+    // COLLISION //
+    ///////////////
+
+    public static boolean canCollide(Entity entity, Entity other) {
+        return other instanceof BabOneEntity;
+    }
+
+    @Override
+    public boolean canBeCollidedWith() {
+        return true;
+    }
+
+    public boolean canCollideWith(Entity other) {
+        return canCollide(this, other);
+    }
+    /////////
+    //SOUND//
+    /////////
+
+
+
+    protected SoundEvent getStepSound() {
+        return HolyHellSound.BAB_LEG_WALK.get();
+    }
+
+    protected void playStepSound(BlockPos pPos, BlockState pBlock) {
+        this.playSound(this.getStepSound(), 0.7F, 1.0F);
+    }
+
+    @org.jetbrains.annotations.Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return HolyHellSound.BAB_IDLE.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
+        return HolyHellSound.BAB_HURT.get();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return HolyHellSound.BAB_DIE.get();
+    }
+
+
+    @Override
+    public boolean isFood(ItemStack itemStack) {
+        return false;
+    }
 }
+
 
 
 

@@ -80,13 +80,15 @@ public class HolySpiritEntity extends Monster {
                 .add(Attributes.MAX_HEALTH, MaxHealth)
                 .add(Attributes.MOVEMENT_SPEED, 0.3f)
                 .add(Attributes.ARMOR, 1.5f)
-                .add(Attributes.ATTACK_DAMAGE, 8);
+                .add(Attributes.ATTACK_DAMAGE, 8)
+                .add(Attributes.FOLLOW_RANGE,10);
+
     }
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
-        this.entityData.set(ATTACKING, false);
+        builder.define(ATTACKING, false);
 
     }
 

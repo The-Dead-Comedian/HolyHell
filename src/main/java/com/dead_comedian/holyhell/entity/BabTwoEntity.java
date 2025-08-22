@@ -5,6 +5,7 @@ import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import com.dead_comedian.holyhell.registries.HolyHellItems;
 import com.dead_comedian.holyhell.registries.HolyHellSound;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -64,8 +65,20 @@ public class BabTwoEntity extends TamableAnimal {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
 
-        this.entityData.set(ATTACKING, false);
-        this.entityData.set(TAMED, false);
+        builder.define(ATTACKING, false);
+        builder.define(TAMED, false);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag nbt) {
+        super.addAdditionalSaveData(nbt);
+        nbt.putBoolean("Tamed", this.isTame());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag nbt) {
+        super.readAdditionalSaveData(nbt);
+        this.setTame(nbt.getBoolean("Tamed"), false);
     }
 
     @Override
@@ -116,7 +129,8 @@ public class BabTwoEntity extends TamableAnimal {
                 .add(Attributes.MAX_HEALTH, 15)
                 .add(Attributes.MOVEMENT_SPEED, 0.2f)
                 .add(Attributes.ARMOR, 0.8f)
-                .add(Attributes.ATTACK_DAMAGE, 12.0);
+                .add(Attributes.ATTACK_DAMAGE, 12.0)
+                .add(Attributes.FOLLOW_RANGE, 10);
     }
 
     ///////////////

@@ -14,7 +14,7 @@ public class HolyCowEntity extends Cow {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createLivingAttributes().add(Attributes.MAX_HEALTH, 10.0D)
-                .add(Attributes.MOVEMENT_SPEED, (double) 0.2F);
+                .add(Attributes.MOVEMENT_SPEED, (double) 0.2F).add(Attributes.FOLLOW_RANGE,10);
     }
 
 

@@ -55,34 +55,6 @@ public class BabThreeEntity extends TamableAnimal {
     ///////
     //NBT//
     ///////
-
-    public void addAdditionalSaveData(CompoundTag nbt) {
-        super.addAdditionalSaveData(nbt);
-        if (this.getOwnerUUID() != null) {
-            nbt.putUUID("Owner", this.getOwnerUUID());
-        }
-        }
-
-    public void readAdditionalSaveData(CompoundTag nbt) {
-        super.readAdditionalSaveData(nbt);
-        UUID uUID;
-        if (nbt.hasUUID("Owner")) {
-            uUID = nbt.getUUID("Owner");
-        } else {
-            String string = nbt.getString("Owner");
-            uUID = OldUsersConverter.convertMobOwnerIfNecessary(this.getServer(), string);
-        }
-
-        if (uUID != null) {
-            try {
-                this.setOwnerUUID(uUID);
-                this.setTame(true,false);
-            } catch (Throwable var4) {
-                this.setTame(false,false);
-            }
-        }
-    }
-
     @Override
     public boolean isFood(ItemStack itemStack) {
         return false;
@@ -106,8 +78,20 @@ public class BabThreeEntity extends TamableAnimal {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
 
-        this.entityData.set(ATTACKING, false);
+        builder.define(ATTACKING, false);
 
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag nbt) {
+        super.addAdditionalSaveData(nbt);
+        nbt.putBoolean("Tamed", this.isTame());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag nbt) {
+        super.readAdditionalSaveData(nbt);
+        this.setTame(nbt.getBoolean("Tamed"), false);
     }
 
     @Override
@@ -138,7 +122,8 @@ public class BabThreeEntity extends TamableAnimal {
                 .add(Attributes.MAX_HEALTH, 35)
                 .add(Attributes.MOVEMENT_SPEED, 0.2f)
                 .add(Attributes.ARMOR, 2f)
-                .add(Attributes.ATTACK_DAMAGE, 6);
+                .add(Attributes.ATTACK_DAMAGE, 6)
+                .add(Attributes.FOLLOW_RANGE, 10);
     }
 
     ///////////////

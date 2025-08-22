@@ -119,13 +119,15 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
                 .add(Attributes.FLYING_SPEED, 1)
                 .add(Attributes.MOVEMENT_SPEED, 0.7)
                 .add(Attributes.ATTACK_DAMAGE, 2.0)
-                .add(Attributes.FOLLOW_RANGE, 15.0);
+                .add(Attributes.FOLLOW_RANGE, 15.0)
+                .add(Attributes.FOLLOW_RANGE, 10);
+
     }
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
-        this.entityData.set(ATTACKING, false);
+        builder.define(ATTACKING, false);
     }
 
 

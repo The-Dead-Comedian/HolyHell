@@ -87,13 +87,14 @@ public class HereticEntity extends Monster {
                 .add(Attributes.MAX_HEALTH, 30)
                 .add(Attributes.MOVEMENT_SPEED, 0.4f)
                 .add(Attributes.ARMOR, 1.7f)
-                .add(Attributes.ATTACK_DAMAGE, 8);
+                .add(Attributes.ATTACK_DAMAGE, 8)
+                .add(Attributes.FOLLOW_RANGE,10);
     }
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
-        this.entityData.set(ATTACKING, false);
+        builder.define(ATTACKING, false);
     }
 
 

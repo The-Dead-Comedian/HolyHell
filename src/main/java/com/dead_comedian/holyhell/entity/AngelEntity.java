@@ -63,10 +63,12 @@ public class AngelEntity extends Monster implements RangedAttackMob {
 
     }
 
+
+
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
-        this.entityData.set(ATTACKING, false);
+        builder.define(ATTACKING, false);
     }
 
     @Override
@@ -96,7 +98,8 @@ public class AngelEntity extends Monster implements RangedAttackMob {
                 .add(Attributes.MAX_HEALTH, 10)
                 .add(Attributes.MOVEMENT_SPEED, 0.2f)
                 .add(Attributes.ARMOR, 1.3f)
-                .add(Attributes.ATTACK_DAMAGE, 2);
+                .add(Attributes.ATTACK_DAMAGE, 2)
+                .add(Attributes.FOLLOW_RANGE,10);
     }
 
 
