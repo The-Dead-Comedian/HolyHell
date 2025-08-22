@@ -7,19 +7,14 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 
 public class EvangelistArmorItem extends ArmorItem {
 
-    HolyhellArmorMaterials armorMaterial;
 
-    public EvangelistArmorItem(HolyhellArmorMaterials material, Type type, Properties settings) {
-        super((Holder<ArmorMaterial>) material, type, settings);
-        armorMaterial = material;
-
+    public EvangelistArmorItem(Holder<ArmorMaterial> material, Type type, Properties properties) {
+        super(material, type, properties);
     }
 
     @Override

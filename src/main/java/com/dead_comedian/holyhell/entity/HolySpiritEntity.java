@@ -75,8 +75,8 @@ public class HolySpiritEntity extends Monster {
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
     }
 
-    public static AttributeSupplier.Builder createHolySpiritAttributes() {
-        return Mob.createMobAttributes()
+    public static AttributeSupplier.Builder createAttributes() {
+        return Mob.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH, MaxHealth)
                 .add(Attributes.MOVEMENT_SPEED, 0.3f)
                 .add(Attributes.ARMOR, 1.5f)

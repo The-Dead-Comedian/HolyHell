@@ -91,8 +91,8 @@ public class AngelEntity extends Monster implements RangedAttackMob {
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
-    public static AttributeSupplier.Builder createAngelAttributes() {
-        return Mob.createMobAttributes()
+    public static AttributeSupplier.Builder createAttributes() {
+        return Mob.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH, 10)
                 .add(Attributes.MOVEMENT_SPEED, 0.2f)
                 .add(Attributes.ARMOR, 1.3f)

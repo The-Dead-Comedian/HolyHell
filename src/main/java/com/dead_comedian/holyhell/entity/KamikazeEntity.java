@@ -7,7 +7,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.AnimationState;
@@ -115,8 +114,8 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
-    public static AttributeSupplier.Builder createKamikazeAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 5f)
+    public static AttributeSupplier.Builder createAttributes() {
+        return Mob.createLivingAttributes().add(Attributes.MAX_HEALTH, 5f)
                 .add(Attributes.FLYING_SPEED, 1)
                 .add(Attributes.MOVEMENT_SPEED, 0.7)
                 .add(Attributes.ATTACK_DAMAGE, 2.0)

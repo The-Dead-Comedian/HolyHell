@@ -359,8 +359,8 @@ public class CherubEntity extends Monster implements FlyingAnimal {
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
-    public static AttributeSupplier.Builder createCherubAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 15f).add(Attributes.FLYING_SPEED, 1).add(Attributes.MOVEMENT_SPEED, 0.7).add(Attributes.FOLLOW_RANGE, 15.0);
+    public static AttributeSupplier.Builder createAttributes() {
+        return Mob.createLivingAttributes().add(Attributes.MAX_HEALTH, 15f).add(Attributes.FLYING_SPEED, 1).add(Attributes.MOVEMENT_SPEED, 0.7).add(Attributes.FOLLOW_RANGE, 15.0);
     }
 
     @Override

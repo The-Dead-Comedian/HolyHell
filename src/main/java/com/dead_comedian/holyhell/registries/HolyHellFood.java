@@ -6,11 +6,9 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 
 public class HolyHellFood {
-    public static final FoodProperties SAINT_EYE;
+
     public HolyHellFood() {
     }
+    public static final FoodProperties SAINT_EYE = new FoodProperties.Builder().nutrition(1).saturationModifier(0.8f).build();
 
-    static{
-    SAINT_EYE = (new FoodProperties.Builder()).nutrition(1).saturationModifier(0.8F).build();
-}
 }

@@ -2,7 +2,6 @@ package com.dead_comedian.holyhell.entity;
 
 import com.dead_comedian.holyhell.registries.HolyHellSound;
 import com.dead_comedian.holyhell.registries.HolyhellParticles;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -30,7 +29,6 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 
 public class HereticEntity extends Monster {
 
@@ -84,8 +82,8 @@ public class HereticEntity extends Monster {
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal(this, Player.class, true));
     }
 
-    public static AttributeSupplier.Builder createHereticAttributes() {
-        return Mob.createMobAttributes()
+    public static AttributeSupplier.Builder createAttributes() {
+        return Mob.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH, 30)
                 .add(Attributes.MOVEMENT_SPEED, 0.4f)
                 .add(Attributes.ARMOR, 1.7f)

@@ -4,6 +4,7 @@ import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.client.model.entity.*;
 import com.dead_comedian.holyhell.client.model.entity.non_living.*;
 import com.dead_comedian.holyhell.particle.*;
+import com.dead_comedian.holyhell.registries.HolyHellItemProperties;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
 import com.dead_comedian.holyhell.registries.HolyhellParticles;
 import net.minecraft.client.particle.AttackSweepParticle;
@@ -18,6 +19,8 @@ import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 public class HolyHellClientEventBus {
     @SubscribeEvent
     public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        HolyHellItemProperties.addCustomItemProperties();
+
         event.registerLayerDefinition(HolyHellModelLayers.GLOBULAR_DOME, GlobularDomeModel::createBodyLayer);
         event.registerLayerDefinition(HolyHellModelLayers.GATE, GateModel::createBodyLayer);
 //        event.registerLayerDefinition(HolyHellModelLayers.FALLING_SWORD, FallingSwordModel::createBodyLayer);

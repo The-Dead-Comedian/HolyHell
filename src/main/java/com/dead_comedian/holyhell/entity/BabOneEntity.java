@@ -114,8 +114,8 @@ public class BabOneEntity extends TamableAnimal {
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
-    public static AttributeSupplier.Builder createBabOneAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 10).add(Attributes.MOVEMENT_SPEED, 0.2f).add(Attributes.ARMOR, 0.4f);
+    public static AttributeSupplier.Builder createAttributes() {
+        return Mob.createLivingAttributes().add(Attributes.MAX_HEALTH, 10).add(Attributes.MOVEMENT_SPEED, 0.2f).add(Attributes.ARMOR, 0.4f);
     }
 
     ///////////////

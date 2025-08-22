@@ -21,7 +21,7 @@ import java.util.EnumMap;
 import java.util.function.Supplier;
 
 public class HolyhellArmorMaterials {
-    public static final Holder<ArmorMaterial> EVANGELIST = register("evangelist",
+      public static final Holder<ArmorMaterial> EVANGELIST = register("evangelist",
             Util.make(new EnumMap<>(ArmorItem.Type.class), attribute -> {
                 attribute.put(ArmorItem.Type.BOOTS, 5);
                 attribute.put(ArmorItem.Type.LEGGINGS, 7);

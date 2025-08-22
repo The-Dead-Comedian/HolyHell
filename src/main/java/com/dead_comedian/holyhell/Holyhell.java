@@ -1,5 +1,6 @@
 package com.dead_comedian.holyhell;
 
+import com.dead_comedian.holyhell.registries.*;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -26,6 +27,14 @@ public class Holyhell {
     public Holyhell(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(this::commonSetup);
         NeoForge.EVENT_BUS.register(this);
+        HolyHellBlockEntities.register(modEventBus);
+        HolyHellBlocks.register(modEventBus);
+        HolyHellCreativeTab.register(modEventBus);
+        HolyHellEffects.register(modEventBus);
+        HolyHellEntities.register(modEventBus);
+        HolyHellItems.register(modEventBus);
+        HolyhellParticles.register(modEventBus);
+        HolyHellSound.register(modEventBus);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
@@ -33,7 +42,6 @@ public class Holyhell {
     private void commonSetup(FMLCommonSetupEvent event) {
         LOGGER.info("HELLO FROM COMMON SETUP");
     }
-
 
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {

@@ -111,8 +111,8 @@ public class BabTwoEntity extends TamableAnimal {
 
     }
 
-    public static AttributeSupplier.Builder createBabTwoAttributes() {
-        return Mob.createMobAttributes()
+    public static AttributeSupplier.Builder createAttributes() {
+        return Mob.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH, 15)
                 .add(Attributes.MOVEMENT_SPEED, 0.2f)
                 .add(Attributes.ARMOR, 0.8f)

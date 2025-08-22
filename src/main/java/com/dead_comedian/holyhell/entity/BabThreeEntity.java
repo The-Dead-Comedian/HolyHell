@@ -133,8 +133,8 @@ public class BabThreeEntity extends TamableAnimal {
         this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0, 10.0F, 2.0F));
     }
 
-    public static AttributeSupplier.Builder createBabThreeAttributes() {
-        return Mob.createMobAttributes()
+    public static AttributeSupplier.Builder createAttributes() {
+        return Mob.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH, 35)
                 .add(Attributes.MOVEMENT_SPEED, 0.2f)
                 .add(Attributes.ARMOR, 2f)

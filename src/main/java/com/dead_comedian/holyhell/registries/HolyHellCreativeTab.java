@@ -10,15 +10,17 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.function.Supplier;
+
 public class HolyHellCreativeTab {
-    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
+    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Holyhell.MOD_ID);
 
-    public static final DeferredHolder<CreativeModeTab,CreativeModeTab> HOLYHELL_TAB = CREATIVE_MODE_TABS.register("holyhell_tab",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(HolyHellItems.SAINT_EYE))
+    public static final Supplier<CreativeModeTab> HOLY_TRINKETS_TAB = CREATIVE_MODE_TAB.register("bismuth_items_tab",
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(HolyHellItems.SAINT_EYE.get()))
                     .title(Component.translatable("creativetab.holyhell_tab"))
                     .displayItems((pParameters, pOutput) -> {
-                        pOutput.accept(HolyHellItems.SAINT_EYE.get());
+                            pOutput.accept(HolyHellItems.SAINT_EYE.get());
                         pOutput.accept(HolyHellItems.HOLY_TEAR.get());
                         pOutput.accept(HolyHellItems.BAPTIZED_PLATE.get());
                         pOutput.accept(HolyHellItems.ENHANCED_SILK.get());
@@ -55,6 +57,6 @@ public class HolyHellCreativeTab {
 
 
     public static void register(IEventBus eventBus) {
-        CREATIVE_MODE_TABS.register(eventBus);
+        CREATIVE_MODE_TAB.register(eventBus);
     }
 }

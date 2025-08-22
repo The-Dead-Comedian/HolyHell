@@ -1,6 +1,6 @@
 {
 	"parent": "minecraft:item/handheld",
-	"loader": "forge:separate_transforms",
+	"loader": "neoforge:separate_transforms",
 	"base": {
 		"parent": "holyhell:item/sacrificial_katar_3d"
 	},

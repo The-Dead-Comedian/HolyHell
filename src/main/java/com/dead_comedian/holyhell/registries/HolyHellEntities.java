@@ -1,7 +1,6 @@
 package com.dead_comedian.holyhell.registries;
 
 
-
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.entity.*;
 import com.dead_comedian.holyhell.entity.non_living.*;
@@ -19,36 +18,33 @@ public class HolyHellEntities {
             DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, Holyhell.MOD_ID);
 
 
+    //    MOBS
+    public static final DeferredHolder<EntityType<?>, EntityType<AngelEntity>> ANGEL =
+            ENTITY_TYPES.register("angel", () -> EntityType.Builder.of(AngelEntity::new, MobCategory.CREATURE)
+                    .sized(0.8f, 1.5f).build("angel"));
 
-
-
-//    MOBS
-public static final DeferredHolder<EntityType<?>, EntityType<AngelEntity>> ANGEL =
-        ENTITY_TYPES.register("angel", () -> EntityType.Builder.of(AngelEntity::new, MobCategory.CREATURE)
-                .sized(0.8f, 1.5f).build("angel"));
-
-    public static final DeferredHolder<EntityType<?>, EntityType<KamikazeEntity>> KAMIKAZE     =
+    public static final DeferredHolder<EntityType<?>, EntityType<KamikazeEntity>> KAMIKAZE =
             ENTITY_TYPES.register("kamikaze", () -> EntityType.Builder.of(KamikazeEntity::new, MobCategory.CREATURE)
                     .sized(0.8f, 0.8f).build("kamikaze"));
-    public static final DeferredHolder<EntityType<?>, EntityType<HereticEntity>> HERETIC     =
+    public static final DeferredHolder<EntityType<?>, EntityType<HereticEntity>> HERETIC =
             ENTITY_TYPES.register("heretic", () -> EntityType.Builder.of(HereticEntity::new, MobCategory.CREATURE)
                     .sized(1f, 1.2f).build("heretic"));
-    public static final DeferredHolder<EntityType<?>, EntityType<BabOneEntity>> BAB_ONE     =
+    public static final DeferredHolder<EntityType<?>, EntityType<BabOneEntity>> BAB_ONE =
             ENTITY_TYPES.register("bab_one", () -> EntityType.Builder.of(BabOneEntity::new, MobCategory.CREATURE)
                     .sized(0.8f, 0.6f).build("bab_one"));
-    public static final DeferredHolder<EntityType<?>, EntityType<BabTwoEntity>> BAB_TWO     =
+    public static final DeferredHolder<EntityType<?>, EntityType<BabTwoEntity>> BAB_TWO =
             ENTITY_TYPES.register("bab_two", () -> EntityType.Builder.of(BabTwoEntity::new, MobCategory.CREATURE)
                     .sized(0.8f, 0.8f).build("bab_two"));
-    public static final DeferredHolder<EntityType<?>, EntityType<BabThreeEntity>> BAB_THREE     =
+    public static final DeferredHolder<EntityType<?>, EntityType<BabThreeEntity>> BAB_THREE =
             ENTITY_TYPES.register("bab_three", () -> EntityType.Builder.of(BabThreeEntity::new, MobCategory.CREATURE)
                     .sized(0.8f, 0.8f).build("bab_three"));
-    public static final DeferredHolder<EntityType<?>, EntityType<HolySpiritEntity>> HOLY_SPIRIT     =
+    public static final DeferredHolder<EntityType<?>, EntityType<HolySpiritEntity>> HOLY_SPIRIT =
             ENTITY_TYPES.register("holy_spirit", () -> EntityType.Builder.of(HolySpiritEntity::new, MobCategory.CREATURE)
                     .sized(0.8f, 0.8f).build("holy_spirit"));
-    public static final DeferredHolder<EntityType<?>, EntityType<CherubEntity>> CHERUB     =
+    public static final DeferredHolder<EntityType<?>, EntityType<CherubEntity>> CHERUB =
             ENTITY_TYPES.register("cherub", () -> EntityType.Builder.of(CherubEntity::new, MobCategory.CREATURE)
                     .sized(0.8f, 1.1f).build("cherub"));
-    public static final DeferredHolder<EntityType<?>, EntityType<HolyCowEntity>> HOLY_COW     =
+    public static final DeferredHolder<EntityType<?>, EntityType<HolyCowEntity>> HOLY_COW =
             ENTITY_TYPES.register("holy_cow", () -> EntityType.Builder.of(HolyCowEntity::new, MobCategory.CREATURE)
                     .sized(0.8f, 1.1f).build("holy_cow"));
 //
@@ -61,9 +57,9 @@ public static final DeferredHolder<EntityType<?>, EntityType<AngelEntity>> ANGEL
 
 
     // NON LIVING
-public static final DeferredHolder<EntityType<?>, EntityType<GateEntity>> GATE =
-        ENTITY_TYPES.register("gate", () -> EntityType.Builder.of(GateEntity::new, MobCategory.MISC)
-                .sized(1f, 1f).build("gate"));
+    public static final DeferredHolder<EntityType<?>, EntityType<GateEntity>> GATE =
+            ENTITY_TYPES.register("gate", () -> EntityType.Builder.of(GateEntity::new, MobCategory.MISC)
+                    .sized(1f, 1f).build("gate"));
 
     public static final DeferredHolder<EntityType<?>, EntityType<GlobularDomeEntity>> GLOBULAR_DOME =
             ENTITY_TYPES.register("globular_dome", () -> EntityType.Builder.of(GlobularDomeEntity::new, MobCategory.MISC)
@@ -82,7 +78,6 @@ public static final DeferredHolder<EntityType<?>, EntityType<GateEntity>> GATE =
 //    public static final RegistryObject<EntityType<FallingSwordEntity>> FALLING_SWORD =
 //            ENTITY_TYPES.register("falling_sword", () -> EntityType.Builder.<FallingSwordEntity>of(FallingSwordEntity::new, MobCategory.MISC)
 //                    .sized(0.5f, 2f).build("falling_sword"));
-
 
 
     public static void register(IEventBus eventBus) {
