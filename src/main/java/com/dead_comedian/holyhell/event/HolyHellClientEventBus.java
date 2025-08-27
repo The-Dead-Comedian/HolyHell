@@ -22,7 +22,6 @@ public class HolyHellClientEventBus {
         HolyHellItemProperties.addCustomItemProperties();
 
         event.registerLayerDefinition(HolyHellModelLayers.GLOBULAR_DOME, GlobularDomeModel::createBodyLayer);
-        event.registerLayerDefinition(HolyHellModelLayers.GATE, GateModel::createBodyLayer);
 //        event.registerLayerDefinition(HolyHellModelLayers.FALLING_SWORD, FallingSwordModel::createBodyLayer);
         event.registerLayerDefinition(HolyHellModelLayers.FIREBALL, FireBallModel::createBodyLayer);
 //        event.registerLayerDefinition(HolyHellModelLayers.SWORD_CROSS, SwordCrossModel::getTexturedModelData);

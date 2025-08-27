@@ -2,12 +2,8 @@ package com.dead_comedian.holyhell;
 
 import com.dead_comedian.holyhell.client.renderer.*;
 import com.dead_comedian.holyhell.client.renderer.non_living.FireBallRenderer;
-import com.dead_comedian.holyhell.client.renderer.non_living.GateRenderer;
 import com.dead_comedian.holyhell.client.renderer.non_living.GlobularDomeRenderer;
-import com.dead_comedian.holyhell.entity.*;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
-import com.dead_comedian.holyhell.registries.HolyHellItemProperties;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.neoforged.api.distmarker.Dist;
@@ -43,7 +39,6 @@ public class HolyhellModClient {
 
         EntityRenderers.register(HolyHellEntities.BLINDING_BOMB.get(), ThrownItemRenderer::new);
         EntityRenderers.register(HolyHellEntities.FIREBALL.get(), FireBallRenderer::new);
-        EntityRenderers.register(HolyHellEntities.GATE.get(), GateRenderer::new);
         EntityRenderers.register(HolyHellEntities.GLOBULAR_DOME.get(), GlobularDomeRenderer::new);
     }
 }

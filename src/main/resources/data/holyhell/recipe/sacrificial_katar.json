@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+
+
+    "#": {
+      "item": "holyhell:enhanced_silk"
+    },
+    "X": {
+      "item": "holyhell:baptized_plate"
+    },
+    "Y": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "  X",
+    "Y# ",
+    " Y "
+  ],
+  "result": {
+    "count": 1,
+    "id": "holyhell:sacrificial_katar"
+  },
+  "show_notification": true
+}

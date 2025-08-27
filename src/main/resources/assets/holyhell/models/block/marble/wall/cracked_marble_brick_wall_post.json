@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_post",
+  "textures": {
+    "wall": "holyhell:block/marble/cracked_marble_bricks"
+  }
+}

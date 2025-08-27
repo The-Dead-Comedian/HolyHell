@@ -48,9 +48,21 @@ public class HolyHellCreativeTab {
                         pOutput.accept(HolyHellItems.BAB_SPAWN_EGG.get());
 
                         pOutput.accept(HolyHellBlocks.COBBLED_MARBLE.get());
+                        pOutput.accept(HolyHellBlocks.COBBLED_MARBLE_WALL.get());
+                        pOutput.accept(HolyHellBlocks.COBBLED_MARBLE_SLAB.get());
+                        pOutput.accept(HolyHellBlocks.COBBLED_MARBLE_STAIRS.get());
                         pOutput.accept(HolyHellBlocks.MARBLE.get());
+                        pOutput.accept(HolyHellBlocks.MARBLE_WALL.get());
+                        pOutput.accept(HolyHellBlocks.MARBLE_SLAB.get());
+                        pOutput.accept(HolyHellBlocks.MARBLE_STAIRS.get());
                         pOutput.accept(HolyHellBlocks.MARBLE_BRICKS.get());
+                        pOutput.accept(HolyHellBlocks.MARBLE_BRICK_WALL.get());
+                        pOutput.accept(HolyHellBlocks.MARBLE_BRICK_SLAB.get());
+                        pOutput.accept(HolyHellBlocks.MARBLE_BRICK_STAIRS.get());
                         pOutput.accept(HolyHellBlocks.CRACKED_MARBLE_BRICKS.get());
+                        pOutput.accept(HolyHellBlocks.CRACKED_MARBLE_BRICK_WALL.get());
+                        pOutput.accept(HolyHellBlocks.CRACKED_MARBLE_BRICK_SLAB.get());
+                        pOutput.accept(HolyHellBlocks.CRACKED_MARBLE_BRICK_STAIRS.get());
                         pOutput.accept(HolyHellBlocks.MARBLE_COLLUMN.get());
                     })
                     .build());

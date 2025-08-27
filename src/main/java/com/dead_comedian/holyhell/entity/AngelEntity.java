@@ -9,6 +9,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -24,7 +25,11 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
+import net.minecraft.world.entity.monster.Shulker;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ShulkerBullet;
+import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -64,7 +69,6 @@ public class AngelEntity extends Monster implements RangedAttackMob {
     }
 
 
-
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
@@ -86,11 +90,11 @@ public class AngelEntity extends Monster implements RangedAttackMob {
         this.goalSelector.addGoal(0, new FloatGoal(this));
 
 
-        this.goalSelector.addGoal(1, new net.minecraft.world.entity.ai.goal.RangedAttackGoal(this, 1.25D, 20, 10.0F));
+        this.goalSelector.addGoal(1, new RangedAttackGoal(this, 1.25, 20, 10.0F));
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1D));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 4f));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Zombie.class, true));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -99,7 +103,7 @@ public class AngelEntity extends Monster implements RangedAttackMob {
                 .add(Attributes.MOVEMENT_SPEED, 0.2f)
                 .add(Attributes.ARMOR, 1.3f)
                 .add(Attributes.ATTACK_DAMAGE, 2)
-                .add(Attributes.FOLLOW_RANGE,10);
+                .add(Attributes.FOLLOW_RANGE, 10);
     }
 
 
@@ -151,22 +155,19 @@ public class AngelEntity extends Monster implements RangedAttackMob {
         return bl;
     }
 
-    @Override
+
     public void performRangedAttack(LivingEntity target, float pullProgress) {
-
-
         Vec3 look = this.getLookAngle();
         double d0 = target.getX() - this.getX();
         double d2 = target.getZ() - this.getZ();
-
-        FireBallEntity fireBallEntity = new FireBallEntity(HolyHellEntities.FIREBALL.get(), this.getX(), this.getY() + 1, this.getZ(), this.level());
-
+        FireBallEntity fireBallEntity = new FireBallEntity(this.level(), this);
         fireBallEntity.shoot(d0, look.y, d2, 2.0F, 1);
-
-        this.level().playSound(this, this.blockPosition(), HolyHellSound.ANGEL_SHOOT.get(), SoundSource.HOSTILE, 1f, 1f);
-
         this.level().addFreshEntity(fireBallEntity);
+        fireBallEntity.setPos(this.getX(), this.getY() + 1.4F, this.getZ());
+
+
     }
+
 
     ///////////
     // SOUND //
@@ -197,7 +198,7 @@ public class AngelEntity extends Monster implements RangedAttackMob {
     ///////////////
 
 
-    public class RangedAttackGoal extends Goal {
+    public class AngelRangedAttackGoal extends Goal {
         private final Mob mob;
         private final AngelEntity rangedAttackMob;
         @Nullable
@@ -220,7 +221,7 @@ public class AngelEntity extends Monster implements RangedAttackMob {
         private final int switchDirectionInterval;
 
 
-        public RangedAttackGoal(AngelEntity pRangedAttackMob, double pSpeedModifier, int pAttackInterval, float pAttackRadius, float circlingDistance, float minDistanceToTarget, float maxDistanceToTarget, int switchDirectionInterval) {
+        public AngelRangedAttackGoal(AngelEntity pRangedAttackMob, double pSpeedModifier, int pAttackInterval, float pAttackRadius, float circlingDistance, float minDistanceToTarget, float maxDistanceToTarget, int switchDirectionInterval) {
             if (!(pRangedAttackMob instanceof LivingEntity)) {
                 throw new IllegalArgumentException("ArrowAttackGoal requires Mob implements RangedAttackMob");
             } else {

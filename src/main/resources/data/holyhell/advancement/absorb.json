@@ -1,0 +1,25 @@
+{
+  "display": {
+    "icon": {
+      "id": "holyhell:saint_eye",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancements.holyhell.absorb.title"
+    },
+    "description": {
+      "translate": "advancements.holyhell.absorb.description"
+    }
+  },
+  "parent": "holyhell:cherub",
+  "criteria": {
+    "has_item": {
+      "trigger": "holyhell:bab_merge"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ]
+}

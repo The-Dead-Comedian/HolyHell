@@ -41,16 +41,6 @@ public class FireBallRenderer extends EntityRenderer<FireBallEntity> {
         pPoseStack.mulPose(Axis.YP.rotationDegrees(Mth.lerp(pPartialTicks, pEntity.yRotO, pEntity.getYRot()) - 90.0F));
         pPoseStack.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(pPartialTicks, pEntity.xRotO, pEntity.getXRot())));
 
-        // Handle shake animation if your entity has this property
-        float shakeFactor = 0.0F;
-        if (pEntity.shakeTime > 0) {
-            shakeFactor = (float)pEntity.shakeTime - pPartialTicks;
-            if (shakeFactor > 0.0F) {
-                float shake = -Mth.sin(shakeFactor * 3.0F) * shakeFactor;
-                pPoseStack.mulPose(Axis.ZP.rotationDegrees(shake));
-            }
-        }
-
         // Apply the 45-degree X-axis rotation
         pPoseStack.mulPose(Axis.ZN.rotationDegrees(90.0F));
 

@@ -1,7 +1,7 @@
 package com.dead_comedian.holyhell.entity;
 
 
-import com.dead_comedian.holyhell.entity.non_living.GateEntity;
+
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import com.dead_comedian.holyhell.registries.HolyHellSound;
 import com.dead_comedian.holyhell.registries.HolyhellParticles;
@@ -140,9 +140,7 @@ public class CherubEntity extends Monster implements FlyingAnimal {
                         retries++;
                     }
                 }
-                GateEntity gateEntity = new GateEntity(HolyHellEntities.GATE.get(), this.level());
-                this.level().addFreshEntity(gateEntity);
-                gateEntity.moveTo(spawnPos, gateEntity.getYRot(), gateEntity.getXRot());
+
 
 
                 switch (mobIndex) {
@@ -230,10 +228,6 @@ public class CherubEntity extends Monster implements FlyingAnimal {
                         retries++;
                     }
                 }
-                GateEntity gateEntity = new GateEntity(HolyHellEntities.GATE.get(), this.level());
-                this.level().addFreshEntity(gateEntity);
-                gateEntity.moveTo(spawnPos, gateEntity.getYRot(), gateEntity.getXRot());
-
 
                 switch (mobIndex) {
                     case 0:
@@ -321,11 +315,7 @@ public class CherubEntity extends Monster implements FlyingAnimal {
                     }
                 }
 
-                GateEntity gateEntity = new GateEntity(HolyHellEntities.GATE.get(), this.level());
-                this.level().addFreshEntity(gateEntity);
-                gateEntity.moveTo(spawnPos, gateEntity.getYRot(), gateEntity.getXRot());
-
-                if (a == 0) {
+                    if (a == 0) {
 
                     KamikazeEntity kamikazeEntity = new KamikazeEntity(HolyHellEntities.KAMIKAZE.get(), this.level());
                     this.level().addFreshEntity(kamikazeEntity);

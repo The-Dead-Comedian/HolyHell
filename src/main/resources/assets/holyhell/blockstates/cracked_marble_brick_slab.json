@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "holyhell:block/marble/slab/cracked_marble_brick_slab"
+    },
+    "type=double": {
+      "model": "holyhell:block/marble/cracked_marble_bricks"
+    },
+    "type=top": {
+      "model": "holyhell:block/marble/slab/cracked_marble_brick_slab_top"
+    }
+  }
+}

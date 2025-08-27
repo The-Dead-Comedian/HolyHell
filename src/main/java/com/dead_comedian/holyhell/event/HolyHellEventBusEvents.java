@@ -31,6 +31,7 @@ import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingHealEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
@@ -88,6 +89,10 @@ public class HolyHellEventBusEvents {
         }
     }
 
+
+
+
+
     @SubscribeEvent
     public static void livingEntityDie(LivingDeathEvent event) {
 
@@ -98,12 +103,12 @@ public class HolyHellEventBusEvents {
         System.out.println("entity1: " + entity1);
 
 
-        if(entity== Minecraft.getInstance().player && entity.hasEffect(HolyHellEffects.BLOODLUST)){
+        if (entity == Minecraft.getInstance().player && entity.hasEffect(HolyHellEffects.BLOODLUST)) {
             entity.setHealth(20);
         }
 
 
-        if (entity instanceof LivingEntity && entity1 != null && entity!=entity1) {
+        if (entity instanceof LivingEntity && entity1 != null && entity != entity1) {
             if (entity1.hasEffect(HolyHellEffects.BLOODLUST)) {
                 entity1.setHealth((float) (entity1.getHealth() + entity.getAttribute(Attributes.MAX_HEALTH).getBaseValue() * 0.3F));
 

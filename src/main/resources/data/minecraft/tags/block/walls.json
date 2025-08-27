@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "holyhell:marble_wall",
+    "holyhell:cobbled_marble_wall",
+    "holyhell:marble_brick_wall",
+    "holyhell:cracked_marble_brick_wall"
+  ]
+}

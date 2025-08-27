@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "holyhell:block/marble/marble_bricks",
+    "side": "holyhell:block/marble/marble_bricks",
+    "top": "holyhell:block/marble/marble_bricks"
+  }
+}

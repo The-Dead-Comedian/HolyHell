@@ -34,8 +34,6 @@ public class HolyHellModelLayers {
             new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "fireball"), "main");
     public static final ModelLayerLocation GLOBULAR_DOME =
             new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "globular_dome"), "main");
-    public static final ModelLayerLocation GATE =
-            new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "gate"), "main");
 
 
     public static final ModelLayerLocation RELIGIOUS_RINGS =

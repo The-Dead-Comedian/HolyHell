@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "holyhell:block/marble/slab/cobbled_marble_slab"
+    },
+    "type=double": {
+      "model": "holyhell:block/marble/cobbled_marble"
+    },
+    "type=top": {
+      "model": "holyhell:block/marble/slab/cobbled_marble_slab_top"
+    }
+  }
+}

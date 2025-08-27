@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "X": {
+      "item": "minecraft:string"
+    },
+    "Y": {
+      "item": "holyhell:holy_tear"
+    }
+  },
+  "pattern": [
+    "XXY",
+    "XX ",
+    "   "
+  ],
+  "result": {
+    "count": 1,
+    "id": "holyhell:enhanced_silk"
+  },
+  "show_notification": true
+}

@@ -7,6 +7,7 @@ import com.dead_comedian.holyhell.entity.non_living.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+
 import net.neoforged.bus.api.IEventBus;
 
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -23,7 +24,7 @@ public class HolyHellEntities {
     //    MOBS
     public static final Supplier<EntityType<AngelEntity>> ANGEL =
             ENTITY_TYPES.register("angel", () -> EntityType.Builder.of(AngelEntity::new, MobCategory.CREATURE)
-                    .sized(0.8f, 1.5f).build("angel"));
+                    .sized(0.6f, 1.5f).build("angel"));
 
     public static final Supplier<EntityType<KamikazeEntity>> KAMIKAZE =
             ENTITY_TYPES.register("kamikaze", () -> EntityType.Builder.of(KamikazeEntity::new, MobCategory.CREATURE)
@@ -59,9 +60,6 @@ public class HolyHellEntities {
 
 
     // NON LIVING
-    public static final Supplier<EntityType<GateEntity>> GATE =
-            ENTITY_TYPES.register("gate", () -> EntityType.Builder.of(GateEntity::new, MobCategory.MISC)
-                    .sized(1f, 1f).build("gate"));
 
     public static final Supplier<EntityType<GlobularDomeEntity>> GLOBULAR_DOME =
             ENTITY_TYPES.register("globular_dome", () -> EntityType.Builder.of(GlobularDomeEntity::new, MobCategory.MISC)
@@ -72,7 +70,8 @@ public class HolyHellEntities {
 
     public static final Supplier<EntityType<FireBallEntity>> FIREBALL =
             ENTITY_TYPES.register("fireball", () -> EntityType.Builder.<FireBallEntity>of(FireBallEntity::new, MobCategory.MISC)
-                    .sized(0.5f, 0.25f).build("fireball"));
+                    .sized(0.5f, 0.3f).build("fireball"));
+
 
 //    public static final RegistryObject<EntityType<SwordCrossEntity>> SWORD_CROSS =
 //            ENTITY_TYPES.register("sword_cross", () -> EntityType.Builder.<SwordCrossEntity>of(SwordCrossEntity::new, MobCategory.MISC)

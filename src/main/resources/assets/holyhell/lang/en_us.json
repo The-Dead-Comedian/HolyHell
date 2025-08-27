@@ -31,6 +31,32 @@
   "block.holyhell.falling_cross": "Falling  Cross",
 
 
+  "block.holyhell.cobbled_marble": "Cobbled Marble",
+  "block.holyhell.cobbled_marble_wall": "Cobbled Marble Wall",
+  "block.holyhell.cobbled_marble_slab": "Cobbled Marble Slab",
+  "block.holyhell.cobbled_marble_stairs": "Cobbled Marble Stairs",
+
+
+  "block.holyhell.marble": "Marble",
+  "block.holyhell.marble_wall": "Marble Wall",
+  "block.holyhell.marble_slab": "Marble Slab",
+  "block.holyhell.marble_stairs": "Marble Stairs",
+
+
+  "block.holyhell.marble_bricks": "Marble Bricks",
+  "block.holyhell.marble_brick_wall": "Marble Brick Wall",
+  "block.holyhell.marble_brick_slab": "Marble Brick Slab",
+  "block.holyhell.marble_brick_stairs": "Marble Brick Stairs",
+
+  "block.holyhell.cracked_marble_bricks": "Cracked Marble Bricks",
+  "block.holyhell.cracked_marble_brick_wall": "Cracked Marble Brick Wall",
+  "block.holyhell.cracked_marble_brick_slab": "Cracked Marble Brick Slab",
+  "block.holyhell.cracked_marble_brick_stairs": "Cracked Marble Brick Stairs",
+
+
+  "block.holyhell.marble_collumn": "Marble Collumn",
+
+
 
   "entity.holyhell.angel" : "Angel",
   "entity.holyhell.heretic": "Heretic",

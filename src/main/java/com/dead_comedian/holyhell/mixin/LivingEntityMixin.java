@@ -36,48 +36,8 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
     }
 
 
-
-
-
-    @Inject(
-            method = "die",
-            at = @At(value = "HEAD"))
-    public void die(DamageSource pDamageSource, CallbackInfo ci) {
-
-        Entity entity = pDamageSource.getEntity();
-        if (entity instanceof LivingEntity) {
-            if (((LivingEntity) entity).hasEffect(HolyHellEffects.BLOODLUST)) {
-                ((LivingEntity) entity).setHealth((float) (((LivingEntity) entity).getHealth() + ((LivingEntity) (Object) this).getAttribute(Attributes.MAX_HEALTH).getBaseValue() * 0.3F));
-
-
-                if (((LivingEntity) (Object) this) instanceof RangedAttackMob) {
-                    ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200, 1));
-
-                }
-                if (((LivingEntity) (Object) this) instanceof FlyingAnimal) {
-                    ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.JUMP, 200, 1));
-
-                }
-                if (((LivingEntity) (Object) this) instanceof Monster) {
-                    ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 200, 1));
-
-                }
-                if (((LivingEntity) (Object) this) instanceof Animal) {
-                    ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.SATURATION, 200, 1));
-
-                }
-            }
-        }
-
-    }
-
-
-    @Inject(
-            method = "tick",
-            at = @At(value = "HEAD"), cancellable = true)
-
-    public void tick(CallbackInfo ci) {
-
+    @Inject(method="tick",at=@At(value = "HEAD"))
+    private void bishbashbosh(CallbackInfo ci){
         if (((LivingEntity) (Object) this).hasEffect(HolyHellEffects.BLOODLUST) &&
                 ((LivingEntity) (Object) this).hasEffect(MobEffects.REGENERATION)) {
             ((LivingEntity) (Object) this).removeEffect(MobEffects.REGENERATION);
@@ -88,11 +48,9 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
         }
         if (((LivingEntity) (Object) this).hasEffect(HolyHellEffects.BLOODLUST) &&
                 ((LivingEntity) (Object) this).hasEffect(MobEffects.HEAL)) {
-            ((LivingEntity) (Object) this).removeEffect(MobEffects.HEAL);
+            ((LivingEntity) (Object) this   ).removeEffect(MobEffects.HEAL);
 
         }
-
-
     }
 
     //Holy Shield Sound

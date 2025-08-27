@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "holyhell:block/marble/cracked_marble_bricks"
+  }
+}

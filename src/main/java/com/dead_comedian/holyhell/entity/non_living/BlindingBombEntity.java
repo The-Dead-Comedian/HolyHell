@@ -2,6 +2,7 @@ package com.dead_comedian.holyhell.entity.non_living;
 
 import com.dead_comedian.holyhell.registries.HolyHellEffects;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
+import com.dead_comedian.holyhell.registries.HolyHellItems;
 import net.minecraft.world.entity.projectile.Snowball;
 import org.jetbrains.annotations.Nullable;
 
@@ -102,6 +103,6 @@ public class BlindingBombEntity extends ThrowableItemProjectile {
 
     @Override
     protected Item getDefaultItem() {
-        return null;
+        return HolyHellItems.BLINDING_BOMB.get();
     }
 }
