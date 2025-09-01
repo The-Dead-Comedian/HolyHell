@@ -11,12 +11,20 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            },
+            {
+              "count": {
+                "type": "minecraft:uniform",
                 "max": 1.0,
                 "min": 0.0
               },
-              "function": "minecraft:set_count"
+              "enchantment": "minecraft:looting",
+              "function": "minecraft:enchanted_count_increase"
             }
-
           ],
           "name": "holyhell:religious_rings"
         }
@@ -24,5 +32,5 @@
       "rolls": 0.45
     }
   ],
-  "random_sequence": "holyhell:entities/hailing_heretic"
+  "random_sequence": "holyhell:entities/heretic"
 }

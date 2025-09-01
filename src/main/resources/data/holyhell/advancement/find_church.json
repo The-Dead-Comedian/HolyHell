@@ -1,4 +1,17 @@
 {
+  "display": {
+    "background": "minecraft:textures/block/white_wool.png",
+    "description": {
+      "translate": "advancements.holyhell.find_church.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "holyhell:divining_table"
+    },
+    "title": {
+      "translate": "advancements.holyhell.find_church.title"
+    }
+  },
   "criteria": {
     "church": {
       "conditions": {
@@ -8,29 +21,13 @@
             "entity": "this",
             "predicate": {
               "location": {
-                "structure": "holyhell:church"
+                "structures": "holyhell:church"
               }
             }
           }
         ]
       },
       "trigger": "minecraft:location"
-    }
-  },
-  "display": {
-    "background": "minecraft:textures/block/white_wool.png",
-    "announce_to_chat": true,
-    "description": {
-      "translate": "advancements.holyhell.find_church.description"
-    },
-    "frame": "task",
-    "hidden": false,
-    "icon": {
-      "item": "holyhell:divining_table"
-    },
-    "show_toast": true,
-    "title": {
-      "translate": "advancements.holyhell.find_church.title"
     }
   },
   "requirements": [

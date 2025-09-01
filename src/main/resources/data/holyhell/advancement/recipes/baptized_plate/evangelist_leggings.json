@@ -5,11 +5,7 @@
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
-          {
-            "items": [
-              "holyhell:baptized_plate"
-            ]
-          }
+          "holyhell:baptized_plate"
         ]
       }
     },

@@ -1,11 +1,11 @@
 {
+  "parent": "holyhell:find_church",
   "display": {
     "icon": {
-      "item": "holyhell:saint_eye"
+      "count": 1,
+      "id": "holyhell:saint_eye"
     },
-    "title":{
-      "translate": "advancements.holyhell.kebab.title"
-    },
+    "title": "advancements.holyhell.kebab.title",
     "description": {
       "translate": "advancements.holyhell.kebab.description"
     },
@@ -13,15 +13,18 @@
     "show_toast": true,
     "announce_to_chat": true
   },
-  "parent": "holyhell:cherub",
   "criteria": {
-    "has_item": {
-      "trigger": "holyhell:kebab"
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "holyhell:blinding_bomb"
+            ]
+          }
+        ]
+      }
     }
-  },
-  "requirements": [
-    [
-      "has_item"
-    ]
-  ]
+  }
 }

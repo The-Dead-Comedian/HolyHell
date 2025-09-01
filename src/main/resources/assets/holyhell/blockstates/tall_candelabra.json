@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "holyhell:block/tall_candelabra/tall_candelabra_bottom",
+      "y": 0
+    },
+    "half=upper": {
+      "model": "holyhell:block/tall_candelabra/tall_candelabra_top",
+      "y": 0
+    }
+  }
+}

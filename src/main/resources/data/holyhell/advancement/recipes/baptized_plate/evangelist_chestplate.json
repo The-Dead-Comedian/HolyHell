@@ -4,13 +4,9 @@
     "has_item": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
-        "items": [
-          {
             "items": [
               "holyhell:baptized_plate"
             ]
-          }
-        ]
       }
     },
     "has_the_recipe": {

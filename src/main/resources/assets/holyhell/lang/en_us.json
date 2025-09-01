@@ -26,6 +26,7 @@
 
   "block.holyhell.divining_table": "Divining Table",
   "block.holyhell.candelabra": "Candelabra",
+  "block.holyhell.tall_candelabra": "Tall Candelabra",
   "block.holyhell.candleholder": "Candle Holder",
   "block.holyhell.stone_cross": "Stone Cross",
   "block.holyhell.falling_cross": "Falling  Cross",
@@ -52,6 +53,13 @@
   "block.holyhell.cracked_marble_brick_wall": "Cracked Marble Brick Wall",
   "block.holyhell.cracked_marble_brick_slab": "Cracked Marble Brick Slab",
   "block.holyhell.cracked_marble_brick_stairs": "Cracked Marble Brick Stairs",
+
+  "block.holyhell.atlas_statue": "Atlas Statue",
+  "block.holyhell.baphomet_statue": "Baphomet Statue",
+  "block.holyhell.doomslayer_statue": "Doomslayer Statue",
+  "block.holyhell.icarus_statue": "Icarus Statue",
+  "block.holyhell.kratos_statue": "Kratos Statue",
+  "block.holyhell.v1_statue": "V1 Statue",
 
 
   "block.holyhell.marble_collumn": "Marble Collumn",

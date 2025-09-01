@@ -1,0 +1,36 @@
+{
+  "variants": {
+    "half=upper,facing=north": {
+      "model": "holyhell:block/marble/statue/kratos",
+      "y": 0
+    },
+    "half=lower,facing=north": {
+      "model": "holyhell:block/marble/statue/statue_top",
+      "y": 0
+    },
+    "half=upper,facing=south": {
+      "model": "holyhell:block/marble/statue/kratos",
+      "y": 180
+    },
+    "half=lower,facing=south": {
+      "model": "holyhell:block/marble/statue/statue_top",
+      "y": 180
+    },
+    "half=upper,facing=east": {
+      "model": "holyhell:block/marble/statue/kratos",
+      "y": 90
+    },
+    "half=lower,facing=east": {
+      "model": "holyhell:block/marble/statue/statue_top",
+      "y": 90
+    },
+    "half=upper,facing=west": {
+      "model": "holyhell:block/marble/statue/kratos",
+      "y": 270
+    },
+    "half=lower,facing=west": {
+      "model": "holyhell:block/marble/statue/statue_top",
+      "y": 270
+    }
+  }
+}

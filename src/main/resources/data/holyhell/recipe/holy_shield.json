@@ -2,19 +2,20 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "item": "minecraft:oak_planks"
+    "X": {
+      "item": "holyhell:baptized_plate"
     },
-    "W": {
-      "item": "minecraft:acacia_planks"
+    "#": {
+      "tag": "minecraft:planks"
     }
   },
   "pattern": [
-    "W#W",
-    "W#W"
+    "X#X",
+    "XXX",
+    " X "
   ],
   "result": {
-    "count": 3,
+    "count": 1,
     "id": "holyhell:holy_shield"
   }
 }

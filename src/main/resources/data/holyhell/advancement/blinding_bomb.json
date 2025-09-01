@@ -1,7 +1,9 @@
 {
+  "parent": "holyhell:find_church",
   "display": {
     "icon": {
-      "item": "holyhell:blinding_bomb"
+      "count": 1,
+      "id": "holyhell:blinding_bomb"
     },
     "title": "BRING UP THE HOLY HAND GRENADE",
     "description": {
@@ -11,7 +13,6 @@
     "show_toast": true,
     "announce_to_chat": true
   },
-  "parent": "holyhell:find_church",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:inventory_changed",

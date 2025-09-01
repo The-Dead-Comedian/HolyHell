@@ -43,7 +43,6 @@ import java.util.List;
 public class BabOneEntity extends TamableAnimal {
 
 
-
     ///////////////
     // VARIABLES //
     ///////////////
@@ -97,10 +96,14 @@ public class BabOneEntity extends TamableAnimal {
                 if (this.isTame() && (this.getOwner() == ((BabOneEntity) i).getOwner() || !((BabOneEntity) i).isTame())) {
                     if (this.canCollideWith(i)) {
 
+                        if (this.getOwner() instanceof ServerPlayer) {
+                            HolyHellCriteriaTriggers.BAB_MERGE.get().trigger(((ServerPlayer) (Object) this.getOwner()));
+                        }
+
                         BlockPos blockPos = this.blockPosition();
                         BabTwoEntity babTwoEntity = new BabTwoEntity(HolyHellEntities.BAB_TWO.get(), this.level());
                         this.level().addFreshEntity(babTwoEntity);
-                        babTwoEntity.setTame(true,false);
+                        babTwoEntity.setTame(true, false);
                         babTwoEntity.tame((Player) this.getOwner());
                         babTwoEntity.moveTo(blockPos, babTwoEntity.getYRot(), babTwoEntity.getXRot());
                         this.discard();
@@ -117,7 +120,7 @@ public class BabOneEntity extends TamableAnimal {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(3,  new TemptGoal(this, 1.4D, TEMPT_ITEMS, false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.4D, TEMPT_ITEMS, false));
 
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1D));
@@ -128,12 +131,7 @@ public class BabOneEntity extends TamableAnimal {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, 15)
-                .add(Attributes.MOVEMENT_SPEED, 0.2f)
-                .add(Attributes.ARMOR, 0.8f)
-                .add(Attributes.ATTACK_DAMAGE, 12.0)
-                .add(Attributes.FOLLOW_RANGE, 10);
+        return Mob.createLivingAttributes().add(Attributes.MAX_HEALTH, 15).add(Attributes.MOVEMENT_SPEED, 0.2f).add(Attributes.ARMOR, 0.8f).add(Attributes.ATTACK_DAMAGE, 12.0).add(Attributes.FOLLOW_RANGE, 10);
     }
 
     @Override
@@ -143,7 +141,7 @@ public class BabOneEntity extends TamableAnimal {
         if (itemStack.is(Items.STICK) && !this.isTame()) {
             this.discard();
             if (player instanceof ServerPlayer) {
-                HolyHellCriteriaTriggers.KEBAB.trigger((ServerPlayer) player);
+                HolyHellCriteriaTriggers.KEBAB.get().trigger((ServerPlayer) player);
             }
             player.addItem(HolyHellItems.KEBAB.get().getDefaultInstance());
             if (!player.isCreative()) {
@@ -154,7 +152,7 @@ public class BabOneEntity extends TamableAnimal {
         }
 
         if (itemStack.is(HolyHellItems.HOLY_TEAR.get()) && !this.isTame()) {
-            setTame(true,false);
+            setTame(true, false);
             this.tame(player);
             if (!player.isCreative()) {
                 itemStack.shrink(1);
@@ -167,11 +165,9 @@ public class BabOneEntity extends TamableAnimal {
     }
 
 
-
     ///////////////
     // ANIMATION //
     ///////////////
-
 
 
     private void setupAnimationStates() {
@@ -190,9 +186,6 @@ public class BabOneEntity extends TamableAnimal {
         float f = this.getPose() == Pose.STANDING ? Math.min(posDelta * 6.0f, 1.0f) : 0.0f;
         this.walkAnimation.update(f, 0.2f);
     }
-
-
-
 
 
     ///////////
@@ -225,7 +218,6 @@ public class BabOneEntity extends TamableAnimal {
     /////////
     //SOUND//
     /////////
-
 
 
     protected SoundEvent getStepSound() {

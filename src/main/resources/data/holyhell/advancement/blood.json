@@ -1,7 +1,9 @@
 {
+  "parent": "holyhell:find_church",
   "display": {
     "icon": {
-      "item": "holyhell:sacrificial_katar"
+      "count": 1,
+      "id": "holyhell:sacrificial_katar"
     },
     "title": {
       "translate": "advancements.holyhell.blood.title"
@@ -10,7 +12,6 @@
       "translate": "advancements.holyhell.blood.description"
     }
   },
-  "parent": "holyhell:find_church",
   "criteria": {
     "all_effects": {
       "conditions": {

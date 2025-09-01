@@ -5,11 +5,7 @@
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
-          {
-            "items": [
-              "holyhell:saint_eye"
-            ]
-          }
+          "holyhell:saint_eye"
         ]
       }
     }

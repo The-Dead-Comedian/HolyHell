@@ -5,11 +5,7 @@
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
-          {
-            "items": [
-              "holyhell:enhanced_silk"
-            ]
-          }
+          "holyhell:enhanced_silk"
         ]
       }
     }

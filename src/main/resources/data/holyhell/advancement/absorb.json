@@ -1,8 +1,9 @@
 {
+  "parent": "holyhell:cherub",
   "display": {
     "icon": {
-      "id": "holyhell:saint_eye",
-      "count": 1
+      "count": 1,
+      "id": "holyhell:saint_eye"
     },
     "title": {
       "translate": "advancements.holyhell.absorb.title"
@@ -11,7 +12,6 @@
       "translate": "advancements.holyhell.absorb.description"
     }
   },
-  "parent": "holyhell:cherub",
   "criteria": {
     "has_item": {
       "trigger": "holyhell:bab_merge"

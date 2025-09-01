@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "holyhell:candleholder",
+    "holyhell:tall_candelabra",
+
     "holyhell:candelabra",
     "holyhell:divining_table",
     "holyhell:stone_cross",
@@ -25,6 +27,13 @@
     "holyhell:cracked_marble_bricks",
     "holyhell:cracked_marble_brick_wall",
     "holyhell:cracked_marble_brick_slab",
-    "holyhell:cracked_marble_brick_stairs"
+    "holyhell:cracked_marble_brick_stairs",
+
+    "holyhell:atlas_statue",
+    "holyhell:baphomet_statue",
+    "holyhell:doomslayer_satue",
+    "holyhell:icarus_statue",
+    "holyhell:kratos_statue",
+    "holyhell:v1_statue"
   ]
 }

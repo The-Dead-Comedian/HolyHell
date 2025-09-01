@@ -7,7 +7,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
@@ -33,6 +32,7 @@ public class HolyHellCreativeTab {
 
                         pOutput.accept(HolyHellBlocks.DIVINING_TABLE.get());
                         pOutput.accept(HolyHellBlocks.CANDELABRA.get());
+                        pOutput.accept(HolyHellBlocks.TALL_CANDELABRA.get());
                         pOutput.accept(HolyHellBlocks.CANDLE_HOLDER.get());
                         pOutput.accept(HolyHellBlocks.STONE_CROSS.get());
                         pOutput.accept(HolyHellBlocks.FALLING_CROSS.get());
@@ -64,6 +64,13 @@ public class HolyHellCreativeTab {
                         pOutput.accept(HolyHellBlocks.CRACKED_MARBLE_BRICK_SLAB.get());
                         pOutput.accept(HolyHellBlocks.CRACKED_MARBLE_BRICK_STAIRS.get());
                         pOutput.accept(HolyHellBlocks.MARBLE_COLLUMN.get());
+
+                        pOutput.accept(HolyHellBlocks.ATLAS_STATUE.get());
+                        pOutput.accept(HolyHellBlocks.BAPHOMET_STATUE.get());
+                        pOutput.accept(HolyHellBlocks.ICARUS_STATUE.get());
+                        pOutput.accept(HolyHellBlocks.DOOMSLAYER_STATUE.get());
+                        pOutput.accept(HolyHellBlocks.KRATOS_STATUE.get());
+                        pOutput.accept(HolyHellBlocks.V1_STATUE.get());
                     })
                     .build());
 

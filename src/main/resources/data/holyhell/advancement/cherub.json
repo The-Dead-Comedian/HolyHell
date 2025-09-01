@@ -1,9 +1,11 @@
 {
+  "parent": "holyhell:find_church",
   "display": {
     "icon": {
-      "item": "holyhell:holy_tear"
+      "count": 1,
+      "id": "holyhell:holy_tear"
     },
-    "title":{
+    "title": {
       "translate": "advancements.holyhell.divine_retribution.title"
     },
     "description": {
@@ -13,7 +15,6 @@
     "show_toast": true,
     "announce_to_chat": true
   },
-  "parent": "holyhell:find_church",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:player_hurt_entity",

@@ -5,11 +5,7 @@
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
-          {
-            "items": [
-              "minecraft:stone"
-            ]
-          }
+          "minecraft:stone"
         ]
       }
     }

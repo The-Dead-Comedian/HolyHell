@@ -42,17 +42,6 @@ public class CandelabraBlock extends Block {
         this.registerDefaultState(this.defaultBlockState().setValue(CANDLE, 0).setValue(LIT, false));
     }
 
-
-    @Override
-    public BlockState updateShape(BlockState state, Direction pDirection, BlockState pNeighborState, LevelAccessor level, BlockPos pos, BlockPos pNeighborPos) {
-        return pDirection == Direction.DOWN && !this.canPlaceAt(state, level, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, pDirection, pNeighborState, level, pos, pNeighborPos);
-
-    }
-
-    public boolean canPlaceAt(BlockState state, LevelAccessor world, BlockPos pos) {
-        return canSupportCenter(world, pos.below(), Direction.UP);
-    }
-
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         ItemStack itemStack = player.getItemInHand(hand);

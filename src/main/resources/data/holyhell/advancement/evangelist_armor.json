@@ -1,5 +1,21 @@
 {
   "parent": "holyhell:find_church",
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.holyhell.evangelist_armor.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id": "holyhell:evangelist_helmet"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.holyhell.evangelist_armor.title"
+    }
+  },
   "criteria": {
     "netherite_armor": {
       "conditions": {
@@ -27,22 +43,6 @@
         ]
       },
       "trigger": "minecraft:inventory_changed"
-    }
-  },
-  "display": {
-    "announce_to_chat": true,
-    "description": {
-      "translate": "advancements.holyhell.evangelist_armor.description"
-    },
-    "frame": "challenge",
-    "hidden": false,
-    "icon": {
-      "item": "holyhell:evangelist_helmet",
-      "nbt": "{Damage:0}"
-    },
-    "show_toast": true,
-    "title": {
-      "translate": "advancements.holyhell.evangelist_armor.title"
     }
   },
   "requirements": [

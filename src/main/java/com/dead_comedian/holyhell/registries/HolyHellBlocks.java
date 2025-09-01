@@ -6,11 +6,14 @@ import com.dead_comedian.holyhell.block.*;
 
 import com.dead_comedian.holyhell.item.CandleHolderItem;
 import com.dead_comedian.holyhell.item.StoneCrossItem;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.IEventBus;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
@@ -60,6 +63,17 @@ public class HolyHellBlocks {
                     .sound(HolyHellSound.CANDELABRA_SOUNDS)
                     .lightLevel(CandelabraBlock.LIGHT_EMISSION), ParticleTypes.FLAME));
 
+    public static final Supplier<Block> TALL_CANDELABRA = registerCandleHolder("tall_candelabra",
+            () -> new TallCandelabraBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_GREEN)
+                    .noCollission()
+                    .instrument(NoteBlockInstrument.BASS)
+                    .strength(3F)
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()
+                    .sound(HolyHellSound.CANDELABRA_SOUNDS)
+                    .lightLevel(TallCandelabraBlock.LIGHT_EMISSION), ParticleTypes.FLAME));
+
     public static final Supplier<Block> CANDLE_HOLDER = registerCandleHolder("candleholder",
             () -> new CandleholderBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_GREEN)
@@ -107,7 +121,7 @@ public class HolyHellBlocks {
                     .sound(SoundType.STONE)) {
             });
     public static final Supplier<Block> COBBLED_MARBLE_STAIRS = register("cobbled_marble_stairs",
-            () -> new StairBlock(COBBLED_MARBLE.get().defaultBlockState(),BlockBehaviour.Properties.of()
+            () -> new StairBlock(COBBLED_MARBLE.get().defaultBlockState(), BlockBehaviour.Properties.of()
                     .mapColor(MapColor.TERRACOTTA_WHITE)
                     .strength(3F)
                     .noOcclusion()
@@ -142,14 +156,13 @@ public class HolyHellBlocks {
                     .sound(SoundType.STONE)) {
             });
     public static final Supplier<Block> MARBLE_STAIRS = register("marble_stairs",
-            () -> new StairBlock(MARBLE.get().defaultBlockState(),BlockBehaviour.Properties.of()
+            () -> new StairBlock(MARBLE.get().defaultBlockState(), BlockBehaviour.Properties.of()
                     .mapColor(MapColor.TERRACOTTA_WHITE)
                     .strength(3F)
                     .noOcclusion()
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.STONE)) {
             });
-
 
 
     public static final Supplier<Block> MARBLE_BRICKS = register("marble_bricks",
@@ -178,7 +191,7 @@ public class HolyHellBlocks {
                     .sound(SoundType.STONE)) {
             });
     public static final Supplier<Block> MARBLE_BRICK_STAIRS = register("marble_brick_stairs",
-            () -> new StairBlock(MARBLE.get().defaultBlockState(),BlockBehaviour.Properties.of()
+            () -> new StairBlock(MARBLE.get().defaultBlockState(), BlockBehaviour.Properties.of()
                     .mapColor(MapColor.TERRACOTTA_WHITE)
                     .strength(3F)
                     .noOcclusion()
@@ -212,7 +225,7 @@ public class HolyHellBlocks {
                     .sound(SoundType.STONE)) {
             });
     public static final Supplier<Block> CRACKED_MARBLE_BRICK_STAIRS = register("cracked_marble_brick_stairs",
-            () -> new StairBlock(MARBLE.get().defaultBlockState(),BlockBehaviour.Properties.of()
+            () -> new StairBlock(MARBLE.get().defaultBlockState(), BlockBehaviour.Properties.of()
                     .mapColor(MapColor.TERRACOTTA_WHITE)
                     .strength(3F)
                     .noOcclusion()
@@ -228,7 +241,69 @@ public class HolyHellBlocks {
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.STONE)) {
             });
+    public static final Supplier<Block> KRATOS_STATUE = register("kratos_statue",
+            () -> new MarbleStatueBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.TERRACOTTA_WHITE)
+                    .strength(3F)
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.STONE)
+                    .isViewBlocking(HolyHellBlocks::never).dynamicShape()) {
+            });
 
+    public static final Supplier<Block> ATLAS_STATUE = register("atlas_statue",
+            () -> new MarbleStatueBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.TERRACOTTA_WHITE)
+                    .strength(3F)
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.STONE)
+                    .noOcclusion()
+                    .isViewBlocking(HolyHellBlocks::never)) {
+            });
+
+    public static final Supplier<Block> BAPHOMET_STATUE = register("baphomet_statue",
+            () -> new MarbleStatueBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.TERRACOTTA_WHITE)
+                    .strength(3F)
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.STONE)
+                    .noOcclusion()
+                    .isViewBlocking(HolyHellBlocks::never)) {
+            });
+
+    public static final Supplier<Block> ICARUS_STATUE = register("icarus_statue",
+            () -> new MarbleStatueBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.TERRACOTTA_WHITE)
+                    .strength(3F)
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.STONE)
+                    .noOcclusion()
+                    .isViewBlocking(HolyHellBlocks::never)) {
+            });
+    public static final Supplier<Block> DOOMSLAYER_STATUE = register("doomslayer_statue",
+            () -> new MarbleStatueBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.TERRACOTTA_WHITE)
+                    .strength(3F)
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.STONE)
+                    .noOcclusion()
+                    .isViewBlocking(HolyHellBlocks::never)) {
+            });
+
+    public static final Supplier<Block> V1_STATUE = register("v1_statue",
+            () -> new MarbleStatueBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.TERRACOTTA_WHITE)
+                    .strength(3F)
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.STONE)
+                    .noOcclusion()
+                    .isViewBlocking(HolyHellBlocks::never)) {
+            });
 
     private static <T extends Block> DeferredHolder<Item, Item> registerCrossBlockItem(String name, Supplier<T> block) {
         return HolyHellItems.ITEMS.register(name, () -> new StoneCrossItem(block.get(), new Item.Properties()));
@@ -258,6 +333,10 @@ public class HolyHellBlocks {
 
     private static <T extends Block> void registerItem(String name, Supplier<T> block) {
         HolyHellItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+    }
+
+    private static boolean never(BlockState state, BlockGetter blockGetter, BlockPos pos) {
+        return false;
     }
 
     public static void register(IEventBus eventBus) {

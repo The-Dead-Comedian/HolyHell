@@ -81,7 +81,7 @@ public class HolyHellEventBusEvents {
 
                     if (blockState.getBlock() == HolyHellBlocks.FALLING_CROSS.get()) {
                         if (player instanceof ServerPlayer) {
-                            HolyHellCriteriaTriggers.KILLED_BY_CROSS.trigger(((ServerPlayer) (Object) player));
+                            HolyHellCriteriaTriggers.KILLED_BY_CROSS.get().trigger(((ServerPlayer) (Object) player));
                         }
                     }
                 }
