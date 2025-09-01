@@ -36,27 +36,23 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
     }
 
 
-    @Inject(method="tick",at=@At(value = "HEAD"))
-    private void bishbashbosh(CallbackInfo ci){
-        if (((LivingEntity) (Object) this).hasEffect(HolyHellEffects.BLOODLUST) &&
-                ((LivingEntity) (Object) this).hasEffect(MobEffects.REGENERATION)) {
-            ((LivingEntity) (Object) this).removeEffect(MobEffects.REGENERATION);
+    @Inject(method = "tick", at = @At(value = "HEAD"))
+    private void bishbashbosh(CallbackInfo ci) {
+        LivingEntity entity = ((LivingEntity) (Object) this);
+        if (entity.hasEffect(HolyHellEffects.BLOODLUST) && entity.hasEffect(MobEffects.REGENERATION)) {
+            entity.removeEffect(MobEffects.REGENERATION);
         }
-        if (((LivingEntity) (Object) this).hasEffect(HolyHellEffects.BLOODLUST) &&
-                ((LivingEntity) (Object) this).hasEffect(MobEffects.HEALTH_BOOST)) {
-            ((LivingEntity) (Object) this).removeEffect(MobEffects.HEALTH_BOOST);
+        if (entity.hasEffect(HolyHellEffects.BLOODLUST) && entity.hasEffect(MobEffects.HEALTH_BOOST)) {
+            entity.removeEffect(MobEffects.HEALTH_BOOST);
         }
-        if (((LivingEntity) (Object) this).hasEffect(HolyHellEffects.BLOODLUST) &&
-                ((LivingEntity) (Object) this).hasEffect(MobEffects.HEAL)) {
-            ((LivingEntity) (Object) this   ).removeEffect(MobEffects.HEAL);
+        if (entity.hasEffect(HolyHellEffects.BLOODLUST) && entity.hasEffect(MobEffects.HEAL)) {
+            ((LivingEntity) (Object) this).removeEffect(MobEffects.HEAL);
 
         }
     }
 
     //Holy Shield Sound
-    @Inject(
-            method = "handleEntityEvent",
-            at = @At(value = "HEAD"), cancellable = true)
+    @Inject(method = "handleEntityEvent", at = @At(value = "HEAD"), cancellable = true)
     private void holyhell$HandleEntityEventCustom(byte pId, CallbackInfo ci) {
         if (pId == 29) {
             LivingEntity that = ((LivingEntity) (Object) this);

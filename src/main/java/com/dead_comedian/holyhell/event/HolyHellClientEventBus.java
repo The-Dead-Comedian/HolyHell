@@ -3,6 +3,8 @@ package com.dead_comedian.holyhell.event;
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.client.model.entity.*;
 import com.dead_comedian.holyhell.client.model.entity.non_living.*;
+import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsLowerFeatureRenderer;
+import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsUpperFeatureRenderer;
 import com.dead_comedian.holyhell.particle.*;
 import com.dead_comedian.holyhell.registries.HolyHellItemProperties;
 import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
@@ -20,6 +22,10 @@ public class HolyHellClientEventBus {
     @SubscribeEvent
     public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
         HolyHellItemProperties.addCustomItemProperties();
+
+        event.registerLayerDefinition(HolyHellModelLayers.RELIGIOUS_RINGSV, ReligiousRingsUpperFeatureRenderer::getTexturedModelData);
+        event.registerLayerDefinition(HolyHellModelLayers.RELIGIOUS_RINGS, ReligiousRingsLowerFeatureRenderer::getTexturedModelData);
+
 
         event.registerLayerDefinition(HolyHellModelLayers.GLOBULAR_DOME, GlobularDomeModel::createBodyLayer);
 //        event.registerLayerDefinition(HolyHellModelLayers.FALLING_SWORD, FallingSwordModel::createBodyLayer);

@@ -41,9 +41,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 public abstract class PlayerEntityMixin extends LivingEntity {
 
-    @Shadow
-    public abstract void resetAttackStrengthTicker();
-
     @Unique
     int holyhell$blockingCounter = 0;
 
@@ -126,9 +123,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             return source.getEntity().getType().is(HolyhellTags.Entities.MAGIC_DEALING_MOBS) || source.is(HolyhellTags.DamageTypes.MAGIC_DAMAGE) ? 0 : value;
         }
 
-
-        System.out.println(source);
-
         //Globular Dome
         List<Entity> entityBelow = this.level().getEntities(this, this.getBoundingBox().inflate(-0.1));
         for (Entity entity : entityBelow) {
@@ -169,9 +163,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     private void modifyDamage(DamageSource damageSource, float f, CallbackInfoReturnable<Boolean> cir) {
 
         // Divine Prot
-        if (this.hasEffect(HolyHellEffects.DIVINE_PROTECTION)
-                && !damageSource.is(HolyhellTags.DamageTypes.DIVINE_PROTECTION_IGNORE)
-        ) {
+        if (this.hasEffect(HolyHellEffects.DIVINE_PROTECTION) && !damageSource.is(HolyhellTags.DamageTypes.DIVINE_PROTECTION_IGNORE)) {
 
             switch (countArmorPieces(((Player) (Object) this), HolyhellArmorMaterials.EVANGELIST.value())) {
                 case 1:

@@ -90,19 +90,12 @@ public class HolyHellEventBusEvents {
     }
 
 
-
-
-
     @SubscribeEvent
     public static void livingEntityDie(LivingDeathEvent event) {
 
 
         LivingEntity entity = event.getEntity();
         LivingEntity entity1 = (LivingEntity) event.getSource().getEntity();
-        System.out.println("entity: " + entity);
-        System.out.println("entity1: " + entity1);
-
-
         if (entity == Minecraft.getInstance().player && entity.hasEffect(HolyHellEffects.BLOODLUST)) {
             entity.setHealth(20);
         }
