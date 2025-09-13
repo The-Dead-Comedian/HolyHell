@@ -45,7 +45,6 @@ public class HereticEntity extends Monster {
     //////////
     // MISC //
     //////////
-
     @Override
     public boolean isInvulnerableTo(DamageSource pSource) {
         if (pSource.getEntity() instanceof KamikazeEntity) {

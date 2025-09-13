@@ -9,6 +9,7 @@ public class HolyHellFood {
 
     public HolyHellFood() {
     }
-    public static final FoodProperties SAINT_EYE = new FoodProperties.Builder().nutrition(1).saturationModifier(0.8f).build();
+
+    public static final FoodProperties SAINT_EYE = new FoodProperties.Builder().nutrition(1).saturationModifier(0.8f).effect(new MobEffectInstance(HolyHellEffects.ANGELIC_VISION, 600), 1).build();
 
 }

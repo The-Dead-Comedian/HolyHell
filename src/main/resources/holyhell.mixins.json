@@ -12,6 +12,10 @@
     "PlayerEntityMixin"
   ],
   "client": [
-    "FeatureRendererMixin"
+    "BlockModelShaperMixin",
+    "FeatureRendererMixin",
+    "SunTextureMixin",
+    ,
+    "TextureAtlasMixin"
   ]
 }

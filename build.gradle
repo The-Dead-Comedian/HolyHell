@@ -112,6 +112,8 @@ configurations {
 }
 
 dependencies {
+    implementation 'io.github.llamalad7:mixinextras-neoforge:0.4.1'
+    annotationProcessor 'io.github.llamalad7:mixinextras-neoforge:0.4.1'
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
     // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"

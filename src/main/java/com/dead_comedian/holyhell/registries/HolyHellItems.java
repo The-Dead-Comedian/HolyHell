@@ -23,7 +23,7 @@ public class HolyHellItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(BuiltInRegistries.ITEM, Holyhell.MOD_ID);
 
     public static final Supplier<Item> SAINT_EYE = ITEMS.register("saint_eye", () ->
-            new SaintEyeItem(new Item.Properties().food(HolyHellFood.SAINT_EYE)));
+            new Item(new Item.Properties().food(HolyHellFood.SAINT_EYE)));
     public static final Supplier<SacrificialKatarItem> SACRIFICIAL_KATAR = ITEMS.register("sacrificial_katar", (properties) -> new
             SacrificialKatarItem(HolyHellToolMaterial.GRAIL, new Item.Properties().attributes(SacrificialKatarItem.createAttributes(HolyHellToolMaterial.GRAIL, 6, -2F))));
     public static final Supplier<ShieldItem> HOLY_SHIELD = ITEMS.register("holy_shield", () -> new

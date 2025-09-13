@@ -21,6 +21,10 @@ public class HolyHellEffects {
     public static final DeferredHolder<MobEffect,ClarityEffect> CLARITY = MOB_EFFECTS.register("clarity",
             () -> new ClarityEffect(MobEffectCategory.NEUTRAL, 0x36ebab));
 
+    public static final DeferredHolder<MobEffect, AngelicVisionEffect> ANGELIC_VISION = MOB_EFFECTS.register("angelic_vision",
+            () -> new AngelicVisionEffect(MobEffectCategory.BENEFICIAL, 0x36ebab));
+
+
     public static final DeferredHolder<MobEffect, DivineProtectionEffect> DIVINE_PROTECTION = MOB_EFFECTS.register("divine_protection",
             () -> new DivineProtectionEffect(MobEffectCategory.BENEFICIAL, 0x36ebab));
 
