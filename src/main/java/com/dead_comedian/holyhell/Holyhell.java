@@ -1,6 +1,12 @@
 package com.dead_comedian.holyhell;
 
+import com.dead_comedian.holyhell.client.renderer.overlay.EyeTransitionOverlay;
+import com.dead_comedian.holyhell.networking.HolyHellMessages;
 import com.dead_comedian.holyhell.registries.*;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -23,6 +29,9 @@ public class Holyhell {
     public Holyhell(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(this::commonSetup);
         NeoForge.EVENT_BUS.register(this);
+
+
+        HolyHellAttachments.register(modEventBus);
         HolyHellBlockEntities.register(modEventBus);
         HolyHellBlocks.register(modEventBus);
         HolyHellCreativeTab.register(modEventBus);
@@ -32,6 +41,11 @@ public class Holyhell {
         HolyHellCriteriaTriggers.register(modEventBus);
         HolyhellParticles.register(modEventBus);
         HolyHellSound.register(modEventBus);
+
+
+        if (FMLEnvironment.dist == Dist.CLIENT) {
+            NeoForge.EVENT_BUS.register(EyeTransitionOverlay.class);
+        }
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }

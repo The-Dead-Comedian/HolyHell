@@ -1,6 +1,7 @@
 package com.dead_comedian.holyhell.mixin;
 
 import com.dead_comedian.holyhell.Holyhell;
+import com.dead_comedian.holyhell.registries.HolyHellAttachments;
 import com.dead_comedian.holyhell.registries.HolyHellEffects;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
@@ -42,7 +43,7 @@ public abstract class SunTextureMixin {
 
     @Inject(method = "renderSky", at = @At("TAIL"))
     private void renderCustomZenith(Matrix4f frustumMatrix, Matrix4f projectionMatrix, float partialTick, Camera camera, boolean isFoggy, Runnable skyFogSetup, CallbackInfo ci) {
-        if (Minecraft.getInstance().player.hasEffect(HolyHellEffects.ANGELIC_VISION)) {
+        if (Minecraft.getInstance().player.getData(HolyHellAttachments.ANGEL_VISION_SHADER_SYNCED_DATA)) {
             Level level = Minecraft.getInstance().level;
             if (level == null || level.dimension() != Level.OVERWORLD) {
                 return;
@@ -91,8 +92,8 @@ public abstract class SunTextureMixin {
 
         if (originalTexture.toString().contains("sun")) {
 
-            Minecraft mc = Minecraft.getInstance();
-            if (mc.player != null && mc.player.hasEffect(HolyHellEffects.ANGELIC_VISION)) {
+
+            if (Minecraft.getInstance().player.getData(HolyHellAttachments.ANGEL_VISION_SHADER_SYNCED_DATA)) {
 
                 RenderSystem.setShaderTexture(0, ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/environment/eye5.png"));
 
