@@ -1,6 +1,7 @@
 package com.dead_comedian.holyhell.event;
 
 import com.dead_comedian.holyhell.Holyhell;
+import com.dead_comedian.holyhell.HolyhellModClient;
 import com.dead_comedian.holyhell.client.model.entity.*;
 import com.dead_comedian.holyhell.client.model.entity.non_living.*;
 import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsLowerFeatureRenderer;
@@ -9,9 +10,14 @@ import com.dead_comedian.holyhell.client.renderer.overlay.EyeTransitionOverlay;
 import com.dead_comedian.holyhell.networking.packet.ServerboundAngelShaderAbilityPacket;
 import com.dead_comedian.holyhell.particle.*;
 import com.dead_comedian.holyhell.registries.*;
+import net.minecraft.client.GameNarrator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.AttackSweepParticle;
 import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.*;
@@ -72,12 +78,26 @@ public class HolyHellClientEventBus {
 
     }
 
+    @SubscribeEvent
+    public static void black(RenderLevelStageEvent event) {
+        Player player = Minecraft.getInstance().player;
 
-//
+        if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_SKY) {
+            GameRenderer renderer = Minecraft.getInstance().gameRenderer;
+            if (player.getData(HolyHellAttachments.ANGEL_VISION_SHADER_SYNCED_DATA)) {
+                HolyhellModClient.attemptLoadShader(HolyhellModClient.ANGEL_VISION_SHADER);
+            } else if (renderer.currentEffect() != null && HolyhellModClient.ANGEL_VISION_SHADER.toString().equals(renderer.currentEffect().getName())) {
+                renderer.checkEntityPostEffect(null);
+            }
+
+        }
+    }
+
+
 //    @SubscribeEvent
 //    public static void a(RenderPlayerEvent event) {
 //        AbstractClientPlayer abstractClientPlayer = ((AbstractClientPlayer) (Object) Minecraft.getInstance().player);
-//        event.getRenderer().addLayer(new ReligiousRingsUpperFeatureRenderer<>(event.getRenderer(),event.getRenderer().getModel()));
+//        event.getRenderer().addLayer(new ReligiousRingsUpperFeatureRenderer<>());
 //    }
 
     @SubscribeEvent
