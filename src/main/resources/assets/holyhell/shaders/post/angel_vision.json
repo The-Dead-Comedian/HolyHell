@@ -10,15 +10,15 @@
       "uniforms": [
         {
           "name": "RedMatrix",
-          "values": [ 0.2, 0.3, 0.6 ]
+          "values": [ 0.4, 0.4, 0.4 ]
         },
         {
           "name": "GreenMatrix",
-          "values": [ 0.2, 0.3, 0.6 ]
+          "values": [ 0.4, 0.4, 0.4 ]
         },
         {
           "name": "BlueMatrix",
-          "values": [ 0.2, 0.3, 0.6 ]
+          "values": [ 0.4, 0.4, 0.4 ]
         }
       ]
     },
