@@ -3,7 +3,7 @@ package com.dead_comedian.holyhell.entity;
 
 
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
-import com.dead_comedian.holyhell.registries.HolyHellSound;
+import com.dead_comedian.holyhell.registries.HolyHellSounds;
 import com.dead_comedian.holyhell.registries.HolyhellParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -82,7 +82,7 @@ public class CherubEntity extends Monster implements FlyingAnimal {
 
         flutterLoop--;
         if (flutterLoop >= 23) {
-            this.playSound(HolyHellSound.CHERUB_FLUTTER.get(), 1F, 1F);
+            this.playSound(HolyHellSounds.CHERUB_FLUTTER.get(), 1F, 1F);
         }
         if (flutterLoop <= 0) {
             flutterLoop = 24;
@@ -174,7 +174,7 @@ public class CherubEntity extends Monster implements FlyingAnimal {
             if (current > capacity) {
                 current = 0;
                 wave_level = 0;
-                this.playSound(HolyHellSound.BELL_RING.get(),1F,1F);
+                this.playSound(HolyHellSounds.BELL_RING.get(),1F,1F);
                 this.discard();
             }
         }
@@ -262,7 +262,7 @@ public class CherubEntity extends Monster implements FlyingAnimal {
             if (current > capacity) {
                 current = 0;
                 wave_level = 0;
-                this.playSound(HolyHellSound.BELL_RING.get(),1F,1F);
+                this.playSound(HolyHellSounds.BELL_RING.get(),1F,1F);
                 this.discard();
             }
         }
@@ -331,7 +331,7 @@ public class CherubEntity extends Monster implements FlyingAnimal {
             if (current > capacity) {
                 current = 0;
                 wave_level = 0;
-                this.playSound(HolyHellSound.BELL_RING.get(),1F,1F);
+                this.playSound(HolyHellSounds.BELL_RING.get(),1F,1F);
                 this.discard();
             }
         }

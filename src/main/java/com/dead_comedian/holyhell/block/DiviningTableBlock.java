@@ -5,12 +5,11 @@ import com.dead_comedian.holyhell.block.entity.DiviningTableBlockEntity;
 import com.dead_comedian.holyhell.entity.CherubEntity;
 import com.dead_comedian.holyhell.registries.HolyHellBlockEntities;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
-import com.dead_comedian.holyhell.registries.HolyHellSound;
+import com.dead_comedian.holyhell.registries.HolyHellSounds;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -58,7 +57,7 @@ public class DiviningTableBlock extends BaseEntityBlock implements EntityBlock {
                 ((DiviningTableBlockEntity) level.getBlockEntity(pos)).getTimer() <= 0) {
 
 
-            level.playLocalSound(pos, HolyHellSound.DIVINING_TABLE_INTERACT.get(), SoundSource.BLOCKS, 1, 1 + level.random.nextInt(), false);
+            level.playLocalSound(pos, HolyHellSounds.DIVINING_TABLE_INTERACT.get(), SoundSource.BLOCKS, 1, 1 + level.random.nextInt(), false);
 
             CherubEntity cherubEntity = new CherubEntity(HolyHellEntities.CHERUB.get(), level);
             level.addFreshEntity(cherubEntity);

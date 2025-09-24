@@ -1,6 +1,6 @@
 package com.dead_comedian.holyhell.entity.non_living;
 
-import com.dead_comedian.holyhell.registries.HolyHellSound;
+import com.dead_comedian.holyhell.registries.HolyHellSounds;
 import com.dead_comedian.holyhell.registries.HolyhellParticles;
 import com.dead_comedian.holyhell.registries.HolyhellTags;
 
@@ -116,7 +116,7 @@ public class GlobularDomeEntity extends Entity {
 
 
                 this.level().addParticle(HolyhellParticles.LIGHT_RING.get(), this.getRandomX(0.1), this.getY(0.5), this.getRandomZ(0.1), 0.0, 0.0, 0.0);
-                this.level().playSound(this, this.blockPosition(), HolyHellSound.STONE_CRACK.get(), SoundSource.PLAYERS, 0.5f, 1.4f);
+                this.level().playSound(this, this.blockPosition(), HolyHellSounds.STONE_CRACK.get(), SoundSource.PLAYERS, 0.5f, 1.4f);
 
             }
         }

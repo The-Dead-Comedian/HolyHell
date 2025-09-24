@@ -1,6 +1,5 @@
 package com.dead_comedian.holyhell.mixin;
 
-import com.dead_comedian.holyhell.block.entity.FallingCrossBlockEntity;
 import com.dead_comedian.holyhell.entity.HereticEntity;
 import com.dead_comedian.holyhell.entity.non_living.GlobularDomeEntity;
 
@@ -8,22 +7,15 @@ import com.dead_comedian.holyhell.item.HolyhellArmorMaterials;
 import com.dead_comedian.holyhell.registries.*;
 import net.minecraft.server.level.ServerLevel;
 
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.item.FallingBlockEntity;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -31,7 +23,6 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
-import java.util.Set;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -96,18 +87,18 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         if (this.hasEffect(HolyHellEffects.JESISTANCE)) {
             MobEffectInstance effectually = this.getEffect(HolyHellEffects.JESISTANCE);
             if (effectually.getDuration() >= 2000) {
-                this.level().playSound((Player) null, this.blockPosition(), HolyHellSound.RINGS_INTRO.get(), SoundSource.PLAYERS, 0.2f, 1);
+                this.level().playSound((Player) null, this.blockPosition(), HolyHellSounds.RINGS_INTRO.get(), SoundSource.PLAYERS, 0.2f, 1);
                 return;
             }
             if (effectually.getDuration() > 3.5 * 20) {
                 if (tickCount % 70 == 1) {
-                    this.level().playSound((Player) null, this.blockPosition(), HolyHellSound.RINGS_HOLD.get(), SoundSource.PLAYERS, 0.2f, 1);
+                    this.level().playSound((Player) null, this.blockPosition(), HolyHellSounds.RINGS_HOLD.get(), SoundSource.PLAYERS, 0.2f, 1);
                 }
                 return;
             }
             if (effectually.getDuration() < 3.5 * 20 && effectually.getDuration() != 0) {
                 if (tickCount % 70 == 1) {
-                    this.level().playSound((Player) null, this.blockPosition(), HolyHellSound.RINGS_OUTRO.get(), SoundSource.PLAYERS, 0.2f, 1);
+                    this.level().playSound((Player) null, this.blockPosition(), HolyHellSounds.RINGS_OUTRO.get(), SoundSource.PLAYERS, 0.2f, 1);
 
                 }
             }
@@ -146,7 +137,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 //        }
         if (itemStack.is(HolyHellItems.SACRIFICIAL_KATAR.get())) {
 
-            this.level().playSound(this, this.blockPosition(), HolyHellSound.SWORD_SLASH.get(), SoundSource.PLAYERS, 0.5f, 2f);
+            this.level().playSound(this, this.blockPosition(), HolyHellSounds.SWORD_SLASH.get(), SoundSource.PLAYERS, 0.5f, 2f);
 
         }
 
@@ -168,19 +159,19 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             switch (countArmorPieces(((Player) (Object) this), HolyhellArmorMaterials.EVANGELIST.value())) {
                 case 1:
                     this.addEffect(new MobEffectInstance(HolyHellEffects.DIVINE_PROTECTION_COOLDOWN, 1200, 1));
-                    this.level().playSound(null, ((Player) (Object) this).blockPosition(), HolyHellSound.DIVINE_PROTECTION.get(), SoundSource.PLAYERS);
+                    this.level().playSound(null, ((Player) (Object) this).blockPosition(), HolyHellSounds.DIVINE_PROTECTION.get(), SoundSource.PLAYERS);
                     break;
                 case 2:
                     this.addEffect(new MobEffectInstance(HolyHellEffects.DIVINE_PROTECTION_COOLDOWN, 1000, 2));
-                    this.level().playSound(null, ((Player) (Object) this).blockPosition(), HolyHellSound.DIVINE_PROTECTION.get(), SoundSource.PLAYERS);
+                    this.level().playSound(null, ((Player) (Object) this).blockPosition(), HolyHellSounds.DIVINE_PROTECTION.get(), SoundSource.PLAYERS);
                     break;
                 case 3:
                     this.addEffect(new MobEffectInstance(HolyHellEffects.DIVINE_PROTECTION_COOLDOWN, 800, 3));
-                    this.level().playSound(null, ((Player) (Object) this).blockPosition(), HolyHellSound.DIVINE_PROTECTION.get(), SoundSource.PLAYERS);
+                    this.level().playSound(null, ((Player) (Object) this).blockPosition(), HolyHellSounds.DIVINE_PROTECTION.get(), SoundSource.PLAYERS);
                     break;
                 case 4:
                     this.addEffect(new MobEffectInstance(HolyHellEffects.DIVINE_PROTECTION_COOLDOWN, 600, 4));
-                    this.level().playSound(null, ((Player) (Object) this).blockPosition(), HolyHellSound.DIVINE_PROTECTION.get(), SoundSource.PLAYERS);
+                    this.level().playSound(null, ((Player) (Object) this).blockPosition(), HolyHellSounds.DIVINE_PROTECTION.get(), SoundSource.PLAYERS);
                     break;
 
             }
@@ -206,7 +197,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                         world.sendParticles(HolyhellParticles.STUN2.get(), heretic.getX(), heretic.getEyeY() + 0.3F, heretic.getZ() + 0.5, 1, 0, 0.1, 0, 1);
                     }
                     heretic.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 255));
-                    heretic.playSound(HolyHellSound.STUN.get(), 1F, 1F);
+                    heretic.playSound(HolyHellSounds.STUN.get(), 1F, 1F);
                 }
 
 

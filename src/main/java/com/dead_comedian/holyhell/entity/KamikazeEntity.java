@@ -1,7 +1,7 @@
 package com.dead_comedian.holyhell.entity;
 
 
-import com.dead_comedian.holyhell.registries.HolyHellSound;
+import com.dead_comedian.holyhell.registries.HolyHellSounds;
 import com.dead_comedian.holyhell.registries.HolyhellParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -86,7 +86,7 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
         super.tick();
         flutterLoop--;
         if (flutterLoop >= 23) {
-            this.playSound(HolyHellSound.CHERUB_FLUTTER.get(), 1F, 1F);
+            this.playSound(HolyHellSounds.CHERUB_FLUTTER.get(), 1F, 1F);
         }
         if (flutterLoop <= 0) {
             flutterLoop = 24;

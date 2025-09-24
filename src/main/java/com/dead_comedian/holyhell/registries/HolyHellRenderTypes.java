@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 
-public class HolyHellRenderType {
+public class HolyHellRenderTypes {
     public static final RenderType RED_OVERLAY = RenderType.create(
             "red_overlay",
             DefaultVertexFormat.POSITION_COLOR,

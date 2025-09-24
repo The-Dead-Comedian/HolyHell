@@ -60,7 +60,7 @@ public class HolyHellBlocks {
                     .strength(3F)
                     .noOcclusion()
                     .requiresCorrectToolForDrops()
-                    .sound(HolyHellSound.CANDELABRA_SOUNDS)
+                    .sound(HolyHellSounds.CANDELABRA_SOUNDS)
                     .lightLevel(CandelabraBlock.LIGHT_EMISSION), ParticleTypes.FLAME));
 
     public static final Supplier<Block> TALL_CANDELABRA = registerCandleHolder("tall_candelabra",
@@ -71,7 +71,7 @@ public class HolyHellBlocks {
                     .strength(3F)
                     .noOcclusion()
                     .requiresCorrectToolForDrops()
-                    .sound(HolyHellSound.CANDELABRA_SOUNDS)
+                    .sound(HolyHellSounds.CANDELABRA_SOUNDS)
                     .lightLevel(TallCandelabraBlock.LIGHT_EMISSION), ParticleTypes.FLAME));
 
     public static final Supplier<Block> CANDLE_HOLDER = registerCandleHolder("candleholder",
@@ -82,7 +82,7 @@ public class HolyHellBlocks {
                     .strength(3F)
                     .noOcclusion()
                     .requiresCorrectToolForDrops()
-                    .sound(HolyHellSound.CANDELABRA_SOUNDS)
+                    .sound(HolyHellSounds.CANDELABRA_SOUNDS)
                     .lightLevel(CandleholderBlock.LIGHT_EMISSION), ParticleTypes.FLAME));
 
     public static final Supplier<Block> FALLING_CROSS = register("falling_cross",

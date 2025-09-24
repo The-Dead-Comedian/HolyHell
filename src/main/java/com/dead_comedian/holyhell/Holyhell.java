@@ -1,12 +1,9 @@
 package com.dead_comedian.holyhell;
 
 import com.dead_comedian.holyhell.client.renderer.overlay.EyeTransitionOverlay;
-import com.dead_comedian.holyhell.networking.HolyHellMessages;
 import com.dead_comedian.holyhell.registries.*;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.neoforge.client.event.ClientTickEvent;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -40,7 +37,7 @@ public class Holyhell {
         HolyHellItems.register(modEventBus);
         HolyHellCriteriaTriggers.register(modEventBus);
         HolyhellParticles.register(modEventBus);
-        HolyHellSound.register(modEventBus);
+        HolyHellSounds.register(modEventBus);
 
 
         if (FMLEnvironment.dist == Dist.CLIENT) {

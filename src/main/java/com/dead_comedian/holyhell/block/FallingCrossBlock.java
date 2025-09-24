@@ -2,7 +2,7 @@ package com.dead_comedian.holyhell.block;
 
 import com.dead_comedian.holyhell.block.entity.FallingCrossBlockEntity;
 import com.dead_comedian.holyhell.registries.HolyHellBlockEntities;
-import com.dead_comedian.holyhell.registries.HolyHellSound;
+import com.dead_comedian.holyhell.registries.HolyHellSounds;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -43,7 +43,7 @@ public class FallingCrossBlock extends BaseEntityBlock implements EntityBlock, F
         List<Entity> wiw = pLevel.getEntities(null, new AABB(pPos).inflate(1, 1, 1));
 
         if (!pFallingBlock.isSilent()) {
-            pLevel.playSound((Player) null, pPos, HolyHellSound.STONE_CRACK.get(), SoundSource.BLOCKS, 0.8f, 1);
+            pLevel.playSound((Player) null, pPos, HolyHellSounds.STONE_CRACK.get(), SoundSource.BLOCKS, 0.8f, 1);
         }
         for (Entity entity : wiw) {
             entity.hurt(pLevel.damageSources().fallingBlock(entity), 20);

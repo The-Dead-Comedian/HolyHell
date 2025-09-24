@@ -2,7 +2,7 @@ package com.dead_comedian.holyhell.item.custom;
 
 import com.dead_comedian.holyhell.entity.non_living.GlobularDomeEntity;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
-import com.dead_comedian.holyhell.registries.HolyHellSound;
+import com.dead_comedian.holyhell.registries.HolyHellSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -30,9 +30,9 @@ public class GlobularDomeItem extends Item {
         globularDomeEntity.moveTo(blockPos, globularDomeEntity.getYRot(), globularDomeEntity.getXRot());
         globularDomeEntity.setUser(owner);
         user.getCooldowns().addCooldown(this, 200);
-        world.playSound(user,user.blockPosition(), HolyHellSound.STONE_CRACK.get(), SoundSource.PLAYERS,0.8f,1);
+        world.playSound(user,user.blockPosition(), HolyHellSounds.STONE_CRACK.get(), SoundSource.PLAYERS,0.8f,1);
 
-        world.playLocalSound(user.blockPosition(), HolyHellSound.STONE_CRACK.get(), SoundSource.PLAYERS, 1, 1, true);
+        world.playLocalSound(user.blockPosition(), HolyHellSounds.STONE_CRACK.get(), SoundSource.PLAYERS, 1, 1, true);
 
         if (!user.isCreative()) {
             user.getItemInHand(hand).shrink(1);

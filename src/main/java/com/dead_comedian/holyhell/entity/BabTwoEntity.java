@@ -3,7 +3,7 @@ package com.dead_comedian.holyhell.entity;
 
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import com.dead_comedian.holyhell.registries.HolyHellItems;
-import com.dead_comedian.holyhell.registries.HolyHellSound;
+import com.dead_comedian.holyhell.registries.HolyHellSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -184,7 +184,7 @@ public class BabTwoEntity extends TamableAnimal {
     @Override
     public boolean doHurtTarget(Entity target) {
         boolean bl = super.doHurtTarget(target);
-        this.playSound(HolyHellSound.BAB_2_ATTACK.get(),1F,1F);
+        this.playSound(HolyHellSounds.BAB_2_ATTACK.get(),1F,1F);
         setAggressive(true);
         return bl;
     }
@@ -224,7 +224,7 @@ public class BabTwoEntity extends TamableAnimal {
 
 
     protected SoundEvent getStepSound() {
-        return HolyHellSound.BAB_LEG_WALK.get();
+        return HolyHellSounds.BAB_LEG_WALK.get();
     }
 
     protected void playStepSound(BlockPos pPos, BlockState pBlock) {
@@ -234,18 +234,18 @@ public class BabTwoEntity extends TamableAnimal {
     @org.jetbrains.annotations.Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return HolyHellSound.BAB_IDLE.get();
+        return HolyHellSounds.BAB_IDLE.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return HolyHellSound.BAB_HURT.get();
+        return HolyHellSounds.BAB_HURT.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return HolyHellSound.BAB_DIE.get();
+        return HolyHellSounds.BAB_DIE.get();
     }
 
 

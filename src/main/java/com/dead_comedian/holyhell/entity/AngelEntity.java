@@ -2,15 +2,12 @@ package com.dead_comedian.holyhell.entity;
 
 
 import com.dead_comedian.holyhell.entity.non_living.FireBallEntity;
-import com.dead_comedian.holyhell.registries.HolyHellEntities;
-import com.dead_comedian.holyhell.registries.HolyHellSound;
+import com.dead_comedian.holyhell.registries.HolyHellSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AnimationState;
@@ -25,11 +22,8 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
-import net.minecraft.world.entity.monster.Shulker;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ShulkerBullet;
-import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -175,7 +169,7 @@ public class AngelEntity extends Monster implements RangedAttackMob {
 
 
     protected SoundEvent getStepSound() {
-        return HolyHellSound.ANGEL_FLUTTER.get();
+        return HolyHellSounds.ANGEL_FLUTTER.get();
     }
 
     protected void playStepSound(BlockPos pPos, BlockState pBlock) {
@@ -185,12 +179,12 @@ public class AngelEntity extends Monster implements RangedAttackMob {
     @org.jetbrains.annotations.Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return HolyHellSound.ANGEL_IDLE.get();
+        return HolyHellSounds.ANGEL_IDLE.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return HolyHellSound.ANGEL_HURT.get();
+        return HolyHellSounds.ANGEL_HURT.get();
     }
 
     ///////////////

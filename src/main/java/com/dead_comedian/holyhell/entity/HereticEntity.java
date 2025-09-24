@@ -1,6 +1,6 @@
 package com.dead_comedian.holyhell.entity;
 
-import com.dead_comedian.holyhell.registries.HolyHellSound;
+import com.dead_comedian.holyhell.registries.HolyHellSounds;
 import com.dead_comedian.holyhell.registries.HolyhellParticles;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -168,7 +168,7 @@ public class HereticEntity extends Monster {
                     this.mob.getLookControl().setLookAt(pEnemy.getX(), pEnemy.getEyeY(), pEnemy.getZ());
 
                     if (!pEnemy.isBlocking()) {
-                        this.mob.playSound(HolyHellSound.STUN.get(),1F,1F);
+                        this.mob.playSound(HolyHellSounds.STUN.get(),1F,1F);
                         pEnemy.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 255));
                         if (pEnemy.level() instanceof ServerLevel world) {
                             world.sendParticles(HolyhellParticles.STUN.get(),
@@ -254,7 +254,7 @@ public class HereticEntity extends Monster {
     @Override
     public boolean doHurtTarget(Entity target) {
         boolean bl = super.doHurtTarget(target);
-        this.playSound(HolyHellSound.HERETIC_ATTACK.get(), 1F, 1F);
+        this.playSound(HolyHellSounds.HERETIC_ATTACK.get(), 1F, 1F);
         setAggressive(true);
         return bl;
     }
@@ -266,18 +266,18 @@ public class HereticEntity extends Monster {
 
     @Override
     protected SoundEvent getDeathSound() {
-        return HolyHellSound.HERETIC_DEATH.get();
+        return HolyHellSounds.HERETIC_DEATH.get();
     }
 
     @org.jetbrains.annotations.Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return HolyHellSound.HERETIC_IDLE.get();
+        return HolyHellSounds.HERETIC_IDLE.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return HolyHellSound.HERETIC_HURT.get();
+        return HolyHellSounds.HERETIC_HURT.get();
     }
 
 

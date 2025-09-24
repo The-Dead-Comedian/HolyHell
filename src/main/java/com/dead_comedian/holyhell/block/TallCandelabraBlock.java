@@ -1,7 +1,7 @@
 package com.dead_comedian.holyhell.block;
 
 
-import com.dead_comedian.holyhell.registries.HolyHellSound;
+import com.dead_comedian.holyhell.registries.HolyHellSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
@@ -87,7 +87,7 @@ public class TallCandelabraBlock extends Block {
         ItemStack itemStack = player.getItemInHand(hand);
         if (itemStack.is(Items.FLINT_AND_STEEL) && !state.getValue(LIT) && state.getValue(HALF) == DoubleBlockHalf.UPPER) {
             level.setBlock(pos, state.setValue(LIT, true), 11);
-            level.playLocalSound(pos, HolyHellSound.CANDELABRA_LIGHT.get(), SoundSource.BLOCKS, 1, 1 + level.random.nextInt(), false);
+            level.playLocalSound(pos, HolyHellSounds.CANDELABRA_LIGHT.get(), SoundSource.BLOCKS, 1, 1 + level.random.nextInt(), false);
             return ItemInteractionResult.SUCCESS;
         }
         if (state.getValue(LIT) && state.getValue(HALF) == DoubleBlockHalf.UPPER) {

@@ -4,7 +4,7 @@ package com.dead_comedian.holyhell.entity;
 import com.dead_comedian.holyhell.registries.HolyHellCriteriaTriggers;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import com.dead_comedian.holyhell.registries.HolyHellItems;
-import com.dead_comedian.holyhell.registries.HolyHellSound;
+import com.dead_comedian.holyhell.registries.HolyHellSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -26,10 +26,6 @@ import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
-import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -157,7 +153,7 @@ public class BabOneEntity extends TamableAnimal {
             if (!player.isCreative()) {
                 itemStack.shrink(1);
             }
-            this.playSound(HolyHellSound.BAB_TAME.get(), 1F, 1F);
+            this.playSound(HolyHellSounds.BAB_TAME.get(), 1F, 1F);
             return InteractionResult.SUCCESS;
         }
 
@@ -221,7 +217,7 @@ public class BabOneEntity extends TamableAnimal {
 
 
     protected SoundEvent getStepSound() {
-        return HolyHellSound.BAB_LEG_WALK.get();
+        return HolyHellSounds.BAB_LEG_WALK.get();
     }
 
     protected void playStepSound(BlockPos pPos, BlockState pBlock) {
@@ -231,18 +227,18 @@ public class BabOneEntity extends TamableAnimal {
     @org.jetbrains.annotations.Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return HolyHellSound.BAB_IDLE.get();
+        return HolyHellSounds.BAB_IDLE.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return HolyHellSound.BAB_HURT.get();
+        return HolyHellSounds.BAB_HURT.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return HolyHellSound.BAB_DIE.get();
+        return HolyHellSounds.BAB_DIE.get();
     }
 
 

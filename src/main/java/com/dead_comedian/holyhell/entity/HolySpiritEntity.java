@@ -1,6 +1,6 @@
 package com.dead_comedian.holyhell.entity;
 
-import com.dead_comedian.holyhell.registries.HolyHellSound;
+import com.dead_comedian.holyhell.registries.HolyHellSounds;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -248,7 +248,7 @@ public class HolySpiritEntity extends Monster {
 
     @Override
     protected SoundEvent getDeathSound() {
-        return HolyHellSound.HOLY_SPIRIT_DEATH.get();
+        return HolyHellSounds.HOLY_SPIRIT_DEATH.get();
     }
 }
 
