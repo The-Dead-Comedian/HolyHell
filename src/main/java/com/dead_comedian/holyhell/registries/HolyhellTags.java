@@ -17,6 +17,13 @@ public class HolyhellTags {
         public static final TagKey<EntityType<?>> MAGIC_DEALING_MOBS =
                 createTag("magic_dealing_mobs");
 
+        public static final TagKey<EntityType<?>> MINIBOSS =
+                createTag("miniboss");
+
+
+        public static final TagKey<EntityType<?>> BOSS =
+                createTag("boss");
+
         private static TagKey<EntityType<?>> createTag(String name) {
             return TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, name));
         }

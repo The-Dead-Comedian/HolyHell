@@ -16,6 +16,19 @@ public class HolyhellParticles {
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> LIGHT_RING  =
             PARTICLE_TYPES.register("light_ring", () -> new SimpleParticleType(true));
 
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> HOSTILE_LOCATOR  =
+            PARTICLE_TYPES.register("hostile_locator", () -> new SimpleParticleType(true));
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> BOSS_LOCATOR  =
+            PARTICLE_TYPES.register("boss_locator", () -> new SimpleParticleType(true));
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> NEUTRAL_LOCATOR  =
+            PARTICLE_TYPES.register("neutral_locator", () -> new SimpleParticleType(true));
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> PEACEFUL_LOCATOR  =
+            PARTICLE_TYPES.register("peaceful_locator", () -> new SimpleParticleType(true));
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> PLAYER_LOCATOR  =
+            PARTICLE_TYPES.register("player_locator", () -> new SimpleParticleType(true));
+
+
+
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> KAMIKAZE_EXPLOSION  =
             PARTICLE_TYPES.register("kamikaze_explosion", () -> new SimpleParticleType(true));
 

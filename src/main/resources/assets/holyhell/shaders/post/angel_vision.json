@@ -4,23 +4,9 @@
   ],
   "passes": [
     {
-      "name": "color_convolve",
+      "name": "holyhell:angel_vision",
       "intarget": "minecraft:main",
-      "outtarget": "swap",
-      "uniforms": [
-        {
-          "name": "RedMatrix",
-          "values": [ 0.4, 0.4, 0.4 ]
-        },
-        {
-          "name": "GreenMatrix",
-          "values": [ 0.4, 0.4, 0.4 ]
-        },
-        {
-          "name": "BlueMatrix",
-          "values": [ 0.4, 0.4, 0.4 ]
-        }
-      ]
+      "outtarget": "swap"
     },
     {
       "name": "blit",

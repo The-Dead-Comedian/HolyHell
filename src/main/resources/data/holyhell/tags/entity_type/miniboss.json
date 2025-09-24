@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:elder_guardian",
+    "minecraft:evoker",
+    "minecraft:piglin_brute",
+    "minecraft:ravager",
+    "minecraft:warden"
+  ]
+}

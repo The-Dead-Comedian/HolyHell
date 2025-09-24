@@ -10,22 +10,79 @@ import com.dead_comedian.holyhell.client.renderer.overlay.EyeTransitionOverlay;
 import com.dead_comedian.holyhell.networking.packet.ServerboundAngelShaderAbilityPacket;
 import com.dead_comedian.holyhell.particle.*;
 import com.dead_comedian.holyhell.registries.*;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.blaze3d.vertex.VertexFormat;
+import com.mojang.math.Axis;
 import net.minecraft.client.GameNarrator;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.AttackSweepParticle;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderStateShard;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.network.PacketDistributor;
+import org.joml.Matrix4f;
+
+import java.util.List;
 
 
 @EventBusSubscriber(modid = Holyhell.MOD_ID)
 public class HolyHellClientEventBus {
+
+    public static boolean shouldRenderParticle;
+
+    @SubscribeEvent
+    public static void setShouldRenderParticle(RenderLevelStageEvent event) {
+        shouldRenderParticle = event.getStage() == RenderLevelStageEvent.Stage.AFTER_LEVEL;
+    }
+
+    @SubscribeEvent
+    public static void locatorParticles(ClientTickEvent.Pre event) {
+        Player player = Minecraft.getInstance().player;
+        if (player != null) {
+            if (player.getData(HolyHellAttachments.ANGEL_VISION_SHADER_SYNCED_DATA)) {
+                Level level = player.level();
+
+                AABB userHitbox = new AABB(player.blockPosition()).inflate(100);
+
+                List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, userHitbox);
+                for (LivingEntity i : list) {
+
+                    if (i instanceof Monster && !i.getType().is(HolyhellTags.Entities.MINIBOSS) && !i.getType().is(HolyhellTags.Entities.BOSS)) {
+                        level.addParticle(HolyhellParticles.HOSTILE_LOCATOR.get(), i.getX(), i.getY() + i.getHitbox().getYsize() / 2, i.getZ(), 0, 0, 0);
+                    } else if (i.getType().is(HolyhellTags.Entities.BOSS) || i.getType().is(HolyhellTags.Entities.MINIBOSS)) {
+                        level.addParticle(HolyhellParticles.BOSS_LOCATOR.get(), i.getX(), i.getY() + i.getHitbox().getYsize() / 2, i.getZ(), 0, 0, 0);
+                    } else if (!(i instanceof Monster) && !(i instanceof Player)) {
+                        level.addParticle(HolyhellParticles.PEACEFUL_LOCATOR.get(), i.getX(), i.getY() + i.getHitbox().getYsize() / 2, i.getZ(), 0, 0, 0);
+                    } else if (i instanceof Player && i != player) {
+                        level.addParticle(HolyhellParticles.PLAYER_LOCATOR.get(), i.getX(), i.getY() + i.getHitbox().getYsize() / 2, i.getZ(), 0, 0, 0);
+                    }
+                }
+
+                list.removeAll(list);
+
+            }
+        }
+    }
 
 
     @SubscribeEvent
@@ -79,7 +136,7 @@ public class HolyHellClientEventBus {
     }
 
     @SubscribeEvent
-    public static void black(RenderLevelStageEvent event) {
+    public static void renderShader(RenderLevelStageEvent event) {
         Player player = Minecraft.getInstance().player;
 
         if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_SKY) {
@@ -102,6 +159,14 @@ public class HolyHellClientEventBus {
 
     @SubscribeEvent
     public static void registerParticleFactories(RegisterParticleProvidersEvent event) {
+
+        event.registerSpriteSet(HolyhellParticles.HOSTILE_LOCATOR.get(), HostileLocatorParticle.Provider::new);
+        event.registerSpriteSet(HolyhellParticles.BOSS_LOCATOR.get(), BossLocatorParticle.Provider::new);
+        event.registerSpriteSet(HolyhellParticles.NEUTRAL_LOCATOR.get(), NeutralLocatorParticle.Provider::new);
+        event.registerSpriteSet(HolyhellParticles.PEACEFUL_LOCATOR.get(), PeacefulLocatorParticle.Provider::new);
+        event.registerSpriteSet(HolyhellParticles.PLAYER_LOCATOR.get(), PlayerLocatorParticle.Provider::new);
+
+
         event.registerSpriteSet(HolyhellParticles.LIGHT_RING.get(), LightRingParticle.Provider::new);
         event.registerSpriteSet(HolyhellParticles.SOUND_RING.get(), SoundRingParticle.Provider::new);
         event.registerSpriteSet(HolyhellParticles.STUN.get(), StunParticle1.Provider::new);
