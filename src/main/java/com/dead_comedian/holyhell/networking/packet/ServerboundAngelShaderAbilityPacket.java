@@ -4,11 +4,14 @@ import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.registries.HolyHellAttachments;
 import com.dead_comedian.holyhell.registries.HolyHellEffects;
 import com.dead_comedian.holyhell.registries.HolyHellItems;
+import com.dead_comedian.holyhell.registries.HolyHellSounds;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
@@ -31,6 +34,11 @@ public record ServerboundAngelShaderAbilityPacket() implements CustomPacketPaylo
             if (context.player() != null) {
                 ServerPlayer player = (ServerPlayer) context.player();
                 if (player.hasEffect(HolyHellEffects.ANGELIC_VISION)) {
+
+                    if (Minecraft.getInstance().level != null && Minecraft.getInstance().player != null) {
+                        Minecraft.getInstance().level.playLocalSound(Minecraft.getInstance().player, HolyHellSounds.BLINK.get(), SoundSource.AMBIENT, 0.7F, 1);
+                    }
+
                     player.setData(HolyHellAttachments.ANGEL_VISION_TRANSITION_SYNCED_DATA, true);
                 }
             }

@@ -2,6 +2,7 @@ package com.dead_comedian.holyhell.client.renderer.overlay;
 
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.registries.HolyHellAttachments;
+import com.dead_comedian.holyhell.registries.HolyHellEffects;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
@@ -30,7 +31,9 @@ public class EyeTransitionOverlay {
             if (player != null && shouldShowOverlay(player)) {
                 GuiGraphics guiGraphics = event.getGuiGraphics();
 
-                renderMultiFileAnimation(guiGraphics, mc.getWindow().getGuiScaledWidth(), mc.getWindow().getGuiScaledHeight());
+                if (player.hasEffect(HolyHellEffects.ANGELIC_VISION)) {
+                    renderMultiFileAnimation(guiGraphics, mc.getWindow().getGuiScaledWidth(), mc.getWindow().getGuiScaledHeight());
+                }
             }
         }
     }
@@ -50,7 +53,6 @@ public class EyeTransitionOverlay {
 
 
     };
-
 
 
     private static void renderMultiFileAnimation(GuiGraphics guiGraphics, int screenWidth, int screenHeight) {

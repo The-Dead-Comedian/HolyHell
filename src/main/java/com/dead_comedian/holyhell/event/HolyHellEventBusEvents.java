@@ -4,20 +4,21 @@ package com.dead_comedian.holyhell.event;
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.entity.*;
 import com.dead_comedian.holyhell.networking.HolyHellMessages;
-import com.dead_comedian.holyhell.registries.HolyHellBlocks;
-import com.dead_comedian.holyhell.registries.HolyHellCriteriaTriggers;
-import com.dead_comedian.holyhell.registries.HolyHellEffects;
-import com.dead_comedian.holyhell.registries.HolyHellEntities;
+import com.dead_comedian.holyhell.registries.*;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
 import com.mojang.serialization.Codec;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.protocol.game.ClientboundStopSoundPacket;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -44,19 +45,33 @@ import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingHealEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import org.joml.Matrix4f;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
-
-
+import java.util.List;
 
 
 @EventBusSubscriber(modid = Holyhell.MOD_ID)
 public class HolyHellEventBusEvents {
 
 
+    @SubscribeEvent
+    public static void stopSounds(LevelTickEvent.Post event) {
+
+        if (event.getLevel() instanceof ServerLevel serverLevel) {
+            for (ServerPlayer player : serverLevel.players()) {
+                if (!player.getData(HolyHellAttachments.ANGEL_VISION_SHADER_SYNCED_DATA)) {
+                    
+                    ClientboundStopSoundPacket stopSoundS2CPacket = new ClientboundStopSoundPacket(HolyHellSounds.STATIC_AMBIENT.get().getLocation(), SoundSource.RECORDS);
+                    player.connection.send(stopSoundS2CPacket);
+                }
+            }
+        }
+
+    }
 
     @SubscribeEvent
     public static void registerPayloads(RegisterPayloadHandlersEvent event) {

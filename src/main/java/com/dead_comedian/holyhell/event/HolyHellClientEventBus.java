@@ -10,27 +10,13 @@ import com.dead_comedian.holyhell.client.renderer.overlay.EyeTransitionOverlay;
 import com.dead_comedian.holyhell.networking.packet.ServerboundAngelShaderAbilityPacket;
 import com.dead_comedian.holyhell.particle.*;
 import com.dead_comedian.holyhell.registries.*;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.blaze3d.vertex.VertexFormat;
-import com.mojang.math.Axis;
-import net.minecraft.client.GameNarrator;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.AttackSweepParticle;
-import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderStateShard;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.network.protocol.game.ClientboundStopSoundPacket;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -40,7 +26,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.network.PacketDistributor;
-import org.joml.Matrix4f;
 
 import java.util.List;
 
@@ -48,7 +33,83 @@ import java.util.List;
 @EventBusSubscriber(modid = Holyhell.MOD_ID)
 public class HolyHellClientEventBus {
 
+    public static int staticTimer = 0;
+
+    public static int windCooldown = 100;
+    public static int windTimer1 = 1200;
+    public static int windTimer2 = 300;
+    public static int windTimer3 = 537;
+    public static int windType = 4;
+    public static int horrorCooldown;
+
+
     public static boolean shouldRenderParticle;
+
+    @SubscribeEvent
+    public static void playAmbientEffects(ClientTickEvent.Post event) {
+        staticTimer++;
+        Level level = Minecraft.getInstance().level;
+        Player player = Minecraft.getInstance().player;
+
+        if (player != null && level != null) {
+            if (player.getData(HolyHellAttachments.ANGEL_VISION_SHADER_SYNCED_DATA)) {
+                //Static Sound
+                if (staticTimer % 202 == 0) {
+                    level.playLocalSound(player, HolyHellSounds.STATIC_AMBIENT.get(), SoundSource.AMBIENT, 0.6F, 1);
+                }
+
+
+                //Wind Sound
+
+                if (windCooldown > 0) {
+                    windTimer1 = 1200;
+                    windTimer2 = 300;
+                    windTimer3 = 537;
+                    windType = level.getRandom().nextInt(0, 3);
+                    windCooldown--;
+                } else {
+                    Minecraft.getInstance().getMusicManager().stopPlaying();
+                    switch (windType) {
+                        case 0:
+                            if (windTimer1 == 1200) {
+                                level.playLocalSound(player, HolyHellSounds.WIND_AMBIENT_1.get(), SoundSource.AMBIENT, 0.2F, 1);
+                            }
+                            windTimer1--;
+                            if (windTimer1 <= 0) {
+                                windType = 4;
+                                windCooldown = level.getRandom().nextInt(100, 300);
+                            }
+                        case 1:
+                            if (windTimer2 == 300) {
+                                level.playLocalSound(player, HolyHellSounds.WIND_AMBIENT_2.get(), SoundSource.AMBIENT, 0.2F, 1);
+                            }
+                            windTimer2--;
+                            if (windTimer2 <= 0) {
+                                windType = 4;
+                                windCooldown = level.getRandom().nextInt(100, 300);
+                            }
+                        case 2:
+                            if (windTimer3 == 537) {
+                                level.playLocalSound(player, HolyHellSounds.WIND_AMBIENT_3.get(), SoundSource.AMBIENT, 0.2F, 1);
+                            }
+                            windTimer3--;
+                            if (windTimer3 <= 0) {
+                                windType = 4;
+                                windCooldown = level.getRandom().nextInt(100, 300);
+                            }
+                        case 4:
+                            windType = level.getRandom().nextInt(0, 3);
+                    }
+                }
+
+            }
+            else {
+
+                //STOP SOUNDS
+            }
+        }
+    }
+
 
     @SubscribeEvent
     public static void setShouldRenderParticle(RenderLevelStageEvent event) {

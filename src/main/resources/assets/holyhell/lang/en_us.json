@@ -133,6 +133,16 @@
   "sounds.holyhell.stun": "Entity Is Stunned",
 
 
+  "sounds.holyhell.static_ambient": "Weird Static Sounds",
+  "sounds.holyhell.blink": "Player shifts plane of reality",
+
+  "sounds.holyhell.wind_ambient_1": "Wind Howls",
+  "sounds.holyhell.wind_ambient_2": "Wind Howls",
+  "sounds.holyhell.wind_ambient_3": "Wind Howls",
+
+
+
+
   "advancements.holyhell.blinding_bomb": "Obtain Blinding Bomb",
   "advancements.holyhell.falling_cross": "Get killed by a Falling Cross",
   "advancements.holyhell.find_church.description": "Enter a church",

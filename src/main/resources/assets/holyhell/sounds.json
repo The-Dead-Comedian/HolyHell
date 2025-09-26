@@ -191,10 +191,44 @@
     "sounds": [
       "holyhell:stun"
     ]
-  },  "divine_prot": {
+  },
+  "divine_prot": {
   "subtitle": "sounds.holyhell.divine_prot",
   "sounds": [
     "holyhell:divine_prot"
   ]
-}
+},
+
+  "static_ambient": {
+    "subtitle": "sounds.holyhell.static_ambient",
+    "sounds": [
+      "holyhell:ambient/static_ambient"
+    ]
+  },
+
+  "blink": {
+    "subtitle": "sounds.holyhell.blink",
+    "sounds": [
+      "holyhell:ambient/blink"
+    ]
+  },
+
+  "wind_ambient_1": {
+    "subtitle": "sounds.holyhell.wind_ambient_1",
+    "sounds": [
+      "holyhell:ambient/wind/wind_ambient_1"
+    ]
+  },
+  "wind_ambient_2": {
+    "subtitle": "sounds.holyhell.wind_ambient_2",
+    "sounds": [
+      "holyhell:ambient/wind/wind_ambient_2"
+    ]
+  },
+  "wind_ambient_3": {
+    "subtitle": "sounds.holyhell.wind_ambient_3",
+    "sounds": [
+      "holyhell:ambient/wind_ambient_3"
+    ]
+  }
 }

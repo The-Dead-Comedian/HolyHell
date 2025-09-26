@@ -5,13 +5,13 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 
 
-public class DivineProtectionEffect extends MobEffect {
+public class ParanoiaEffect extends MobEffect {
 
 
-
-    public DivineProtectionEffect(MobEffectCategory statusEffectCategory, int color) {
+    public ParanoiaEffect(MobEffectCategory statusEffectCategory, int color) {
         super(statusEffectCategory, color);
     }
+
 
     @Override
     public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
