@@ -24,7 +24,7 @@ public class HolyHellEffects {
     public static final DeferredHolder<MobEffect, AngelicVisionEffect> ANGELIC_VISION = MOB_EFFECTS.register("angelic_vision",
             () -> new AngelicVisionEffect(MobEffectCategory.BENEFICIAL, 0x36ebab));
 
-    public static final DeferredHolder<MobEffect, ParanoiaEffect> PARANOIA = MOB_EFFECTS.register("angelic_vision",
+    public static final DeferredHolder<MobEffect, ParanoiaEffect> PARANOIA = MOB_EFFECTS.register("paranoia",
             () -> new ParanoiaEffect(MobEffectCategory.NEUTRAL, 0x36ebab));
 
 

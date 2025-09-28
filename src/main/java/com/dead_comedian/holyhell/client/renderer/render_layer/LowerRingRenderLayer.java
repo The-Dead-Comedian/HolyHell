@@ -1,4 +1,4 @@
-package com.dead_comedian.holyhell.client.renderer.feature;
+package com.dead_comedian.holyhell.client.renderer.render_layer;
 
 
 import com.dead_comedian.holyhell.Holyhell;
@@ -24,21 +24,20 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 
-public class ReligiousRingsUpperFeatureRenderer<T extends LivingEntity> extends RenderLayer<T, PlayerModel<T>> {
+public class LowerRingRenderLayer<T extends LivingEntity> extends RenderLayer<T, PlayerModel<T>> {
     public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID,"textures/entity/religious_rings.png");
-    private final ModelPart bb_main;
+    private final ModelPart bb_main1;
 
-    public ReligiousRingsUpperFeatureRenderer(RenderLayerParent<T, PlayerModel<T>> context, EntityModelSet loader) {
+    public LowerRingRenderLayer(RenderLayerParent<T, PlayerModel<T>> context, EntityModelSet loader) {
         super(context);
-        ModelPart modelPart = loader.bakeLayer(HolyHellModelLayers.RELIGIOUS_RINGSV);
-        this.bb_main = modelPart.getChild("bb_main");
-
+        ModelPart modelPart = loader.bakeLayer(HolyHellModelLayers.RELIGIOUS_RINGS);
+        this.bb_main1 = modelPart.getChild("bb_main1");
     }
 
     public static LayerDefinition getTexturedModelData() {
         MeshDefinition modelData = new MeshDefinition();
         PartDefinition modelPartData = modelData.getRoot();
-        PartDefinition bb_main = modelPartData.addOrReplaceChild("bb_main", CubeListBuilder.create().texOffs(0, 0).addBox(-11.0F, -28.0F, -11.0F, 22.0F, 7.0F, 22.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 28.0F, 0.0F));
+        PartDefinition bb_main = modelPartData.addOrReplaceChild("bb_main1", CubeListBuilder.create().texOffs(0, 0).addBox(    -11.0F, -17.0F, -11.0F, 22.0F, 7.0F, 22.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
         return LayerDefinition.create(modelData, 128, 128);
     }
 
@@ -55,9 +54,9 @@ public class ReligiousRingsUpperFeatureRenderer<T extends LivingEntity> extends 
             for(int m = 0; m < 1; ++m) {
                 matrixStack.pushPose();
                 float n = j * (float) (-(10 + m));
-                matrixStack.mulPose(Axis.YP.rotationDegrees(n));
+                matrixStack.mulPose(Axis.YP.rotationDegrees(-n));
 
-                this.bb_main.render(matrixStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY);
+                this.bb_main1.render(matrixStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY);
 
                 matrixStack.popPose();
             }

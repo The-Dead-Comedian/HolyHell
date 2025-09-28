@@ -57,6 +57,32 @@ import java.util.List;
 @EventBusSubscriber(modid = Holyhell.MOD_ID)
 public class HolyHellEventBusEvents {
 
+    public static int paranoiaTimer = 0;
+
+    @SubscribeEvent
+    public static void paranoiaTimer(LevelTickEvent.Post event) {
+        Player player = Minecraft.getInstance().player;
+        if (player != null) {
+            if (player.getData(HolyHellAttachments.ANGEL_VISION_SHADER_SYNCED_DATA)) {
+                paranoiaTimer++;
+                if (paranoiaTimer == 300) {
+                    player.addEffect(new MobEffectInstance(HolyHellEffects.PARANOIA, 500));
+                } else if (paranoiaTimer == 800) {
+                    player.addEffect(new MobEffectInstance(HolyHellEffects.PARANOIA, 400, 1));
+                } else if (paranoiaTimer == 1200) {
+                    player.addEffect(new MobEffectInstance(HolyHellEffects.PARANOIA, 300, 2));
+                } else if (paranoiaTimer >= 1500) {
+                        player.addEffect(new MobEffectInstance(HolyHellEffects.PARANOIA, 500, 3));
+
+                }
+            } else {
+                if (player.hasEffect(HolyHellEffects.PARANOIA)) {
+                    player.removeEffect(HolyHellEffects.PARANOIA);
+                }
+                paranoiaTimer=0;
+            }
+        }
+    }
 
     @SubscribeEvent
     public static void stopSounds(LevelTickEvent.Post event) {
@@ -64,7 +90,7 @@ public class HolyHellEventBusEvents {
         if (event.getLevel() instanceof ServerLevel serverLevel) {
             for (ServerPlayer player : serverLevel.players()) {
                 if (!player.getData(HolyHellAttachments.ANGEL_VISION_SHADER_SYNCED_DATA)) {
-                    
+
                     ClientboundStopSoundPacket stopSoundS2CPacket = new ClientboundStopSoundPacket(HolyHellSounds.STATIC_AMBIENT.get().getLocation(), SoundSource.RECORDS);
                     player.connection.send(stopSoundS2CPacket);
                 }
@@ -86,7 +112,6 @@ public class HolyHellEventBusEvents {
             }
         }
     }
-
 
     @SubscribeEvent
     public static void onLivingHealEvent(EntityJoinLevelEvent event) {
@@ -128,7 +153,6 @@ public class HolyHellEventBusEvents {
             }
         }
     }
-
 
     @SubscribeEvent
     public static void livingEntityDie(LivingDeathEvent event) {

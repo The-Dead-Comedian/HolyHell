@@ -4,8 +4,8 @@ import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.HolyhellModClient;
 import com.dead_comedian.holyhell.client.model.entity.*;
 import com.dead_comedian.holyhell.client.model.entity.non_living.*;
-import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsLowerFeatureRenderer;
-import com.dead_comedian.holyhell.client.renderer.feature.ReligiousRingsUpperFeatureRenderer;
+import com.dead_comedian.holyhell.client.renderer.render_layer.LowerRingRenderLayer;
+import com.dead_comedian.holyhell.client.renderer.render_layer.UpperRingRenderLayer;
 import com.dead_comedian.holyhell.client.renderer.overlay.EyeTransitionOverlay;
 import com.dead_comedian.holyhell.networking.packet.ServerboundAngelShaderAbilityPacket;
 import com.dead_comedian.holyhell.particle.*;
@@ -13,9 +13,6 @@ import com.dead_comedian.holyhell.registries.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.AttackSweepParticle;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.network.protocol.game.ClientboundStopSoundPacket;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Monster;
@@ -44,6 +41,14 @@ public class HolyHellClientEventBus {
 
 
     public static boolean shouldRenderParticle;
+
+
+    @SubscribeEvent
+    public static void renderRing(RenderPlayerEvent.Post event){
+        event.getRenderer().addLayer(new LowerRingRenderLayer<>(event.getRenderer(), Minecraft.getInstance().getEntityModels()));
+        event.getRenderer().addLayer(new UpperRingRenderLayer<>(event.getRenderer(), Minecraft.getInstance().getEntityModels()));
+
+    }
 
     @SubscribeEvent
     public static void playAmbientEffects(ClientTickEvent.Post event) {
@@ -172,8 +177,8 @@ public class HolyHellClientEventBus {
     public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
         HolyHellItemProperties.addCustomItemProperties();
 
-        event.registerLayerDefinition(HolyHellModelLayers.RELIGIOUS_RINGSV, ReligiousRingsUpperFeatureRenderer::getTexturedModelData);
-        event.registerLayerDefinition(HolyHellModelLayers.RELIGIOUS_RINGS, ReligiousRingsLowerFeatureRenderer::getTexturedModelData);
+        event.registerLayerDefinition(HolyHellModelLayers.RELIGIOUS_RINGSV, UpperRingRenderLayer::getTexturedModelData);
+        event.registerLayerDefinition(HolyHellModelLayers.RELIGIOUS_RINGS, LowerRingRenderLayer::getTexturedModelData);
 
 
         event.registerLayerDefinition(HolyHellModelLayers.GLOBULAR_DOME, GlobularDomeModel::createBodyLayer);
