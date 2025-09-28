@@ -1,5 +1,4 @@
-package com.dead_comedian.holyhell.client.renderer.feature;
-
+package com.dead_comedian.holyhell.client.renderer.render_layer;
 
 import com.dead_comedian.holyhell.HolyHell;
 import com.dead_comedian.holyhell.registries.HolyHellEffects;
@@ -7,28 +6,28 @@ import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import net.minecraft.client.model.*;
+import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.CubeDeformation;
-import net.minecraft.client.model.geom.builders.CubeListBuilder;
-import net.minecraft.client.model.geom.builders.LayerDefinition;
-import net.minecraft.client.model.geom.builders.MeshDefinition;
-import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Entity;
 
-public class ReligiousRingsUpperFeatureRenderer<T extends LivingEntity> extends RenderLayer<T, PlayerModel<T>> {
+import java.util.List;
+import java.util.Map;
+
+public class UpperRingRenderLayer extends RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
     public static final ResourceLocation TEXTURE = new ResourceLocation(HolyHell.MOD_ID,"textures/entity/religious_rings.png");
     private final ModelPart bb_main;
 
-    public ReligiousRingsUpperFeatureRenderer(RenderLayerParent<T, PlayerModel<T>> context, EntityModelSet loader) {
+    public UpperRingRenderLayer(RenderLayerParent<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> context, EntityModelSet loader) {
         super(context);
         ModelPart modelPart = loader.bakeLayer(HolyHellModelLayers.RELIGIOUS_RINGSV);
         this.bb_main = modelPart.getChild("bb_main");
@@ -43,23 +42,18 @@ public class ReligiousRingsUpperFeatureRenderer<T extends LivingEntity> extends 
     }
 
     @Override
-    protected ResourceLocation getTextureLocation(T entity) {
-        return TEXTURE;
-    }
-
-    @Override
-    public void render(PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i, T livingEntity, float f, float g, float h, float j, float k, float l) {
-        if (livingEntity.hasEffect(HolyHellEffects.JESISTANCE.get())) {
-            VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderType.entityCutoutNoCull(TEXTURE));
+    public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int i, AbstractClientPlayer abstractClientPlayer, float v, float v1, float v2, float v3, float v4, float v5) {
+        if (abstractClientPlayer.hasEffect(HolyHellEffects.JESISTANCE.get())) {
+            VertexConsumer vertexConsumer = multiBufferSource.getBuffer(RenderType.entityCutoutNoCull(TEXTURE));
 
             for(int m = 0; m < 1; ++m) {
-                matrixStack.pushPose();
-                float n = j * (float) (-(10 + m));
-                matrixStack.mulPose(Axis.YP.rotationDegrees(n));
+                poseStack.pushPose();
+                float n = v3 * (float) (-(10 + m));
+                poseStack.mulPose(Axis.YP.rotationDegrees(n));
 
-                this.bb_main.render(matrixStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY);
+                this.bb_main.render(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY);
 
-                matrixStack.popPose();
+                poseStack.popPose();
             }
 
         }
