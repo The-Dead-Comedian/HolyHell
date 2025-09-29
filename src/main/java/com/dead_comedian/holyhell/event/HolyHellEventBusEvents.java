@@ -33,8 +33,11 @@ import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -46,6 +49,7 @@ import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingHealEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import org.joml.Matrix4f;
 
@@ -57,150 +61,161 @@ import java.util.List;
 @EventBusSubscriber(modid = Holyhell.MOD_ID)
 public class HolyHellEventBusEvents {
 
-    public static int paranoiaTimer = 0;
+    public static int paranoiaTimer;
+    public static int paranoiaAmp;
+
+
+
 
     @SubscribeEvent
     public static void paranoiaTimer(LevelTickEvent.Post event) {
         Player player = Minecraft.getInstance().player;
         if (player != null) {
             if (player.getData(HolyHellAttachments.ANGEL_VISION_SHADER_SYNCED_DATA)) {
-                paranoiaTimer++;
-                if (paranoiaTimer == 300) {
-                    player.addEffect(new MobEffectInstance(HolyHellEffects.PARANOIA, 500));
-                } else if (paranoiaTimer == 800) {
-                    player.addEffect(new MobEffectInstance(HolyHellEffects.PARANOIA, 400, 1));
-                } else if (paranoiaTimer == 1200) {
-                    player.addEffect(new MobEffectInstance(HolyHellEffects.PARANOIA, 300, 2));
-                } else if (paranoiaTimer >= 1500) {
-                        player.addEffect(new MobEffectInstance(HolyHellEffects.PARANOIA, 500, 3));
-
-                }
-            } else {
                 if (player.hasEffect(HolyHellEffects.PARANOIA)) {
-                    player.removeEffect(HolyHellEffects.PARANOIA);
+                    paranoiaTimer = player.getEffect(HolyHellEffects.PARANOIA).getDuration();
+                    paranoiaAmp = player.getEffect(HolyHellEffects.PARANOIA).getAmplifier();
+                } else {
+                    paranoiaTimer++;
                 }
-                paranoiaTimer=0;
+
+
+                if (paranoiaTimer == 300 && !player.hasEffect(HolyHellEffects.PARANOIA)) {
+                    player.addEffect(new MobEffectInstance(HolyHellEffects.PARANOIA, 500, 0));
+            } else if (paranoiaTimer == 0 && paranoiaAmp == 0) {
+                player.addEffect(new MobEffectInstance(HolyHellEffects.PARANOIA, 400, 1));
+            } else if (paranoiaTimer == 0 && paranoiaAmp == 1) {
+                player.addEffect(new MobEffectInstance(HolyHellEffects.PARANOIA, 300, 2));
+            } else if (paranoiaTimer == 0 && paranoiaAmp == 2) {
+                player.addEffect(new MobEffectInstance(HolyHellEffects.PARANOIA, 500, 3));
+
+            }
+        } else {
+            if (player.hasEffect(HolyHellEffects.PARANOIA)) {
+                player.removeEffect(HolyHellEffects.PARANOIA);
+            }
+            paranoiaTimer = 0;
+        }
+    }
+}
+
+@SubscribeEvent
+public static void stopSounds(LevelTickEvent.Post event) {
+
+    if (event.getLevel() instanceof ServerLevel serverLevel) {
+        for (ServerPlayer player : serverLevel.players()) {
+            if (!player.getData(HolyHellAttachments.ANGEL_VISION_SHADER_SYNCED_DATA)) {
+
+                ClientboundStopSoundPacket stopSoundS2CPacket = new ClientboundStopSoundPacket(HolyHellSounds.STATIC_AMBIENT.get().getLocation(), SoundSource.RECORDS);
+                player.connection.send(stopSoundS2CPacket);
             }
         }
     }
 
-    @SubscribeEvent
-    public static void stopSounds(LevelTickEvent.Post event) {
+}
 
-        if (event.getLevel() instanceof ServerLevel serverLevel) {
-            for (ServerPlayer player : serverLevel.players()) {
-                if (!player.getData(HolyHellAttachments.ANGEL_VISION_SHADER_SYNCED_DATA)) {
+@SubscribeEvent
+public static void registerPayloads(RegisterPayloadHandlersEvent event) {
+    HolyHellMessages.register(event);
+}
 
-                    ClientboundStopSoundPacket stopSoundS2CPacket = new ClientboundStopSoundPacket(HolyHellSounds.STATIC_AMBIENT.get().getLocation(), SoundSource.RECORDS);
-                    player.connection.send(stopSoundS2CPacket);
-                }
-            }
-        }
-
-    }
-
-    @SubscribeEvent
-    public static void registerPayloads(RegisterPayloadHandlersEvent event) {
-        HolyHellMessages.register(event);
-    }
-
-    @SubscribeEvent
-    public static void onLivingHealEvent(LivingHealEvent event) {
-        if (event.getEntity() instanceof Player player) {
-            if (player.hasEffect(HolyHellEffects.BLOODLUST)) {
-                event.setCanceled(true);
-            }
+@SubscribeEvent
+public static void onLivingHealEvent(LivingHealEvent event) {
+    if (event.getEntity() instanceof Player player) {
+        if (player.hasEffect(HolyHellEffects.BLOODLUST)) {
+            event.setCanceled(true);
         }
     }
+}
 
-    @SubscribeEvent
-    public static void onLivingHealEvent(EntityJoinLevelEvent event) {
-        if (event.getEntity() instanceof Cow cow) {
-            if (isAprilFools()) {
-                cow.discard();
-                BlockPos blockPos = cow.blockPosition();
-                HolyCowEntity holyCowEntity = new HolyCowEntity(HolyHellEntities.HOLY_COW.get(), cow.level());
-                cow.level().addFreshEntity(holyCowEntity);
-                holyCowEntity.moveTo(blockPos, holyCowEntity.getYRot(), holyCowEntity.getXRot());
-            }
+@SubscribeEvent
+public static void onLivingHealEvent(EntityJoinLevelEvent event) {
+    if (event.getEntity() instanceof Cow cow) {
+        if (isAprilFools()) {
+            cow.discard();
+            BlockPos blockPos = cow.blockPosition();
+            HolyCowEntity holyCowEntity = new HolyCowEntity(HolyHellEntities.HOLY_COW.get(), cow.level());
+            cow.level().addFreshEntity(holyCowEntity);
+            holyCowEntity.moveTo(blockPos, holyCowEntity.getYRot(), holyCowEntity.getXRot());
         }
     }
+}
 
-    private static boolean isAprilFools() {
-        LocalDate localdate = LocalDate.now();
-        int i = localdate.get(ChronoField.DAY_OF_MONTH);
-        int j = localdate.get(ChronoField.MONTH_OF_YEAR);
-        return j == 4 && i <= 2;
-    }
+private static boolean isAprilFools() {
+    LocalDate localdate = LocalDate.now();
+    int i = localdate.get(ChronoField.DAY_OF_MONTH);
+    int j = localdate.get(ChronoField.MONTH_OF_YEAR);
+    return j == 4 && i <= 2;
+}
 
-    @SubscribeEvent
-    public static void onPlayerDeath(LivingDeathEvent event) {
-        if (event.getEntity() instanceof Player player) {
-            DamageSource damageSource = event.getSource();
+@SubscribeEvent
+public static void onPlayerDeath(LivingDeathEvent event) {
+    if (event.getEntity() instanceof Player player) {
+        DamageSource damageSource = event.getSource();
 
-            if (damageSource.is(DamageTypes.FALLING_BLOCK)) {
-                Entity directEntity = damageSource.getDirectEntity();
+        if (damageSource.is(DamageTypes.FALLING_BLOCK)) {
+            Entity directEntity = damageSource.getDirectEntity();
 
-                if (directEntity instanceof FallingBlockEntity fallingBlock) {
-                    BlockState blockState = fallingBlock.getBlockState();
+            if (directEntity instanceof FallingBlockEntity fallingBlock) {
+                BlockState blockState = fallingBlock.getBlockState();
 
-                    if (blockState.getBlock() == HolyHellBlocks.FALLING_CROSS.get()) {
-                        if (player instanceof ServerPlayer) {
-                            HolyHellCriteriaTriggers.KILLED_BY_CROSS.get().trigger(((ServerPlayer) (Object) player));
-                        }
+                if (blockState.getBlock() == HolyHellBlocks.FALLING_CROSS.get()) {
+                    if (player instanceof ServerPlayer) {
+                        HolyHellCriteriaTriggers.KILLED_BY_CROSS.get().trigger(((ServerPlayer) (Object) player));
                     }
                 }
             }
         }
     }
+}
 
-    @SubscribeEvent
-    public static void livingEntityDie(LivingDeathEvent event) {
-
-
-        LivingEntity entity = event.getEntity();
-        LivingEntity entity1 = (LivingEntity) event.getSource().getEntity();
-        if (entity == Minecraft.getInstance().player && entity.hasEffect(HolyHellEffects.BLOODLUST)) {
-            entity.setHealth(20);
-        }
+@SubscribeEvent
+public static void livingEntityDie(LivingDeathEvent event) {
 
 
-        if (entity instanceof LivingEntity && entity1 != null && entity != entity1) {
-            if (entity1.hasEffect(HolyHellEffects.BLOODLUST)) {
-                entity1.setHealth((float) (entity1.getHealth() + entity.getAttribute(Attributes.MAX_HEALTH).getBaseValue() * 0.3F));
+    LivingEntity entity = event.getEntity();
+    LivingEntity entity1 = (LivingEntity) event.getSource().getEntity();
+    if (entity == Minecraft.getInstance().player && entity.hasEffect(HolyHellEffects.BLOODLUST)) {
+        entity.setHealth(20);
+    }
 
 
-                if (entity instanceof RangedAttackMob) {
-                    entity1.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200, 1));
+    if (entity instanceof LivingEntity && entity1 != null && entity != entity1) {
+        if (entity1.hasEffect(HolyHellEffects.BLOODLUST)) {
+            entity1.setHealth((float) (entity1.getHealth() + entity.getAttribute(Attributes.MAX_HEALTH).getBaseValue() * 0.3F));
 
-                }
-                if (entity instanceof FlyingAnimal) {
-                    entity1.addEffect(new MobEffectInstance(MobEffects.JUMP, 200, 1));
 
-                }
-                if (entity instanceof Monster) {
-                    entity1.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 200, 1));
+            if (entity instanceof RangedAttackMob) {
+                entity1.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200, 1));
 
-                }
-                if (entity instanceof Animal) {
-                    entity1.addEffect(new MobEffectInstance(MobEffects.SATURATION, 200, 1));
+            }
+            if (entity instanceof FlyingAnimal) {
+                entity1.addEffect(new MobEffectInstance(MobEffects.JUMP, 200, 1));
 
-                }
+            }
+            if (entity instanceof Monster) {
+                entity1.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 200, 1));
+
+            }
+            if (entity instanceof Animal) {
+                entity1.addEffect(new MobEffectInstance(MobEffects.SATURATION, 200, 1));
+
             }
         }
-
     }
 
-    @SubscribeEvent
-    public static void registerAttributes(EntityAttributeCreationEvent event) {
-        event.put(HolyHellEntities.ANGEL.get(), AngelEntity.createAttributes().build());
-        event.put(HolyHellEntities.BAB_ONE.get(), BabOneEntity.createAttributes().build());
-        event.put(HolyHellEntities.BAB_TWO.get(), BabTwoEntity.createAttributes().build());
-        event.put(HolyHellEntities.BAB_THREE.get(), BabThreeEntity.createAttributes().build());
-        event.put(HolyHellEntities.CHERUB.get(), CherubEntity.createAttributes().build());
-        event.put(HolyHellEntities.HERETIC.get(), HereticEntity.createAttributes().build());
-        event.put(HolyHellEntities.HOLY_COW.get(), HolyCowEntity.createAttributes().build());
-        event.put(HolyHellEntities.HOLY_SPIRIT.get(), HolySpiritEntity.createAttributes().build());
-        event.put(HolyHellEntities.KAMIKAZE.get(), KamikazeEntity.createAttributes().build());
-    }
+}
+
+@SubscribeEvent
+public static void registerAttributes(EntityAttributeCreationEvent event) {
+    event.put(HolyHellEntities.ANGEL.get(), AngelEntity.createAttributes().build());
+    event.put(HolyHellEntities.BAB_ONE.get(), BabOneEntity.createAttributes().build());
+    event.put(HolyHellEntities.BAB_TWO.get(), BabTwoEntity.createAttributes().build());
+    event.put(HolyHellEntities.BAB_THREE.get(), BabThreeEntity.createAttributes().build());
+    event.put(HolyHellEntities.CHERUB.get(), CherubEntity.createAttributes().build());
+    event.put(HolyHellEntities.HERETIC.get(), HereticEntity.createAttributes().build());
+    event.put(HolyHellEntities.HOLY_COW.get(), HolyCowEntity.createAttributes().build());
+    event.put(HolyHellEntities.HOLY_SPIRIT.get(), HolySpiritEntity.createAttributes().build());
+    event.put(HolyHellEntities.KAMIKAZE.get(), KamikazeEntity.createAttributes().build());
+}
 }

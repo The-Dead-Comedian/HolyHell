@@ -115,7 +115,6 @@ public class HolyHellClientEventBus {
         }
     }
 
-
     @SubscribeEvent
     public static void setShouldRenderParticle(RenderLevelStageEvent event) {
         shouldRenderParticle = event.getStage() == RenderLevelStageEvent.Stage.AFTER_LEVEL;
@@ -215,13 +214,6 @@ public class HolyHellClientEventBus {
 
         }
     }
-
-
-//    @SubscribeEvent
-//    public static void a(RenderPlayerEvent event) {
-//        AbstractClientPlayer abstractClientPlayer = ((AbstractClientPlayer) (Object) Minecraft.getInstance().player);
-//        event.getRenderer().addLayer(new ReligiousRingsUpperFeatureRenderer<>());
-//    }
 
     @SubscribeEvent
     public static void registerParticleFactories(RegisterParticleProvidersEvent event) {

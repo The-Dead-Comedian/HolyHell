@@ -9,11 +9,20 @@ import com.mojang.math.Axis;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -28,17 +37,125 @@ import javax.annotation.Nullable;
 public abstract class SunTextureMixin {
 
     @Unique
-    int sprite_no = 0;
+    int spriteNo = 0;
     @Unique
     int cooldown = 0;
     @Unique
-    int switch_time = 150;
+    int switchTime = 150;
     @Unique
-    int switch_count = 0;
+    int switchCount = 0;
 
     @Shadow
     @Nullable
     private ClientLevel level;
+
+
+    //END
+
+    @Unique
+    public boolean isLookingIntoVoidInEnd(LocalPlayer player) {
+        if (player == null) return false;
+
+        // 1. Check End dimension
+        if (player.level().dimension() != Level.END) {
+            return false;
+        }
+
+        // 2. Looking downward: pitch (XRot) > some threshold
+        float pitch = player.getXRot();  // positive when looking downward
+        // You can pick a threshold; e.g. > 45° downwards
+        if (pitch < 0.0f) {
+            return false;
+        }
+
+        // 3. Ray trace along look vector
+        Vec3 eyePos = player.getEyePosition(1.0F);
+        Vec3 lookVec = player.getLookAngle();
+        Vec3 target = eyePos.add(lookVec.scale(256));  // cast a long ray
+
+        ClipContext ctx = new ClipContext(eyePos, target, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player);
+
+        BlockHitResult hit = player.level().clip(ctx);
+
+        boolean miss = (hit.getType() == HitResult.Type.MISS);
+        boolean targetBelowVoid = (target.y < 0);
+
+        return miss && targetBelowVoid;
+    }
+
+    @Inject(method = "renderSky", at = @At("TAIL"))
+    private void renderBigVoidEyes(Matrix4f frustumMatrix, Matrix4f projectionMatrix, float partialTick, Camera camera, boolean isFoggy, Runnable skyFogSetup, CallbackInfo ci) {
+        if (Minecraft.getInstance().player.getData(HolyHellAttachments.ANGEL_VISION_SHADER_SYNCED_DATA)) {
+            Level level = Minecraft.getInstance().level;
+            if (level == null || level.dimension() != Level.END) {
+                return;
+            }
+
+            if (isLookingIntoVoidInEnd(Minecraft.getInstance().player) && Minecraft.getInstance().player.hasEffect(HolyHellEffects.PARANOIA)) {
+
+                RenderSystem.enableBlend();
+                RenderSystem.defaultBlendFunc();
+                RenderSystem.depthMask(false);
+
+
+                RenderSystem.setShader(GameRenderer::getPositionTexShader);
+
+                holyHell$animateEye();
+
+                PoseStack poseStack = new PoseStack();
+                poseStack.last().pose().mul(frustumMatrix);
+
+
+                BufferBuilder bufferBuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+
+                poseStack.pushPose();
+
+                poseStack.translate(0.0F, 0.0F, 0.0F);
+                poseStack.mulPose(Axis.XP.rotationDegrees(0.0F));
+
+
+                RandomSource randomsource = RandomSource.create(10842L);
+                int eyeCount = (Minecraft.getInstance().player.getEffect(HolyHellEffects.PARANOIA).getAmplifier() + 1) * 75;
+                for (int j = 0; j < eyeCount; ++j) {
+                    float f1 = randomsource.nextFloat() * 2.0F - 1.0F;
+                    float f2 = randomsource.nextFloat() * 2.0F - 1.0F;
+                    float f3 = randomsource.nextFloat() * 2.0F - 1.0F;
+                    float f5 = Mth.lengthSquared(f1, f2, f3);
+
+                    RenderSystem.setShaderTexture(0, ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/environment/big_void_eye.png"));
+
+
+                    if (!(f5 <= 0.010000001F) && !(f5 >= 1.0F)) {
+                        Vector3f vector3f = (new Vector3f(f1, f2, f3)).normalize(100.0F);
+                        float f6 = (float) (randomsource.nextDouble() * (double) (float) Math.PI * (double) 2.0F);
+                        Quaternionf quaternionf = (new Quaternionf()).rotateTo(new Vector3f(0.0F, 0.0F, -1.0F), vector3f).rotateZ(f6);
+
+                        float size = 10.0F;
+
+                        bufferBuilder.addVertex(poseStack.last().pose(), -size, 130.0F, -size).setUv(0.0F, 0.0F);
+                        bufferBuilder.addVertex(poseStack.last().pose(), size, 130.0F, -size).setUv(1.0F, 0.0F);
+                        bufferBuilder.addVertex(poseStack.last().pose(), size, 130.0F, size).setUv(1.0F, 1.0F);
+                        bufferBuilder.addVertex(poseStack.last().pose(), -size, 130.0F, size).setUv(0.0F, 1.0F);
+
+                        poseStack.mulPose(quaternionf);
+
+                    }
+                }
+
+
+                BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
+
+
+                poseStack.popPose();
+
+                RenderSystem.depthMask(true);
+                RenderSystem.disableBlend();
+            }
+        }
+    }
+
+
+    //OVERWORLD
 
 
     @Inject(method = "renderSky", at = @At("TAIL"))
@@ -86,7 +203,6 @@ public abstract class SunTextureMixin {
         }
     }
 
-
     @Redirect(method = "renderSky", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderTexture(ILnet/minecraft/resources/ResourceLocation;)V"))
     private void redirectSunTexture(int textureUnit, ResourceLocation originalTexture) {
 
@@ -104,18 +220,17 @@ public abstract class SunTextureMixin {
         RenderSystem.setShaderTexture(textureUnit, originalTexture);
     }
 
-
     @Unique
     private void holyHell$animateEye() {
 
-        switch_time--;
-        if (switch_count <= 6 && cooldown <= 0 && switch_time <= 0) {
-            sprite_no = level.getRandom().nextInt(0, 5);
-            switch_time = level.getRandom().nextInt(70, 230);
-            switch_count++;
-        } else if (switch_count >= 6 && switch_time <= 0) {
-            sprite_no = 0;
-            switch_count = 0;
+        switchTime--;
+        if (switchCount <= 6 && cooldown <= 0 && switchTime <= 0) {
+            spriteNo = level.getRandom().nextInt(0, 5);
+            switchTime = level.getRandom().nextInt(70, 230);
+            switchCount++;
+        } else if (switchCount >= 6 && switchTime <= 0) {
+            spriteNo = 0;
+            switchCount = 0;
             cooldown = level.getRandom().nextInt(500, 12000);
 
         }
@@ -125,15 +240,15 @@ public abstract class SunTextureMixin {
         }
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        if (sprite_no == 0) {
+        if (spriteNo == 0) {
             RenderSystem.setShaderTexture(0, ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/environment/eye1.png"));
-        } else if (sprite_no == 1) {
+        } else if (spriteNo == 1) {
             RenderSystem.setShaderTexture(0, ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/environment/eye2.png"));
-        } else if (sprite_no == 2) {
+        } else if (spriteNo == 2) {
             RenderSystem.setShaderTexture(0, ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/environment/eye3.png"));
-        } else if (sprite_no == 3) {
+        } else if (spriteNo == 3) {
             RenderSystem.setShaderTexture(0, ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/environment/eye4.png"));
-        } else if (sprite_no == 4) {
+        } else if (spriteNo == 4) {
             RenderSystem.setShaderTexture(0, ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/environment/eye5.png"));
         }
     }
