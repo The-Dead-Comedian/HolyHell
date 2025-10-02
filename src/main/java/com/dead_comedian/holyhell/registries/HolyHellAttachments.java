@@ -15,7 +15,24 @@ public class HolyHellAttachments {
             DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, Holyhell.MOD_ID);
 
 
+    public static final Supplier<AttachmentType<Boolean>> CAN_TP_TO_ANGEL = ATTACHMENT_TYPES.register(
+            "can_tp_to_angel",
+            () -> AttachmentType.builder(() -> false)
+                    .serialize(Codec.BOOL)
+                    .sync(ByteBufCodecs.BOOL)
+                    .copyOnDeath()
+                    .build()
+    );
 
+
+    public static final Supplier<AttachmentType<Boolean>> SHOULD_DISPLAY_TEXT = ATTACHMENT_TYPES.register(
+            "should_display_text",
+            () -> AttachmentType.builder(() -> false)
+                    .serialize(Codec.BOOL)
+                    .sync(ByteBufCodecs.BOOL)
+                    .copyOnDeath()
+                    .build()
+    );
 
     public static final Supplier<AttachmentType<Boolean>> ANGEL_VISION_TRANSITION_SYNCED_DATA = ATTACHMENT_TYPES.register(
             "angel_vision_transition_synced_data",

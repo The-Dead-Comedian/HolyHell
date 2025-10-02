@@ -3,6 +3,7 @@ package com.dead_comedian.holyhell.mixin;
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.registries.HolyHellAttachments;
 import com.dead_comedian.holyhell.registries.HolyHellEffects;
+import com.dead_comedian.holyhell.registries.HolyhellDimensions;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
@@ -12,9 +13,11 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.network.protocol.game.ClientboundMoveEntityPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
@@ -36,6 +39,8 @@ import javax.annotation.Nullable;
 @Mixin(LevelRenderer.class)
 public abstract class SunTextureMixin {
 
+    private static final ResourceLocation SKY_BOX = ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/environment/eye_ring.png");
+
     @Unique
     int spriteNo = 0;
     @Unique
@@ -49,6 +54,64 @@ public abstract class SunTextureMixin {
     @Nullable
     private ClientLevel level;
 
+    private static final float[][][] CUBE_FACES = {
+            {{-1, -1, -1}, {-1, -1, 1}, {-1, 1, 1}, {-1, 1, -1}}, // -X
+            {{1, -1, 1}, {1, -1, -1}, {1, 1, -1}, {1, 1, 1}}, // +X
+            {{-1, 1, -1}, {-1, 1, 1}, {1, 1, 1}, {1, 1, -1}}, // +Y
+            {{-1, -1, 1}, {-1, -1, -1}, {1, -1, -1}, {1, -1, 1}}, // -Y
+            {{-1, -1, -1}, {-1, 1, -1}, {1, 1, -1}, {1, -1, -1}}, // -Z
+            {{1, -1, 1}, {-1, -1, 1}, {-1, 1, 1}, {1, 1, 1}}  // +Z
+    };
+
+
+    //ANGEL
+
+
+    @Inject(method = "renderSky", at = @At("TAIL"))
+    private void renderAngelBottom(Matrix4f frustumMatrix, Matrix4f projectionMatrix, float partialTick, Camera camera, boolean isFoggy, Runnable skyFogSetup, CallbackInfo ci) {
+        Player player = Minecraft.getInstance().player;
+
+        if (player != null) {
+            if (player.level().dimension() == HolyhellDimensions.ANGEL) {
+                RenderSystem.disableDepthTest();
+                RenderSystem.depthMask(false);
+                RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                RenderSystem.disableCull();
+
+                PoseStack poseStack = new PoseStack();
+                poseStack.last().pose().mul(frustumMatrix);
+                Matrix4f matrix = poseStack.last().pose();
+
+                poseStack.pushPose();
+
+                // Draw each face of the cube
+                for (int i = 0; i < 6; i++) {
+                    drawFace(matrix, SKY_BOX, CUBE_FACES[i]);
+                }
+
+                poseStack.popPose();
+                RenderSystem.enableCull();
+                RenderSystem.depthMask(true);
+                RenderSystem.enableDepthTest();
+            }
+        }
+    }
+
+    private void drawFace(Matrix4f matrix, ResourceLocation texture, float[][] verts) {
+        RenderSystem.setShaderTexture(0, texture);
+        Tesselator tesselator = Tesselator.getInstance();
+        BufferBuilder bufferBuilder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+
+
+        bufferBuilder.addVertex(matrix, verts[0][0], verts[0][1], verts[0][2]).setUv(0.0F, 0.0F);
+        bufferBuilder.addVertex(matrix, verts[1][0], verts[1][1], verts[1][2]).setUv(1.0F, 0.0F);
+        bufferBuilder.addVertex(matrix, verts[2][0], verts[2][1], verts[2][2]).setUv(1.0F, 1.0F);
+        bufferBuilder.addVertex(matrix, verts[3][0], verts[3][1], verts[3][2]).setUv(0.0F, 1.0F);
+
+        BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
+
+
+    }
 
     //END
 

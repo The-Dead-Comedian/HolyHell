@@ -4,9 +4,11 @@ import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.HolyhellModClient;
 import com.dead_comedian.holyhell.client.model.entity.*;
 import com.dead_comedian.holyhell.client.model.entity.non_living.*;
+import com.dead_comedian.holyhell.client.renderer.overlay.EndTextOverlay;
 import com.dead_comedian.holyhell.client.renderer.render_layer.LowerRingRenderLayer;
 import com.dead_comedian.holyhell.client.renderer.render_layer.UpperRingRenderLayer;
 import com.dead_comedian.holyhell.client.renderer.overlay.EyeTransitionOverlay;
+import com.dead_comedian.holyhell.helper.PlayerHelpers;
 import com.dead_comedian.holyhell.networking.packet.ServerboundAngelShaderAbilityPacket;
 import com.dead_comedian.holyhell.particle.*;
 import com.dead_comedian.holyhell.registries.*;
@@ -44,7 +46,7 @@ public class HolyHellClientEventBus {
 
 
     @SubscribeEvent
-    public static void renderRing(RenderPlayerEvent.Post event){
+    public static void renderRing(RenderPlayerEvent.Post event) {
         event.getRenderer().addLayer(new LowerRingRenderLayer<>(event.getRenderer(), Minecraft.getInstance().getEntityModels()));
         event.getRenderer().addLayer(new UpperRingRenderLayer<>(event.getRenderer(), Minecraft.getInstance().getEntityModels()));
 
@@ -107,18 +109,13 @@ public class HolyHellClientEventBus {
                     }
                 }
 
-            }
-            else {
+            } else {
 
                 //STOP SOUNDS
             }
         }
     }
 
-    @SubscribeEvent
-    public static void setShouldRenderParticle(RenderLevelStageEvent event) {
-        shouldRenderParticle = event.getStage() == RenderLevelStageEvent.Stage.AFTER_LEVEL;
-    }
 
     @SubscribeEvent
     public static void locatorParticles(ClientTickEvent.Pre event) {
@@ -163,6 +160,11 @@ public class HolyHellClientEventBus {
         if (EyeTransitionOverlay.eyeTransitionCounter >= 0) {
             if (EyeTransitionOverlay.eyeTransitionCounter < EyeTransitionOverlay.FRAME_TEXTURES.length) {
                 EyeTransitionOverlay.eyeTransitionCounter++;
+            }
+        }
+        if (EndTextOverlay.textCounter >= 0) {
+            if (EndTextOverlay.textCounter < EndTextOverlay.FRAME_TEXTURES.length * 60) {
+                EndTextOverlay.textCounter++;
             }
         }
     }
