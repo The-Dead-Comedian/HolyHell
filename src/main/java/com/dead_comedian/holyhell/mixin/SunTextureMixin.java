@@ -54,6 +54,7 @@ public abstract class SunTextureMixin {
     @Nullable
     private ClientLevel level;
 
+    @Unique
     private static final float[][][] CUBE_FACES = {
             {{-1, -1, -1}, {-1, -1, 1}, {-1, 1, 1}, {-1, 1, -1}}, // -X
             {{1, -1, 1}, {1, -1, -1}, {1, 1, -1}, {1, 1, 1}}, // +X
@@ -66,6 +67,22 @@ public abstract class SunTextureMixin {
 
     //ANGEL
 
+    @Unique
+    private void drawFace(Matrix4f matrix, ResourceLocation texture, float[][] verts) {
+        RenderSystem.setShaderTexture(0, texture);
+        Tesselator tesselator = Tesselator.getInstance();
+        BufferBuilder bufferBuilder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+
+
+        bufferBuilder.addVertex(matrix, verts[0][0], verts[0][1], verts[0][2]).setUv(0.0F, 0.0F);
+        bufferBuilder.addVertex(matrix, verts[1][0], verts[1][1], verts[1][2]).setUv(1.0F, 0.0F);
+        bufferBuilder.addVertex(matrix, verts[2][0], verts[2][1], verts[2][2]).setUv(1.0F, 1.0F);
+        bufferBuilder.addVertex(matrix, verts[3][0], verts[3][1], verts[3][2]).setUv(0.0F, 1.0F);
+
+        BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
+
+
+    }
 
     @Inject(method = "renderSky", at = @At("TAIL"))
     private void renderAngelBottom(Matrix4f frustumMatrix, Matrix4f projectionMatrix, float partialTick, Camera camera, boolean isFoggy, Runnable skyFogSetup, CallbackInfo ci) {
@@ -97,21 +114,7 @@ public abstract class SunTextureMixin {
         }
     }
 
-    private void drawFace(Matrix4f matrix, ResourceLocation texture, float[][] verts) {
-        RenderSystem.setShaderTexture(0, texture);
-        Tesselator tesselator = Tesselator.getInstance();
-        BufferBuilder bufferBuilder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 
-
-        bufferBuilder.addVertex(matrix, verts[0][0], verts[0][1], verts[0][2]).setUv(0.0F, 0.0F);
-        bufferBuilder.addVertex(matrix, verts[1][0], verts[1][1], verts[1][2]).setUv(1.0F, 0.0F);
-        bufferBuilder.addVertex(matrix, verts[2][0], verts[2][1], verts[2][2]).setUv(1.0F, 1.0F);
-        bufferBuilder.addVertex(matrix, verts[3][0], verts[3][1], verts[3][2]).setUv(0.0F, 1.0F);
-
-        BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
-
-
-    }
 
     //END
 
@@ -125,8 +128,7 @@ public abstract class SunTextureMixin {
         }
 
         // 2. Looking downward: pitch (XRot) > some threshold
-        float pitch = player.getXRot();  // positive when looking downward
-        // You can pick a threshold; e.g. > 45° downwards
+        float pitch = player.getXRot();
         if (pitch < 0.0f) {
             return false;
         }

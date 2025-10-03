@@ -83,6 +83,8 @@ public class HolyHellEventBusEvents {
                 ServerLevel targetLevel = event.getLevel().getServer().getLevel(HolyhellDimensions.ANGEL);
                 if (Minecraft.getInstance().player.getData(HolyHellAttachments.CAN_TP_TO_ANGEL)) {
                     if (targetLevel != null) {
+                        Minecraft.getInstance().player.removeEffect(HolyHellEffects.ANGELIC_VISION);
+                        player.removeEffect(HolyHellEffects.ANGELIC_VISION);
                         player.changeDimension(new DimensionTransition(
                                 targetLevel,
                                 player.position(),
@@ -91,7 +93,7 @@ public class HolyHellEventBusEvents {
                                 player.getXRot(),
                                 DimensionTransition.PLAY_PORTAL_SOUND.then(DimensionTransition.PLACE_PORTAL_TICKET)
                         ));
-                        
+                        Minecraft.getInstance().player.setData(HolyHellAttachments.CAN_TP_TO_ANGEL,false);
 
                     }
                 }
@@ -122,7 +124,7 @@ public class HolyHellEventBusEvents {
                     player.addEffect(new MobEffectInstance(HolyHellEffects.PARANOIA, 500, 3));
                 }
 
-                if (paranoiaAmp == 3 && !player.getData(HolyHellAttachments.CAN_TP_TO_ANGEL)) {
+                if (paranoiaAmp == 3 && !player.getData(HolyHellAttachments.CAN_TP_TO_ANGEL)&& player.level().dimension()==Level.END) {
                     if (secTillText > 0) {
                         secTillText--;
                     } else {

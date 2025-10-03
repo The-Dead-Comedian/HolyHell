@@ -13,6 +13,7 @@
   ],
   "client": [
     "BlockModelShaperMixin",
+    "LivingEntityRendererMixin",
     "SunTextureMixin",
     "TextureAtlasMixin"
   ]

@@ -39,7 +39,7 @@ bool isTargetColor(vec3 hsv) {
     // ff0035 (Hostile)
     (hsv.x > 0.95 || hsv.x < 0.02) && hsv.y > 0.8 && hsv.z > 0.6 ||
 
-//    // 00a4ff (Boss)
+//    // 00a4ff (Boss)z
     (hsv.x > 0.53 && hsv.x < 0.58) && hsv.y > 0.8 && hsv.z > 0.6 ||
 
     // 00ff7e (Peaceful)

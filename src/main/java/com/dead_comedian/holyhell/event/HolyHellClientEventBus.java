@@ -12,6 +12,7 @@ import com.dead_comedian.holyhell.helper.PlayerHelpers;
 import com.dead_comedian.holyhell.networking.packet.ServerboundAngelShaderAbilityPacket;
 import com.dead_comedian.holyhell.particle.*;
 import com.dead_comedian.holyhell.registries.*;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.AttackSweepParticle;
 import net.minecraft.client.renderer.GameRenderer;
@@ -43,6 +44,12 @@ public class HolyHellClientEventBus {
 
 
     public static boolean shouldRenderParticle;
+
+    @SubscribeEvent
+    public static void renderEntity(RenderLivingEvent.Post event){
+        PoseStack poseStack = new PoseStack();
+
+    }
 
 
     @SubscribeEvent
@@ -116,7 +123,6 @@ public class HolyHellClientEventBus {
         }
     }
 
-
     @SubscribeEvent
     public static void locatorParticles(ClientTickEvent.Pre event) {
         Player player = Minecraft.getInstance().player;
@@ -145,7 +151,6 @@ public class HolyHellClientEventBus {
             }
         }
     }
-
 
     @SubscribeEvent
     public static void onKeyInput(InputEvent.Key event) {
@@ -222,7 +227,6 @@ public class HolyHellClientEventBus {
 
         event.registerSpriteSet(HolyhellParticles.HOSTILE_LOCATOR.get(), HostileLocatorParticle.Provider::new);
         event.registerSpriteSet(HolyhellParticles.BOSS_LOCATOR.get(), BossLocatorParticle.Provider::new);
-        event.registerSpriteSet(HolyhellParticles.NEUTRAL_LOCATOR.get(), NeutralLocatorParticle.Provider::new);
         event.registerSpriteSet(HolyhellParticles.PEACEFUL_LOCATOR.get(), PeacefulLocatorParticle.Provider::new);
         event.registerSpriteSet(HolyhellParticles.PLAYER_LOCATOR.get(), PlayerLocatorParticle.Provider::new);
 

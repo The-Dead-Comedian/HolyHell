@@ -29,7 +29,6 @@ public class EndTextOverlay {
         if (event.getName().equals(VanillaGuiLayers.CROSSHAIR)) {
             Minecraft mc = Minecraft.getInstance();
             Player player = mc.player;
-            System.out.println(textCounter);
             if (player != null && shouldShowOverlay(player)) {
                 GuiGraphics guiGraphics = event.getGuiGraphics();
 
