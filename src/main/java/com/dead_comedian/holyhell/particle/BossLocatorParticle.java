@@ -21,7 +21,7 @@ public class BossLocatorParticle extends TextureSheetParticle {
         this.spriteProvider = spriteProvider;
         this.lifetime = 1;
         quadSize =  2f;
-        this.alpha = 1.0f;
+        this.alpha = 0.83f;
         this.setSpriteFromAge(spriteProvider);
     }
 

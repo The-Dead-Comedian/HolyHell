@@ -22,7 +22,7 @@ public class PeacefulLocatorParticle extends TextureSheetParticle {
         this.spriteProvider = spriteProvider;
         this.lifetime = 1;
         quadSize =  2f;
-        this.alpha = 1.0f;
+        this.alpha = 0.83f;
         this.setSpriteFromAge(spriteProvider);
     }
 
@@ -53,7 +53,7 @@ public class PeacefulLocatorParticle extends TextureSheetParticle {
 
     @Override
     protected int getLightColor(float f) {
-        return 14680064;
+        return 15728640;
     }
 
     public record Provider(SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {

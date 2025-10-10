@@ -1,12 +1,16 @@
 package com.dead_comedian.holyhell.particle;
 
 import com.dead_comedian.holyhell.registries.HolyHellAttachments;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.RenderStateShard;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 
@@ -14,12 +18,13 @@ public class HostileLocatorParticle extends TextureSheetParticle {
     private final SpriteSet spriteProvider;
 
 
+
     HostileLocatorParticle(ClientLevel world, double x, double y, double z, SpriteSet spriteProvider) {
         super(world, x, y, z);
         this.spriteProvider = spriteProvider;
         this.lifetime = 1;
         quadSize =  2f;
-        this.alpha = 1.0f;
+        this.alpha = 0.83f;
         this.setSpriteFromAge(spriteProvider);
     }
 
@@ -45,7 +50,7 @@ public class HostileLocatorParticle extends TextureSheetParticle {
 
     @Override
     protected int getLightColor(float f) {
-        return 14680064;
+       return 15728640;
     }
 
     public record Provider(SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {

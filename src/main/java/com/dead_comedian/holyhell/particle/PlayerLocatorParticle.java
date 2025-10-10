@@ -1,25 +1,31 @@
 package com.dead_comedian.holyhell.particle;
 
+import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.registries.HolyHellAttachments;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.RenderStateShard;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.Nullable;
+
 
 public class PlayerLocatorParticle extends TextureSheetParticle {
     private final SpriteSet spriteProvider;
-
 
     PlayerLocatorParticle(ClientLevel world, double x, double y, double z, SpriteSet spriteProvider) {
         super(world, x, y, z);
         this.spriteProvider = spriteProvider;
         this.lifetime = 1;
         quadSize =  2f;
-        this.alpha = 1.0f;
+        this.alpha = 0.83f;
         this.setSpriteFromAge(spriteProvider);
     }
 
@@ -42,12 +48,10 @@ public class PlayerLocatorParticle extends TextureSheetParticle {
         super.tick();
         this.setSpriteFromAge(spriteProvider);
     }
-
     @Override
     protected int getLightColor(float f) {
-        return 14680064;
+        return 15728640;
     }
-
     public record Provider(SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
 
         @Override

@@ -24,6 +24,10 @@ public class HolyHellItems {
             new Item(new Item.Properties().food(HolyHellFoods.SAINT_EYE)));
     public static final Supplier<SacrificialKatarItem> SACRIFICIAL_KATAR = ITEMS.register("sacrificial_katar", (properties) -> new
             SacrificialKatarItem(HolyHellToolMaterial.GRAIL, new Item.Properties().attributes(SacrificialKatarItem.createAttributes(HolyHellToolMaterial.GRAIL, 6, -2F))));
+
+    public static final Supplier<SwordItem> HOLY_GRAIL = ITEMS.register("holy_grail", (properties) -> new
+            SwordItem(HolyHellToolMaterial.GRAIL, new Item.Properties().attributes(SacrificialKatarItem.createAttributes(HolyHellToolMaterial.GRAIL, 9, -2F))));
+
     public static final Supplier<ShieldItem> HOLY_SHIELD = ITEMS.register("holy_shield", () -> new
             ShieldItem(new Item.Properties().durability(1000)));
     public static final Supplier<ReligiousRingsItem> RELIGIOUS_RINGS = ITEMS.register("religious_rings", () -> new

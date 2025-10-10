@@ -34,20 +34,8 @@ vec3 hsv2rgb(vec3 c) {
     return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
 }
 
-bool isTargetColor(vec3 hsv) {
-    return (
-    // ff0035 (Hostile)
-    (hsv.x > 0.95 || hsv.x < 0.02) && hsv.y > 0.8 && hsv.z > 0.6 ||
-
-//    // 00a4ff (Boss)z
-    (hsv.x > 0.53 && hsv.x < 0.58) && hsv.y > 0.8 && hsv.z > 0.6 ||
-
-    // 00ff7e (Peaceful)
-    (hsv.x > 0.40 && hsv.x < 0.45) && hsv.y > 0.8 && hsv.z > 0.6 ||
-
-    // c000ff (Player)
-    (hsv.x > 0.75 && hsv.x < 0.82) && hsv.y > 0.8 && hsv.z > 0.6
-    );
+bool isTargetColor(float alpha) {
+    return alpha >= 0.82 && alpha <0.84;
 }
 
 void main() {
@@ -63,15 +51,11 @@ void main() {
     OutColor = (OutColor * ColorScale) + Offset;
 
     // Saturation
-    vec3 hsv = rgb2hsv(InTexel.rgb);
 
-    if (!isTargetColor(hsv)) {
+    if (!isTargetColor(InTexel.a)) {
         float Luma = dot(OutColor, Gray);
         vec3 Chroma = OutColor - Luma;
         OutColor = ((Chroma * Saturation) + Luma);
     }
-    // Folly color boost
-
-
     fragColor = vec4(OutColor, 1.0);
 }
