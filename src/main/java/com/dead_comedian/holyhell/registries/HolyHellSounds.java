@@ -69,9 +69,7 @@ public class HolyHellSounds {
     public static final Supplier<SoundEvent> STATIC_AMBIENT = registerSoundEvents("static_ambient");
     public static final Supplier<SoundEvent> BLINK = registerSoundEvents("blink");
 
-    public static final Supplier<SoundEvent> WIND_AMBIENT_1 = registerSoundEvents("wind_ambient_1");
-    public static final Supplier<SoundEvent> WIND_AMBIENT_2 = registerSoundEvents("wind_ambient_2");
-    public static final Supplier<SoundEvent> WIND_AMBIENT_3 = registerSoundEvents("wind_ambient_3");
+    public static final Supplier<SoundEvent> HEAVENS_VOICE = registerSoundEvents("heavens_voice");
 
     public static final SoundType CANDELABRA_SOUNDS = new SoundType(1f, 1f,
              SoundEvents.LANTERN_BREAK,  SoundEvents.LANTERN_STEP, SoundEvents.LANTERN_PLACE,

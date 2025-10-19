@@ -24,7 +24,6 @@ public class HolyHellAttachments {
                     .build()
     );
 
-
     public static final Supplier<AttachmentType<Boolean>> SHOULD_DISPLAY_TEXT = ATTACHMENT_TYPES.register(
             "should_display_text",
             () -> AttachmentType.builder(() -> false)

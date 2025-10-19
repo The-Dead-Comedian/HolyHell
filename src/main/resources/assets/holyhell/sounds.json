@@ -213,22 +213,10 @@
     ]
   },
 
-  "wind_ambient_1": {
-    "subtitle": "sounds.holyhell.wind_ambient_1",
+  "heavens_voice": {
+    "subtitle": "sounds.holyhell.heavens_voice",
     "sounds": [
-      "holyhell:ambient/wind/wind_ambient_1"
-    ]
-  },
-  "wind_ambient_2": {
-    "subtitle": "sounds.holyhell.wind_ambient_2",
-    "sounds": [
-      "holyhell:ambient/wind/wind_ambient_2"
-    ]
-  },
-  "wind_ambient_3": {
-    "subtitle": "sounds.holyhell.wind_ambient_3",
-    "sounds": [
-      "holyhell:ambient/wind_ambient_3"
+      "holyhell:ambient/music/heavens_voice-keta"
     ]
   }
 }

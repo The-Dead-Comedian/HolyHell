@@ -1,7 +1,6 @@
 package com.dead_comedian.holyhell.client.renderer.overlay;
 
 import com.dead_comedian.holyhell.Holyhell;
-import com.dead_comedian.holyhell.helper.PlayerHelpers;
 import com.dead_comedian.holyhell.registries.HolyHellAttachments;
 import com.dead_comedian.holyhell.registries.HolyHellEffects;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -50,6 +49,9 @@ public class EndTextOverlay {
     private static void renderMultiFileAnimation(GuiGraphics guiGraphics, int screenWidth, int screenHeight) {
 
         int currentFrame = (int) ((textCounter / ANIMATION_SPEED) % FRAME_TEXTURES.length);
+        if (textCounter >= 180) {
+            currentFrame = 2;
+        }
         ResourceLocation currentTexture = FRAME_TEXTURES[currentFrame];
 
         RenderSystem.disableDepthTest();

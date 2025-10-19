@@ -12,6 +12,7 @@
     "PlayerEntityMixin"
   ],
   "client": [
+    "BlockEntityRendererDispatcherMixin",
     "BlockModelShaperMixin",
     "LivingEntityRendererMixin",
     "SunTextureMixin",

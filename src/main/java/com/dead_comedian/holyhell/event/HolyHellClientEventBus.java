@@ -8,7 +8,6 @@ import com.dead_comedian.holyhell.client.renderer.overlay.EndTextOverlay;
 import com.dead_comedian.holyhell.client.renderer.render_layer.LowerRingRenderLayer;
 import com.dead_comedian.holyhell.client.renderer.render_layer.UpperRingRenderLayer;
 import com.dead_comedian.holyhell.client.renderer.overlay.EyeTransitionOverlay;
-import com.dead_comedian.holyhell.helper.PlayerHelpers;
 import com.dead_comedian.holyhell.networking.packet.ServerboundAngelShaderAbilityPacket;
 import com.dead_comedian.holyhell.particle.*;
 import com.dead_comedian.holyhell.registries.*;
@@ -35,23 +34,6 @@ public class HolyHellClientEventBus {
 
     public static int staticTimer = 0;
 
-    public static int windCooldown = 100;
-    public static int windTimer1 = 1200;
-    public static int windTimer2 = 300;
-    public static int windTimer3 = 537;
-    public static int windType = 4;
-    public static int horrorCooldown;
-
-
-    public static boolean shouldRenderParticle;
-
-    @SubscribeEvent
-    public static void renderEntity(RenderLivingEvent.Post event){
-        PoseStack poseStack = new PoseStack();
-
-    }
-
-
     @SubscribeEvent
     public static void renderRing(RenderPlayerEvent.Post event) {
         event.getRenderer().addLayer(new LowerRingRenderLayer<>(event.getRenderer(), Minecraft.getInstance().getEntityModels()));
@@ -67,58 +49,9 @@ public class HolyHellClientEventBus {
 
         if (player != null && level != null) {
             if (player.getData(HolyHellAttachments.ANGEL_VISION_SHADER_SYNCED_DATA)) {
-                //Static Sound
                 if (staticTimer % 202 == 0) {
-                    level.playLocalSound(player, HolyHellSounds.STATIC_AMBIENT.get(), SoundSource.AMBIENT, 0.6F, 1);
+                    level.playLocalSound(player, HolyHellSounds.STATIC_AMBIENT.get(), SoundSource.AMBIENT, 1F, 1);
                 }
-
-
-                //Wind Sound
-
-                if (windCooldown > 0) {
-                    windTimer1 = 1200;
-                    windTimer2 = 300;
-                    windTimer3 = 537;
-                    windType = level.getRandom().nextInt(0, 3);
-                    windCooldown--;
-                } else {
-                    Minecraft.getInstance().getMusicManager().stopPlaying();
-                    switch (windType) {
-                        case 0:
-                            if (windTimer1 == 1200) {
-                                level.playLocalSound(player, HolyHellSounds.WIND_AMBIENT_1.get(), SoundSource.AMBIENT, 0.2F, 1);
-                            }
-                            windTimer1--;
-                            if (windTimer1 <= 0) {
-                                windType = 4;
-                                windCooldown = level.getRandom().nextInt(100, 300);
-                            }
-                        case 1:
-                            if (windTimer2 == 300) {
-                                level.playLocalSound(player, HolyHellSounds.WIND_AMBIENT_2.get(), SoundSource.AMBIENT, 0.2F, 1);
-                            }
-                            windTimer2--;
-                            if (windTimer2 <= 0) {
-                                windType = 4;
-                                windCooldown = level.getRandom().nextInt(100, 300);
-                            }
-                        case 2:
-                            if (windTimer3 == 537) {
-                                level.playLocalSound(player, HolyHellSounds.WIND_AMBIENT_3.get(), SoundSource.AMBIENT, 0.2F, 1);
-                            }
-                            windTimer3--;
-                            if (windTimer3 <= 0) {
-                                windType = 4;
-                                windCooldown = level.getRandom().nextInt(100, 300);
-                            }
-                        case 4:
-                            windType = level.getRandom().nextInt(0, 3);
-                    }
-                }
-
-            } else {
-
-                //STOP SOUNDS
             }
         }
     }
@@ -167,8 +100,10 @@ public class HolyHellClientEventBus {
                 EyeTransitionOverlay.eyeTransitionCounter++;
             }
         }
+
+
         if (EndTextOverlay.textCounter >= 0) {
-            if (EndTextOverlay.textCounter < EndTextOverlay.FRAME_TEXTURES.length * 60) {
+            if (EndTextOverlay.textCounter < EndTextOverlay.FRAME_TEXTURES.length * 60 +5) {
                 EndTextOverlay.textCounter++;
             }
         }
@@ -188,9 +123,9 @@ public class HolyHellClientEventBus {
 
 
         event.registerLayerDefinition(HolyHellModelLayers.GLOBULAR_DOME, GlobularDomeModel::createBodyLayer);
-//        event.registerLayerDefinition(HolyHellModelLayers.FALLING_SWORD, FallingSwordModel::createBodyLayer);
         event.registerLayerDefinition(HolyHellModelLayers.FIREBALL, FireBallModel::createBodyLayer);
-//        event.registerLayerDefinition(HolyHellModelLayers.SWORD_CROSS, SwordCrossModel::getTexturedModelData);
+
+        event.registerLayerDefinition(HolyHellModelLayers.ALL_SEER, AllSeerModel::createBodyLayer);
 
 
         event.registerLayerDefinition(HolyHellModelLayers.HERETIC, HereticModel::createBodyLayer);
@@ -200,10 +135,8 @@ public class HolyHellClientEventBus {
         event.registerLayerDefinition(HolyHellModelLayers.BAB1, BabTwoModel::getTexturedModelData);
         event.registerLayerDefinition(HolyHellModelLayers.BAB2, BabThreeModel::createBodyLayer);
         event.registerLayerDefinition(HolyHellModelLayers.HOLY_SPIRIT, HolySpiritModel::getTexturedModelData);
-        //      event.registerLayerDefinition(HolyHellModelLayers.PALLADIN, PalladinModel::getTexturedModelData);
         event.registerLayerDefinition(HolyHellModelLayers.CHERUB, CherubModel::createBodyLayer);
         event.registerLayerDefinition(HolyHellModelLayers.HOLY_COW, HolyCowModel::createBodyLayer);
-        //      event.registerLayerDefinition(HolyHellModelLayers.DEVOUT, DevoutModel::createBodyLayer);
 
     }
 
@@ -245,6 +178,4 @@ public class HolyHellClientEventBus {
 
         event.registerSpriteSet(HolyhellParticles.KAMIKAZE_EXPLOSION.get(), KamikazeExplosionParticle.Provider::new);
     }
-
-
 }

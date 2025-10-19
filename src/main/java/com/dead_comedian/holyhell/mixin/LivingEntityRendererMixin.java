@@ -40,7 +40,7 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extend
 
     @Inject(method = "render(Lnet/minecraft/world/entity/LivingEntity;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V",
             at = @At("HEAD"), cancellable = true)
-    private void renderOverride(T entity, float entityYaw, float partialTicks,
+     void renderOverride(T entity, float entityYaw, float partialTicks,
                                 PoseStack poseStack, MultiBufferSource buffer,
                                 int packedLight, CallbackInfo ci) {
         if (Minecraft.getInstance().player.getData(HolyHellAttachments.ANGEL_VISION_SHADER_SYNCED_DATA) && entity != Minecraft.getInstance().player) {

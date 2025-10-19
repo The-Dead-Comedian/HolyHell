@@ -50,6 +50,12 @@ public class HolyHellEntities {
     public static final Supplier<EntityType<HolyCowEntity>> HOLY_COW =
             ENTITY_TYPES.register("holy_cow", () -> EntityType.Builder.of(HolyCowEntity::new, MobCategory.CREATURE)
                     .sized(0.8f, 1.1f).build("holy_cow"));
+
+
+    public static final Supplier<EntityType<AllSeerEntity>> ALL_SEER =
+            ENTITY_TYPES.register("all_seer", () -> EntityType.Builder.of(AllSeerEntity::new, MobCategory.CREATURE)
+                    .sized(60f, 30f).build("all_seer"));
+
 //
 //    public static final RegistryObject<EntityType<DevoutEntity>> DEVOUT     =
 //            ENTITY_TYPES.register("devout", () -> EntityType.Builder.of(DevoutEntity::new, MobCategory.CREATURE)

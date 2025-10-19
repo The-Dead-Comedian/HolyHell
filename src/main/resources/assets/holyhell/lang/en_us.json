@@ -1,6 +1,7 @@
 {
   "item.holyhell.saint_eye" : "Saint Eye",
   "item.holyhell.sacrificial_katar" : "Sacrificial Katar",
+  "item.holyhell.holy_grail" : "Holy Grail",
   "item.holyhell.holy_shield" : "Holy Shield",
   "item.holyhell.religious_rings" : "Religious Rings",
   "item.holyhell.blinding_bomb": "Blinding Bomb",
@@ -140,9 +141,8 @@
   "sounds.holyhell.static_ambient": "Weird Static Sounds",
   "sounds.holyhell.blink": "Player shifts plane of reality",
 
-  "sounds.holyhell.wind_ambient_1": "Wind Howls",
-  "sounds.holyhell.wind_ambient_2": "Wind Howls",
-  "sounds.holyhell.wind_ambient_3": "Wind Howls",
+  "sounds.holyhell.heavens_voice": "Heavens Voice -Keta",
+
 
 
 
@@ -160,7 +160,7 @@
   "advancements.holyhell.kebab.title": "MMM tasty",
   "advancements.holyhell.kebab.description": "Eat a kebab",
   "advancements.holyhell.absorb.title": "ABSORB YOURSELF!",
-  "advancements.holyhell.absorb.description": "get to Babs to merge",
+  "advancements.holyhell.absorb.description": "get Babs to merge",
 
   "creativetab.holyhell_tab": "Holy Trinkets"
 }

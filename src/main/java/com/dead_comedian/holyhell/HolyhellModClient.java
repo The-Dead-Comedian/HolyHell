@@ -32,7 +32,6 @@ public class HolyhellModClient {
 
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
-//        HolyHellItemProperties.addCustomItemProperties();
 
         EntityRenderers.register(HolyHellEntities.ANGEL.get(), AngelRenderer::new);
         EntityRenderers.register(HolyHellEntities.BAB_ONE.get(), BabOneRenderer::new);
@@ -44,6 +43,7 @@ public class HolyhellModClient {
         EntityRenderers.register(HolyHellEntities.HOLY_SPIRIT.get(), HolySpiritRenderer::new);
         EntityRenderers.register(HolyHellEntities.KAMIKAZE.get(), KamikazeRenderer::new);
 
+        EntityRenderers.register(HolyHellEntities.ALL_SEER.get(), AllSeerRenderer::new);
 
         EntityRenderers.register(HolyHellEntities.BLINDING_BOMB.get(), ThrownItemRenderer::new);
         EntityRenderers.register(HolyHellEntities.FIREBALL.get(), FireBallRenderer::new);
