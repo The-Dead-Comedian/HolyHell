@@ -25,9 +25,13 @@ public class HolyHellEntities {
 public static final RegistryObject<EntityType<AngelEntity>> ANGEL =
         ENTITY_TYPES.register("angel", () -> EntityType.Builder.of(AngelEntity::new, MobCategory.CREATURE)
                 .sized(0.8f, 1.5f).build("angel"));
+
+
     public static final RegistryObject<EntityType<KamikazeEntity>> KAMIKAZE     =
             ENTITY_TYPES.register("kamikaze", () -> EntityType.Builder.of(KamikazeEntity::new, MobCategory.CREATURE)
                     .sized(0.8f, 0.8f).build("kamikaze"));
+
+
     public static final RegistryObject<EntityType<HereticEntity>> HERETIC     =
             ENTITY_TYPES.register("heretic", () -> EntityType.Builder.of(HereticEntity::new, MobCategory.CREATURE)
                     .sized(1f, 1.2f).build("heretic"));

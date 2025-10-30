@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "holyhell:block/jack_o_lantern_cross",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "holyhell:block/jack_o_lantern_cross"
+    },
+    "facing=south": {
+      "model": "holyhell:block/jack_o_lantern_cross",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "holyhell:block/jack_o_lantern_cross",
+      "y": 270
+    }
+  }
+}

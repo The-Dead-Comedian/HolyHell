@@ -28,8 +28,17 @@
   "block.holyhell.candelabra": "Candelabra",
   "block.holyhell.candleholder": "Candle Holder",
   "block.holyhell.stone_cross": "Stone Cross",
-  "block.holyhell.falling_cross": "Falling  Cross",
+  "block.holyhell.falling_cross": "Falling Cross",
 
+  "block.holyhell.bone_pile": "Bone Pile",
+  "block.holyhell.skull_pile": "Skull Pile",
+
+  "block.holyhell.carved_pumpkin_eye": "Carved Pumpkin Eye",
+  "block.holyhell.carved_pumpkin_cross": "Carved Pumpkin Cross",
+  "block.holyhell.jack_o_lantern_eye": "Jack-O Lantern",
+  "block.holyhell.jack_o_lantern_cross": "Jack-O Lantern",
+
+  "block.holyhell.bone_chandelier": "Bone Chandelier",
 
 
   "entity.holyhell.angel" : "Angel",

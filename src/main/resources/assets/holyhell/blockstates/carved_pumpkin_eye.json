@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "holyhell:block/carved_pumpkin_eye",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "holyhell:block/carved_pumpkin_eye"
+    },
+    "facing=south": {
+      "model": "holyhell:block/carved_pumpkin_eye",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "holyhell:block/carved_pumpkin_eye",
+      "y": 270
+    }
+  }
+}

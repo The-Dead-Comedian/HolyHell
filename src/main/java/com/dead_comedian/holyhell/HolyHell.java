@@ -82,7 +82,6 @@ public class HolyHell {
         public static void onClientSetup(FMLClientSetupEvent event) {
             EntityRenderers.register(HolyHellEntities.GATE.get(), GateRenderer::new);
             EntityRenderers.register(HolyHellEntities.GLOBULAR_DOME.get(), GlobularDomeRenderer::new);
-//            EntityRenderers.register(HolyHellEntities.FALLING_SWORD.get(), FallingSwordRenderer::new);
             EntityRenderers.register(HolyHellEntities.BLINDING_BOMB.get(), ThrownItemRenderer::new);
             EntityRenderers.register(HolyHellEntities.FIREBALL.get(), FireBallRenderer::new);
 
@@ -95,10 +94,6 @@ public class HolyHell {
             EntityRenderers.register(HolyHellEntities.HOLY_SPIRIT.get(), HolySpiritRenderer::new);
             EntityRenderers.register(HolyHellEntities.CHERUB.get(), CherubRenderer::new);
             EntityRenderers.register(HolyHellEntities.HOLY_COW.get(), HolyCowRenderer::new);
-
-//            EntityRenderers.register(HolyHellEntities.DEVOUT.get(), DevoutRenderer::new);
-//            EntityRenderers.register(HolyHellEntities.PALLADIN.get(), PalladinRenderer::new);
-//            EntityRenderers.register(HolyHellEntities.SWORD_CROSS.get(), SwordCrossRenderer::new);
 
             event.enqueueWork(HolyHellItemProperties::addCustomItemProperties);
         }

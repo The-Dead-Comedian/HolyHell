@@ -35,6 +35,16 @@ public class HolyHellCreativeTab {
                         pOutput.accept(HolyHellBlocks.STONE_CROSS.get());
                         pOutput.accept(HolyHellBlocks.FALLING_CROSS.get());
 
+                        pOutput.accept(HolyHellBlocks.BONE_PILE.get());
+                        pOutput.accept(HolyHellBlocks.SKULL_PILE.get());
+                        pOutput.accept(HolyHellBlocks.BONE_CHANDELIER.get());
+
+                        pOutput.accept(HolyHellBlocks.CARVED_PUMPKIN_EYE.get());
+                        pOutput.accept(HolyHellBlocks.CARVED_PUMPKIN_CROSS.get());
+                        pOutput.accept(HolyHellBlocks.JACK_O_LANTERN_EYE.get());
+                        pOutput.accept(HolyHellBlocks.JACK_O_LANTERN_CROSS.get());
+
+
                         pOutput.accept(HolyHellItems.EVANGELIST_HELMET.get());
                         pOutput.accept(HolyHellItems.EVANGELIST_CHESTPLATE.get());
                         pOutput.accept(HolyHellItems.EVANGELIST_LEGGINGS.get());
@@ -45,11 +55,6 @@ public class HolyHellCreativeTab {
                         pOutput.accept(HolyHellItems.HERETIC_SPAWN_EGG.get());
                         pOutput.accept(HolyHellItems.BAB_SPAWN_EGG.get());
 
-                        pOutput.accept(HolyHellBlocks.COBBLED_MARBLE.get());
-                        pOutput.accept(HolyHellBlocks.MARBLE.get());
-                        pOutput.accept(HolyHellBlocks.MARBLE_BRICKS.get());
-                        pOutput.accept(HolyHellBlocks.CRACKED_MARBLE_BRICKS.get());
-                        pOutput.accept(HolyHellBlocks.MARBLE_COLLUMN.get());
                     })
                     .build());
 
