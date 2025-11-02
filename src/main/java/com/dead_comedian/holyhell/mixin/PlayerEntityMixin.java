@@ -127,7 +127,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         }
 
 
-        System.out.println(source);
 
         //Globular Dome
         List<Entity> entityBelow = this.level().getEntities(this, this.getBoundingBox().inflate(-0.1));

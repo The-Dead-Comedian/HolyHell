@@ -1,25 +1,18 @@
 package com.dead_comedian.holyhell.event;
 
-import com.dead_comedian.holyhell.entity.HolyCowEntity;
 import com.dead_comedian.holyhell.registries.HolyHellBlocks;
 import com.dead_comedian.holyhell.registries.HolyHellCriteriaTriggers;
-import com.dead_comedian.holyhell.registries.HolyHellEntities;
-import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoField;
 
 public class DeathHandler {
     @SubscribeEvent
@@ -41,7 +34,6 @@ public class DeathHandler {
                 }
             }
         }
-        System.out.println("Work");
     }
 
 

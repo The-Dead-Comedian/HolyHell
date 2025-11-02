@@ -1,6 +1,8 @@
 package com.dead_comedian.holyhell.block;
 
 
+import com.dead_comedian.holyhell.HolyHell;
+import com.dead_comedian.holyhell.registries.HolyHellBlocks;
 import com.dead_comedian.holyhell.registries.HolyHellSound;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -17,6 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -162,8 +165,17 @@ public class CandleholderBlock extends Block {
     }
 
     @Override
-    public void playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {
-        super.playerWillDestroy(pLevel, pPos, pState, pPlayer);
+    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
+        if(pState.getValue(PIECE)==1||pState.getValue(PIECE)==2){
+          return  pLevel.getBlockState(pPos.below()).is(HolyHellBlocks.CANDLE_HOLDER.get());
+        }else {
+            return pLevel.getBlockState(pPos.below()).isFaceSturdy(pLevel,pPos,Direction.DOWN);
+        }
+    }
+
+    @Override
+    public void destroy(LevelAccessor pLevel, BlockPos pPos, BlockState pState) {
+        super.destroy(pLevel, pPos, pState);
         if (pState.getValue(PIECE) == 1) {
             pLevel.removeBlock(pPos.above(), false);
             pLevel.removeBlock(pPos.below(), false);
@@ -176,7 +188,6 @@ public class CandleholderBlock extends Block {
             pLevel.removeBlock(pPos.above(), false);
             pLevel.removeBlock(pPos.above().above(), false);
         }
-
-        super.playerWillDestroy(pLevel, pPos, pState, pPlayer);
     }
+
 }

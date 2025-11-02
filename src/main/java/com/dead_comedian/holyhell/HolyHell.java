@@ -85,6 +85,8 @@ public class HolyHell {
             EntityRenderers.register(HolyHellEntities.BLINDING_BOMB.get(), ThrownItemRenderer::new);
             EntityRenderers.register(HolyHellEntities.FIREBALL.get(), FireBallRenderer::new);
 
+            EntityRenderers.register(HolyHellEntities.REVENANT.get(), RevenantRenderer::new);
+
             EntityRenderers.register(HolyHellEntities.ANGEL.get(), AngelRenderer::new);
             EntityRenderers.register(HolyHellEntities.KAMIKAZE.get(), KamikazeRenderer::new);
             EntityRenderers.register(HolyHellEntities.HERETIC.get(), HereticRenderer::new);

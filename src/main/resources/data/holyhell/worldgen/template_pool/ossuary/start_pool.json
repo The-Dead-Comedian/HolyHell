@@ -1,0 +1,25 @@
+{
+
+  "name": "holyhell:ossuary/start_pool",
+
+  "fallback": "minecraft:empty",
+
+
+  "elements": [
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "holyhell:ossuary",
+
+        "processors": "holyhell:church_generic_degradation",
+
+        "projection": "rigid",
+
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

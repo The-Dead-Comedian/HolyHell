@@ -28,6 +28,9 @@ public class HolyHellModelLayers {
     public static final ModelLayerLocation HOLY_COW =
             new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "holy_cow"), "main");
 
+    public static final ModelLayerLocation REVENANT =
+            new ModelLayerLocation(new ResourceLocation(HolyHell.MOD_ID, "revenant"), "main");
+
 
 
     public static final ModelLayerLocation FIREBALL =

@@ -28,10 +28,10 @@ public class HolyHellClientEventBus {
     public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(HolyHellModelLayers.GLOBULAR_DOME, GlobularDomeModel::createBodyLayer);
         event.registerLayerDefinition(HolyHellModelLayers.GATE, GateModel::createBodyLayer);
-//        event.registerLayerDefinition(HolyHellModelLayers.FALLING_SWORD, FallingSwordModel::createBodyLayer);
         event.registerLayerDefinition(HolyHellModelLayers.FIREBALL, FireBallModel::createBodyLayer);
-//        event.registerLayerDefinition(HolyHellModelLayers.SWORD_CROSS, SwordCrossModel::getTexturedModelData);
 
+
+        event.registerLayerDefinition(HolyHellModelLayers.REVENANT, RevenantModel::createBodyLayer);
 
         event.registerLayerDefinition(HolyHellModelLayers.HERETIC, HereticModel::createBodyLayer);
         event.registerLayerDefinition(HolyHellModelLayers.ANGEL, AngelModel::createBodyLayer);
@@ -40,10 +40,8 @@ public class HolyHellClientEventBus {
         event.registerLayerDefinition(HolyHellModelLayers.BAB1, BabTwoModel::getTexturedModelData);
         event.registerLayerDefinition(HolyHellModelLayers.BAB2, BabThreeModel::createBodyLayer);
         event.registerLayerDefinition(HolyHellModelLayers.HOLY_SPIRIT, HolySpiritModel::getTexturedModelData);
-        //      event.registerLayerDefinition(HolyHellModelLayers.PALLADIN, PalladinModel::getTexturedModelData);
-       event.registerLayerDefinition(HolyHellModelLayers.CHERUB, CherubModel::createBodyLayer);
+        event.registerLayerDefinition(HolyHellModelLayers.CHERUB, CherubModel::createBodyLayer);
         event.registerLayerDefinition(HolyHellModelLayers.HOLY_COW, HolyCowModel::createBodyLayer);
-        //      event.registerLayerDefinition(HolyHellModelLayers.DEVOUT, DevoutModel::createBodyLayer);
 
     }
 

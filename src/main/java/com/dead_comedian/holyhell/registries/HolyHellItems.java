@@ -47,11 +47,14 @@ public class HolyHellItems {
             () ->new ForgeSpawnEggItem(HolyHellEntities.KAMIKAZE, 0xffefbf, 0xc9a932,new Item.Properties()));
     public static final RegistryObject<Item> HERETIC_SPAWN_EGG = ITEMS.register("heretic_spawn_egg",
             () ->new ForgeSpawnEggItem(HolyHellEntities.HERETIC, 0xd5cf9f, 0x92813d,new Item.Properties()));
-   public static final RegistryObject<Item> BAB_SPAWN_EGG = ITEMS.register("bab_spawn_egg",
+    public static final RegistryObject<Item> BAB_SPAWN_EGG = ITEMS.register("bab_spawn_egg",
             () ->new ForgeSpawnEggItem(HolyHellEntities.BAB_ONE, 0xe2d8c0, 0xa87220,new Item.Properties()));
 
+    public static final RegistryObject<Item> REVENANT_SPAWN_EGG = ITEMS.register("revenant_spawn_egg",
+            () ->new ForgeSpawnEggItem(HolyHellEntities.REVENANT, 0x6b6f6c, 0xe3d8c1,new Item.Properties()));
 
-   //     public static final RegistryObject<Item> DEVOUT_SPAWN_EGG = ITEMS.register("devout_spawn_egg",
+
+    //     public static final RegistryObject<Item> DEVOUT_SPAWN_EGG = ITEMS.register("devout_spawn_egg",
 //            () ->new ForgeSpawnEggItem(HolyHellEntities.DEVOUT, 0xa6242b, 0xdad5ab,new Item.Properties()));
 //    public static final RegistryObject<Item> PALLADIN_SPAWN_EGG = ITEMS.register("palladin_spawn_egg",
 //            () ->new ForgeSpawnEggItem(HolyHellEntities.PALLADIN, 0xffefbf, 0xd19822,new Item.Properties()));

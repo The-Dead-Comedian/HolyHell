@@ -14,7 +14,6 @@ public class RenderRingEvents {
 
     @SubscribeEvent
     public static void renderRings(RenderPlayerEvent.Pre event) {
-        System.out.println("wawa");
         event.getRenderer().addLayer(new LowerRingRenderLayer(event.getRenderer(), Minecraft.getInstance().getEntityModels()));
         event.getRenderer().addLayer(new UpperRingRenderLayer(event.getRenderer(), Minecraft.getInstance().getEntityModels()));
     }

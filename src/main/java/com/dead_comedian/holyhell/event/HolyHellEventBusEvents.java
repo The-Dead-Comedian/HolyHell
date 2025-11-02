@@ -29,8 +29,7 @@ public class HolyHellEventBusEvents {
         event.put(HolyHellEntities.HOLY_SPIRIT.get(), HolySpiritEntity.createHolySpiritAttributes().build());
         event.put(HolyHellEntities.CHERUB.get(), CherubEntity.createCherubAttributes().build());
         event.put(HolyHellEntities.HOLY_COW.get(), HolyCowEntity.createHolyCowAttributes().build());
-//        event.put(HolyHellEntities.DEVOUT.get(), DevoutEntity.createDevoutAttributes().build());
-//        event.put(HolyHellEntities.PALLADIN.get(), PalladinEntity.createPalladinAttributes().build());
+        event.put(HolyHellEntities.REVENANT.get(), RevenantEntity.createRevenantAttributes().build());
 
     }
 }
