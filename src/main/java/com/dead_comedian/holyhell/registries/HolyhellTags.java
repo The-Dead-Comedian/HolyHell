@@ -25,7 +25,8 @@ public class HolyhellTags {
 
         public static final TagKey<Block> DOME_CLEARS_OUT =
                 createTag("dome_clears_out");
-
+        public static final TagKey<Block> REVENANT_PROTECTS =
+                createTag("revenant_protects");
         private static TagKey<Block> createTag(String name) {
             return TagKey.create(Registries.BLOCK, new ResourceLocation(HolyHell.MOD_ID, name));
         }

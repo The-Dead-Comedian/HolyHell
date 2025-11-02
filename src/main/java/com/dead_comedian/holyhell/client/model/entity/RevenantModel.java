@@ -11,6 +11,9 @@ import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import org.joml.Quaternionf;
+import org.joml.Vector2f;
+import org.joml.Vector3f;
 
 public class RevenantModel<T extends RevenantEntity> extends HierarchicalModel<T> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
@@ -18,8 +21,10 @@ public class RevenantModel<T extends RevenantEntity> extends HierarchicalModel<T
     private final ModelPart body;
     private final ModelPart torso;
     private final ModelPart right_arm;
-    private final ModelPart bone3;
+    private final ModelPart weapon;
+    private final ModelPart right_magic;
     private final ModelPart left_arm;
+    private final ModelPart left_magic;
     private final ModelPart head;
     private final ModelPart right_leg;
     private final ModelPart left_leg;
@@ -29,8 +34,10 @@ public class RevenantModel<T extends RevenantEntity> extends HierarchicalModel<T
         this.body = this.bone.getChild("body");
         this.torso = this.body.getChild("torso");
         this.right_arm = this.torso.getChild("right_arm");
-        this.bone3 = this.right_arm.getChild("bone3");
+        this.weapon = this.right_arm.getChild("weapon");
+        this.right_magic = this.right_arm.getChild("right_magic");
         this.left_arm = this.torso.getChild("left_arm");
+        this.left_magic = this.left_arm.getChild("left_magic");
         this.head = this.torso.getChild("head");
         this.right_leg = this.body.getChild("right_leg");
         this.left_leg = this.body.getChild("left_leg");
@@ -54,14 +61,18 @@ public class RevenantModel<T extends RevenantEntity> extends HierarchicalModel<T
                 .texOffs(70, 0).addBox(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F))
                 .texOffs(70, 16).addBox(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.2F)), PartPose.offset(-9.0F, -14.2857F, 0.0F));
 
-        PartDefinition bone3 = right_arm.addOrReplaceChild("bone3", CubeListBuilder.create().texOffs(24, 51).addBox(0.0F, -26.5F, -12.0F, 0.0F, 53.0F, 24.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 16.0F, -18.5F, 1.5708F, 0.0F, 0.0F));
+        PartDefinition weapon = right_arm.addOrReplaceChild("weapon", CubeListBuilder.create().texOffs(24, 51).addBox(0.0F, -26.5F, -12.0F, 0.0F, 53.0F, 24.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 16.0F, -18.5F, 1.5708F, 0.0F, 0.0F));
 
-        PartDefinition cube_r1 = bone3.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(24, 51).addBox(-1.0F, -50.0F, -8.0F, 0.0F, 53.0F, 24.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(4.0F, 23.5F, 1.0F, 0.0F, -1.5708F, 0.0F));
+        PartDefinition cube_r1 = weapon.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(24, 51).addBox(-1.0F, -50.0F, -8.0F, 0.0F, 53.0F, 24.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(4.0F, 23.5F, 1.0F, 0.0F, -1.5708F, 0.0F));
+
+        PartDefinition right_magic = right_arm.addOrReplaceChild("right_magic", CubeListBuilder.create().texOffs(101, 77).addBox(-2.5F, -7.0F, -2.5F, 5.0F, 14.0F, 5.0F, new CubeDeformation(-0.2F)), PartPose.offset(-0.5F, 11.0F, 0.0F));
 
         PartDefinition left_arm = torso.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(30, 32).mirror().addBox(-2.0F, 4.0F, -2.5F, 5.0F, 14.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(30, 51).mirror().addBox(-2.0F, 4.0F, -2.5F, 5.0F, 14.0F, 5.0F, new CubeDeformation(0.2F)).mirror(false)
                 .texOffs(70, 0).mirror().addBox(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(70, 16).mirror().addBox(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.2F)).mirror(false), PartPose.offset(9.0F, -14.2857F, 0.0F));
+
+        PartDefinition left_magic = left_arm.addOrReplaceChild("left_magic", CubeListBuilder.create().texOffs(101, 76).mirror().addBox(-2.5F, -7.0F, -2.5F, 5.0F, 14.0F, 5.0F, new CubeDeformation(-0.2F)).mirror(false), PartPose.offset(0.5F, 11.0F, 0.0F));
 
         PartDefinition head = torso.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 17).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F))
                 .texOffs(0, 0).addBox(-10.0F, -17.0F, 0.0F, 20.0F, 17.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -16.2857F, 0.0F));
@@ -80,11 +91,13 @@ public class RevenantModel<T extends RevenantEntity> extends HierarchicalModel<T
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
         if (entity.isArmed()) {
-             this.animateWalk(ModAnimations.REVENANT_WALK_ARMED, limbSwing, limbSwingAmount, 2f, 2.5f);
+            this.weapon.yScale = 1;
+            this.animateWalk(ModAnimations.REVENANT_WALK_ARMED, limbSwing, limbSwingAmount, 2f, 2.5f);
             this.animate(entity.idleAnimationState, ModAnimations.REVENANT_IDLE_ARMED, ageInTicks, 1f);
             this.animate(entity.attackAnimationState, ModAnimations.REVENANT_ATTACK_ARMED, ageInTicks, 1f);
 
         } else {
+            this.weapon.yScale = 0;
             this.animateWalk(ModAnimations.REVENANT_WALK, limbSwing, limbSwingAmount, 2f, 2.5f);
             this.animate(entity.idleAnimationState, ModAnimations.REVENANT_IDLE, ageInTicks, 1f);
             this.animate(entity.attackAnimationState, ModAnimations.REVENANT_ATTACK, ageInTicks, 1f);
@@ -93,7 +106,56 @@ public class RevenantModel<T extends RevenantEntity> extends HierarchicalModel<T
         this.animate(entity.catatonicAnimationState, ModAnimations.REVENANT_CATATONIC, ageInTicks, 1f);
         this.animate(entity.catatonicRiseAnimationState, ModAnimations.REVENANT_CATATONIC_RISE, ageInTicks, 1f);
         this.animate(entity.catatonicSitAnimationState, ModAnimations.REVENANT_CATATONIC_SIT, ageInTicks, 1f);
+        this.animate(entity.wololoAnimationState, ModAnimations.REVENANT_WOLOLO, ageInTicks, 1f);
 
+        if (entity.getWololo()) {
+            entity.getNavigation().stop();
+            entity.catatonicAnimationState.stop();
+            entity.idleAnimationState.stop();
+
+            this.weapon.yScale = 0;
+
+            this.torso.xRot = (float) Math.sin(ageInTicks * Math.toRadians(10)) * 0.1F;
+
+            Quaternionf left_q = new Quaternionf()
+                    .rotateY((float) Math.toRadians(180))
+                    .rotateZ((float) Math.toRadians(-155 + Math.sin(ageInTicks * Math.toRadians(24)) * 0.15F))
+                    .rotateX((float) Math.sin(ageInTicks * Math.toRadians(24)) * 0.15F);
+
+            Vector3f left_euler = new Vector3f();
+            left_q.getEulerAnglesXYZ(left_euler);
+
+            this.left_arm.xRot = left_euler.x;
+            this.left_arm.yRot = left_euler.y;
+            this.left_arm.zRot = left_euler.z;
+
+
+            Quaternionf right_q = new Quaternionf()
+                    .rotateY((float) Math.toRadians(180))
+                    .rotateZ((float) Math.toRadians(155 + Math.sin(ageInTicks * Math.toRadians(24)) * 0.15F))
+                    .rotateX((float) Math.sin(ageInTicks * Math.toRadians(24)) * 0.15F);
+
+            Vector3f right_euler = new Vector3f();
+            right_q.getEulerAnglesXYZ(right_euler);
+
+            this.right_arm.xRot = right_euler.x;
+            this.right_arm.yRot = right_euler.y;
+            this.right_arm.zRot = right_euler.z;
+
+
+            this.left_magic.yRot = (float) (ageInTicks * Math.toRadians(13));
+            this.left_magic.y = (float) (10 + Math.sin(ageInTicks * Math.toRadians(23.5)) * 2);
+            this.left_magic.xScale = 1.5F;
+            this.left_magic.yScale = 1.5F;
+            this.left_magic.zScale = 1.5F;
+
+            this.right_magic.yRot = (float) (ageInTicks * Math.toRadians(-13));
+            this.right_magic.y = (float) (10 + Math.sin(ageInTicks * Math.toRadians(23.5)) * 2);
+            this.right_magic.xScale = 1.5F;
+            this.right_magic.yScale = 1.5F;
+            this.right_magic.zScale = 1.5F;
+
+        }
     }
 
     @Override

@@ -9,6 +9,7 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -17,15 +18,46 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.TargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3f;
 
+import javax.annotation.Nullable;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.function.Predicate;
+
 public class RevenantEntity extends Monster {
+
+    public int wololoTimer;
+
+    public void setWololoTimer(int i) {
+        wololoTimer = i;
+    }
+
+    public int getWololoTimer() {
+        return wololoTimer;
+    }
+
+    ///  ///////////////////////////////
+    public boolean wololo;
+
+    public void setWololo(boolean b) {
+        wololo = b;
+    }
+
+    public boolean getWololo() {
+        return wololo;
+    }
+
+    ///  ///////////////////////////////
 
     public BlockPos holderPosition;
 
@@ -98,6 +130,8 @@ public class RevenantEntity extends Monster {
     public final AnimationState catatonicAnimationState = new AnimationState();
     public final AnimationState catatonicRiseAnimationState = new AnimationState();
     public final AnimationState catatonicSitAnimationState = new AnimationState();
+    public final AnimationState wololoAnimationState = new AnimationState();
+
 
     public int catatonicRiseAnimationTimeout = 0;
     public int catatonicSitAnimationTimeout = 0;
@@ -118,15 +152,16 @@ public class RevenantEntity extends Monster {
         this.goalSelector.addGoal(0, new FloatGoal(this));
 
         this.goalSelector.addGoal(3, new RevenantGetWeaponGoal(this, 1, 50, HolyHellBlocks.CANDLE_HOLDER.get()));
-        this.goalSelector.addGoal(3, new RevenantPlaceWeaponGoal(this,1));
+        this.goalSelector.addGoal(3, new RevenantPlaceWeaponGoal(this, 1));
 
         this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.5, true));
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1D));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 4f));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
+
 
     }
+
 
     @Override
     protected void defineSynchedData() {
@@ -148,7 +183,7 @@ public class RevenantEntity extends Monster {
 
     @Override
     protected InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
-
+        this.setWololo(!this.getWololo());
         return InteractionResult.SUCCESS;
     }
 
@@ -196,7 +231,7 @@ public class RevenantEntity extends Monster {
             }
         } else {
             this.idleAnimationState.stop();
-            if (this.catatonicSitAnimationTimeout >= 19) {
+            if (this.catatonicSitAnimationTimeout >= 19 && !getWololo()) {
 
                 this.catatonicAnimationState.startIfStopped(this.tickCount);
             }
@@ -416,9 +451,9 @@ public class RevenantEntity extends Monster {
                 } else {
 
                     revenantEntity.setArmed(false);
-                    revenantEntity.level().setBlock(revenantEntity.getHolderPos(), HolyHellBlocks.CANDLE_HOLDER.get().defaultBlockState().setValue(CandleholderBlock.PIECE,0),3);
-                    revenantEntity.level().setBlock(revenantEntity.getHolderPos().above(), HolyHellBlocks.CANDLE_HOLDER.get().defaultBlockState().setValue(CandleholderBlock.PIECE,1),3);
-                    revenantEntity.level().setBlock(revenantEntity.getHolderPos().above(2), HolyHellBlocks.CANDLE_HOLDER.get().defaultBlockState().setValue(CandleholderBlock.PIECE,2),3);
+                    revenantEntity.level().setBlock(revenantEntity.getHolderPos(), HolyHellBlocks.CANDLE_HOLDER.get().defaultBlockState().setValue(CandleholderBlock.PIECE, 0), 3);
+                    revenantEntity.level().setBlock(revenantEntity.getHolderPos().above(), HolyHellBlocks.CANDLE_HOLDER.get().defaultBlockState().setValue(CandleholderBlock.PIECE, 1), 3);
+                    revenantEntity.level().setBlock(revenantEntity.getHolderPos().above(2), HolyHellBlocks.CANDLE_HOLDER.get().defaultBlockState().setValue(CandleholderBlock.PIECE, 2), 3);
                     revenantEntity.getLookControl().setLookAt(
                             revenantEntity.getHolderPos().getX(),
                             revenantEntity.getHolderPos().getY(),
@@ -426,11 +461,11 @@ public class RevenantEntity extends Monster {
                     );
                 }
             }
-            if (revenantEntity.getHolderPos()==null){
+            if (revenantEntity.getHolderPos() == null) {
                 revenantEntity.setArmed(false);
-                revenantEntity.level().setBlock(revenantEntity.blockPosition(), HolyHellBlocks.CANDLE_HOLDER.get().defaultBlockState().setValue(CandleholderBlock.PIECE,0),3);
-                revenantEntity.level().setBlock(revenantEntity.blockPosition().above(), HolyHellBlocks.CANDLE_HOLDER.get().defaultBlockState().setValue(CandleholderBlock.PIECE,1),3);
-                revenantEntity.level().setBlock(revenantEntity.blockPosition().above(2), HolyHellBlocks.CANDLE_HOLDER.get().defaultBlockState().setValue(CandleholderBlock.PIECE,2),3);
+                revenantEntity.level().setBlock(revenantEntity.blockPosition(), HolyHellBlocks.CANDLE_HOLDER.get().defaultBlockState().setValue(CandleholderBlock.PIECE, 0), 3);
+                revenantEntity.level().setBlock(revenantEntity.blockPosition().above(), HolyHellBlocks.CANDLE_HOLDER.get().defaultBlockState().setValue(CandleholderBlock.PIECE, 1), 3);
+                revenantEntity.level().setBlock(revenantEntity.blockPosition().above(2), HolyHellBlocks.CANDLE_HOLDER.get().defaultBlockState().setValue(CandleholderBlock.PIECE, 2), 3);
 
             }
         }
@@ -441,5 +476,21 @@ public class RevenantEntity extends Monster {
         }
     }
 
+//    public class RevenantRitualGoal extends Goal {
+//
+//        public List<LivingEntity> nearbyTargets;
+//        RevenantEntity revenantEntity;
+//
+//        public RevenantRitualGoal(RevenantEntity entity) {
+//            revenantEntity = entity;
+//            nearbyTargets = revenantEntity.level().getNearbyEntities(LivingEntity.class, livingEntity -> {
+//            }, revenantEntity, new AABB(revenantEntity.getX() + 30, revenantEntity.getY() + 4, revenantEntity.getZ() + 30, revenantEntity.getX() - 30, revenantEntity.getY() - 4, revenantEntity.getZ() - 30))
+//        }
+//
+//        @Override
+//        public boolean canUse() {
+//            return false;
+//        }
+//    }
 
 }
