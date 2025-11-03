@@ -4,22 +4,16 @@ package com.dead_comedian.holyhell.entity;
 import com.dead_comedian.holyhell.block.CandleholderBlock;
 import com.dead_comedian.holyhell.registries.HolyHellBlocks;
 import com.dead_comedian.holyhell.registries.HolyHellSound;
+import com.dead_comedian.holyhell.registries.HolyhellTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Vec3i;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.TargetGoal;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -27,24 +21,11 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Vector3f;
 
-import javax.annotation.Nullable;
-import java.util.EnumSet;
 import java.util.List;
-import java.util.function.Predicate;
 
 public class RevenantEntity extends Monster {
 
-    public int wololoTimer;
-
-    public void setWololoTimer(int i) {
-        wololoTimer = i;
-    }
-
-    public int getWololoTimer() {
-        return wololoTimer;
-    }
 
     ///  ///////////////////////////////
     public boolean wololo;
@@ -93,21 +74,6 @@ public class RevenantEntity extends Monster {
         return this.entityData.get(ARMED);
     }
 
-    ///  ///////////////////////////////
-
-    private static final EntityDataAccessor<Boolean> ATTACKING =
-            SynchedEntityData.defineId(RevenantEntity.class, EntityDataSerializers.BOOLEAN);
-
-    public void setAggressive(boolean attacking) {
-        this.entityData.set(ATTACKING, attacking);
-    }
-
-    @Override
-    public boolean isAggressive() {
-        return this.entityData.get(ATTACKING);
-    }
-
-
     /// ///////////////////////////////
 
     private static final EntityDataAccessor<Boolean> CATATONIC =
@@ -122,14 +88,29 @@ public class RevenantEntity extends Monster {
     }
 
     /// ///////////////////////////////
+    private static final EntityDataAccessor<Integer> WOLOLO_ANIMATION_TIMEOUT =
+            SynchedEntityData.defineId(RevenantEntity.class, EntityDataSerializers.INT);
+
+    public void setWololoAnimationTimeout(int wololoAnimationTimeout) {
+        this.entityData.set(WOLOLO_ANIMATION_TIMEOUT, wololoAnimationTimeout);
+    }
+
+    public Integer getWololoAnimationTimeout() {
+        return this.entityData.get(WOLOLO_ANIMATION_TIMEOUT);
+    }
+
+    /// ///////////////////////////////
 
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
+
     public final AnimationState attackAnimationState = new AnimationState();
     public int attackAnimationTimeout = 0;
+
     public final AnimationState catatonicAnimationState = new AnimationState();
     public final AnimationState catatonicRiseAnimationState = new AnimationState();
     public final AnimationState catatonicSitAnimationState = new AnimationState();
+
     public final AnimationState wololoAnimationState = new AnimationState();
 
 
@@ -153,8 +134,8 @@ public class RevenantEntity extends Monster {
 
         this.goalSelector.addGoal(3, new RevenantGetWeaponGoal(this, 1, 50, HolyHellBlocks.CANDLE_HOLDER.get()));
         this.goalSelector.addGoal(3, new RevenantPlaceWeaponGoal(this, 1));
-
-        this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.5, true));
+        this.goalSelector.addGoal(4, new RevenantRitualGoal(this));
+//        this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.5, true));
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1D));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 4f));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
@@ -162,15 +143,13 @@ public class RevenantEntity extends Monster {
 
     }
 
-
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(ATTACKING, false);
         this.entityData.define(ARMED, false);
         this.entityData.define(CATATONIC, false);
         this.entityData.define(HAS_TARGET, false);
-
+        this.entityData.define(WOLOLO_ANIMATION_TIMEOUT, 0);
     }
 
     public static AttributeSupplier.Builder createRevenantAttributes() {
@@ -182,17 +161,14 @@ public class RevenantEntity extends Monster {
     }
 
     @Override
-    protected InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
-        this.setWololo(!this.getWololo());
-        return InteractionResult.SUCCESS;
-    }
-
-    @Override
     public void tick() {
         super.tick();
 
+        this.setWololo((this.getWololoAnimationTimeout() < 39 && this.getWololoAnimationTimeout() > 0));
+
+
         if (!level().isClientSide) {
-            this.entityData.set(HAS_TARGET, this.getTarget() != null);
+            this.setHasTarget(this.getTarget() != null);
         }
         if (!isArmed() && !this.hasTarget()) {
             this.idleAnimationState.stop();
@@ -204,6 +180,16 @@ public class RevenantEntity extends Monster {
 
         }
 
+        if (this.getTarget() instanceof Player player) {
+            if (player.isCreative()) {
+                this.setTarget(null);
+            }
+        }
+        if (this.getTarget() != null) {
+            if (!this.getTarget().isAlive()) {
+                this.setTarget(null);
+            }
+        }
         if (this.isCatatonic()) {
             this.navigation.stop();
         }
@@ -214,7 +200,6 @@ public class RevenantEntity extends Monster {
     }
 
     private void setupAnimationStates() {
-
         if (!this.isCatatonic()) {
             this.catatonicAnimationState.stop();
             if (this.getDeltaMovement().x == 0 && this.getDeltaMovement().z == 0) {
@@ -232,7 +217,6 @@ public class RevenantEntity extends Monster {
         } else {
             this.idleAnimationState.stop();
             if (this.catatonicSitAnimationTimeout >= 19 && !getWololo()) {
-
                 this.catatonicAnimationState.startIfStopped(this.tickCount);
             }
         }
@@ -255,24 +239,6 @@ public class RevenantEntity extends Monster {
             this.catatonicRiseAnimationState.stop();
         }
 
-
-        // IGNORE THESE, THIS WAS A TEST
-//        if (this.attackAnimationTimeout <= 27 && !this.isArmed() && this.isAggressive()) {
-//            this.idleAnimationState.stop();
-//            this.attackAnimationTimeout = this.random.nextInt(27) + 54;
-//            this.attackAnimationState.start(this.tickCount);
-//        } else if (this.attackAnimationTimeout <= 23 && this.isArmed() && this.isAggressive()) {
-//            this.idleAnimationState.stop();
-//            this.attackAnimationTimeout = this.random.nextInt(23) + 46;
-//            this.attackAnimationState.start(this.tickCount);
-//        } else {
-//            --this.attackAnimationTimeout;
-//        }
-//
-//
-//        if (!this.isAggressive()) {
-//            attackAnimationState.stop();
-//        }
     }
 
     protected void updateWalkAnimation(float v) {
@@ -306,6 +272,8 @@ public class RevenantEntity extends Monster {
     }
 
 
+
+    
     public class RevenantGetWeaponGoal extends MoveToBlockGoal {
         private final RevenantEntity revenantEntity;
         private final double speed;
@@ -476,21 +444,114 @@ public class RevenantEntity extends Monster {
         }
     }
 
-//    public class RevenantRitualGoal extends Goal {
-//
-//        public List<LivingEntity> nearbyTargets;
-//        RevenantEntity revenantEntity;
-//
-//        public RevenantRitualGoal(RevenantEntity entity) {
-//            revenantEntity = entity;
-//            nearbyTargets = revenantEntity.level().getNearbyEntities(LivingEntity.class, livingEntity -> {
-//            }, revenantEntity, new AABB(revenantEntity.getX() + 30, revenantEntity.getY() + 4, revenantEntity.getZ() + 30, revenantEntity.getX() - 30, revenantEntity.getY() - 4, revenantEntity.getZ() - 30))
-//        }
-//
-//        @Override
-//        public boolean canUse() {
-//            return false;
-//        }
-//    }
+    public class RevenantRitualGoal extends Goal {
+
+        public List<LivingEntity> nearbyTargets;
+        RevenantEntity revenantEntity;
+
+        public RevenantRitualGoal(RevenantEntity entity) {
+            revenantEntity = entity;
+            nearbyTargets = revenantEntity.level()
+                    .getEntitiesOfClass(LivingEntity.class,
+                            new AABB(revenantEntity.getX() + 30,
+                                    revenantEntity.getY() + 4,
+                                    revenantEntity.getZ() + 30,
+                                    revenantEntity.getX() - 30,
+                                    revenantEntity.getY() - 4,
+                                    revenantEntity.getZ() - 30), livingEntity -> livingEntity.getType().is(HolyhellTags.Entities.REVENANT_TRANSCENDS));
+        }
+
+        @Override
+        public boolean canUse() {
+            return !revenantEntity.hasTarget();
+        }
+
+        @Override
+        public void start() {
+            this.getTarget();
+            if (revenantEntity.getTarget() != null) {
+                revenantEntity.getNavigation().moveTo(revenantEntity.getTarget(), 1);
+            }
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            if (revenantEntity.getTarget() != null) {
+                return revenantEntity.getTarget().getType().is(HolyhellTags.Entities.REVENANT_TRANSCENDS);
+            }
+            return false;
+        }
+
+        @Override
+        public void stop() {
+            revenantEntity.setWololo(false);
+            revenantEntity.setWololoAnimationTimeout(0);
+            super.stop();
+        }
+
+        @Override
+        public void tick() {
+            nearbyTargets = revenantEntity.level()
+                    .getEntitiesOfClass(LivingEntity.class,
+                            new AABB(revenantEntity.getX() + 30,
+                                    revenantEntity.getY() + 4,
+                                    revenantEntity.getZ() + 30,
+                                    revenantEntity.getX() - 30,
+                                    revenantEntity.getY() - 4,
+                                    revenantEntity.getZ() - 30));
+
+
+            if (!this.revenantEntity.hasTarget()) {
+                this.getTarget();
+            }
+
+            if (this.revenantEntity.getTarget() != null) {
+                double distanceSq = revenantEntity.distanceToSqr(Vec3.atCenterOf(revenantEntity.getTarget().getOnPos()));
+                System.out.println(revenantEntity.getTarget().getOnPos());
+
+                revenantEntity.getNavigation().moveTo(revenantEntity.getTarget(), 1);
+                if (distanceSq > 2.0) {
+                    revenantEntity.getNavigation().moveTo(revenantEntity.getTarget(), 1);
+                } else {
+                    System.out.println("gog");
+                    revenantEntity.getNavigation().stop();
+                    if (revenantEntity.getTarget() instanceof PathfinderMob) {
+                        ((PathfinderMob) revenantEntity.getTarget()).getNavigation().stop();
+                    }
+
+                    if (revenantEntity.getWololoAnimationTimeout() < 39) {
+
+                        revenantEntity.setWololoAnimationTimeout(revenantEntity.getWololoAnimationTimeout() + 1);
+                    } else {
+
+                        revenantEntity.getTarget().discard();
+                        revenantEntity.setWololoAnimationTimeout(0);
+                        this.stop();
+                    }
+
+                    revenantEntity.getLookControl().setLookAt(
+                            revenantEntity.getTarget().getX(),
+                            revenantEntity.getTarget().getY(),
+                            revenantEntity.getTarget().getZ()
+                    );
+                }
+            }
+            super.tick();
+        }
+
+        public void getTarget() {
+            for (LivingEntity entity : nearbyTargets) {
+                if (entity.getType().is(HolyhellTags.Entities.REVENANT_TRANSCENDS)) {
+                    if (!entity.isCustomNameVisible() && !revenantEntity.hasTarget()) {
+                        revenantEntity.setTarget(entity);
+
+                    }
+                    if (revenantEntity.hasTarget()) {
+                        nearbyTargets.removeAll(nearbyTargets);
+                    }
+                }
+            }
+        }
+    }
 
 }

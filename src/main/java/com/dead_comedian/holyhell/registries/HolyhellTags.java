@@ -15,7 +15,8 @@ public class HolyhellTags {
 
         public static final TagKey<EntityType<?>> MAGIC_DEALING_MOBS =
                 createTag("magic_dealing_mobs");
-
+        public static final TagKey<EntityType<?>> REVENANT_TRANSCENDS =
+                createTag("revenant_transcends");
         private static TagKey<EntityType<?>> createTag(String name) {
             return TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(HolyHell.MOD_ID, name));
         }

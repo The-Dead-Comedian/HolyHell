@@ -25,14 +25,17 @@ public class HolyhellForgeEvents {
     public static void onBlockBroken(BlockEvent.BreakEvent event) {
 
         if (event.getLevel().getBlockState(event.getPos()).is(HolyhellTags.Blocks.REVENANT_PROTECTS)) {
-     Player player = event.getPlayer();
+            Player player = event.getPlayer();
             List<RevenantEntity> nearbyRevenant = event.getLevel()
                     .getEntitiesOfClass(RevenantEntity.class,
-                            new AABB(player.getX()+20, player.getY()+4, player.getZ()+20, player.getX()-20, player.getY()-4, player.getZ()-20));
+                            new AABB(player.getX() + 20, player.getY() + 4, player.getZ() + 20, player.getX() - 20, player.getY() - 4, player.getZ() - 20));
 
             for (RevenantEntity entity : nearbyRevenant) {
-                entity.setTarget(player);
+                if (!player.isCreative()) {
+                    entity.setTarget(player);
+                }
             }
+
         }
     }
 
