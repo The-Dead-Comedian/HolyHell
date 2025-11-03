@@ -6,10 +6,14 @@ import com.dead_comedian.holyhell.registries.HolyHellBlocks;
 import com.dead_comedian.holyhell.registries.HolyHellSound;
 import com.dead_comedian.holyhell.registries.HolyhellTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -26,6 +30,17 @@ import java.util.List;
 
 public class RevenantEntity extends Monster {
 
+
+    private static final EntityDataAccessor<Boolean> ATTACKING =
+            SynchedEntityData.defineId(RevenantEntity.class, EntityDataSerializers.BOOLEAN);
+
+    public void setAttacking(boolean attacking) {
+        this.entityData.set(ATTACKING, attacking);
+    }
+
+    public boolean isAttacking() {
+        return this.entityData.get(ATTACKING);
+    }
 
     ///  ///////////////////////////////
     public boolean wololo;
@@ -132,20 +147,30 @@ public class RevenantEntity extends Monster {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
 
-        this.goalSelector.addGoal(3, new RevenantGetWeaponGoal(this, 1, 50, HolyHellBlocks.CANDLE_HOLDER.get()));
+        this.goalSelector.addGoal(1, new RevenantGetWeaponGoal(this, 1, 50, HolyHellBlocks.CANDLE_HOLDER.get()));
+        this.goalSelector.addGoal(2, new RevenantArmedAttackGoal(this));
+        this.goalSelector.addGoal(2, new RevenantMeleeAttackGoal(this, 1.2D, true));
         this.goalSelector.addGoal(3, new RevenantPlaceWeaponGoal(this, 1));
         this.goalSelector.addGoal(4, new RevenantRitualGoal(this));
-//        this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.5, true));
-        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1D));
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 4f));
-        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
 
-
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1D) {
+            @Override
+            public boolean canUse() {
+                return !((RevenantEntity) (Object) this.mob).isCatatonic() && super.canUse();
+            }
+        });
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 4f){
+            @Override
+            public boolean canUse() {
+                return !((RevenantEntity) (Object) this.mob).isCatatonic() && super.canUse();
+            }
+        });
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(ATTACKING, false);
         this.entityData.define(ARMED, false);
         this.entityData.define(CATATONIC, false);
         this.entityData.define(HAS_TARGET, false);
@@ -155,9 +180,9 @@ public class RevenantEntity extends Monster {
     public static AttributeSupplier.Builder createRevenantAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 40)
-                .add(Attributes.MOVEMENT_SPEED, 0.2f)
+                .add(Attributes.MOVEMENT_SPEED, 0.3f)
                 .add(Attributes.ARMOR, 1.3f)
-                .add(Attributes.ATTACK_DAMAGE, 2);
+                .add(Attributes.ATTACK_DAMAGE, 5);
     }
 
     @Override
@@ -231,12 +256,27 @@ public class RevenantEntity extends Monster {
         }
 
         if (this.catatonicRiseAnimationState.isStarted()) {
+            this.getNavigation().stop();
             this.catatonicRiseAnimationTimeout++;
         } else {
             this.catatonicRiseAnimationTimeout = 0;
         }
         if (this.catatonicRiseAnimationTimeout >= 20) {
             this.catatonicRiseAnimationState.stop();
+        }
+
+        if (!this.isArmed()) {
+            if (this.isAttacking() && attackAnimationTimeout <= 0) {
+                idleAnimationState.stop();
+                attackAnimationTimeout = 20; // Length in ticks of your animation
+                attackAnimationState.start(this.tickCount);
+            } else {
+                --this.attackAnimationTimeout;
+            }
+
+            if (!this.isAttacking()) {
+                attackAnimationState.stop();
+            }
         }
 
     }
@@ -272,8 +312,6 @@ public class RevenantEntity extends Monster {
     }
 
 
-
-    
     public class RevenantGetWeaponGoal extends MoveToBlockGoal {
         private final RevenantEntity revenantEntity;
         private final double speed;
@@ -293,7 +331,7 @@ public class RevenantEntity extends Monster {
 
         @Override
         public boolean canUse() {
-            if (!revenantEntity.isCatatonic()) {
+            if (revenantEntity.getTarget() != null && !revenantEntity.getTarget().getType().is(HolyhellTags.Entities.REVENANT_TRANSCENDS)) {
 
                 Level level = revenantEntity.level();
                 BlockPos mobPos = revenantEntity.blockPosition();
@@ -316,7 +354,8 @@ public class RevenantEntity extends Monster {
             return revenantEntity.getHolderPos() != null
                     && revenantEntity.level().getBlockState(revenantEntity.getHolderPos()).is(targetBlock)
                     && !revenantEntity.isArmed()
-                    && !revenantEntity.isCatatonic();
+                    && revenantEntity.hasTarget()
+                    && !revenantEntity.getTarget().getType().is(HolyhellTags.Entities.REVENANT_TRANSCENDS);
         }
 
         @Override
@@ -384,12 +423,14 @@ public class RevenantEntity extends Monster {
 
         @Override
         public boolean canUse() {
-            return isArmed();
+            return isArmed()
+                    && ((revenantEntity.getTarget() == null
+                    || revenantEntity.getTarget().getType().is(HolyhellTags.Entities.REVENANT_TRANSCENDS)));
         }
 
         @Override
         public boolean canContinueToUse() {
-            return revenantEntity.isArmed() && revenantEntity.hasTarget();
+            return this.canUse();
         }
 
 
@@ -463,7 +504,8 @@ public class RevenantEntity extends Monster {
 
         @Override
         public boolean canUse() {
-            return !revenantEntity.hasTarget();
+            return !revenantEntity.isArmed()
+                    && revenantEntity.getTarget() == null;
         }
 
         @Override
@@ -476,10 +518,9 @@ public class RevenantEntity extends Monster {
 
         @Override
         public boolean canContinueToUse() {
-            if (revenantEntity.getTarget() != null) {
-                return revenantEntity.getTarget().getType().is(HolyhellTags.Entities.REVENANT_TRANSCENDS);
-            }
-            return false;
+            return !revenantEntity.isArmed()
+                    && revenantEntity.getTarget() != null
+                    && revenantEntity.getTarget().getType().is(HolyhellTags.Entities.REVENANT_TRANSCENDS);
         }
 
         @Override
@@ -507,13 +548,11 @@ public class RevenantEntity extends Monster {
 
             if (this.revenantEntity.getTarget() != null) {
                 double distanceSq = revenantEntity.distanceToSqr(Vec3.atCenterOf(revenantEntity.getTarget().getOnPos()));
-                System.out.println(revenantEntity.getTarget().getOnPos());
 
                 revenantEntity.getNavigation().moveTo(revenantEntity.getTarget(), 1);
                 if (distanceSq > 2.0) {
                     revenantEntity.getNavigation().moveTo(revenantEntity.getTarget(), 1);
                 } else {
-                    System.out.println("gog");
                     revenantEntity.getNavigation().stop();
                     if (revenantEntity.getTarget() instanceof PathfinderMob) {
                         ((PathfinderMob) revenantEntity.getTarget()).getNavigation().stop();
@@ -554,4 +593,165 @@ public class RevenantEntity extends Monster {
         }
     }
 
+    public class RevenantArmedAttackGoal extends Goal {
+        public RevenantEntity revenantEntity;
+
+        public int anticipationTimeout = 0;
+
+        public RevenantArmedAttackGoal(RevenantEntity entity) {
+            revenantEntity = entity;
+        }
+
+        @Override
+        public void start() {
+            this.revenantEntity.getTarget();
+            if (revenantEntity.getTarget() != null) {
+                revenantEntity.getNavigation().moveTo(revenantEntity.getTarget(), 1);
+            }
+        }
+
+        @Override
+        public boolean canUse() {
+            return revenantEntity.isArmed()
+                    && revenantEntity.getTarget() != null
+                    && !revenantEntity.getTarget().getType().is(HolyhellTags.Entities.REVENANT_TRANSCENDS);
+
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return revenantEntity.isArmed()
+                    && revenantEntity.getTarget() != null
+                    && !revenantEntity.getTarget().getType().is(HolyhellTags.Entities.REVENANT_TRANSCENDS);
+        }
+
+        @Override
+        public void tick() {
+
+
+            if (revenantEntity.getBoundingBox().intersects(this.revenantEntity.getTarget().getBoundingBox())) {
+                revenantEntity.getTarget().hurt(revenantEntity.level().damageSources().mobAttack(revenantEntity), 10);
+            }
+
+            double distanceSq = revenantEntity.distanceTo(revenantEntity.getTarget());
+
+            revenantEntity.getNavigation().moveTo(revenantEntity.getTarget(), 1);
+            if (distanceSq > 2.0) {
+
+                revenantEntity.getNavigation().moveTo(revenantEntity.getTarget(), 1);
+            } else {
+
+                revenantEntity.getLookControl().setLookAt(this.revenantEntity.getTarget());
+                if (anticipationTimeout > 10) {
+
+                    revenantEntity.getNavigation().stop();
+                    revenantEntity.getLookControl().setLookAt(this.revenantEntity.getTarget());
+                    revenantEntity.addDeltaMovement(revenantEntity.getLookAngle());
+
+                    anticipationTimeout = 0;
+                } else {
+
+                    anticipationTimeout++;
+                }
+            }
+
+            super.tick();
+        }
+    }
+
+    public class RevenantMeleeAttackGoal extends MeleeAttackGoal {
+        private final RevenantEntity entity;
+        private int attackDelay = 10;
+        private int ticksUntilNextAttack = 10;
+        private boolean shouldCountTillNextAttack = false;
+
+        public RevenantMeleeAttackGoal(PathfinderMob pMob, double pSpeedModifier, boolean pFollowingTargetEvenIfNotSeen) {
+            super(pMob, pSpeedModifier, pFollowingTargetEvenIfNotSeen);
+            entity = ((RevenantEntity) pMob);
+        }
+
+        @Override
+        public boolean canUse() {
+            return !entity.isArmed()
+                    && entity.getTarget() != null
+                    && !entity.getTarget().getType().is(HolyhellTags.Entities.REVENANT_TRANSCENDS);
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return !entity.isArmed()
+                    && entity.getTarget() != null
+                    && !entity.getTarget().getType().is(HolyhellTags.Entities.REVENANT_TRANSCENDS);
+        }
+
+        @Override
+        public void start() {
+            super.start();
+            attackDelay = 10;
+            ticksUntilNextAttack = 10;
+        }
+
+        @Override
+        protected void checkAndPerformAttack(LivingEntity pEnemy, double pDistToEnemySqr) {
+            if (isEnemyWithinAttackDistance(pEnemy, pDistToEnemySqr)) {
+                shouldCountTillNextAttack = true;
+
+                if (isTimeToStartAttackAnimation()) {
+                    entity.setAttacking(true);
+                }
+
+                if (isTimeToAttack()) {
+                    this.mob.getLookControl().setLookAt(pEnemy.getX(), pEnemy.getEyeY(), pEnemy.getZ());
+                    performAttack(pEnemy);
+                }
+            } else {
+                resetAttackCooldown();
+                shouldCountTillNextAttack = false;
+                entity.setAttacking(false);
+                entity.attackAnimationTimeout = 0;
+            }
+        }
+
+        private boolean isEnemyWithinAttackDistance(LivingEntity pEnemy, double pDistToEnemySqr) {
+            return pDistToEnemySqr <= this.getAttackReachSqr(pEnemy);
+        }
+
+        protected void resetAttackCooldown() {
+            this.ticksUntilNextAttack = this.adjustedTickDelay(attackDelay * 2);
+        }
+
+        protected boolean isTimeToAttack() {
+            return this.ticksUntilNextAttack <= 0;
+        }
+
+        protected boolean isTimeToStartAttackAnimation() {
+            return this.ticksUntilNextAttack <= attackDelay;
+        }
+
+        protected int getTicksUntilNextAttack() {
+            return this.ticksUntilNextAttack;
+        }
+
+
+        protected void performAttack(LivingEntity pEnemy) {
+            this.resetAttackCooldown();
+            this.mob.swing(InteractionHand.MAIN_HAND);
+            this.mob.doHurtTarget(pEnemy);
+        }
+
+        @Override
+        public void tick() {
+            super.tick();
+            if (shouldCountTillNextAttack) {
+                this.ticksUntilNextAttack = Math.max(this.ticksUntilNextAttack - 1, 0);
+            }
+        }
+
+
+        @Override
+        public void stop() {
+            entity.setAttacking(false);
+            super.stop();
+        }
+    }
 }

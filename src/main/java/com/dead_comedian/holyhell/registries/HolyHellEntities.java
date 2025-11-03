@@ -27,7 +27,7 @@ public static final RegistryObject<EntityType<AngelEntity>> ANGEL =
                 .sized(0.8f, 1.5f).build("angel"));
     public static final RegistryObject<EntityType<RevenantEntity>> REVENANT =
             ENTITY_TYPES.register("revenant", () -> EntityType.Builder.of(RevenantEntity::new, MobCategory.CREATURE)
-                    .sized(1.0f, 2.5f).build("revenant"));
+                    .sized(1.4f, 2.5f).build("revenant"));
 
     public static final RegistryObject<EntityType<KamikazeEntity>> KAMIKAZE     =
             ENTITY_TYPES.register("kamikaze", () -> EntityType.Builder.of(KamikazeEntity::new, MobCategory.CREATURE)
