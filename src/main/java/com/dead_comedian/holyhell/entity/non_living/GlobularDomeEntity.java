@@ -43,8 +43,8 @@ public class GlobularDomeEntity extends Entity {
         List<Entity> entityBelow2 = this.level().getEntities(this, this.getBoundingBox().inflate(0.25));
         launchLivingEntities(entityBelow);
         launchLivingEntities1(entityBelow2);
-        entityBelow.removeAll(entityBelow);
-        entityBelow2.removeAll(entityBelow2);
+        entityBelow.clear();
+        entityBelow2.clear();
         BlockState blockState = this.level().getBlockState(this.blockPosition());
         BlockState blockState2 = this.getBlockStateOnLegacy();
         boolean bl = blockState.is(HolyhellTags.Blocks.DOME_CLEARS_OUT) || blockState2.is(HolyhellTags.Blocks.DOME_CLEARS_OUT);

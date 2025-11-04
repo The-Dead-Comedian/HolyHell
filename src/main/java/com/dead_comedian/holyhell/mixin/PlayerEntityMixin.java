@@ -137,7 +137,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             }
 
         }
-        entityBelow.removeAll(entityBelow);
+        entityBelow.clear();
         return value;
 
     }

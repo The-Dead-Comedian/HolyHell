@@ -95,7 +95,7 @@ public class BabOneEntity extends TamableAnimal {
                 }
             }
         }
-        entityBelow.removeAll(entityBelow);
+        entityBelow.clear();
         if (this.level().isClientSide()) {
             setupAnimationStates();
         }

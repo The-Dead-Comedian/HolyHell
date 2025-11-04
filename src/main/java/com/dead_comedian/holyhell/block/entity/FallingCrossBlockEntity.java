@@ -33,7 +33,7 @@ public class FallingCrossBlockEntity extends BlockEntity {
         for (Entity entity : getEntitiesOnBlock(world, pos)) {
             if (world.getBlockState(pos.below()).isAir() && pos.getY() >= world.getMinBuildHeight() && entity instanceof LivingEntity) {
                 FallingBlockEntity fallingBlockEntity = FallingBlockEntity.fall(world, pos, state);
-                getEntitiesOnBlock(world, pos).removeAll(getEntitiesOnBlock(world, pos));
+                getEntitiesOnBlock(world, pos).clear();
             }
         }
     }

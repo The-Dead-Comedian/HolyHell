@@ -33,7 +33,7 @@ public class SaintEyeItem extends Item {
             i.addEffect(new MobEffectInstance(MobEffects.GLOWING, 200, 1));
             entity.removeEffect(MobEffects.GLOWING);
         }
-        list.removeAll(list);
+        list.clear();
 
     }
 
