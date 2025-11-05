@@ -60,6 +60,17 @@ public class HolyHellSound {
     public static final RegistryObject<SoundEvent> STUN = registerSoundEvents("stun");
     public static final RegistryObject<SoundEvent> DIVINE_PROTECTION = registerSoundEvents("divine_prot");
 
+    public static final RegistryObject<SoundEvent> REVENANT_WALK = registerSoundEvents("revenant_walk");
+    public static final RegistryObject<SoundEvent> REVENANT_RISE = registerSoundEvents("revenant_rise");
+    public static final RegistryObject<SoundEvent> REVENANT_ATTACK = registerSoundEvents("revenant_attack");
+    public static final RegistryObject<SoundEvent> METAL_HURT = registerSoundEvents("metal_hurt");
+
+    public static final RegistryObject<SoundEvent> ULULU = registerSoundEvents("ululu");
+    public static final RegistryObject<SoundEvent> MOB_PASSES = registerSoundEvents("mob_passes");
+    public static final RegistryObject<SoundEvent> PERISH = registerSoundEvents("perish");
+    public static final RegistryObject<SoundEvent> DISSAPEAR = registerSoundEvents("dissapear");
+
+
 
     public static final ForgeSoundType CANDELABRA_SOUNDS = new ForgeSoundType(1f, 1f,
             () -> SoundEvents.LANTERN_BREAK, () -> SoundEvents.LANTERN_STEP, HolyHellSound.CANDELABRA_PLACE,

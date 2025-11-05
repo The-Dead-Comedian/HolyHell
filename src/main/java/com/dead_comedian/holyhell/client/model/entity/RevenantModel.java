@@ -16,7 +16,6 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 public class RevenantModel<T extends RevenantEntity> extends HierarchicalModel<T> {
-    // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
     private final ModelPart bone;
     private final ModelPart body;
     private final ModelPart torso;
@@ -91,12 +90,13 @@ public class RevenantModel<T extends RevenantEntity> extends HierarchicalModel<T
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
         if (entity.isArmed()) {
-            this.weapon.yScale = 1;
+            this.weapon.yScale =1;
             this.animateWalk(ModAnimations.REVENANT_WALK_ARMED, limbSwing, limbSwingAmount, 2f, 2.5f);
             this.animate(entity.idleAnimationState, ModAnimations.REVENANT_IDLE_ARMED, ageInTicks, 1f);
             this.animate(entity.attackAnimationState, ModAnimations.REVENANT_ATTACK_ARMED, ageInTicks, 1f);
 
         } else {
+
             this.weapon.yScale = 0;
             this.animateWalk(ModAnimations.REVENANT_WALK, limbSwing, limbSwingAmount, 2f, 2.5f);
             this.animate(entity.idleAnimationState, ModAnimations.REVENANT_IDLE, ageInTicks, 1f);
@@ -106,7 +106,6 @@ public class RevenantModel<T extends RevenantEntity> extends HierarchicalModel<T
         this.animate(entity.catatonicAnimationState, ModAnimations.REVENANT_CATATONIC, ageInTicks, 1f);
         this.animate(entity.catatonicRiseAnimationState, ModAnimations.REVENANT_CATATONIC_RISE, ageInTicks, 1f);
         this.animate(entity.catatonicSitAnimationState, ModAnimations.REVENANT_CATATONIC_SIT, ageInTicks, 1f);
-        this.animate(entity.wololoAnimationState, ModAnimations.REVENANT_WOLOLO, ageInTicks, 1f);
 
         if (entity.getWololo()) {
             entity.getNavigation().stop();

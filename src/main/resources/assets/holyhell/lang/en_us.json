@@ -17,6 +17,7 @@
   "item.holyhell.heretic_spawn_egg": "Heretic Spawn Egg",
   "item.holyhell.kamikaze_spawn_egg": "Kamikaze Spawn Egg",
   "item.holyhell.bab_spawn_egg": "Bab Spawn Egg",
+  "item.holyhell.revenant_spawn_egg": "Revenant Spawn Egg",
 
 
   "item.holyhell.evangelist_helmet": "Evangelist Helmet",
@@ -50,6 +51,8 @@
   "entity.holyhell.bab_three": "Level 3 Bab",
   "entity.holyhell.cherub": "Cherub",
   "entity.holyhell.holy_cow": "Holy Cow",
+  "entity.holyhell.revenant": "Revenant",
+
 
   "entity.holyhell.gate": "Gate",
   "entity.holyhell.globular_dome": "Globular Dome",
@@ -106,6 +109,17 @@
 
   "sounds.holyhell.holy_spirit_death": "Holy Spirit Dies",
   "sounds.holyhell.stun": "Entity Is Stunned",
+
+  "sounds.holyhell.revenant_walk": "Revenant Walks",
+  "sounds.holyhell.revenant_rise": "Revenant Changes State",
+  "sounds.holyhell.metal_hurt": "Metal is Hit",
+  "sounds.holyhell.revenant_attack": "Revenant Thrusts",
+
+  "sounds.holyhell.ululu": "Ululu",
+  "sounds.holyhell.mob_passes": "Mob Passes To The Afterlife",
+  "sounds.holyhell.perish": "Mob gets sent to the gulag",
+  "sounds.holyhell.dissapear": "Mob gets sent to the gulag but fancy",
+
 
 
   "advancements.holyhell.blinding_bomb": "Obtain Blinding Bomb",

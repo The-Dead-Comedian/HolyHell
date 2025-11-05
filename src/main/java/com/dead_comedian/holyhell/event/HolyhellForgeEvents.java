@@ -31,7 +31,7 @@ public class HolyhellForgeEvents {
                             new AABB(player.getX() + 20, player.getY() + 4, player.getZ() + 20, player.getX() - 20, player.getY() - 4, player.getZ() - 20));
 
             for (RevenantEntity entity : nearbyRevenant) {
-                if (!player.isCreative()) {
+                if (!player.isCreative() && !player.isSpectator()) {
                     entity.setTarget(player);
                 }
             }
