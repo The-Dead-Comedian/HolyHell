@@ -58,9 +58,12 @@ public class CoffinMenu extends AbstractContainerMenu {
         int startX = 176;                 // right side of container
         int startY = 18;
 
-        for (int i = 0; i < EXTRA_SLOTS; i++) {
-            this.addSlot(new SlotItemHandler(handler, startIndex + i, startX, startY + i * 18));
-        }
+        this.addSlot(new SlotItemHandler(handler, startIndex , startX+40, startY-38));
+        this.addSlot(new SlotItemHandler(handler, startIndex + 1, startX+5, startY-3));
+        this.addSlot(new SlotItemHandler(handler, startIndex + 2, startX+40, startY-3));
+        this.addSlot(new SlotItemHandler(handler, startIndex + 3, startX+75, startY-3));
+        this.addSlot(new SlotItemHandler(handler, startIndex + 4 , startX+40, startY+53));
+
     }
 
 
