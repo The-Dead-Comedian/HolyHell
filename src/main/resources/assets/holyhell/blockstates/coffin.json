@@ -1,0 +1,37 @@
+{
+  "variants": {
+
+    "facing=east,half=lower": {
+      "model": "holyhell:block/coffin_close",
+      "y": 90
+    },
+    "facing=north,half=lower": {
+      "model": "holyhell:block/coffin_close"
+    },
+    "facing=south,half=lower": {
+      "model": "holyhell:block/coffin_close",
+      "y": 180
+    },
+    "facing=west,half=lower": {
+      "model": "holyhell:block/coffin_close",
+      "y": 270
+    },
+
+
+    "facing=east,half=upper": {
+      "model": "holyhell:block/coffin_back",
+      "y": 90
+    },
+    "facing=north,half=upper": {
+      "model": "holyhell:block/coffin_back"
+    },
+    "facing=south,half=upper": {
+      "model": "holyhell:block/coffin_back",
+      "y": 180
+    },
+    "facing=west,half=upper": {
+      "model": "holyhell:block/coffin_back",
+      "y": 270
+    }
+  }
+}

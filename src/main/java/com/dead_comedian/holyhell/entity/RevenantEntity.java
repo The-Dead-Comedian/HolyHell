@@ -253,7 +253,7 @@ public class RevenantEntity extends Monster {
         }
 
         if (this.getTarget() instanceof Player player) {
-            if (player.isCreative() && player.isSpectator()) {
+            if (player.isCreative() || player.isSpectator()) {
                 this.setTarget(null);
             }
         }
@@ -374,8 +374,9 @@ public class RevenantEntity extends Monster {
         private final RevenantEntity revenantEntity;
         private final double speed;
         private final int searchRadius;
-
+        private AABB holderAABB;
         private final Block targetBlock;
+        private AABB revenantAABB;
 
 
         public RevenantGetWeaponGoal(RevenantEntity revenantEntity, double speed, int searchRadius, Block targetBlock) {
@@ -384,7 +385,12 @@ public class RevenantEntity extends Monster {
             this.speed = speed;
             this.searchRadius = searchRadius;
             this.targetBlock = targetBlock;
-
+            this.revenantAABB = new AABB(this.revenantEntity.getX() - 1,
+                    this.revenantEntity.getY() - 1,
+                    this.revenantEntity.getZ() - 1,
+                    this.revenantEntity.getX() + 1,
+                    this.revenantEntity.getY() + 1,
+                    this.revenantEntity.getZ() + 1);
         }
 
         @Override
@@ -399,6 +405,7 @@ public class RevenantEntity extends Monster {
                         mobPos.offset(searchRadius, 2, searchRadius))) {
                     if (level.getBlockState(pos).is(targetBlock)) {
                         revenantEntity.setHolderPos(pos.immutable());
+                        this.holderAABB = new AABB(this.revenantEntity.getHolderPos());
 
                         return true;
                     }
@@ -431,10 +438,15 @@ public class RevenantEntity extends Monster {
         @Override
         public void tick() {
             if (revenantEntity.getHolderPos() == null) return;
-
-            double distanceSq = revenantEntity.distanceToSqr(Vec3.atCenterOf(revenantEntity.getHolderPos()));
+            this.holderAABB = new AABB(this.revenantEntity.getHolderPos());
+            this.revenantAABB = new AABB(this.revenantEntity.getX() - 1,
+                    this.revenantEntity.getY() - 1,
+                    this.revenantEntity.getZ() - 1,
+                    this.revenantEntity.getX() + 1,
+                    this.revenantEntity.getY() + 1,
+                    this.revenantEntity.getZ() + 1);
             if (!revenantEntity.isArmed() && revenantEntity.hasTarget()) {
-                if (distanceSq > 1.0) {
+                if (!this.revenantAABB.intersects(this.holderAABB)) {
                     revenantEntity.getNavigation().moveTo(
                             revenantEntity.getHolderPos().getX(),
                             revenantEntity.getHolderPos().getY(),
@@ -472,11 +484,18 @@ public class RevenantEntity extends Monster {
     public class RevenantPlaceWeaponGoal extends Goal {
         private final RevenantEntity revenantEntity;
         private final double speed;
+        private AABB revenantAABB;
 
         public RevenantPlaceWeaponGoal(RevenantEntity revenantEntity, double speed) {
             super();
             this.revenantEntity = revenantEntity;
             this.speed = speed;
+            this.revenantAABB = new AABB(this.revenantEntity.getX() - 1,
+                    this.revenantEntity.getY() - 1,
+                    this.revenantEntity.getZ() - 1,
+                    this.revenantEntity.getX() + 1,
+                    this.revenantEntity.getY() + 1,
+                    this.revenantEntity.getZ() + 1);
         }
 
         @Override
@@ -506,9 +525,16 @@ public class RevenantEntity extends Monster {
 
         @Override
         public void tick() {
-            double distanceSq = revenantEntity.distanceToSqr(Vec3.atCenterOf(revenantEntity.getHolderPos()));
+            AABB holderAABB = new AABB(this.revenantEntity.getHolderPos());
+            this.revenantAABB = new AABB(this.revenantEntity.getX() - 1,
+                    this.revenantEntity.getY() - 1,
+                    this.revenantEntity.getZ() - 1,
+                    this.revenantEntity.getX() + 1,
+                    this.revenantEntity.getY() + 1,
+                    this.revenantEntity.getZ() + 1);
+
             if (revenantEntity.isArmed() && !revenantEntity.hasTarget()) {
-                if (distanceSq > 1.0) {
+                if (!this.revenantAABB.intersects(holderAABB)) {
                     revenantEntity.getNavigation().moveTo(
                             revenantEntity.getHolderPos().getX(),
                             revenantEntity.getHolderPos().getY(),
@@ -614,7 +640,7 @@ public class RevenantEntity extends Monster {
                                     this.revenantEntity.getY() + 4,
                                     this.revenantEntity.getZ() + 30,
                                     this.revenantEntity.getX() - 30,
-                                    this.revenantEntity.getY() - 4,
+                                    this.revenantEntity.getY() - 1,
                                     this.revenantEntity.getZ() - 30));
 
 
@@ -640,9 +666,9 @@ public class RevenantEntity extends Monster {
                     } else {
                         if (this.revenantEntity.level().getRandom().nextInt(0, 15) == 5) {
                             this.revenantEntity.level().playSound(this.revenantEntity, this.revenantEntity.blockPosition(), HolyHellSound.PERISH.get(), SoundSource.HOSTILE, 1.2f, this.revenantEntity.getVoicePitch());
-                        }else if (this.revenantEntity.level().getRandom().nextInt(0, 30) == 21) {
+                        } else if (this.revenantEntity.level().getRandom().nextInt(0, 30) == 21) {
                             this.revenantEntity.level().playSound(this.revenantEntity, this.revenantEntity.blockPosition(), HolyHellSound.DISSAPEAR.get(), SoundSource.HOSTILE, 1.2f, this.revenantEntity.getVoicePitch());
-                        }else {
+                        } else {
                             this.revenantEntity.level().playSound(this.revenantEntity, this.revenantEntity.blockPosition(), HolyHellSound.MOB_PASSES.get(), SoundSource.HOSTILE, 1.2f, this.revenantEntity.getVoicePitch());
 
                         }
@@ -678,6 +704,7 @@ public class RevenantEntity extends Monster {
         public AABB revenantAABB;
         public AABB revenantThrustAABB;
         public LivingEntity targetEntity;
+        public int anticipation;
 
         public RevenantArmedAttackGoal(RevenantEntity entity) {
             revenantEntity = entity;
@@ -709,12 +736,12 @@ public class RevenantEntity extends Monster {
         public void tick() {
             this.targetEntity = revenantEntity.getTarget();
 
-            this.revenantThrustAABB = new AABB(this.revenantEntity.getX() + 3,
-                    this.revenantEntity.getY() + 3,
-                    this.revenantEntity.getZ() + 3,
-                    this.revenantEntity.getX() - 3,
-                    this.revenantEntity.getY() - 3,
-                    this.revenantEntity.getZ() - 3);
+            this.revenantThrustAABB = new AABB(this.revenantEntity.getX() + 2,
+                    this.revenantEntity.getY() + 2,
+                    this.revenantEntity.getZ() + 2,
+                    this.revenantEntity.getX() - 2,
+                    this.revenantEntity.getY() - 2,
+                    this.revenantEntity.getZ() - 2);
 
 
             this.revenantAABB = new AABB(this.revenantEntity.getX() + 4,
@@ -725,145 +752,147 @@ public class RevenantEntity extends Monster {
                     this.revenantEntity.getZ() - 4);
 
 
-            if (revenantEntity.getBoundingBox().intersects(this.targetEntity.getBoundingBox())) {
+            if (revenantThrustAABB.intersects(this.targetEntity.getBoundingBox())) {
                 this.targetEntity.hurt(revenantEntity.level().damageSources().mobAttack(revenantEntity), 10);
             }
 
 
-            revenantEntity.getNavigation().moveTo(this.targetEntity, 1);
             if (!this.revenantAABB.intersects(this.targetEntity.getBoundingBox())) {
-
                 revenantEntity.getNavigation().moveTo(this.targetEntity, 1);
             } else {
+                this.anticipation++;
+
                 revenantEntity.getNavigation().stop();
                 revenantEntity.getLookControl().setLookAt(this.targetEntity);
-                if (this.revenantEntity.attackAnimationTimeout >= 17 && this.revenantEntity.attackAnimationTimeout <= 40) {
-                    if (this.revenantThrustAABB.intersects(this.targetEntity.getBoundingBox())) {
-                        this.revenantEntity.getLookControl().setLookAt(this.targetEntity);
-                        this.revenantEntity.addDeltaMovement(new Vec3(
-                                this.revenantEntity.getLookAngle().x * 2,
-                                this.revenantEntity.getLookAngle().y * 2,
-                                this.revenantEntity.getLookAngle().z * 2));
-                        this.revenantEntity.level().playLocalSound(this.revenantEntity.blockPosition(), HolyHellSound.REVENANT_ATTACK.get(), SoundSource.HOSTILE, 0.8F, this.revenantEntity.getVoicePitch(), true);
+                if (this.anticipation >= 10000) {
+
+                    this.revenantEntity.getLookControl().setLookAt(this.targetEntity);
+                    this.revenantEntity.addDeltaMovement(new Vec3(
+                            this.revenantEntity.getLookAngle().x * 1.5,
+                            this.revenantEntity.getLookAngle().y * 1.5,
+                            this.revenantEntity.getLookAngle().z * 1.5));
+                    this.revenantEntity.level().playLocalSound(this.revenantEntity.blockPosition(), HolyHellSound.REVENANT_ATTACK.get(), SoundSource.HOSTILE, 0.8F, this.revenantEntity.getVoicePitch(), true);
+
+                    if (revenantThrustAABB.intersects(this.targetEntity.getBoundingBox())) {
                         if (!this.targetEntity.isBlocking()) {
                             this.targetEntity.hurt(this.revenantEntity.level().damageSources().mobAttack(this.revenantEntity), 15);
                         } else {
                             this.targetEntity.knockback(1.2, -this.targetEntity.getLookAngle().x, -this.targetEntity.getLookAngle().y);
                         }
-
-                        this.revenantEntity.attackAnimationTimeout = 0;
                     }
 
-                }
 
-                revenantEntity.getLookControl().setLookAt(this.targetEntity);
-                this.revenantEntity.addDeltaMovement(new Vec3(this.revenantEntity.getLookAngle().x * 2, this.revenantEntity.getLookAngle().y * 2, this.revenantEntity.getLookAngle().z * 2));
+                this.anticipation = 0;
 
 
             }
 
-            super.
+            revenantEntity.getLookControl().setLookAt(this.targetEntity);
+            this.revenantEntity.addDeltaMovement(new Vec3(this.revenantEntity.getLookAngle().x * 2, this.revenantEntity.getLookAngle().y * 2, this.revenantEntity.getLookAngle().z * 2));
 
-                    tick();
-        }
-    }
 
-    public class RevenantMeleeAttackGoal extends MeleeAttackGoal {
-        private final RevenantEntity revenantEntity;
-        private int attackDelay = 10;
-        private int ticksUntilNextAttack = 10;
-        private boolean shouldCountTillNextAttack = false;
-        public AABB revenantAABB;
-
-        public RevenantMeleeAttackGoal(PathfinderMob pMob, double pSpeedModifier, boolean pFollowingTargetEvenIfNotSeen) {
-            super(pMob, pSpeedModifier, pFollowingTargetEvenIfNotSeen);
-            this.revenantEntity = ((RevenantEntity) pMob);
         }
 
-        @Override
-        public boolean canUse() {
-            return !this.revenantEntity.isArmed()
-                    && this.revenantEntity.getTarget() != null
-                    && !this.revenantEntity.getTarget().getType().is(HolyhellTags.Entities.REVENANT_TRANSCENDS);
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return !this.revenantEntity.isArmed()
-                    && this.revenantEntity.getTarget() != null
-                    && !this.revenantEntity.getTarget().getType().is(HolyhellTags.Entities.REVENANT_TRANSCENDS);
-        }
-
-        @Override
-        public void start() {
-            super.start();
-            this.attackDelay = 10;
-            this.ticksUntilNextAttack = 10;
-        }
-
-        @Override
-        protected void checkAndPerformAttack(LivingEntity pEnemy, double pDistToEnemySqr) {
-            this.revenantAABB = new AABB(this.revenantEntity.getX() + 2,
-                    this.revenantEntity.getY() + 2,
-                    this.revenantEntity.getZ() + 2,
-                    this.revenantEntity.getX() - 2,
-                    this.revenantEntity.getY() - 2,
-                    this.revenantEntity.getZ() - 2);
-
-            if (this.revenantAABB.intersects(pEnemy.getBoundingBox())) {
-                this.shouldCountTillNextAttack = true;
-
-                if (isTimeToStartAttackAnimation()) {
-                    this.revenantEntity.setAttacking(true);
-                }
-
-                if (isTimeToAttack()) {
-                    this.mob.getLookControl().setLookAt(pEnemy.getX(), pEnemy.getEyeY(), pEnemy.getZ());
-                    performAttack(pEnemy);
-                }
-            } else {
-                resetAttackCooldown();
-                this.revenantEntity.getNavigation().moveTo(pEnemy, 1);
-                this.shouldCountTillNextAttack = false;
-                this.revenantEntity.setAttacking(false);
-                this.revenantEntity.attackAnimationTimeout = 0;
-            }
-        }
-
-        protected void resetAttackCooldown() {
-            this.ticksUntilNextAttack = this.adjustedTickDelay(attackDelay * 2);
-        }
-
-        protected boolean isTimeToAttack() {
-            return this.ticksUntilNextAttack <= 0;
-        }
-
-        protected boolean isTimeToStartAttackAnimation() {
-            return this.ticksUntilNextAttack <= attackDelay;
-        }
-
-        protected int getTicksUntilNextAttack() {
-            return this.ticksUntilNextAttack;
-        }
-
-        protected void performAttack(LivingEntity pEnemy) {
-            this.resetAttackCooldown();
-            this.mob.swing(InteractionHand.MAIN_HAND);
-            this.mob.doHurtTarget(pEnemy);
-        }
-
-        @Override
-        public void tick() {
             super.tick();
-            if (this.shouldCountTillNextAttack) {
-                this.ticksUntilNextAttack = Math.max(this.ticksUntilNextAttack - 1, 0);
-            }
-        }
+    }
+}
 
-        @Override
-        public void stop() {
+public class RevenantMeleeAttackGoal extends MeleeAttackGoal {
+    private final RevenantEntity revenantEntity;
+    private int attackDelay = 10;
+    private int ticksUntilNextAttack = 10;
+    private boolean shouldCountTillNextAttack = false;
+    public AABB revenantAABB;
+
+    public RevenantMeleeAttackGoal(PathfinderMob pMob, double pSpeedModifier, boolean pFollowingTargetEvenIfNotSeen) {
+        super(pMob, pSpeedModifier, pFollowingTargetEvenIfNotSeen);
+        this.revenantEntity = ((RevenantEntity) pMob);
+    }
+
+    @Override
+    public boolean canUse() {
+        return !this.revenantEntity.isArmed()
+                && this.revenantEntity.getTarget() != null
+                && !this.revenantEntity.getTarget().getType().is(HolyhellTags.Entities.REVENANT_TRANSCENDS);
+    }
+
+    @Override
+    public boolean canContinueToUse() {
+        return !this.revenantEntity.isArmed()
+                && this.revenantEntity.getTarget() != null
+                && !this.revenantEntity.getTarget().getType().is(HolyhellTags.Entities.REVENANT_TRANSCENDS);
+    }
+
+    @Override
+    public void start() {
+        super.start();
+        this.attackDelay = 10;
+        this.ticksUntilNextAttack = 10;
+    }
+
+    @Override
+    protected void checkAndPerformAttack(LivingEntity pEnemy, double pDistToEnemySqr) {
+        this.revenantAABB = new AABB(this.revenantEntity.getX() + 2,
+                this.revenantEntity.getY() + 2,
+                this.revenantEntity.getZ() + 2,
+                this.revenantEntity.getX() - 2,
+                this.revenantEntity.getY() - 2,
+                this.revenantEntity.getZ() - 2);
+
+        if (this.revenantAABB.intersects(pEnemy.getBoundingBox())) {
+            this.shouldCountTillNextAttack = true;
+
+            if (isTimeToStartAttackAnimation()) {
+                this.revenantEntity.setAttacking(true);
+            }
+
+            if (isTimeToAttack()) {
+                this.mob.getLookControl().setLookAt(pEnemy.getX(), pEnemy.getEyeY(), pEnemy.getZ());
+                performAttack(pEnemy);
+            }
+        } else {
+            resetAttackCooldown();
+            this.revenantEntity.getNavigation().moveTo(pEnemy, 1);
+            this.shouldCountTillNextAttack = false;
             this.revenantEntity.setAttacking(false);
-            super.stop();
+            this.revenantEntity.attackAnimationTimeout = 0;
         }
     }
+
+    protected void resetAttackCooldown() {
+        this.ticksUntilNextAttack = this.adjustedTickDelay(attackDelay * 2);
+    }
+
+    protected boolean isTimeToAttack() {
+        return this.ticksUntilNextAttack <= 0;
+    }
+
+    protected boolean isTimeToStartAttackAnimation() {
+        return this.ticksUntilNextAttack <= attackDelay;
+    }
+
+    protected int getTicksUntilNextAttack() {
+        return this.ticksUntilNextAttack;
+    }
+
+    protected void performAttack(LivingEntity pEnemy) {
+        this.resetAttackCooldown();
+        this.mob.swing(InteractionHand.MAIN_HAND);
+        this.mob.doHurtTarget(pEnemy);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (this.shouldCountTillNextAttack) {
+            this.ticksUntilNextAttack = Math.max(this.ticksUntilNextAttack - 1, 0);
+        }
+    }
+
+    @Override
+    public void stop() {
+        this.revenantEntity.setAttacking(false);
+        super.stop();
+    }
+}
 }

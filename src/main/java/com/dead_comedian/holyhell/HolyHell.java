@@ -10,8 +10,10 @@ import com.dead_comedian.holyhell.event.HolyCowSpawnHandler;
 
 import com.dead_comedian.holyhell.event.RegenerationHandler;
 import com.dead_comedian.holyhell.registries.*;
+import com.dead_comedian.holyhell.screen.CoffinScreen;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraftforge.api.distmarker.Dist;
@@ -45,6 +47,7 @@ public class HolyHell {
         context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
 
         HolyHellItems.register(modEventBus);
+        HolyHellScreens.register(modEventBus);
         HolyHellSound.register(modEventBus);
         HolyHellBlocks.register(modEventBus);
         HolyHellEffects.register(modEventBus);
@@ -96,6 +99,10 @@ public class HolyHell {
             EntityRenderers.register(HolyHellEntities.HOLY_SPIRIT.get(), HolySpiritRenderer::new);
             EntityRenderers.register(HolyHellEntities.CHERUB.get(), CherubRenderer::new);
             EntityRenderers.register(HolyHellEntities.HOLY_COW.get(), HolyCowRenderer::new);
+
+            MenuScreens.register(HolyHellScreens.COFFIN_MENU.get(), CoffinScreen::new);
+
+
 
             event.enqueueWork(HolyHellItemProperties::addCustomItemProperties);
         }

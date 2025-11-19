@@ -26,6 +26,17 @@ public class HolyHellBlocks {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, HolyHell.MOD_ID);
 
+    public static final RegistryObject<Block> COFFIN = registerBlock("coffin",
+            () -> new CoffinBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_GRAY)
+                    .instrument(NoteBlockInstrument.BASS)
+                    .strength(3F)
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.WOOD)
+                    .ignitedByLava()));
+
+
     public static final RegistryObject<Block> DIVINING_TABLE = registerBlock("divining_table",
             () -> new DiviningTableBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_GREEN)

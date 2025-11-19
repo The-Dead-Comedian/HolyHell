@@ -34,6 +34,7 @@ public class HolyHellCreativeTab {
                         pOutput.accept(HolyHellBlocks.CANDLE_HOLDER.get());
                         pOutput.accept(HolyHellBlocks.STONE_CROSS.get());
                         pOutput.accept(HolyHellBlocks.FALLING_CROSS.get());
+                        pOutput.accept(HolyHellBlocks.COFFIN.get());
 
                         pOutput.accept(HolyHellBlocks.BONE_PILE.get());
                         pOutput.accept(HolyHellBlocks.SKULL_PILE.get());
