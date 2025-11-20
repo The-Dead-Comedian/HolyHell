@@ -17,38 +17,45 @@ import net.minecraftforge.items.SlotItemHandler;
 public class CoffinMenu extends AbstractContainerMenu {
     public final CoffinBlockEntity blockEntity;
     private final Level level;
-
+    private final ContainerData data;
 
     public static final int TOTAL_SLOTS = 59;
     public static final int MAIN_ROWS = 6;
     public static final int MAIN_COLUMNS = 9;
     public static final int MAIN_SLOT_COUNT = MAIN_ROWS * MAIN_COLUMNS; // 54
-    public static final int EXTRA_SLOTS = 5;
 
-    public CoffinMenu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
-        this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(2));    }
 
-    public CoffinMenu(int pContainerId, Inventory inv, BlockEntity entity, ContainerData data) {
-        super(HolyHellScreens.COFFIN_MENU.get(), pContainerId);
+    public CoffinMenu(int id, Inventory inv, FriendlyByteBuf buf) {
+        this(id, inv, inv.player.level().getBlockEntity(buf.readBlockPos()), null);
+    }
 
-        blockEntity = ((CoffinBlockEntity) entity);
+    public CoffinMenu(int id, Inventory inv, BlockEntity entity, ContainerData unused) {
+        super(HolyHellScreens.COFFIN_MENU.get(), id);
+
+        this.blockEntity = (CoffinBlockEntity) entity;
+        this.data = blockEntity.getData();
         this.level = inv.player.level();
-        this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(iItemHandler -> {
 
-            addMainStorageSlots(iItemHandler);
-            addExtraSlots(iItemHandler);
+        blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
+            addMainStorageSlots(handler);
+            addExtraSlots(handler);
+
             addPlayerInventory(inv);
             addPlayerHotbar(inv);
 
-            addDataSlots(data);
+            addDataSlots(this.data);  // <-- ONLY this one
         });
+    }
 
+
+    public ContainerData getData() {
+        return data;
     }
 
     private void addMainStorageSlots(IItemHandler handler) {
-        for(int j = 0; j < MAIN_ROWS; ++j) {
-            for(int k = 0; k < 9; ++k) {
-                this.addSlot(new SlotItemHandler(handler, k + j * 9, 8 + k * 18,  j * 18 -18));
+        for (int j = 0; j < MAIN_ROWS; ++j) {
+            for (int k = 0; k < 9; ++k) {
+                this.addSlot(new SlotItemHandler(handler, k + j * 9, 8 + k * 18, j * 18 - 18));
             }
         }
     }
@@ -58,11 +65,11 @@ public class CoffinMenu extends AbstractContainerMenu {
         int startX = 176;                 // right side of container
         int startY = 18;
 
-        this.addSlot(new SlotItemHandler(handler, startIndex , startX+40, startY-38));
-        this.addSlot(new SlotItemHandler(handler, startIndex + 1, startX+5, startY-3));
-        this.addSlot(new SlotItemHandler(handler, startIndex + 2, startX+40, startY-3));
-        this.addSlot(new SlotItemHandler(handler, startIndex + 3, startX+75, startY-3));
-        this.addSlot(new SlotItemHandler(handler, startIndex + 4 , startX+40, startY+53));
+        this.addSlot(new SlotItemHandler(handler, startIndex, startX + 40, startY - 38));
+        this.addSlot(new SlotItemHandler(handler, startIndex + 1, startX + 5, startY - 3));
+        this.addSlot(new SlotItemHandler(handler, startIndex + 2, startX + 40, startY - 3));
+        this.addSlot(new SlotItemHandler(handler, startIndex + 3, startX + 75, startY - 3));
+        this.addSlot(new SlotItemHandler(handler, startIndex + 4, startX + 40, startY + 53));
 
     }
 
@@ -119,15 +126,15 @@ public class CoffinMenu extends AbstractContainerMenu {
 
     private void addPlayerInventory(Inventory playerInventory) {
         int i = 2;
-        for(int l = 0; l < 3; ++l) {
-            for(int j1 = 0; j1 < 9; ++j1) {
+        for (int l = 0; l < 3; ++l) {
+            for (int j1 = 0; j1 < 9; ++j1) {
                 this.addSlot(new Slot(playerInventory, j1 + l * 9 + 9, 8 + j1 * 18, 102 + l * 18 + i));
             }
         }
     }
 
     private void addPlayerHotbar(Inventory playerInventory) {
-        for(int i1 = 0; i1 < 9; ++i1) {
+        for (int i1 = 0; i1 < 9; ++i1) {
             this.addSlot(new Slot(playerInventory, i1, 8 + i1 * 18, 162));
         }
 
