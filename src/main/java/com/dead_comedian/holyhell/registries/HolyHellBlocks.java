@@ -26,7 +26,7 @@ public class HolyHellBlocks {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, HolyHell.MOD_ID);
 
-    public static final RegistryObject<Block> COFFIN = registerBlock("coffin",
+    public static final RegistryObject<Block> COFFIN = registerCoffinItem("coffin",
             () -> new CoffinBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_GRAY)
                     .instrument(NoteBlockInstrument.BASS)
@@ -153,7 +153,11 @@ public class HolyHellBlocks {
     private static <T extends Block> RegistryObject<Item> registerCrossBlockItem(String name, RegistryObject<T> block) {
         return HolyHellItems.ITEMS.register(name, () -> new StoneCrossItem(block.get(), new Item.Properties()));
     }
-
+    private static <T extends Block> RegistryObject<T> registerCoffinItem(String name, Supplier<T> block) {
+        RegistryObject<T> toReturn = BLOCKS.register(name, block);
+        CoffinItem(name, toReturn);
+        return toReturn;
+    }
     private static <T extends Block> RegistryObject<T> registerCrossBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
         registerCrossBlockItem(name, toReturn);
@@ -179,7 +183,9 @@ public class HolyHellBlocks {
         JackOLanternCrossItem(name, toReturn);
         return toReturn;
     }
-
+    private static <T extends Block> RegistryObject<Item> CoffinItem(String name, RegistryObject<T> block) {
+        return HolyHellItems.ITEMS.register(name, () -> new CoffinItem(block.get(), new Item.Properties()));
+    }
     private static <T extends Block> RegistryObject<Item> CarvedPumpkinEyeItem(String name, RegistryObject<T> block) {
         return HolyHellItems.ITEMS.register(name, () -> new CarvedPumpkinEyeItem(block.get(), new Item.Properties()));
     }

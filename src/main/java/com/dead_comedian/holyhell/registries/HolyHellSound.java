@@ -70,6 +70,7 @@ public class HolyHellSound {
     public static final RegistryObject<SoundEvent> PERISH = registerSoundEvents("perish");
     public static final RegistryObject<SoundEvent> DISSAPEAR = registerSoundEvents("dissapear");
 
+    public static final RegistryObject<SoundEvent> COFFIN_LID = registerSoundEvents("coffin_lid");
 
 
     public static final ForgeSoundType CANDELABRA_SOUNDS = new ForgeSoundType(1f, 1f,

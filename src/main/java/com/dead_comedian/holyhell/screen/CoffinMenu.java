@@ -1,9 +1,13 @@
 package com.dead_comedian.holyhell.screen;
 
+import com.dead_comedian.holyhell.block.CoffinBlock;
 import com.dead_comedian.holyhell.block.entity.CoffinBlockEntity;
 import com.dead_comedian.holyhell.registries.HolyHellBlocks;
 import com.dead_comedian.holyhell.registries.HolyHellScreens;
+import com.dead_comedian.holyhell.registries.HolyHellSound;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
@@ -18,6 +22,7 @@ public class CoffinMenu extends AbstractContainerMenu {
     public final CoffinBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
+    private final Container container;
 
     public static final int TOTAL_SLOTS = 59;
     public static final int MAIN_ROWS = 6;
@@ -29,12 +34,12 @@ public class CoffinMenu extends AbstractContainerMenu {
         this(id, inv, inv.player.level().getBlockEntity(buf.readBlockPos()), null);
     }
 
-    public CoffinMenu(int id, Inventory inv, BlockEntity entity, ContainerData unused) {
+    public CoffinMenu(int id, Inventory inv, BlockEntity entity, Container pContainer) {
         super(HolyHellScreens.COFFIN_MENU.get(), id);
-
         this.blockEntity = (CoffinBlockEntity) entity;
         this.data = blockEntity.getData();
         this.level = inv.player.level();
+        this.container = pContainer;
 
         blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
             addMainStorageSlots(handler);
@@ -52,6 +57,15 @@ public class CoffinMenu extends AbstractContainerMenu {
         return data;
     }
 
+    @Override
+    public void removed(Player pPlayer) {
+        super.removed(pPlayer);
+        if(!this.level.getBlockState(this.blockEntity.getBlockPos()).getValue(CoffinBlock.ACTIVATED)){
+            this.blockEntity.setStoredPlayer(null);
+        }
+        this.level.playLocalSound(pPlayer.blockPosition(), HolyHellSound.COFFIN_LID.get(),SoundSource.BLOCKS,1,1f,false);
+    }
+
     private void addMainStorageSlots(IItemHandler handler) {
         for (int j = 0; j < MAIN_ROWS; ++j) {
             for (int k = 0; k < 9; ++k) {
@@ -61,8 +75,8 @@ public class CoffinMenu extends AbstractContainerMenu {
     }
 
     private void addExtraSlots(IItemHandler handler) {
-        int startIndex = MAIN_SLOT_COUNT; // 54
-        int startX = 176;                 // right side of container
+        int startIndex = MAIN_SLOT_COUNT;
+        int startX = 176;
         int startY = 18;
 
         this.addSlot(new SlotItemHandler(handler, startIndex, startX + 40, startY - 38));

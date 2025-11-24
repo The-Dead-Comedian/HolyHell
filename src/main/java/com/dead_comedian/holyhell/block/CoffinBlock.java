@@ -3,6 +3,7 @@ package com.dead_comedian.holyhell.block;
 import com.dead_comedian.holyhell.block.entity.CoffinBlockEntity;
 import com.dead_comedian.holyhell.registries.HolyHellBlockEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
@@ -36,20 +37,10 @@ public class CoffinBlock extends BaseEntityBlock {
     public static final BooleanProperty ACTIVATED = BooleanProperty.create("activated");
     public static final BooleanProperty OPEN = BooleanProperty.create("open");
 
-
     public CoffinBlock(Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.defaultBlockState().setValue(HALF, DoubleBlockHalf.LOWER).setValue(OPEN,false).setValue(ACTIVATED,false));
     }
-
-    public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
-        BlockEntity blockentity = pLevel.getBlockEntity(pPos);
-        if (blockentity instanceof CoffinBlockEntity) {
-            ((CoffinBlockEntity)blockentity).recheckOpen();
-        }
-
-    }
-
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(HALF, FACING, ACTIVATED,OPEN);
@@ -57,14 +48,11 @@ public class CoffinBlock extends BaseEntityBlock {
 
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-
         switch (state.getValue(FACING)) {
             case NORTH -> level.setBlock(pos.north(), state.setValue(HALF, DoubleBlockHalf.UPPER), Block.UPDATE_ALL);
             case SOUTH -> level.setBlock(pos.south(), state.setValue(HALF, DoubleBlockHalf.UPPER), Block.UPDATE_ALL);
             case EAST -> level.setBlock(pos.east(), state.setValue(HALF, DoubleBlockHalf.UPPER), Block.UPDATE_ALL);
             case WEST -> level.setBlock(pos.west(), state.setValue(HALF, DoubleBlockHalf.UPPER), Block.UPDATE_ALL);
-
-
         }
     }
 
@@ -126,6 +114,9 @@ public class CoffinBlock extends BaseEntityBlock {
                 NetworkHooks.openScreen(((ServerPlayer)pPlayer), (CoffinBlockEntity)entity, pPos);
             } else {
                 throw new IllegalStateException("Our Container provider is missing!");
+            }
+            if(!pState.getValue(ACTIVATED)) {
+                ((CoffinBlockEntity) entity).setStoredPlayer(pPlayer.getUUID());
             }
         }
 

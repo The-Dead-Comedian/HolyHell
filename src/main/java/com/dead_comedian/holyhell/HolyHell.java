@@ -8,6 +8,7 @@ import com.dead_comedian.holyhell.client.renderer.render_layer.UpperRingRenderLa
 import com.dead_comedian.holyhell.event.DeathHandler;
 import com.dead_comedian.holyhell.event.HolyCowSpawnHandler;
 
+import com.dead_comedian.holyhell.event.PlayerDeathHandler;
 import com.dead_comedian.holyhell.event.RegenerationHandler;
 import com.dead_comedian.holyhell.registries.*;
 import com.dead_comedian.holyhell.screen.CoffinScreen;
@@ -60,7 +61,7 @@ public class HolyHell {
         DeathHandler.register();
         RegenerationHandler.register();
         HolyCowSpawnHandler.register();
-
+        PlayerDeathHandler.register();
     }
 
     private void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {

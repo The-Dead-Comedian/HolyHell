@@ -1,9 +1,12 @@
 package com.dead_comedian.holyhell.block.entity;
 
 import com.dead_comedian.holyhell.block.CoffinBlock;
+import com.dead_comedian.holyhell.data.StoredInventoryData;
 import com.dead_comedian.holyhell.registries.HolyHellBlockEntities;
+import com.dead_comedian.holyhell.registries.HolyHellSound;
 import com.dead_comedian.holyhell.screen.CoffinMenu;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
@@ -11,6 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -21,11 +25,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BarrelBlock;
+import net.minecraft.world.level.block.entity.BarrelBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
+import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraftforge.common.capabilities.Capability;
@@ -37,38 +44,25 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
+import java.util.UUID;
 
 
-public class CoffinBlockEntity extends BlockEntity implements MenuProvider {
+public class CoffinBlockEntity extends RandomizableContainerBlockEntity {
     private final ItemStackHandler itemStackHandler = new ItemStackHandler(59);
-
+    private NonNullList<ItemStack> items = NonNullList.withSize(59, ItemStack.EMPTY);
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
+    @Nullable
+    private UUID storedPlayer = null;
 
 
-    private final ContainerOpenersCounter openersCounter = new ContainerOpenersCounter() {
-        protected void onOpen(Level level, BlockPos blockPos, BlockState blockState) {
-            CoffinBlockEntity.this.playSound(blockState, SoundEvents.BARREL_OPEN);
-            CoffinBlockEntity.this.updateBlockState(blockState, CoffinBlock.OPEN, true);
-        }
+    public void setStoredPlayer(UUID uuid) {
+        this.storedPlayer = uuid;
+        setChanged();
+    }
 
-        protected void onClose(Level level, BlockPos blockPos, BlockState blockState) {
-            CoffinBlockEntity.this.playSound(blockState, SoundEvents.BARREL_CLOSE);
-            CoffinBlockEntity.this.updateBlockState(blockState, CoffinBlock.OPEN, false);
-        }
-
-        protected void openerCountChanged(Level level, BlockPos blockPos, BlockState blockState, int p_155069_, int p_155070_) {
-        }
-
-
-        protected boolean isOwnContainer(Player p_155060_) {
-            if (p_155060_.containerMenu instanceof ChestMenu) {
-                Container container = ((ChestMenu) p_155060_.containerMenu).getContainer();
-                return container == CoffinBlockEntity.this;
-            } else {
-                return false;
-            }
-        }
-    };
+    public @Nullable UUID getStoredPlayer() {
+        return storedPlayer;
+    }
 
     private boolean topRender;
     private boolean leftRender;
@@ -111,39 +105,29 @@ public class CoffinBlockEntity extends BlockEntity implements MenuProvider {
         return data;
     }
 
-
     public CoffinBlockEntity(BlockPos pos, BlockState state) {
         super(HolyHellBlockEntities.COFFIN_BLOCK_ENTITY.get(), pos, state);
     }
-
-
-
-
 
     void updateBlockState(BlockState pState, BooleanProperty property, boolean pOpen) {
         this.level.setBlock(this.getBlockPos(), pState.setValue(property, Boolean.valueOf(pOpen)), 3);
     }
 
-    void playSound(BlockState pState, SoundEvent pSound) {
-        Vec3i vec3i = pState.getValue(BarrelBlock.FACING).getNormal();
-        double d0 = (double) this.worldPosition.getX() + 0.5D + (double) vec3i.getX() / 2.0D;
-        double d1 = (double) this.worldPosition.getY() + 0.5D + (double) vec3i.getY() / 2.0D;
-        double d2 = (double) this.worldPosition.getZ() + 0.5D + (double) vec3i.getZ() / 2.0D;
-        this.level.playSound((Player) null, d0, d1, d2, pSound, SoundSource.BLOCKS, 0.5F, this.level.random.nextFloat() * 0.1F + 0.9F);
-    }
-
-    public void recheckOpen() {
-        if (!this.remove) {
-            this.openersCounter.recheckOpeners(this.getLevel(), this.getBlockPos(), this.getBlockState());
-        }
-
-    }
-
-    @Nullable
     @Override
-    public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
-        return new CoffinMenu(pContainerId, pPlayerInventory, this, this.data);
+    public int getContainerSize() {
+        return 59;
+    }
 
+    @Override
+    protected AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory) {
+        if (this.getStoredPlayer() != null) {
+            this.loadStoredPlayerInventory(this.getStoredPlayer());
+            if (this.getBlockState().getValue(CoffinBlock.ACTIVATED)) {
+                updateBlockState(this.getBlockState(), CoffinBlock.ACTIVATED, false);
+            }
+        }
+        this.level.playSound((Player) null, this.getBlockPos(), HolyHellSound.COFFIN_LID.get(), SoundSource.BLOCKS, 1, 1f);
+        return new CoffinMenu(pContainerId, pInventory, this, this);
     }
 
     @Override
@@ -152,14 +136,21 @@ public class CoffinBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     @Override
+    protected Component getDefaultName() {
+        return null;
+    }
+
+    @Override
     protected void saveAdditional(CompoundTag pTag) {
         pTag.put("inventory", itemStackHandler.serializeNBT());
+        if (storedPlayer != null) pTag.putUUID("StoredPlayer", storedPlayer);
         super.saveAdditional(pTag);
     }
 
     @Override
     public void load(CompoundTag pTag) {
         super.load(pTag);
+        if (pTag.hasUUID("StoredPlayer")) storedPlayer = pTag.getUUID("StoredPlayer");
         itemStackHandler.deserializeNBT(pTag.getCompound("inventory"));
     }
 
@@ -210,5 +201,38 @@ public class CoffinBlockEntity extends BlockEntity implements MenuProvider {
     @Override
     public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
         super.onDataPacket(net, pkt);
+    }
+
+    @Override
+    public void clearContent() {
+        items.clear();
+    }
+
+    @Override
+    protected NonNullList<ItemStack> getItems() {
+        return items;
+    }
+
+    @Override
+    protected void setItems(NonNullList<ItemStack> pItemStacks) {
+        items = pItemStacks;
+    }
+
+
+    public void loadStoredPlayerInventory(UUID playerId) {
+        if (level == null || level.isClientSide()) return;
+
+        StoredInventoryData data = StoredInventoryData.get((ServerLevel) level);
+        StoredInventoryData.PlayerInventoryRecord record = data.getPlayerInventory(playerId);
+
+        if (record == null) return;
+
+        for (int i = 0; i < 36; i++) {
+            itemStackHandler.setStackInSlot(i, record.items[i]);
+        }
+
+        for (int i = 0; i < 4; i++) {
+            itemStackHandler.setStackInSlot(36 + i, record.armor[i]);
+        }
     }
 }

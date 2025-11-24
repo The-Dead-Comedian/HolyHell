@@ -254,5 +254,11 @@
     "sounds": [
       "holyhell:dissapear"
     ]
+  },
+  "coffin_lid": {
+    "subtitle": "sounds.holyhell.coffin_lid",
+    "sounds": [
+      "holyhell:coffin_lid"
+    ]
   }
 }
