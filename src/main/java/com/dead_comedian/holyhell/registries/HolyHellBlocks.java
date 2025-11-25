@@ -33,7 +33,7 @@ public class HolyHellBlocks {
                     .strength(3F)
                     .noOcclusion()
                     .requiresCorrectToolForDrops()
-                    .sound(SoundType.WOOD)
+                    .sound(SoundType.DEEPSLATE_BRICKS)
                     .ignitedByLava()));
 
 
