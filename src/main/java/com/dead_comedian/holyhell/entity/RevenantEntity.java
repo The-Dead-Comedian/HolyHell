@@ -440,20 +440,25 @@ public class RevenantEntity extends Monster {
         @Override
         public void tick() {
             if (revenantEntity.getHolderPos() == null) return;
-            this.holderAABB = new AABB(this.revenantEntity.getHolderPos().getX() - 1,
-                    this.revenantEntity.getHolderPos().getY(),
-                    this.revenantEntity.getHolderPos().getZ() - 1,
-                    this.revenantEntity.getHolderPos().getX() + 1,
-                    this.revenantEntity.getHolderPos().getY(),
-                    this.revenantEntity.getHolderPos().getZ() + 1);
-            this.revenantAABB = new AABB(this.revenantEntity.getX() - 1,
-                    this.revenantEntity.getY() - 1,
-                    this.revenantEntity.getZ() - 1,
-                    this.revenantEntity.getX() + 1,
-                    this.revenantEntity.getY() + 1,
-                    this.revenantEntity.getZ() + 1);
+            this.holderAABB = new AABB(this.revenantEntity.getHolderPos().getX() + 2.5,
+                    this.revenantEntity.getHolderPos().getY()+2.5,
+                    this.revenantEntity.getHolderPos().getZ()+2.5,
+                    this.revenantEntity.getHolderPos().getX()-2.5,
+                    this.revenantEntity.getHolderPos().getY()-2.5,
+                    this.revenantEntity.getHolderPos().getZ()-2.5);
+            this.revenantAABB = new AABB(this.revenantEntity.getX(),
+                    this.revenantEntity.getY() ,
+                    this.revenantEntity.getZ(),
+                    this.revenantEntity.getX(),
+                    this.revenantEntity.getY(),
+                    this.revenantEntity.getZ());
             if (!revenantEntity.isArmed() && revenantEntity.hasTarget()) {
-                if (!this.revenantAABB.intersects(this.holderAABB)) {
+                if (!this.holderAABB.intersects(this.revenantAABB)) {
+                    revenantEntity.getLookControl().setLookAt(
+                            revenantEntity.getHolderPos().getX(),
+                            revenantEntity.getHolderPos().getY(),
+                            revenantEntity.getHolderPos().getZ()
+                    );
                     revenantEntity.getNavigation().moveTo(
                             revenantEntity.getHolderPos().getX(),
                             revenantEntity.getHolderPos().getY(),
@@ -461,6 +466,12 @@ public class RevenantEntity extends Monster {
                             speed
                     );
                 } else {
+                    revenantEntity.getNavigation().moveTo(
+                            revenantEntity.getHolderPos().getX(),
+                            revenantEntity.getHolderPos().getY(),
+                            revenantEntity.getHolderPos().getZ(),
+                            speed
+                    );
 
                     revenantEntity.setArmed(true);
                     revenantEntity.level().destroyBlock(revenantEntity.getHolderPos(), false);
@@ -532,22 +543,38 @@ public class RevenantEntity extends Monster {
 
         @Override
         public void tick() {
-            AABB holderAABB = new AABB(this.revenantEntity.getHolderPos().getX() - 1,
-                    this.revenantEntity.getHolderPos().getY(),
-                    this.revenantEntity.getHolderPos().getZ() - 1,
-                    this.revenantEntity.getHolderPos().getX() + 1,
-                    this.revenantEntity.getHolderPos().getY(),
-                    this.revenantEntity.getHolderPos().getZ() + 1);
+            if (revenantEntity.getHolderPos() == null) {
+                revenantEntity.setArmed(false);
+                revenantEntity.level().setBlock(revenantEntity.blockPosition(), HolyHellBlocks.CANDLE_HOLDER.get().defaultBlockState().setValue(CandleholderBlock.PIECE, 0), 3);
+                revenantEntity.level().setBlock(revenantEntity.blockPosition().above(), HolyHellBlocks.CANDLE_HOLDER.get().defaultBlockState().setValue(CandleholderBlock.PIECE, 1), 3);
+                revenantEntity.level().setBlock(revenantEntity.blockPosition().above(2), HolyHellBlocks.CANDLE_HOLDER.get().defaultBlockState().setValue(CandleholderBlock.PIECE, 2), 3);
+                return;
 
-            this.revenantAABB = new AABB(this.revenantEntity.getX() - 1,
-                    this.revenantEntity.getY() - 1,
-                    this.revenantEntity.getZ() - 1,
-                    this.revenantEntity.getX() + 1,
-                    this.revenantEntity.getY() + 1,
-                    this.revenantEntity.getZ() + 1);
+            }
+
+            AABB holderAABB = new AABB(this.revenantEntity.getHolderPos().getX() + 2.5,
+                    this.revenantEntity.getHolderPos().getY() + 2.5,
+                    this.revenantEntity.getHolderPos().getZ() + 2.5,
+                    this.revenantEntity.getHolderPos().getX() - 2.5,
+                    this.revenantEntity.getHolderPos().getY() - 2.5,
+                    this.revenantEntity.getHolderPos().getZ() - 2.5);
+
+            this.revenantAABB = new AABB(this.revenantEntity.getX(),
+                    this.revenantEntity.getY(),
+                    this.revenantEntity.getZ(),
+                    this.revenantEntity.getX(),
+                    this.revenantEntity.getY(),
+                    this.revenantEntity.getZ());
 
             if (revenantEntity.isArmed() && !revenantEntity.hasTarget()) {
-                if (!this.revenantAABB.intersects(holderAABB)) {
+                if (!holderAABB.intersects(this.revenantAABB)) {
+                    revenantEntity.getLookControl().setLookAt(
+                            revenantEntity.getHolderPos().getX(),
+                            revenantEntity.getHolderPos().getY(),
+                            revenantEntity.getHolderPos().getZ()
+
+                    );
+
                     revenantEntity.getNavigation().moveTo(
                             revenantEntity.getHolderPos().getX(),
                             revenantEntity.getHolderPos().getY(),
@@ -555,6 +582,12 @@ public class RevenantEntity extends Monster {
                             speed
                     );
                 } else {
+                    revenantEntity.getNavigation().moveTo(
+                            revenantEntity.getHolderPos().getX(),
+                            revenantEntity.getHolderPos().getY(),
+                            revenantEntity.getHolderPos().getZ(),
+                            speed
+                    );
 
                     revenantEntity.setArmed(false);
                     revenantEntity.level().setBlock(revenantEntity.getHolderPos(), HolyHellBlocks.CANDLE_HOLDER.get().defaultBlockState().setValue(CandleholderBlock.PIECE, 0), 3);
@@ -564,15 +597,10 @@ public class RevenantEntity extends Monster {
                             revenantEntity.getHolderPos().getX(),
                             revenantEntity.getHolderPos().getY(),
                             revenantEntity.getHolderPos().getZ()
-                    );
-                }
-            }
-            if (revenantEntity.getHolderPos() == null) {
-                revenantEntity.setArmed(false);
-                revenantEntity.level().setBlock(revenantEntity.blockPosition(), HolyHellBlocks.CANDLE_HOLDER.get().defaultBlockState().setValue(CandleholderBlock.PIECE, 0), 3);
-                revenantEntity.level().setBlock(revenantEntity.blockPosition().above(), HolyHellBlocks.CANDLE_HOLDER.get().defaultBlockState().setValue(CandleholderBlock.PIECE, 1), 3);
-                revenantEntity.level().setBlock(revenantEntity.blockPosition().above(2), HolyHellBlocks.CANDLE_HOLDER.get().defaultBlockState().setValue(CandleholderBlock.PIECE, 2), 3);
 
+                    );
+                   revenantEntity.setHolderPos(null);
+                }
             }
         }
 
