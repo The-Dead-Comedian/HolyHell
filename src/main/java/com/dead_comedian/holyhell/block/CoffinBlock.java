@@ -82,6 +82,26 @@ public class CoffinBlock extends BaseEntityBlock {
         return (this.defaultBlockState().setValue(FACING, context.getHorizontalDirection()).setValue(HALF, DoubleBlockHalf.LOWER));
     }
 
+    @Nullable
+    public BlockEntity getLowerBlockEntity(BlockPos pos, BlockState state, Level level) {
+            switch (state.getValue(FACING)) {
+                case NORTH -> {
+                    return level.getBlockEntity(pos.south());
+                }
+                case SOUTH -> {
+                    return level.getBlockEntity(pos.north());
+                }
+                case EAST -> {
+                    return level.getBlockEntity(pos.west());
+                }
+                case WEST -> {
+                    return level.getBlockEntity(pos.east());
+                }
+                default -> {
+                    return null;
+                }
+            }
+    }
 
 
 
@@ -107,9 +127,22 @@ public class CoffinBlock extends BaseEntityBlock {
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
-            BlockEntity entity = pLevel.getBlockEntity(pPos);
-            if(entity instanceof CoffinBlockEntity) {
-                NetworkHooks.openScreen(((ServerPlayer)pPlayer), (CoffinBlockEntity)entity, pPos);
+            BlockEntity entity = null;
+
+            if(pState.getValue(HALF) == DoubleBlockHalf.LOWER){
+                entity = pLevel.getBlockEntity(pPos);
+            }
+            else if(pState.getValue(HALF) == DoubleBlockHalf.UPPER){
+                entity = this.getLowerBlockEntity(pPos, pState, pLevel);
+                System.out.println(entity);
+                System.out.println(entity.getBlockPos());
+            }
+
+
+
+
+            if(entity instanceof CoffinBlockEntity && entity != null) {
+                NetworkHooks.openScreen(((ServerPlayer)pPlayer), (CoffinBlockEntity)entity, entity.getBlockPos());
             } else {
                 throw new IllegalStateException("Our Container provider is missing!");
             }
@@ -118,13 +151,15 @@ public class CoffinBlock extends BaseEntityBlock {
             }
         }
 
+
         return InteractionResult.sidedSuccess(pLevel.isClientSide());
     }
 
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return new CoffinBlockEntity(pPos, pState);
+        if(pState.getValue(HALF)==DoubleBlockHalf.LOWER) return new CoffinBlockEntity(pPos, pState);
+        return null;
     }
 
     @Nullable
