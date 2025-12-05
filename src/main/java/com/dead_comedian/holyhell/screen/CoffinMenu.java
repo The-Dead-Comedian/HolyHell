@@ -2,10 +2,12 @@ package com.dead_comedian.holyhell.screen;
 
 import com.dead_comedian.holyhell.block.CoffinBlock;
 import com.dead_comedian.holyhell.block.entity.CoffinBlockEntity;
+import com.dead_comedian.holyhell.data.PlayerCoffinStatus;
 import com.dead_comedian.holyhell.registries.HolyHellBlocks;
 import com.dead_comedian.holyhell.registries.HolyHellScreens;
 import com.dead_comedian.holyhell.registries.HolyHellSound;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
@@ -60,10 +62,18 @@ public class CoffinMenu extends AbstractContainerMenu {
     @Override
     public void removed(Player pPlayer) {
         super.removed(pPlayer);
-        if(!this.level.getBlockState(this.blockEntity.getBlockPos()).getValue(CoffinBlock.ACTIVATED)){
-            this.blockEntity.setStoredPlayer(null);
+        if (pPlayer.level().getServer() != null) {
+            ServerLevel level = pPlayer.level().getServer().overworld();
+            if (!blockEntity.getBlockState().getValue(CoffinBlock.ACTIVATED)) {
+                blockEntity.setStoredPlayer(null);
+            } else {
+                // Coffin was active → deactivate player on close
+                ServerLevel s = (ServerLevel) pPlayer.level();
+                PlayerCoffinStatus.get(s).deactivate(pPlayer.getUUID());
+            }
         }
-        this.level.playLocalSound(pPlayer.blockPosition(), HolyHellSound.COFFIN_LID.get(),SoundSource.BLOCKS,1,1f,false);
+
+        this.level.playLocalSound(pPlayer.blockPosition(), HolyHellSound.COFFIN_LID.get(), SoundSource.BLOCKS, 1, 1f, false);
     }
 
     private void addMainStorageSlots(IItemHandler handler) {

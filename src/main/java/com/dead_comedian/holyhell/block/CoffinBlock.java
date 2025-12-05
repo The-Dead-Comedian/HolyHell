@@ -1,6 +1,7 @@
 package com.dead_comedian.holyhell.block;
 
 import com.dead_comedian.holyhell.block.entity.CoffinBlockEntity;
+import com.dead_comedian.holyhell.data.PlayerCoffinStatus;
 import com.dead_comedian.holyhell.registries.HolyHellBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -27,6 +28,8 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.UUID;
 
 public class CoffinBlock extends BaseEntityBlock {
 
@@ -121,6 +124,13 @@ public class CoffinBlock extends BaseEntityBlock {
             }
         }
 
+        BlockEntity pBlockEntity = pLevel.getBlockEntity(pPos);
+        if (!pLevel.isClientSide() && pBlockEntity instanceof CoffinBlockEntity cbe) {
+            UUID id = cbe.getStoredPlayer();
+            if (id != null) {
+                PlayerCoffinStatus.get((ServerLevel)pLevel).deactivate(id);
+            }
+        }
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
     }
 

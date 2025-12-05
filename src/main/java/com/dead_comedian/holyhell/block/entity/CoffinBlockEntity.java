@@ -1,6 +1,7 @@
 package com.dead_comedian.holyhell.block.entity;
 
 import com.dead_comedian.holyhell.block.CoffinBlock;
+import com.dead_comedian.holyhell.data.PlayerCoffinStatus;
 import com.dead_comedian.holyhell.data.StoredInventoryData;
 import com.dead_comedian.holyhell.registries.HolyHellBlockEntities;
 import com.dead_comedian.holyhell.registries.HolyHellSound;
@@ -122,6 +123,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity {
     protected AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory) {
         if (this.getStoredPlayer() != null) {
             this.loadStoredPlayerInventory(this.getStoredPlayer());
+            ServerLevel level = pInventory.player.level().getServer().overworld();
             if (this.getBlockState().getValue(CoffinBlock.ACTIVATED)) {
                 updateBlockState(this.getBlockState(), CoffinBlock.ACTIVATED, false);
             }
@@ -184,8 +186,17 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity {
 
         boolean activated = topRender && leftRender && midRender && rightRender && bottomRender;
 
+        ServerLevel s = (ServerLevel) level;
+        PlayerCoffinStatus.get(s).setActive(
+                this.getStoredPlayer(),
+                true,
+                pPos.getX(), pPos.getY(), pPos.getZ()
+        );
+
+
         updateBlockState(pState, CoffinBlock.ACTIVATED, activated);
     }
+
 
     @Nullable
     @Override
