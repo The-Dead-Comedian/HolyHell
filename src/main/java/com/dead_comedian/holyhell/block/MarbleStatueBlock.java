@@ -136,10 +136,12 @@ public class MarbleStatueBlock extends HorizontalDirectionalBlock {
     }
 
 
+
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, FLIPPED, HALF);
     }
+
 
     protected static void preventDropFromBottomPart(Level level, BlockPos pos, BlockState state, Player player) {
         DoubleBlockHalf half = state.getValue(HALF);
@@ -153,5 +155,4 @@ public class MarbleStatueBlock extends HorizontalDirectionalBlock {
             }
         }
     }
-
 }

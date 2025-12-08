@@ -116,9 +116,14 @@ public class HolyHellEventBusEvents {
 
             if (list != null) {
                 if (list.isEmpty()) {
-                    if (event.getLevel().dimension() == HolyhellDimensions.ANGEL) {
-                        LOGGER.debug("Haven't seen the All Seer , respawning it");
+
+                    if (Minecraft.getInstance().player != null) {
+                        if (Minecraft.getInstance().player.level().dimension() == HolyhellDimensions.ANGEL) {
+                            LOGGER.debug("Haven't seen the All Seer , respawning it");
+                        }
                     }
+
+
                     event.getLevel().getChunkAt(new BlockPos(0, 0, 0));
                     AllSeerEntity allSeerEntity = HolyHellEntities.ALL_SEER.get().create(event.getLevel());
                     if (allSeerEntity != null) {
@@ -305,7 +310,6 @@ public class HolyHellEventBusEvents {
         event.put(HolyHellEntities.HOLY_SPIRIT.get(), HolySpiritEntity.createAttributes().build());
         event.put(HolyHellEntities.KAMIKAZE.get(), KamikazeEntity.createAttributes().build());
     }
-
 
 
 }
