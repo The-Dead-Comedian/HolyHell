@@ -23,7 +23,7 @@ public class AngelicVisionEffect extends MobEffect {
     @Override
     public void onEffectAdded(LivingEntity livingEntity, int amplifier) {
         if(livingEntity instanceof Player){
-            livingEntity.setData(HolyHellAttachments.ANGEL_VISION_TRANSITION_SYNCED_DATA,false);
+            livingEntity.setData(HolyHellAttachments.ANGEL_VISION_TRANSITION,false);
         }
         super.onEffectAdded(livingEntity, amplifier);
     }

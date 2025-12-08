@@ -3,7 +3,6 @@ package com.dead_comedian.holyhell.client.renderer.overlay;
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.registries.HolyHellAttachments;
 import com.dead_comedian.holyhell.registries.HolyHellEffects;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -12,7 +11,6 @@ import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 
@@ -75,8 +73,8 @@ public class EyeTransitionOverlay {
         );
 
         if (currentFrame == 9) {
-            Minecraft.getInstance().player.setData(HolyHellAttachments.ANGEL_VISION_TRANSITION_SYNCED_DATA, false);
-            Minecraft.getInstance().player.setData(HolyHellAttachments.ANGEL_VISION_SHADER_SYNCED_DATA, !Minecraft.getInstance().player.getData(HolyHellAttachments.ANGEL_VISION_SHADER_SYNCED_DATA));
+            Minecraft.getInstance().player.setData(HolyHellAttachments.ANGEL_VISION_TRANSITION, false);
+            Minecraft.getInstance().player.setData(HolyHellAttachments.VISION_SHADER, !Minecraft.getInstance().player.getData(HolyHellAttachments.VISION_SHADER));
         }
 
         RenderSystem.disableBlend();
@@ -86,6 +84,6 @@ public class EyeTransitionOverlay {
 
     private static boolean shouldShowOverlay(Player player) {
 
-        return player.getData(HolyHellAttachments.ANGEL_VISION_TRANSITION_SYNCED_DATA);
+        return player.getData(HolyHellAttachments.ANGEL_VISION_TRANSITION);
     }
 }

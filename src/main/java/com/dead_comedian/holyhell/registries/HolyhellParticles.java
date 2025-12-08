@@ -25,6 +25,9 @@ public class HolyhellParticles {
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> PLAYER_LOCATOR  =
             PARTICLE_TYPES.register("player_locator", () -> new SimpleParticleType(true));
 
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> OBFUSCATION  =
+            PARTICLE_TYPES.register("obfuscation", () -> new SimpleParticleType(true));
+
 
 
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> KAMIKAZE_EXPLOSION  =

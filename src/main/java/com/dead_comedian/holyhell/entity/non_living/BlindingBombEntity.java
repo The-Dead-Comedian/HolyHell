@@ -1,8 +1,8 @@
 package com.dead_comedian.holyhell.entity.non_living;
 
-import com.dead_comedian.holyhell.registries.HolyHellEffects;
-import com.dead_comedian.holyhell.registries.HolyHellEntities;
-import com.dead_comedian.holyhell.registries.HolyHellItems;
+import com.dead_comedian.holyhell.registries.*;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Snowball;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,21 +26,13 @@ import net.minecraft.world.phys.HitResult;
 
 public class BlindingBombEntity extends ThrowableItemProjectile {
 
-
-
-
     public BlindingBombEntity(Level world, LivingEntity owner) {
         super(HolyHellEntities.BLINDING_BOMB.get(), owner, world);
-    }
-
-    public BlindingBombEntity(Level world, double x, double y, double z) {
-        super(HolyHellEntities.BLINDING_BOMB.get(), x, y, z, world);
     }
 
     public BlindingBombEntity(EntityType<BlindingBombEntity> blindingBombEntityEntityType, Level level) {
         super(blindingBombEntityEntityType,level);
     }
-
 
     protected void onHitEntity(EntityHitResult entityHitResult) {
         super.onHitEntity(entityHitResult);
@@ -51,7 +43,7 @@ public class BlindingBombEntity extends ThrowableItemProjectile {
         List<LivingEntity> list = entity.level().getEntitiesOfClass(LivingEntity.class, userHitbox);
         for(LivingEntity i : list){
 
-            i.addEffect(new MobEffectInstance(HolyHellEffects.CONFUSION, 200 ,1));
+            i.addEffect(new MobEffectInstance(HolyHellEffects.CONFUSION, 300 ,1));
 
         }
         list.removeAll(list);
@@ -77,9 +69,6 @@ public class BlindingBombEntity extends ThrowableItemProjectile {
         return false;
     }
 
-
-
-
     protected void onHit(HitResult hitResult) {
         super.onHit(hitResult);
         if (!this.level().isClientSide) {
@@ -92,6 +81,10 @@ public class BlindingBombEntity extends ThrowableItemProjectile {
             for(LivingEntity i : list){
 
                 i.addEffect(new MobEffectInstance(HolyHellEffects.CONFUSION, 200 ,1));
+                if(i instanceof Player player){
+                    player.setData(HolyHellAttachments.FLASHBANG,true);
+                    this.level().playLocalSound(player, HolyHellSounds.FLASHBANG.get(), SoundSource.PLAYERS, 1F, 1);
+                }
 
             }
             list.removeAll(list);

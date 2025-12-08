@@ -13,7 +13,6 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.network.protocol.game.ClientboundMoveEntityPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -150,7 +149,7 @@ public abstract class SunTextureMixin {
 
     @Inject(method = "renderSky", at = @At("TAIL"))
     private void renderBigVoidEyes(Matrix4f frustumMatrix, Matrix4f projectionMatrix, float partialTick, Camera camera, boolean isFoggy, Runnable skyFogSetup, CallbackInfo ci) {
-        if (Minecraft.getInstance().player.getData(HolyHellAttachments.ANGEL_VISION_SHADER_SYNCED_DATA)) {
+        if (Minecraft.getInstance().player.getData(HolyHellAttachments.VISION_SHADER)) {
             Level level = Minecraft.getInstance().level;
             if (level == null || level.dimension() != Level.END) {
                 return;
@@ -225,7 +224,7 @@ public abstract class SunTextureMixin {
 
     @Inject(method = "renderSky", at = @At("TAIL"))
     private void renderCustomZenith(Matrix4f frustumMatrix, Matrix4f projectionMatrix, float partialTick, Camera camera, boolean isFoggy, Runnable skyFogSetup, CallbackInfo ci) {
-        if (Minecraft.getInstance().player.getData(HolyHellAttachments.ANGEL_VISION_SHADER_SYNCED_DATA)) {
+        if (Minecraft.getInstance().player.getData(HolyHellAttachments.VISION_SHADER)) {
             Level level = Minecraft.getInstance().level;
             if (level == null || level.dimension() != Level.OVERWORLD) {
                 return;
@@ -274,7 +273,7 @@ public abstract class SunTextureMixin {
         if (originalTexture.toString().contains("sun")) {
 
 
-            if (Minecraft.getInstance().player.getData(HolyHellAttachments.ANGEL_VISION_SHADER_SYNCED_DATA)) {
+            if (Minecraft.getInstance().player.getData(HolyHellAttachments.VISION_SHADER)) {
 
                 RenderSystem.setShaderTexture(0, ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/environment/eye5.png"));
 

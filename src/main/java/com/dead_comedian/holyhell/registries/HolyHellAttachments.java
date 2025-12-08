@@ -24,6 +24,16 @@ public class HolyHellAttachments {
                     .build()
     );
 
+    public static final Supplier<AttachmentType<Boolean>> FLASHBANG = ATTACHMENT_TYPES.register(
+            "flashbang",
+            () -> AttachmentType.builder(() -> false)
+                    .serialize(Codec.BOOL)
+                    .sync(ByteBufCodecs.BOOL)
+                    .copyOnDeath()
+                    .build()
+    );
+
+
     public static final Supplier<AttachmentType<Boolean>> SHOULD_DISPLAY_TEXT = ATTACHMENT_TYPES.register(
             "should_display_text",
             () -> AttachmentType.builder(() -> false)
@@ -33,8 +43,8 @@ public class HolyHellAttachments {
                     .build()
     );
 
-    public static final Supplier<AttachmentType<Boolean>> ANGEL_VISION_TRANSITION_SYNCED_DATA = ATTACHMENT_TYPES.register(
-            "angel_vision_transition_synced_data",
+    public static final Supplier<AttachmentType<Boolean>> ANGEL_VISION_TRANSITION = ATTACHMENT_TYPES.register(
+            "angel_vision_transition",
             () -> AttachmentType.builder(() -> false)
                     .serialize(Codec.BOOL)
                     .sync(ByteBufCodecs.BOOL)
@@ -42,8 +52,8 @@ public class HolyHellAttachments {
                     .build()
     );
 
-    public static final Supplier<AttachmentType<Boolean>> ANGEL_VISION_SHADER_SYNCED_DATA = ATTACHMENT_TYPES.register(
-            "angel_vision_shader_synced_data",
+    public static final Supplier<AttachmentType<Boolean>> VISION_SHADER = ATTACHMENT_TYPES.register(
+            "angel_vision_shaderw",
             () -> AttachmentType.builder(() -> false)
                     .serialize(Codec.BOOL)
                     .sync(ByteBufCodecs.BOOL)

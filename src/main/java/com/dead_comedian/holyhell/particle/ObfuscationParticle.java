@@ -6,19 +6,20 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
+import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 
-public class HostileLocatorParticle extends TextureSheetParticle {
+public class ObfuscationParticle extends TextureSheetParticle {
     private final SpriteSet spriteProvider;
 
 
-
-    HostileLocatorParticle(ClientLevel world, double x, double y, double z, SpriteSet spriteProvider) {
+    ObfuscationParticle(ClientLevel world, double x, double y, double z, SpriteSet spriteProvider) {
         super(world, x, y, z);
         this.spriteProvider = spriteProvider;
         this.lifetime = 1;
-        quadSize =  2f;
-        this.alpha = 0.83f;
+        quadSize =  3f;
+        this.alpha = 1f;
         this.setSpriteFromAge(spriteProvider);
     }
 
@@ -30,8 +31,7 @@ public class HostileLocatorParticle extends TextureSheetParticle {
     @Override
     public void render(VertexConsumer buffer, Camera renderInfo, float partialTicks) {
         super.render(buffer, renderInfo, partialTicks);
-
-        if(!Minecraft.getInstance().player.getData(HolyHellAttachments.VISION_SHADER)){
+        if (!Minecraft.getInstance().player.getData(HolyHellAttachments.VISION_SHADER)) {
             remove();
         }
     }
@@ -44,7 +44,11 @@ public class HostileLocatorParticle extends TextureSheetParticle {
 
     @Override
     protected int getLightColor(float f) {
-       return 15728640;
+        BlockPos blockPos = new BlockPos((int) this.x, (int) this.y, (int) this.z);
+        if (this.level.hasChunkAt(blockPos)) {
+            return LevelRenderer.getLightColor(this.level, blockPos);
+        }
+        return 0;
     }
 
     public record Provider(SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
@@ -52,7 +56,7 @@ public class HostileLocatorParticle extends TextureSheetParticle {
         @Override
         public Particle createParticle(SimpleParticleType defaultParticleType, ClientLevel clientWorld, double d, double e, double f, double g, double h, double i) {
 
-            return new HostileLocatorParticle(clientWorld, d, e, f, this.spriteProvider);
+            return new ObfuscationParticle(clientWorld, d, e, f, this.spriteProvider);
         }
     }
 }

@@ -218,5 +218,12 @@
     "sounds": [
       "holyhell:ambient/music/heavens_voice-keta"
     ]
+  },
+
+  "flashbang": {
+    "subtitle": "sounds.holyhell.flashbang",
+    "sounds": [
+      "holyhell:flashbang"
+    ]
   }
 }

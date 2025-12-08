@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class BlockEntityRendererDispatcherMixin implements ResourceManagerReloadListener {
     @Inject(method = "render", at = @At(value = "HEAD"), cancellable = true)
     private <E extends BlockEntity> void rendererOverride(E blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, CallbackInfo ci) {
-        if (Minecraft.getInstance().player.getData(HolyHellAttachments.ANGEL_VISION_SHADER_SYNCED_DATA)) {
+        if (Minecraft.getInstance().player.getData(HolyHellAttachments.VISION_SHADER)) {
             ci.cancel();
         }
     }

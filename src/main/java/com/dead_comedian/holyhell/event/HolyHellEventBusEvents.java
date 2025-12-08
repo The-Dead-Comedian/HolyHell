@@ -6,11 +6,9 @@ import com.dead_comedian.holyhell.client.renderer.overlay.EndTextOverlay;
 import com.dead_comedian.holyhell.entity.*;
 import com.dead_comedian.holyhell.networking.HolyHellMessages;
 import com.dead_comedian.holyhell.registries.*;
-import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.protocol.game.ClientboundStopSoundPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -19,14 +17,11 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.FlyingAnimal;
-import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
-import net.minecraft.world.entity.boss.enderdragon.phases.EnderDragonPhase;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
@@ -41,10 +36,8 @@ import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingHealEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
-import org.apache.logging.log4j.core.jmx.Server;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
@@ -100,7 +93,7 @@ public class HolyHellEventBusEvents {
                         musicDuration = 1660;
                     }
 
-                    player.setData(HolyHellAttachments.ANGEL_VISION_SHADER_SYNCED_DATA, false);
+                    player.setData(HolyHellAttachments.VISION_SHADER, false);
 
                     player.getAbilities().flying = true;
                 }
@@ -141,7 +134,6 @@ public class HolyHellEventBusEvents {
         }
     }
 
-
     @SubscribeEvent
     public static void teleportPlayer(LevelTickEvent.Post event) {
         if (!(event.getLevel() instanceof ServerLevel serverLevel)) {
@@ -171,7 +163,7 @@ public class HolyHellEventBusEvents {
     public static void paranoiaTimer(LevelTickEvent.Post event) {
         Player player = Minecraft.getInstance().player;
         if (player != null) {
-            if (player.getData(HolyHellAttachments.ANGEL_VISION_SHADER_SYNCED_DATA)) {
+            if (player.getData(HolyHellAttachments.VISION_SHADER)) {
                 if (player.hasEffect(HolyHellEffects.PARANOIA)) {
                     paranoiaTimer = player.getEffect(HolyHellEffects.PARANOIA).getDuration();
                     paranoiaAmp = player.getEffect(HolyHellEffects.PARANOIA).getAmplifier();
@@ -310,6 +302,5 @@ public class HolyHellEventBusEvents {
         event.put(HolyHellEntities.HOLY_SPIRIT.get(), HolySpiritEntity.createAttributes().build());
         event.put(HolyHellEntities.KAMIKAZE.get(), KamikazeEntity.createAttributes().build());
     }
-
 
 }

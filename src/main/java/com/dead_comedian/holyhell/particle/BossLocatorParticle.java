@@ -1,8 +1,6 @@
 package com.dead_comedian.holyhell.particle;
 
-import com.dead_comedian.holyhell.event.HolyHellClientEventBus;
 import com.dead_comedian.holyhell.registries.HolyHellAttachments;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
@@ -33,7 +31,7 @@ public class BossLocatorParticle extends TextureSheetParticle {
     @Override
     public void render(VertexConsumer buffer, Camera renderInfo, float partialTicks) {
         super.render(buffer, renderInfo, partialTicks);
-        if (!Minecraft.getInstance().player.getData(HolyHellAttachments.ANGEL_VISION_SHADER_SYNCED_DATA)) {
+        if (!Minecraft.getInstance().player.getData(HolyHellAttachments.VISION_SHADER)) {
             remove();
         }
     }

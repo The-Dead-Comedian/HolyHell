@@ -64,6 +64,8 @@ public class HolyHellSounds {
     public static final Supplier<SoundEvent> STUN = registerSoundEvents("stun");
     public static final Supplier<SoundEvent> DIVINE_PROTECTION = registerSoundEvents("divine_prot");
 
+    public static final Supplier<SoundEvent> FLASHBANG = registerSoundEvents("flashbang");
+
 
 
     public static final Supplier<SoundEvent> STATIC_AMBIENT = registerSoundEvents("static_ambient");

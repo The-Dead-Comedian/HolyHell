@@ -11,7 +11,6 @@ import com.dead_comedian.holyhell.client.renderer.overlay.EyeTransitionOverlay;
 import com.dead_comedian.holyhell.networking.packet.ServerboundAngelShaderAbilityPacket;
 import com.dead_comedian.holyhell.particle.*;
 import com.dead_comedian.holyhell.registries.*;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.AttackSweepParticle;
 import net.minecraft.client.renderer.GameRenderer;
@@ -38,7 +37,6 @@ public class HolyHellClientEventBus {
     public static void renderRing(RenderPlayerEvent.Post event) {
         event.getRenderer().addLayer(new LowerRingRenderLayer<>(event.getRenderer(), Minecraft.getInstance().getEntityModels()));
         event.getRenderer().addLayer(new UpperRingRenderLayer<>(event.getRenderer(), Minecraft.getInstance().getEntityModels()));
-
     }
 
     @SubscribeEvent
@@ -48,7 +46,7 @@ public class HolyHellClientEventBus {
         Player player = Minecraft.getInstance().player;
 
         if (player != null && level != null) {
-            if (player.getData(HolyHellAttachments.ANGEL_VISION_SHADER_SYNCED_DATA)) {
+            if (player.getData(HolyHellAttachments.VISION_SHADER)) {
                 if (staticTimer % 202 == 0) {
                     level.playLocalSound(player, HolyHellSounds.STATIC_AMBIENT.get(), SoundSource.AMBIENT, 1F, 1);
                 }
@@ -57,10 +55,32 @@ public class HolyHellClientEventBus {
     }
 
     @SubscribeEvent
+    public static void obfuscationRenderer(ClientTickEvent.Pre event){
+        Player player = Minecraft.getInstance().player;
+        if(player!=null){
+            if(!player.getData(HolyHellAttachments.VISION_SHADER) && player.hasEffect(HolyHellEffects.CONFUSION)){
+                Level level = player.level();
+
+                AABB userHitbox = new AABB(player.blockPosition()).inflate(100);
+
+                List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, userHitbox);
+                for (LivingEntity i : list) {
+                    if (i instanceof Monster && !i.getType().is(HolyhellTags.Entities.MINIBOSS) && !i.getType().is(HolyhellTags.Entities.BOSS)) {
+                        level.addParticle(HolyhellParticles.OBFUSCATION.get(), i.getX(), i.getY() + i.getHitbox().getYsize() / 2, i.getZ(), 0, 0, 0);
+                    }
+                }
+
+                list.removeAll(list);
+
+            }
+        }
+    }
+
+    @SubscribeEvent
     public static void locatorParticles(ClientTickEvent.Pre event) {
         Player player = Minecraft.getInstance().player;
         if (player != null) {
-            if (player.getData(HolyHellAttachments.ANGEL_VISION_SHADER_SYNCED_DATA)) {
+            if (player.getData(HolyHellAttachments.VISION_SHADER)) {
                 Level level = player.level();
 
                 AABB userHitbox = new AABB(player.blockPosition()).inflate(100);
@@ -146,7 +166,7 @@ public class HolyHellClientEventBus {
 
         if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_SKY) {
             GameRenderer renderer = Minecraft.getInstance().gameRenderer;
-            if (player.getData(HolyHellAttachments.ANGEL_VISION_SHADER_SYNCED_DATA)) {
+            if (player.getData(HolyHellAttachments.VISION_SHADER)) {
                 HolyhellModClient.attemptLoadShader(HolyhellModClient.ANGEL_VISION_SHADER);
             } else if (renderer.currentEffect() != null && HolyhellModClient.ANGEL_VISION_SHADER.toString().equals(renderer.currentEffect().getName())) {
                 renderer.checkEntityPostEffect(null);
@@ -163,6 +183,7 @@ public class HolyHellClientEventBus {
         event.registerSpriteSet(HolyhellParticles.PEACEFUL_LOCATOR.get(), PeacefulLocatorParticle.Provider::new);
         event.registerSpriteSet(HolyhellParticles.PLAYER_LOCATOR.get(), PlayerLocatorParticle.Provider::new);
 
+        event.registerSpriteSet(HolyhellParticles.OBFUSCATION.get(), ObfuscationParticle.Provider::new);
 
         event.registerSpriteSet(HolyhellParticles.LIGHT_RING.get(), LightRingParticle.Provider::new);
         event.registerSpriteSet(HolyhellParticles.SOUND_RING.get(), SoundRingParticle.Provider::new);
