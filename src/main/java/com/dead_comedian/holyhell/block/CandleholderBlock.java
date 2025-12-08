@@ -166,7 +166,6 @@ public class CandleholderBlock extends Block {
                 pLevel.addParticle(this.particle, d1, e1, f1, 0.0, 0.0, 0.0);
                 pLevel.addParticle(this.particle, d2, e2, f2, 0.0, 0.0, 0.0);
                 pLevel.addParticle(this.particle, d3, e3, f3, 0.0, 0.0, 0.0);
-                pLevel.addParticle(this.particle, d4, e4, f4, 0.0, 0.0, 0.0);
 
                 pLevel.addParticle(this.particle, d4, e4, f4, 0.0, 0.0, 0.0);
                 pLevel.addParticle(this.particle, d5, e5, f5, 0.0, 0.0, 0.0);

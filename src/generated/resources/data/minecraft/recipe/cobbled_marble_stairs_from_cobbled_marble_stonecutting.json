@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "holyhell:cobbled_marble"
+  },
+  "result": {
+    "count": 1,
+    "id": "holyhell:cobbled_marble_stairs"
+  }
+}

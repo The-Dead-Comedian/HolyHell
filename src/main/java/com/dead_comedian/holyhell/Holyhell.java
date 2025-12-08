@@ -39,6 +39,9 @@ public class Holyhell {
         HolyhellParticles.register(modEventBus);
         HolyHellSounds.register(modEventBus);
         HolyhellDimensions.register(modEventBus);
+        HolyhellFeatures.ConfiguredFeatures.register(modEventBus);
+        HolyhellFeatures.PlacedFeatures.register(modEventBus);
+
 
         if (FMLEnvironment.dist == Dist.CLIENT) {
             NeoForge.EVENT_BUS.register(EyeTransitionOverlay.class);

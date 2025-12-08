@@ -74,7 +74,7 @@ public class HolyHellBlocks {
                     .sound(HolyHellSounds.CANDELABRA_SOUNDS)
                     .lightLevel(TallCandelabraBlock.LIGHT_EMISSION), ParticleTypes.FLAME));
 
-    public static final Supplier<Block> CANDLE_HOLDER = registerCandleHolder("candleholder",
+    public static final Supplier<Block> CANDLEHOLDER = registerCandleHolder("candleholder",
             () -> new CandleholderBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_GREEN)
                     .noCollission()
@@ -84,6 +84,29 @@ public class HolyHellBlocks {
                     .requiresCorrectToolForDrops()
                     .sound(HolyHellSounds.CANDELABRA_SOUNDS)
                     .lightLevel(CandleholderBlock.LIGHT_EMISSION), ParticleTypes.FLAME));
+
+    public static final Supplier<Block> TALL_CANDLEHOLDER = registerCandleHolder("tall_candleholder",
+            () -> new TallCandleholderBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_GREEN)
+                    .noCollission()
+                    .instrument(NoteBlockInstrument.BASS)
+                    .strength(3F)
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()
+                    .sound(HolyHellSounds.CANDELABRA_SOUNDS)
+                    .lightLevel(TallCandleholderBlock.LIGHT_EMISSION), ParticleTypes.FLAME));
+
+    public static final Supplier<Block> CHANDELIER = register("chandelier",
+            () -> new ChandelierBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_GREEN)
+                    .noCollission()
+                    .instrument(NoteBlockInstrument.BASS)
+                    .strength(3F)
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()
+                    .sound(HolyHellSounds.CANDELABRA_SOUNDS)
+                    .lightLevel(ChandelierBlock.LIGHT_EMISSION), ParticleTypes.FLAME));
+
 
     public static final Supplier<Block> FALLING_CROSS = register("falling_cross",
             () -> new FallingCrossBlock(BlockBehaviour.Properties.of()

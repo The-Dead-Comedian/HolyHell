@@ -1,0 +1,8 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": [
+    "minecraft:stony_peaks"
+  ],
+  "features": "holyhell:marble_patch",
+  "step": "top_layer_modification"
+}

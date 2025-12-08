@@ -29,6 +29,8 @@
   "block.holyhell.candelabra": "Candelabra",
   "block.holyhell.tall_candelabra": "Tall Candelabra",
   "block.holyhell.candleholder": "Candle Holder",
+  "block.holyhell.tall_candleholder": "Tall Candle Holder",
+  "block.holyhell.chandelier": "Chandelier",
   "block.holyhell.stone_cross": "Stone Cross",
   "block.holyhell.falling_cross": "Falling  Cross",
 
@@ -103,7 +105,7 @@
   "sounds.holyhell.rings_outro": "Rings Fade Out",
 
   "sounds.holyhell.candelabra_place": "Candelabra Is Placed",
-  "sounds.holyhell.candelabra_light": "Candelabra Is Lit",
+  "sounds.holyhell.candelabra_light": "Something Is Lit",
   "sounds.holyhell.divining_table_interact": "Divining Table Vocalizes",
 
   "sounds.holyhell.sacrifice": "Sacrifice",

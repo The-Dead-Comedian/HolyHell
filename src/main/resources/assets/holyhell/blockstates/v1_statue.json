@@ -1,35 +1,71 @@
 {
   "variants": {
-    "half=lower,facing=north": {
+    "half=lower,facing=north,flipped=false": {
       "model": "holyhell:block/marble/statue/base",
       "y": 0
     },
-    "half=upper,facing=north": {
+    "half=upper,facing=north,flipped=false": {
       "model": "holyhell:block/marble/statue/v1",
       "y": 0
     },
-    "half=lower,facing=south": {
+    "half=lower,facing=south,flipped=false": {
       "model": "holyhell:block/marble/statue/base",
       "y": 180
     },
-    "half=upper,facing=south": {
+    "half=upper,facing=south,flipped=false": {
       "model": "holyhell:block/marble/statue/v1",
       "y": 180
     },
-    "half=lower,facing=east": {
+    "half=lower,facing=east,flipped=false": {
       "model": "holyhell:block/marble/statue/base",
       "y": 90
     },
-    "half=upper,facing=east": {
+    "half=upper,facing=east,flipped=false": {
       "model": "holyhell:block/marble/statue/v1",
       "y": 90
     },
-    "half=lower,facing=west": {
+    "half=lower,facing=west,flipped=false": {
       "model": "holyhell:block/marble/statue/base",
       "y": 270
     },
-    "half=upper,facing=west": {
+    "half=upper,facing=west,flipped=false": {
       "model": "holyhell:block/marble/statue/v1",
+      "y": 270
+    },
+
+
+
+
+    "half=lower,facing=north,flipped=true": {
+      "model": "holyhell:block/marble/statue/base",
+      "y": 0
+    },
+    "half=upper,facing=north,flipped=true": {
+      "model": "holyhell:block/marble/statue/v1_flipped",
+      "y": 0
+    },
+    "half=lower,facing=south,flipped=true": {
+      "model": "holyhell:block/marble/statue/base",
+      "y": 180
+    },
+    "half=upper,facing=south,flipped=true": {
+      "model": "holyhell:block/marble/statue/v1_flipped",
+      "y": 180
+    },
+    "half=lower,facing=east,flipped=true": {
+      "model": "holyhell:block/marble/statue/base",
+      "y": 90
+    },
+    "half=upper,facing=east,flipped=true": {
+      "model": "holyhell:block/marble/statue/v1_flipped",
+      "y": 90
+    },
+    "half=lower,facing=west,flipped=true": {
+      "model": "holyhell:block/marble/statue/base",
+      "y": 270
+    },
+    "half=upper,facing=west,flipped=true": {
+      "model": "holyhell:block/marble/statue/v1_flipped",
       "y": 270
     }
   }

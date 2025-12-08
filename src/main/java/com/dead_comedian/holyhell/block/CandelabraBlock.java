@@ -28,9 +28,7 @@ public class CandelabraBlock extends Block {
     protected final ParticleOptions particle;
     public static final IntegerProperty CANDLE = IntegerProperty.create("candle", 0, 3);
     public static final BooleanProperty LIT = BooleanProperty.create("lit");
-    public static final ToIntFunction<BlockState> LIGHT_EMISSION= (p_152848_) -> {
-        return (Boolean)p_152848_.getValue(LIT) ? 4 * ((Integer)p_152848_.getValue(CANDLE)+1) : 0;
-    };
+    public static final ToIntFunction<BlockState> LIGHT_EMISSION= (p_152848_) -> (Boolean)p_152848_.getValue(LIT) ? 4 * ((Integer)p_152848_.getValue(CANDLE)+1) : 0;
     public CandelabraBlock(Properties settings, ParticleOptions particle) {
         super(settings);
         this.particle = particle;
@@ -59,7 +57,6 @@ public class CandelabraBlock extends Block {
         }
         return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
     }
-
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(CANDLE, LIT);
@@ -173,7 +170,6 @@ public class CandelabraBlock extends Block {
                 level.addParticle(this.particle, d3, e3, f3, 0.0, 0.0, 0.0);
                 level.addParticle(this.particle, d4, e4, f4, 0.0, 0.0, 0.0);
 
-                level.addParticle(this.particle, d4, e4, f4, 0.0, 0.0, 0.0);
                 level.addParticle(this.particle, d5, e5, f5, 0.0, 0.0, 0.0);
                 level.addParticle(this.particle, d6, e6, f6, 0.0, 0.0, 0.0);
                 level.addParticle(this.particle, d7, e7, f7, 0.0, 0.0, 0.0);

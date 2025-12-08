@@ -1,0 +1,15 @@
+{
+  "variants": {
+    "piece=0": {
+      "model": "holyhell:block/tall_candleholder/tall_candleholder_1",
+      "y": 0
+    },
+    "piece=1": {
+      "model": "holyhell:block/tall_candleholder/tall_candleholder_2",
+      "y": 0
+    },"piece=2": {
+      "model": "holyhell:block/tall_candleholder/tall_candleholder_3",
+      "y": 0
+    }
+  }
+}
