@@ -1,13 +1,23 @@
 {
-  "name": "holyhell:church/church_2",
+
+  "name": "holyhell:ossuary/start_pool",
+
   "fallback": "minecraft:empty",
+
+
   "elements": [
     {
+
       "weight": 1,
       "element": {
-        "location": "holyhell:church_2",
-        "processors": "minecraft:empty",
+
+        "location": "holyhell:ossuary",
+
+        "processors": "holyhell:church_generic_degradation",
+
         "projection": "rigid",
+
+
         "element_type": "minecraft:single_pool_element"
       }
     }

@@ -8,12 +8,9 @@ import net.minecraft.world.item.Item;
 
 public class HolyHellItemProperties {
     public static void addCustomItemProperties() {
-        ItemProperties.register(HolyHellItems.HOLY_SHIELD.get(), ResourceLocation.withDefaultNamespace("blocking"), (p_174575_, p_174576_, p_174577_, p_174578_) -> {
-            return p_174577_ != null && p_174577_.isUsingItem() && p_174577_.getUseItem() == p_174575_ ? 1.0F : 0.0F;
+        ItemProperties.register(HolyHellItems.HOLY_SHIELD.get(), ResourceLocation.withDefaultNamespace("blocking"), (stack, level, livingEntity, i) -> {
+            return livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F;
         });
-
-
     }
-
 
 }

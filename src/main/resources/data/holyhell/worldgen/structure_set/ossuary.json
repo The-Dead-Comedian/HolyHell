@@ -1,0 +1,15 @@
+{"structures": [
+{
+"structure": "holyhell:ossuary",
+"weight": 1
+}
+],
+"placement": {
+"salt": 1643256474,
+
+  "separation": 8,
+  "spacing": 25,
+
+"type": "minecraft:random_spread"
+}
+}

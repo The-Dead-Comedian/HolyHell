@@ -4,6 +4,7 @@ import com.dead_comedian.holyhell.client.renderer.*;
 import com.dead_comedian.holyhell.client.renderer.non_living.FireBallRenderer;
 import com.dead_comedian.holyhell.client.renderer.non_living.GlobularDomeRenderer;
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
+import com.dead_comedian.holyhell.registries.HolyHellItemProperties;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -32,6 +33,8 @@ public class HolyhellModClient {
 
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
+        HolyHellItemProperties.addCustomItemProperties();
+
 
         EntityRenderers.register(HolyHellEntities.ANGEL.get(), AngelRenderer::new);
         EntityRenderers.register(HolyHellEntities.BAB_ONE.get(), BabOneRenderer::new);
