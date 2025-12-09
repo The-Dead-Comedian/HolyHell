@@ -27,26 +27,11 @@ public class ConfusionEffect extends MobEffect {
     @Override
     public void onEffectAdded(LivingEntity livingEntity, int amplifier) {
         super.onEffectAdded(livingEntity, amplifier);
-        Minecraft.getInstance().player.level().playSound(null, livingEntity.blockPosition(), HolyHellSounds.FLASHBANG.get(), SoundSource.PLAYERS, 1, 1);
 
-        if (Minecraft.getInstance().player != null) {
-            if (livingEntity.level().getServer() != null) {
-                ServerLevel serverLevel = livingEntity.level().getServer().overworld();
-                for (ServerPlayer serverPlayer : serverLevel.players()) {
-                    if (serverPlayer.getStringUUID().equals(Minecraft.getInstance().player.getStringUUID())) {
-                        System.out.println("goog");
-                        if (livingEntity.is(serverPlayer)) {
-                            serverPlayer.playSound(HolyHellSounds.FLASHBANG.get());
-                            serverPlayer.setData(HolyHellAttachments.FLASHBANG, true);
-                            System.out.println("pluh");
-                        }
-
-                    }
-                }
-            }
-
-
+        if(livingEntity instanceof Player){
+            livingEntity.level().playSound(null, livingEntity.blockPosition(),HolyHellSounds.FLASHBANG.get(),SoundSource.PLAYERS,0.4F,1);
         }
+
         if (livingEntity instanceof Mob) {
             ((Mob) livingEntity).goalSelector.addGoal(2, new ConfusionAggroGoal((Mob) livingEntity));
         }

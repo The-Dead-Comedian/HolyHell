@@ -7,6 +7,7 @@ import net.minecraft.world.entity.projectile.Snowball;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -31,7 +32,7 @@ public class BlindingBombEntity extends ThrowableItemProjectile {
     }
 
     public BlindingBombEntity(EntityType<BlindingBombEntity> blindingBombEntityEntityType, Level level) {
-        super(blindingBombEntityEntityType,level);
+        super(blindingBombEntityEntityType, level);
     }
 
     protected void onHitEntity(EntityHitResult entityHitResult) {
@@ -41,16 +42,18 @@ public class BlindingBombEntity extends ThrowableItemProjectile {
         AABB userHitbox = new AABB(entity.blockPosition()).inflate(3);
 
         List<LivingEntity> list = entity.level().getEntitiesOfClass(LivingEntity.class, userHitbox);
-        for(LivingEntity i : list){
+        for (LivingEntity i : list) {
 
-            i.addEffect(new MobEffectInstance(HolyHellEffects.CONFUSION, 300 ,1));
+            i.addEffect(new MobEffectInstance(HolyHellEffects.CONFUSION, 300, 1));
 
         }
         list.removeAll(list);
     }
+
     protected void explode(double power) {
-        this.explode((DamageSource)null, power);
+        this.explode((DamageSource) null, power);
     }
+
     protected void explode(@Nullable DamageSource damageSource, double power) {
         if (!this.level().isClientSide) {
             double d = Math.sqrt(power);
@@ -58,7 +61,7 @@ public class BlindingBombEntity extends ThrowableItemProjectile {
                 d = 5.0;
             }
 
-            this.level().explode(this, damageSource, (ExplosionDamageCalculator)null, this.getX(), this.getY(), this.getZ(), (float)(4.0 + this.random.nextDouble() * 1.5 * d), false, Level.ExplosionInteraction.TNT);
+            this.level().explode(this, damageSource, (ExplosionDamageCalculator) null, this.getX(), this.getY(), this.getZ(), (float) (4.0 + this.random.nextDouble() * 1.5 * d), false, Level.ExplosionInteraction.TNT);
             this.discard();
         }
 
@@ -72,18 +75,18 @@ public class BlindingBombEntity extends ThrowableItemProjectile {
     protected void onHit(HitResult hitResult) {
         super.onHit(hitResult);
         if (!this.level().isClientSide) {
-            this.level().broadcastEntityEvent(this, (byte)3);
+            this.level().broadcastEntityEvent(this, (byte) 3);
             Entity entity = this;
 
             AABB userHitbox = new AABB(entity.blockPosition()).inflate(3);
 
             List<LivingEntity> list = entity.level().getEntitiesOfClass(LivingEntity.class, userHitbox);
-            for(LivingEntity i : list){
+            for (LivingEntity i : list) {
 
-                i.addEffect(new MobEffectInstance(HolyHellEffects.CONFUSION, 200 ,1));
-                if(i instanceof Player player){
-                    player.setData(HolyHellAttachments.FLASHBANG,true);
-                    this.level().playLocalSound(player, HolyHellSounds.FLASHBANG.get(), SoundSource.PLAYERS, 1F, 1);
+                i.addEffect(new MobEffectInstance(HolyHellEffects.CONFUSION, 200, 1));
+                if (i instanceof Player player) {
+                    player.setData(HolyHellAttachments.FLASHBANG, true);
+                    player.level().playSound(null, player.blockPosition(),HolyHellSounds.FLASHBANG.get(),SoundSource.PLAYERS,0.4F,1);
                 }
 
             }
