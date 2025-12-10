@@ -46,15 +46,13 @@ public class GlobularDomeEntity extends Entity {
     public void tick() {
         super.tick();
 
-        List<Entity> entityBelow = this.level().getEntities(this, this.getBoundingBox().inflate(0.2));
+
         List<Entity> entityBelow2 = this.level().getEntities(this, this.getBoundingBox().inflate(0.25));
-        launchLivingEntities(entityBelow);
-        launchLivingEntities1(entityBelow2);
-        entityBelow.removeAll(entityBelow);
-        entityBelow2.removeAll(entityBelow2);
+        launchLivingEntities(entityBelow2);
+        entityBelow2.clear();
         BlockState blockState = this.level().getBlockState(this.blockPosition());
-        BlockState blockState2 = this.getBlockStateOnLegacy();
-        boolean bl = blockState.is(HolyhellTags.Blocks.DOME_CLEARS_OUT) || blockState2.is(HolyhellTags.Blocks.DOME_CLEARS_OUT);
+
+        boolean bl = blockState.is(HolyhellTags.Blocks.DOME_CLEARS_OUT);
 
 
         if (bl) {
@@ -107,21 +105,6 @@ public class GlobularDomeEntity extends Entity {
 
     }
 
-    private void launchLivingEntities1(List<Entity> entities) {
-        double d = (this.getBoundingBox().minX + this.getBoundingBox().maxX) / 2.0;
-        double e = (this.getBoundingBox().minZ + this.getBoundingBox().maxZ) / 2.0;
-
-        for (Entity entity : entities) {
-            if (!(entity instanceof Player)) {
-
-
-                this.level().addParticle(HolyhellParticles.LIGHT_RING.get(), this.getRandomX(0.1), this.getY(0.5), this.getRandomZ(0.1), 0.0, 0.0, 0.0);
-                this.level().playSound(this, this.blockPosition(), HolyHellSounds.STONE_CRACK.get(), SoundSource.PLAYERS, 0.5f, 1.4f);
-
-            }
-        }
-    }
-
     private void launchLivingEntities(List<Entity> entities) {
         double d = (this.getBoundingBox().minX + this.getBoundingBox().maxX) / 2.0;
         double e = (this.getBoundingBox().minZ + this.getBoundingBox().maxZ) / 2.0;
@@ -134,6 +117,9 @@ public class GlobularDomeEntity extends Entity {
                 double g = entity.getZ() - e;
                 double h = Math.max(f * f + g * g, 0.1);
                 entity.push(f / h * 2, 0.4, g / h * 2);
+
+                this.level().addParticle(HolyhellParticles.LIGHT_RING.get(), this.getRandomX(0.1), this.getY(0.5), this.getRandomZ(0.1), 0.0, 0.0, 0.0);
+                this.level().playSound(this, this.blockPosition(), HolyHellSounds.STONE_CRACK.get(), SoundSource.PLAYERS, 0.5f, 1.4f);
 
             }
         }

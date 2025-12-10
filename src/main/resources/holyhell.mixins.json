@@ -13,9 +13,8 @@
   ],
   "client": [
     "BlockEntityRendererDispatcherMixin",
-    "BlockModelShaperMixin",
     "LivingEntityRendererMixin",
-    "SunTextureMixin",
-    "TextureAtlasMixin"
+    "LocalPlayerEntityMixin",
+    "SunTextureMixin"
   ]
 }

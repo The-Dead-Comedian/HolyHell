@@ -12,10 +12,12 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.Abilities;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -31,6 +33,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Player.class)
 
 public abstract class PlayerEntityMixin extends LivingEntity {
+
+    @Shadow
+    public abstract Abilities getAbilities();
 
     @Unique
     int holyhell$blockingCounter = 0;
@@ -73,14 +78,10 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         List<Entity> entityBelow = this.level().getEntities(this, this.getBoundingBox().inflate(-0.1));
         for (Entity entity : entityBelow) {
             if (this.canCollideWith(entity) && entity instanceof GlobularDomeEntity) {
-                double x = this.getX();
-                double z = this.getZ();
-                this.teleportRelative(x, entity.getY(), z);
+                this.setSpeed(0);
 
 
             }
-
-
         }
 
         //Religious Rings
@@ -119,7 +120,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         for (Entity entity : entityBelow) {
             if (this.canCollideWith(entity) && entity instanceof GlobularDomeEntity) {
                 return 0;
-
             }
 
         }
