@@ -28,7 +28,8 @@ public class PlayerCoffinStatus extends SavedData {
         );
     }
 
-    public PlayerCoffinStatus() {}
+    public PlayerCoffinStatus() {
+    }
 
     public Status getStatus(UUID id) {
         return map.computeIfAbsent(id, k -> new Status());
@@ -57,15 +58,19 @@ public class PlayerCoffinStatus extends SavedData {
 
         for (int i = 0; i < list.size(); i++) {
             CompoundTag data = list.getCompound(i);
-            UUID id = data.getUUID("id");
+            if (!data.hasUUID("id")) {
+                continue;
+            }
 
             Status s = new Status();
             s.active = data.getBoolean("active");
             s.coffinX = data.getInt("x");
             s.coffinY = data.getInt("y");
             s.coffinZ = data.getInt("z");
+            UUID id = data.getUUID("id");
+                status.map.put(id, s);
 
-            status.map.put(id, s);
+
         }
 
         return status;
@@ -77,8 +82,10 @@ public class PlayerCoffinStatus extends SavedData {
 
         for (var entry : map.entrySet()) {
             CompoundTag data = new CompoundTag();
-            data.putUUID("id", entry.getKey());
 
+            if (entry.getKey() == null) continue;
+
+            data.putUUID("id", entry.getKey());
             Status s = entry.getValue();
             data.putBoolean("active", s.active);
             data.putInt("x", s.coffinX);
@@ -86,6 +93,7 @@ public class PlayerCoffinStatus extends SavedData {
             data.putInt("z", s.coffinZ);
 
             list.add(data);
+
         }
 
         tag.put("Players", list);

@@ -186,12 +186,47 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity {
 
         boolean activated = topRender && leftRender && midRender && rightRender && bottomRender;
 
-        ServerLevel s = (ServerLevel) level;
-        PlayerCoffinStatus.get(s).setActive(
-                this.getStoredPlayer(),
-                true,
-                pPos.getX(), pPos.getY(), pPos.getZ()
-        );
+        boolean isCurrentlyActive = pState.getValue(CoffinBlock.ACTIVATED);
+
+        // -----------------------------------
+        // ACTIVATE
+        // -----------------------------------
+        if (activated && !isCurrentlyActive) {
+
+            updateBlockState(pState, CoffinBlock.ACTIVATED, true);
+            setChanged();
+
+            if (!level.isClientSide()) {
+                ServerLevel server = (ServerLevel) level;
+
+                PlayerCoffinStatus.get(server).setActive(
+                        storedPlayer,
+                        true,
+                        pPos.getX(),
+                        pPos.getY(),
+                        pPos.getZ()
+                );
+            }
+
+            level.playSound(null, pPos, HolyHellSound.COFFIN_LID.get(), SoundSource.BLOCKS, 1f, 1f);
+            return;
+        }
+
+        // -----------------------------------
+        // DEACTIVATE
+        // -----------------------------------
+        if (!activated && isCurrentlyActive) {
+
+            updateBlockState(pState, CoffinBlock.ACTIVATED, false);
+            setChanged();
+
+            if (!level.isClientSide()) {
+                ServerLevel server = (ServerLevel) level;
+                PlayerCoffinStatus.get(server).deactivate(storedPlayer);
+            }
+
+            return;
+        }
 
 
         updateBlockState(pState, CoffinBlock.ACTIVATED, activated);
