@@ -228,6 +228,18 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity {
         //updateBlockState(pState, CoffinBlock.ACTIVATED, CurrentInputs);
     }
 
+    public void PostDeathHook(){
+
+        for (int i = 0; i < 5; i++) {
+            var gold = itemStackHandler.getStackInSlot(54+i);
+            if(gold.is(Items.GOLD_INGOT)){
+                gold.setCount(gold.getCount()-1);
+
+            } ;
+        }
+
+
+    }
 
     @Nullable
     @Override

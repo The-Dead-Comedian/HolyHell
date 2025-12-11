@@ -1,5 +1,6 @@
 package com.dead_comedian.holyhell.data;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.server.level.ServerLevel;
@@ -22,6 +23,14 @@ public class PlayerCoffinStatus extends SavedData {
                     "Active: " + this.active + ", " +
                     "pos: [ " + coffinX + ", " + coffinY + ", " + coffinZ + " ]" +
                     " }";
+        }
+
+        public void SetActive(boolean value){
+            this.active = value;
+        }
+
+        public BlockPos GetBlockPos(){
+            return new BlockPos(this.coffinX, this.coffinY, this.coffinZ);
         }
     }
 
@@ -53,7 +62,7 @@ public class PlayerCoffinStatus extends SavedData {
 
     public void deactivate(UUID id) {
         Status s = getStatus(id);
-        s.active = false;
+        s.SetActive(false);
         setDirty();
     }
 

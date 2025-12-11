@@ -2,6 +2,7 @@ package com.dead_comedian.holyhell.event;
 
 import com.dead_comedian.holyhell.HolyHell;
 
+import com.dead_comedian.holyhell.block.entity.CoffinBlockEntity;
 import com.dead_comedian.holyhell.data.PlayerCoffinStatus;
 import com.dead_comedian.holyhell.data.StoredInventoryData;
 import net.minecraft.server.level.ServerLevel;
@@ -22,24 +23,24 @@ public class PlayerDeathHandler {
 
         PlayerCoffinStatus status = PlayerCoffinStatus.get(level);
         PlayerCoffinStatus.Status s = status.getStatus(player.getUUID());
+        CoffinBlockEntity entitty = (CoffinBlockEntity) level.getBlockEntity(s.GetBlockPos());
 
-        // ⛔ If coffin is NOT active → do nothing
+
         //System.out.println(s.Serialise());
         if (!s.active) return;
 
         // ✔ If coffin IS active → wipe + save inventory
         StoredInventoryData data = StoredInventoryData.get(level);
-
         StoredInventoryData.PlayerInventoryRecord record =
                 new StoredInventoryData.PlayerInventoryRecord();
 
         for (int i = 0; i < 36; i++)
-            record.items[i] = player.getInventory().items.get(i).copy();
+            record.items[i] = player.getInventory().items.get(i).copyAndClear();
 
         for (int i = 0; i < 4; i++)
-            record.armor[i] = player.getInventory().armor.get(i).copy();
+            record.armor[i] = player.getInventory().armor.get(i).copyAndClear();
 
-        record.offhand[0] = player.getInventory().offhand.get(0).copy();
+        record.offhand[0] = player.getInventory().offhand.get(0).copyAndClear();
 
         data.savePlayerInventory(player.getUUID(), record);
 
@@ -47,6 +48,7 @@ public class PlayerDeathHandler {
 
         // ⛔ deactivate after death
         status.deactivate(player.getUUID());
+        entitty.PostDeathHook();
     }
     public static void register() {
         MinecraftForge.EVENT_BUS.register(PlayerDeathHandler.class);
