@@ -8,7 +8,6 @@ import com.dead_comedian.holyhell.registries.HolyHellSound;
 import com.dead_comedian.holyhell.screen.CoffinMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
@@ -16,26 +15,19 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.Container;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BarrelBlock;
-import net.minecraft.world.level.block.entity.BarrelBlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraftforge.client.event.sound.SoundEvent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -44,7 +36,6 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.awt.*;
 import java.util.UUID;
 
 
@@ -111,7 +102,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity {
     }
 
     void updateBlockState(BlockState pState, BooleanProperty property, boolean pOpen) {
-        this.level.setBlock(this.getBlockPos(), pState.setValue(property, Boolean.valueOf(pOpen)), 3);
+        this.level.setBlock(this.getBlockPos(), pState.setValue(property, pOpen), 3);
     }
 
     @Override
@@ -184,52 +175,57 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity {
         data.set(3, itemStackHandler.getStackInSlot(57).is(Items.GOLD_INGOT) ? 1 : 0);
         data.set(4, itemStackHandler.getStackInSlot(58).is(Items.GOLD_INGOT) ? 1 : 0);
 
-        boolean activated = topRender && leftRender && midRender && rightRender && bottomRender;
+        boolean CurrentInputs = topRender && leftRender && midRender && rightRender && bottomRender;
 
-        boolean isCurrentlyActive = pState.getValue(CoffinBlock.ACTIVATED);
+
 
         // -----------------------------------
         // ACTIVATE
         // -----------------------------------
-        if (activated && !isCurrentlyActive) {
-
-            updateBlockState(pState, CoffinBlock.ACTIVATED, true);
-            setChanged();
-
+        if (CurrentInputs) {
             if (!level.isClientSide()) {
                 ServerLevel server = (ServerLevel) level;
 
-                PlayerCoffinStatus.get(server).setActive(
+                updateBlockState(pState, CoffinBlock.ACTIVATED, CurrentInputs);
+                setChanged();
+
+                PlayerCoffinStatus.get(server).Update(
                         storedPlayer,
-                        true,
+                        CurrentInputs,
                         pPos.getX(),
                         pPos.getY(),
                         pPos.getZ()
                 );
+
             }
 
-            level.playSound(null, pPos, HolyHellSound.COFFIN_LID.get(), SoundSource.BLOCKS, 1f, 1f);
             return;
         }
 
         // -----------------------------------
         // DEACTIVATE
         // -----------------------------------
-        if (!activated && isCurrentlyActive) {
+        else if (!CurrentInputs) {
 
-            updateBlockState(pState, CoffinBlock.ACTIVATED, false);
-            setChanged();
 
             if (!level.isClientSide()) {
                 ServerLevel server = (ServerLevel) level;
-                PlayerCoffinStatus.get(server).deactivate(storedPlayer);
+                PlayerCoffinStatus.get(server).Update(
+                        storedPlayer,
+                        CurrentInputs,
+                        pPos.getX(),
+                        pPos.getY(),
+                        pPos.getZ()
+                );
+
+                updateBlockState(pState, CoffinBlock.ACTIVATED, CurrentInputs);
+                setChanged();
             }
 
             return;
         }
 
-
-        updateBlockState(pState, CoffinBlock.ACTIVATED, activated);
+        //updateBlockState(pState, CoffinBlock.ACTIVATED, CurrentInputs);
     }
 
 

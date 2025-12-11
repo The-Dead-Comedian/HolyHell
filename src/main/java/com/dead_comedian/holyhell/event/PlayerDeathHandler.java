@@ -24,6 +24,7 @@ public class PlayerDeathHandler {
         PlayerCoffinStatus.Status s = status.getStatus(player.getUUID());
 
         // ⛔ If coffin is NOT active → do nothing
+        //System.out.println(s.Serialise());
         if (!s.active) return;
 
         // ✔ If coffin IS active → wipe + save inventory

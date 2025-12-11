@@ -16,6 +16,13 @@ public class PlayerCoffinStatus extends SavedData {
     public static class Status {
         public boolean active = false;
         public int coffinX, coffinY, coffinZ;
+
+        public String Serialise(){
+            return "{ " +
+                    "Active: " + this.active + ", " +
+                    "pos: [ " + coffinX + ", " + coffinY + ", " + coffinZ + " ]" +
+                    " }";
+        }
     }
 
     private final Map<UUID, Status> map = new HashMap<>();
@@ -35,7 +42,7 @@ public class PlayerCoffinStatus extends SavedData {
         return map.computeIfAbsent(id, k -> new Status());
     }
 
-    public void setActive(UUID id, boolean active, int x, int y, int z) {
+    public void Update(UUID id, boolean active, int x, int y, int z) {
         Status s = getStatus(id);
         s.active = active;
         s.coffinX = x;
@@ -88,6 +95,7 @@ public class PlayerCoffinStatus extends SavedData {
             data.putUUID("id", entry.getKey());
             Status s = entry.getValue();
             data.putBoolean("active", s.active);
+
             data.putInt("x", s.coffinX);
             data.putInt("y", s.coffinY);
             data.putInt("z", s.coffinZ);
