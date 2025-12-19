@@ -1,0 +1,83 @@
+{
+
+  "format_version": "1.9.0",
+  "credit": "Made with Blockbench",
+  "texture_size": [64, 64],
+  "textures": {
+    "1": "holyhell:item/bab1"
+  },
+  "elements": [
+    {
+      "from": [3, 0, 3],
+      "to": [13, 7, 13],
+      "rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 9]},
+      "faces": {
+        "north": {"uv": [5, 2.5, 7.5, 4.25], "texture": "#1"},
+        "east": {"uv": [2.5, 2.5, 5, 4.25], "texture": "#1"},
+        "south": {"uv": [0, 2.5, 2.5, 4.25], "texture": "#1"},
+        "west": {"uv": [7.5, 2.5, 10, 4.25], "texture": "#1"},
+        "up": {"uv": [5, 2.5, 2.5, 0], "rotation": 90, "texture": "#1"},
+        "down": {"uv": [7.5, 0, 5, 2.5], "rotation": 270, "texture": "#1"}
+      }
+    }
+  ],
+  "display": {
+    "thirdperson_righthand": {
+      "translation": [-6, 5, 4]
+    },
+    "thirdperson_lefthand": {
+      "translation": [-5, 5, 4.5]
+    },
+    "firstperson_righthand": {
+      "rotation": [-30, 100, 15],
+      "translation": [0, 5, 3],
+      "scale": [0.4, 0.4, 0.4]
+    },
+    "firstperson_lefthand": {
+      "rotation": [30, 100, -15],
+      "translation": [0, 5, 3],
+      "scale": [0.4, 0.4, 0.4]
+    },
+    "gui": {
+      "rotation": [15, 150, 0],
+      "scale": [0.67, 0.67, 0.67]
+    }
+  },
+  "groups": [
+    {
+      "name": "bone2",
+      "origin": [8, 0, 8],
+      "color": 0,
+      "children": [
+        {
+          "name": "bone",
+          "origin": [8, 3.5, 8],
+          "color": 0,
+          "children": [0]
+        }
+      ]
+    }
+  ],
+
+
+  "overrides": [
+    {
+      "predicate": {
+        "level": 1
+      },
+      "model": "holyhell:item/bab_item_1"
+    },
+    {
+      "predicate": {
+        "level": 2
+      },
+      "model": "holyhell:item/bab_item_2"
+    },
+    {
+      "predicate": {
+        "level": 3
+      },
+      "model": "holyhell:item/bab_item_3"
+    }
+  ]
+}

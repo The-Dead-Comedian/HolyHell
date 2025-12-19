@@ -5,12 +5,15 @@ import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import com.dead_comedian.holyhell.registries.HolyHellItems;
 import com.dead_comedian.holyhell.registries.HolyHellSounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.AnimationState;
@@ -26,6 +29,7 @@ import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -38,7 +42,7 @@ public class BabTwoEntity extends TamableAnimal {
 
     ///////////////
     // VARIABLES //
-    ///////////////
+    /// ////////////
 
     private static final Ingredient TEMPT_ITEMS = Ingredient.of(HolyHellItems.HOLY_TEAR.get());
     private static final EntityDataAccessor<Boolean> TAMED = SynchedEntityData.defineId(BabTwoEntity.class, EntityDataSerializers.BOOLEAN);
@@ -49,7 +53,8 @@ public class BabTwoEntity extends TamableAnimal {
 
     //////////
     // MISC //
-    //////////
+
+    /// ///////
 
     public BabTwoEntity(EntityType<? extends TamableAnimal> entityType, Level world) {
         super(entityType, world);
@@ -59,6 +64,41 @@ public class BabTwoEntity extends TamableAnimal {
     @Override
     public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob entity) {
         return null;
+    }
+
+    @Override
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        if (player.getMainHandItem().isEmpty() && player.getOffhandItem().isEmpty()) {
+
+            ItemStack stack = new ItemStack(HolyHellItems.BAB.get());
+            CompoundTag tag = new CompoundTag();
+
+            tag.putInt("level", 2);
+            if (this.getOwnerUUID() != null) {
+                tag.putUUID("owner", this.getOwnerUUID());
+            }
+            tag.putBoolean("tamed", this.isTame());
+
+            stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+
+            player.addItem(stack);
+
+
+            this.discard();
+
+        }
+
+        ItemStack stack = player.getItemInHand(hand);
+        if (stack.is(HolyHellItems.HOLY_TEAR.get()) && !this.isTame()) {
+            setTame(true, false);
+            this.tame(player);
+            if (!player.isCreative()) {
+                stack.shrink(1);
+            }
+            this.playSound(HolyHellSounds.BAB_TAME.get(), 1F, 1F);
+            return InteractionResult.SUCCESS;
+        }
+        return super.mobInteract(player, hand);
     }
 
     @Override
@@ -94,7 +134,7 @@ public class BabTwoEntity extends TamableAnimal {
                         BlockPos blockPos = this.blockPosition();
                         BabThreeEntity babThreeEntity = new BabThreeEntity(HolyHellEntities.BAB_THREE.get(), this.level());
                         this.level().addFreshEntity(babThreeEntity);
-                        babThreeEntity.setTame(true,false);
+                        babThreeEntity.setTame(true, false);
                         babThreeEntity.tame((Player) this.getOwner());
                         babThreeEntity.moveTo(blockPos, babThreeEntity.getYRot(), babThreeEntity.getXRot());
                         this.discard();
@@ -111,7 +151,7 @@ public class BabTwoEntity extends TamableAnimal {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(3,  new TemptGoal(this, 1.4D, TEMPT_ITEMS, false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.4D, TEMPT_ITEMS, false));
 
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
@@ -135,7 +175,8 @@ public class BabTwoEntity extends TamableAnimal {
 
     ///////////////
     // ANIMATION //
-    ///////////////
+
+    /// ////////////
 
 
     private void setupAnimationStates() {
@@ -165,7 +206,7 @@ public class BabTwoEntity extends TamableAnimal {
 
     ////////
     // AI //
-    ////////
+    /// /////
 
 
     //  attacking
@@ -184,7 +225,7 @@ public class BabTwoEntity extends TamableAnimal {
     @Override
     public boolean doHurtTarget(Entity target) {
         boolean bl = super.doHurtTarget(target);
-        this.playSound(HolyHellSounds.BAB_2_ATTACK.get(),1F,1F);
+        this.playSound(HolyHellSounds.BAB_2_ATTACK.get(), 1F, 1F);
         setAggressive(true);
         return bl;
     }
@@ -192,7 +233,8 @@ public class BabTwoEntity extends TamableAnimal {
 
     ///////////
     // TAMED //
-    ///////////
+
+    /// ////////
 
     @Override
     public void setTame(boolean tame, boolean applyTamingSideEffects) {
@@ -203,7 +245,8 @@ public class BabTwoEntity extends TamableAnimal {
 
     ///////////////
     // COLLISION //
-    ///////////////
+
+    /// ////////////
 
     public static boolean canCollide(Entity entity, Entity other) {
         return other instanceof BabTwoEntity;
@@ -219,8 +262,8 @@ public class BabTwoEntity extends TamableAnimal {
     }
     /////////
     //SOUND//
-    /////////
 
+    /// //////
 
 
     protected SoundEvent getStepSound() {

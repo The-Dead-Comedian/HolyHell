@@ -6,6 +6,7 @@ import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import com.dead_comedian.holyhell.registries.HolyHellItems;
 import com.dead_comedian.holyhell.registries.HolyHellSounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -27,8 +28,10 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -41,7 +44,7 @@ public class BabOneEntity extends TamableAnimal {
 
     ///////////////
     // VARIABLES //
-    ///////////////
+    /// ////////////
 
     private static final Ingredient TEMPT_ITEMS = Ingredient.of(HolyHellItems.HOLY_TEAR.get());
     private static final EntityDataAccessor<Boolean> TAMED = SynchedEntityData.defineId(BabOneEntity.class, EntityDataSerializers.BOOLEAN);
@@ -51,7 +54,8 @@ public class BabOneEntity extends TamableAnimal {
 
     //////////
     // MISC //
-    //////////
+
+    /// ///////
 
     public BabOneEntity(EntityType<? extends TamableAnimal> entityType, Level world) {
         super(entityType, world);
@@ -134,6 +138,27 @@ public class BabOneEntity extends TamableAnimal {
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
 
         ItemStack itemStack = player.getItemInHand(hand);
+
+        if (player.getMainHandItem().isEmpty() && player.getOffhandItem().isEmpty()) {
+
+            ItemStack stack = new ItemStack(HolyHellItems.BAB.get());
+            CompoundTag tag = new CompoundTag();
+
+            tag.putInt("level", 1);
+            if (this.getOwnerUUID() != null) {
+                tag.putUUID("owner", this.getOwnerUUID());
+            }
+            tag.putBoolean("tamed", this.isTame());
+
+            stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+
+            player.addItem(stack);
+
+
+            this.discard();
+
+        }
+
         if (itemStack.is(Items.STICK) && !this.isTame()) {
             this.discard();
             if (player instanceof ServerPlayer) {
@@ -163,7 +188,8 @@ public class BabOneEntity extends TamableAnimal {
 
     ///////////////
     // ANIMATION //
-    ///////////////
+
+    /// ////////////
 
 
     private void setupAnimationStates() {
@@ -186,7 +212,8 @@ public class BabOneEntity extends TamableAnimal {
 
     ///////////
     // TAMED //
-    ///////////
+
+    /// ////////
 
     @Override
     public void setTame(boolean tame, boolean applyTamingSideEffects) {
@@ -197,7 +224,8 @@ public class BabOneEntity extends TamableAnimal {
 
     ///////////////
     // COLLISION //
-    ///////////////
+
+    /// ////////////
 
     public static boolean canCollide(Entity entity, Entity other) {
         return other instanceof BabOneEntity;
@@ -213,7 +241,8 @@ public class BabOneEntity extends TamableAnimal {
     }
     /////////
     //SOUND//
-    /////////
+
+    /// //////
 
 
     protected SoundEvent getStepSound() {
