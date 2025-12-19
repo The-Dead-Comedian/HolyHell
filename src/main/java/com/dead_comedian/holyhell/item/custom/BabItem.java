@@ -30,7 +30,7 @@ public class BabItem extends Item {
 
     @Override
     public boolean onDroppedByPlayer(ItemStack item, Player player) {
-        for (int i = 0; i < item.getCount(); i++) {
+
 
 
             Level level = player.level();
@@ -48,7 +48,7 @@ public class BabItem extends Item {
             level.addFreshEntity(babEntity);
             babEntity.moveTo(player.blockPosition().above(), babEntity.getYRot(), babEntity.getXRot());
             babEntity.addDeltaMovement(player.getLookAngle().multiply(2, 2, 2));
-        }
+
 
         item.getEntityRepresentation().discard();
         return super.onDroppedByPlayer(item, player);

@@ -26,7 +26,7 @@ public class HolyHellItems {
             SacrificialKatarItem(HolyHellToolMaterial.GRAIL, new Item.Properties().attributes(SacrificialKatarItem.createAttributes(HolyHellToolMaterial.GRAIL, 6, -2F))));
 
     public static final Supplier<BabItem> BAB = ITEMS.register("bab_item", () ->
-            new BabItem(new Item.Properties()));
+            new BabItem(new Item.Properties().stacksTo(1)));
 
     public static final Supplier<SwordItem> HOLY_GRAIL = ITEMS.register("holy_grail", (properties) -> new
             SwordItem(HolyHellToolMaterial.GRAIL, new Item.Properties().attributes(SacrificialKatarItem.createAttributes(HolyHellToolMaterial.GRAIL, 9, -2F))));
