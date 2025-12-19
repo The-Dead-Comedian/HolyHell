@@ -206,6 +206,20 @@ public class HolyHellEventBusEvents {
     }
 
     @SubscribeEvent
+    public static void shouldExplode(LevelTickEvent.Post event) {
+        Player player = Minecraft.getInstance().player;
+        if (player != null) {
+            if (player.getData(HolyHellAttachments.SHOULD_EXPLODE) && player.hasEffect(HolyHellEffects.JESISTANCE)) {
+                event.getLevel().explode(player, player.getX(), player.getY(), player.getZ(),player.getData(HolyHellAttachments.DAMAGE_ABSORBED) / 30, Level.ExplosionInteraction.MOB);
+                player.setData(HolyHellAttachments.DAMAGE_ABSORBED, 0F);
+                player.setData(HolyHellAttachments.SHOULD_EXPLODE, false);
+            }
+
+        }
+    }
+
+
+    @SubscribeEvent
     public static void registerPayloads(RegisterPayloadHandlersEvent event) {
         HolyHellMessages.register(event);
     }

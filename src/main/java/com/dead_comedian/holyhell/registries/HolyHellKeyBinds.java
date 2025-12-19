@@ -11,4 +11,8 @@ public class HolyHellKeyBinds {
     public static final KeyMapping VISION_ABILITY_KEY = new KeyMapping(VISION_ABILITY, KeyConflictContext.IN_GAME,
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_RIGHT_ALT, KEY_CATEGORY_TUTORIAL);
 
+    public static final String RING_ABILITY = "key.holyhell.ring_ability";
+    public static final KeyMapping RING_ABILITY_KEY = new KeyMapping(RING_ABILITY, KeyConflictContext.IN_GAME,
+            InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_RIGHT_ALT, KEY_CATEGORY_TUTORIAL);
+
 }

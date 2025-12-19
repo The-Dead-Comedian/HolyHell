@@ -9,6 +9,7 @@ import net.minecraft.server.level.ServerLevel;
 
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -108,6 +109,11 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @ModifyVariable(method = "hurt", at = @At(value = "HEAD"))
     private float modifyDamage(float value, DamageSource source) {
+
+        if (this.hasEffect(HolyHellEffects.JESISTANCE)) {
+            this.setData(HolyHellAttachments.DAMAGE_ABSORBED.get(), this.getData(HolyHellAttachments.DAMAGE_ABSORBED.get()) + value);
+            return source.is(DamageTypes.EXPLOSION) || source.is(DamageTypes.PLAYER_EXPLOSION) ? 0 : value * 1.5F;
+        }
 
         //Jesistence
         if (source.getEntity() != null) {

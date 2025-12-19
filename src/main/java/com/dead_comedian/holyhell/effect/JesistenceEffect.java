@@ -1,8 +1,11 @@
 package com.dead_comedian.holyhell.effect;
 
 
+import com.dead_comedian.holyhell.registries.HolyHellAttachments;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 
 
 public class JesistenceEffect extends MobEffect {
@@ -11,6 +14,13 @@ public class JesistenceEffect extends MobEffect {
 
     public JesistenceEffect(MobEffectCategory statusEffectCategory, int color) {
         super(statusEffectCategory, color);
+    }
+
+    @Override
+    public void onMobRemoved(LivingEntity livingEntity, int amplifier, Entity.RemovalReason reason) {
+        livingEntity.setData(HolyHellAttachments.DAMAGE_ABSORBED.get(),0F);
+        livingEntity.setData(HolyHellAttachments.SHOULD_EXPLODE.get(), false);
+        super.onMobRemoved(livingEntity, amplifier, reason);
     }
 
     @Override

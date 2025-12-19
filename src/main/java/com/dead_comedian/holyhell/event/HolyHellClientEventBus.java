@@ -9,6 +9,7 @@ import com.dead_comedian.holyhell.client.renderer.render_layer.LowerRingRenderLa
 import com.dead_comedian.holyhell.client.renderer.render_layer.UpperRingRenderLayer;
 import com.dead_comedian.holyhell.client.renderer.overlay.EyeTransitionOverlay;
 import com.dead_comedian.holyhell.networking.packet.ServerboundAngelShaderAbilityPacket;
+import com.dead_comedian.holyhell.networking.packet.ServerboundExplosionShaderAbilityPacket;
 import com.dead_comedian.holyhell.particle.*;
 import com.dead_comedian.holyhell.registries.*;
 import net.minecraft.client.Minecraft;
@@ -111,6 +112,8 @@ public class HolyHellClientEventBus {
             EyeTransitionOverlay.eyeTransitionCounter = 0;
             PacketDistributor.sendToServer(new ServerboundAngelShaderAbilityPacket());
         }
+        if (HolyHellKeyBinds.RING_ABILITY_KEY.consumeClick()) {
+            PacketDistributor.sendToServer(new ServerboundExplosionShaderAbilityPacket());        }
     }
 
     @SubscribeEvent
@@ -132,6 +135,7 @@ public class HolyHellClientEventBus {
     @SubscribeEvent
     public static void onKeyRegister(RegisterKeyMappingsEvent event) {
         event.register(HolyHellKeyBinds.VISION_ABILITY_KEY);
+        event.register(HolyHellKeyBinds.RING_ABILITY_KEY);
     }
 
     @SubscribeEvent
