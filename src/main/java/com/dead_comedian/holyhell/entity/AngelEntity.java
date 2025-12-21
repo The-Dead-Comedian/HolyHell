@@ -70,7 +70,7 @@ public class AngelEntity extends Monster implements RangedAttackMob {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new RangedAttackGoala(this, 1.25, 1, 4.0F));
+        this.goalSelector.addGoal(1, new RangedAttackGoala(this, 1.25, 5, 4.0F));
         this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1.0));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
@@ -119,17 +119,22 @@ public class AngelEntity extends Monster implements RangedAttackMob {
 
     @Override
     public void performRangedAttack(LivingEntity target, float distanceFactor) {
-        FireBallEntity fireBallEntity = new FireBallEntity(HolyHellEntities.FIREBALL.get(), this.level());
-        double d0 = target.getEyeY() - 1.1F;
-        double d1 = target.getX() - this.getX();
-        double d2 = d0 - fireBallEntity.getY();
-        double d3 = target.getZ() - this.getZ();
-        double d4 = Math.sqrt(d1 * d1 + d3 * d3) * 0.2F;
+        for (int i = 0; i < 10; i++) {
 
-        this.playSound(SoundEvents.SNOW_GOLEM_SHOOT, 0.4F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-        this.level().addFreshEntity(fireBallEntity);
-        fireBallEntity.moveTo(this.getBlockX() + 0.5, this.getBlockY() + (double) this.level().getRandom().nextInt(15, 30) / 10, this.getBlockZ() + 0.5);
-        fireBallEntity.shoot(d1, d2 + d4, d3, 1.6F, 8F);
+
+            FireBallEntity fireBallEntity = new FireBallEntity(HolyHellEntities.FIREBALL.get(), this.level());
+            double d0 = target.getEyeY() - 1.1F;
+            double d1 = target.getX() - this.getX();
+            double d2 = d0 - fireBallEntity.getY();
+            double d3 = target.getZ() - this.getZ();
+            double d4 = Math.sqrt(d1 * d1 + d3 * d3) * 0.2F;
+
+            this.playSound(SoundEvents.SNOW_GOLEM_SHOOT, 0.4F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+            this.level().addFreshEntity(fireBallEntity);
+            fireBallEntity.moveTo(this.getBlockX() + 0.5, this.getBlockY() + (double) this.level().getRandom().nextInt(15, 30) / 10, this.getBlockZ() + 0.5);
+            fireBallEntity.shoot(d1, d2 + d4, d3, 1.6F, 8F);
+
+        }
     }
 
 

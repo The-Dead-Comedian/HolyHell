@@ -68,7 +68,7 @@ public class HereticEntity extends Monster {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1f, true));
+        this.goalSelector.addGoal(1, new AttackGoal(this, 1f, true));
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1D));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 4f));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
@@ -131,8 +131,8 @@ public class HereticEntity extends Monster {
 
     public static class AttackGoal extends MeleeAttackGoal {
         private final HereticEntity entity;
-        private int attackDelay = 30;
-        private int ticksUntilNextAttack = 30;
+        private int attackDelay = 20;
+        private int ticksUntilNextAttack = 20;
         private boolean shouldCountTillNextAttack = false;
 
         public AttackGoal(PathfinderMob pMob, double pSpeedModifier, boolean pFollowingTargetEvenIfNotSeen) {
@@ -143,8 +143,8 @@ public class HereticEntity extends Monster {
         @Override
         public void start() {
             super.start();
-            attackDelay = 30;
-            ticksUntilNextAttack = 30;
+            attackDelay = 20;
+            ticksUntilNextAttack = 20;
         }
 
         @Override

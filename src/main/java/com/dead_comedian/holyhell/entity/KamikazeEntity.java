@@ -1,12 +1,15 @@
 package com.dead_comedian.holyhell.entity;
 
 
+import com.dead_comedian.holyhell.entity.non_living.FireBallEntity;
+import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import com.dead_comedian.holyhell.registries.HolyHellSounds;
 import com.dead_comedian.holyhell.registries.HolyhellParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.AnimationState;
@@ -52,7 +55,7 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
 
     ///////////////
     // VARIABLES //
-    ///////////////
+    /// ////////////
 
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
@@ -69,7 +72,8 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
 
     //////////
     // MISC //
-    //////////
+
+    /// ///////
 
     public KamikazeEntity(EntityType<? extends Monster> entityType, Level world) {
         super(entityType, world);
@@ -92,8 +96,11 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
             flutterLoop = 24;
         }
         if (!isAlive()) {
-            this.explode(1d);
+            this.explode(2d);
             this.level().addParticle(HolyhellParticles.KAMIKAZE_EXPLOSION.get(), this.getX(), this.getY(), this.getZ(), 0.1, 0.1, 0.1);
+            AngelEntity angelEntity = new AngelEntity(HolyHellEntities.ANGEL.get(), this.level());
+            this.level().addFreshEntity(angelEntity);
+            angelEntity.moveTo(this.getBlockX() + 0.5, this.getBlockY(), this.getBlockZ() + 0.5);
             this.discard();
         }
 
@@ -133,7 +140,8 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
 
     ////////////////
     // NAVIGATION //
-    ////////////////
+
+    /// /////////////
 
 
     @Override
@@ -173,7 +181,8 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
 
     ///////////////
     // ANIMATION //
-    ///////////////
+
+    /// ////////////
 
 
     private void setupAnimationStates() {
@@ -199,7 +208,8 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
 
     ///////////////
     // EXPLOSION //
-    ///////////////
+
+    /// ////////////
 
 
     @Override
@@ -210,10 +220,12 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
 
     protected void explode(double power) {
 
+
         if (!this.level().isClientSide) {
 
 
             this.level().explode(this, this.getX(), this.getY(), this.getZ(), (float) (3 * power), Level.ExplosionInteraction.MOB);
+
             this.discard();
 
         }
@@ -235,7 +247,8 @@ public class KamikazeEntity extends Monster implements FlyingAnimal {
 
     ////////
     // AI //
-    ////////
+
+    /// /////
 
 
     class KamikazeAngelWanderAroundGoal extends Goal {
