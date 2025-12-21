@@ -179,6 +179,8 @@ public class HolyHellClientEventBus {
 
     @SubscribeEvent
     public static void registerParticleFactories(RegisterParticleProvidersEvent event) {
+        event.registerSpriteSet(HolyhellParticles.FIREBALL_TRAIL.get(), FireballTrail.Provider::new);
+        event.registerSpriteSet(HolyhellParticles.FIREBALL_IMPACT.get(), FireballImpact.Provider::new);
 
         event.registerSpriteSet(HolyhellParticles.HOSTILE_LOCATOR.get(), HostileLocatorParticle.Provider::new);
         event.registerSpriteSet(HolyhellParticles.BOSS_LOCATOR.get(), BossLocatorParticle.Provider::new);

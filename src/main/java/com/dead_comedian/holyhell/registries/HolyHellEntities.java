@@ -56,13 +56,6 @@ public class HolyHellEntities {
             ENTITY_TYPES.register("all_seer", () -> EntityType.Builder.of(AllSeerEntity::new, MobCategory.CREATURE)
                     .sized(60f, 30f).build("all_seer"));
 
-//
-//    public static final RegistryObject<EntityType<DevoutEntity>> DEVOUT     =
-//            ENTITY_TYPES.register("devout", () -> EntityType.Builder.of(DevoutEntity::new, MobCategory.CREATURE)
-//                    .sized(0.8f, 3f).build("devout"));
-//    public static final RegistryObject<EntityType<PalladinEntity>> PALLADIN     =
-//            ENTITY_TYPES.register("palladin", () -> EntityType.Builder.of(PalladinEntity::new, MobCategory.CREATURE)
-//                    .sized(1.5f, 2.5f).build("palladin"));
 
 
     // NON LIVING
@@ -77,14 +70,6 @@ public class HolyHellEntities {
     public static final Supplier<EntityType<FireBallEntity>> FIREBALL =
             ENTITY_TYPES.register("fireball", () -> EntityType.Builder.<FireBallEntity>of(FireBallEntity::new, MobCategory.MISC)
                     .sized(0.5f, 0.3f).build("fireball"));
-
-
-//    public static final RegistryObject<EntityType<SwordCrossEntity>> SWORD_CROSS =
-//            ENTITY_TYPES.register("sword_cross", () -> EntityType.Builder.<SwordCrossEntity>of(SwordCrossEntity::new, MobCategory.MISC)
-//                    .sized(0.5f, 0.25f).build("sword_cross"));
-//    public static final RegistryObject<EntityType<FallingSwordEntity>> FALLING_SWORD =
-//            ENTITY_TYPES.register("falling_sword", () -> EntityType.Builder.<FallingSwordEntity>of(FallingSwordEntity::new, MobCategory.MISC)
-//                    .sized(0.5f, 2f).build("falling_sword"));
 
 
     public static void register(IEventBus eventBus) {

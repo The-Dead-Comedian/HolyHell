@@ -13,6 +13,13 @@ public class HolyhellParticles {
     public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES =
             DeferredRegister.create(BuiltInRegistries.PARTICLE_TYPE, Holyhell.MOD_ID);
 
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> FIREBALL_TRAIL  =
+            PARTICLE_TYPES.register("fireball_trail", () -> new SimpleParticleType(true));
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> FIREBALL_IMPACT  =
+            PARTICLE_TYPES.register("fireball_impact", () -> new SimpleParticleType(true));
+
+
+
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> LIGHT_RING  =
             PARTICLE_TYPES.register("light_ring", () -> new SimpleParticleType(true));
 

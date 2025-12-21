@@ -50,11 +50,12 @@ import static com.dead_comedian.holyhell.Holyhell.LOGGER;
 @EventBusSubscriber(modid = Holyhell.MOD_ID)
 public class HolyHellEventBusEvents {
 
-    public static int paranoiaTimer;
-    public static int paranoiaAmp;
-    public static int secTillText = 40;
-    public static int musicDuration = 1660;
-    public static int musicCooldown;
+    private static int paranoiaTimer;
+    private static int paranoiaAmp;
+    private static int secTillText = 40;
+    private static int musicDuration = 1660;
+    private static int musicCooldown;
+    private static int explosionMagnitude;
 
     public static List<? extends AllSeerEntity> getEyes(LevelTickEvent.Post event) {
         if (event.getLevel() instanceof ServerLevel) {
@@ -206,11 +207,22 @@ public class HolyHellEventBusEvents {
     }
 
     @SubscribeEvent
-    public static void shouldExplode(LevelTickEvent.Post event) {
+    public static void shouldExplode(LevelTickEvent.Pre event) {
         Player player = Minecraft.getInstance().player;
         if (player != null) {
             if (player.getData(HolyHellAttachments.SHOULD_EXPLODE) && player.hasEffect(HolyHellEffects.JESISTANCE)) {
-                event.getLevel().explode(player, player.getX(), player.getY(), player.getZ(),player.getData(HolyHellAttachments.DAMAGE_ABSORBED) / 30, Level.ExplosionInteraction.MOB);
+
+                if (player.getData(HolyHellAttachments.DAMAGE_ABSORBED) < 5){
+                    explosionMagnitude =1;
+                } else if (player.getData(HolyHellAttachments.DAMAGE_ABSORBED) < 10) {
+                    explosionMagnitude = 2;
+                } else if (player.getData(HolyHellAttachments.DAMAGE_ABSORBED) < 15) {
+                    explosionMagnitude = 3;
+                } else if (player.getData(HolyHellAttachments.DAMAGE_ABSORBED) < 20) {
+                    explosionMagnitude = 4;
+                }
+
+                event.getLevel().explode(player, player.getX(), player.getY(), player.getZ(), explosionMagnitude, Level.ExplosionInteraction.MOB);
                 player.setData(HolyHellAttachments.DAMAGE_ABSORBED, 0F);
                 player.setData(HolyHellAttachments.SHOULD_EXPLODE, false);
             }
