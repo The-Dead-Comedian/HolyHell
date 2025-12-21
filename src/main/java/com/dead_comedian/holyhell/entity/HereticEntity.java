@@ -11,31 +11,24 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.pathfinder.Path;
+
+import java.util.EnumSet;
 
 public class HereticEntity extends Monster {
 
 
     ///////////////
     // VARIABLES //
-    ///////////////
+    /// ////////////
 
 
     public final AnimationState attackAnimationState = new AnimationState();
@@ -44,7 +37,8 @@ public class HereticEntity extends Monster {
 
     //////////
     // MISC //
-    //////////
+
+    /// ///////
     @Override
     public boolean isInvulnerableTo(DamageSource pSource) {
         if (pSource.getEntity() instanceof KamikazeEntity) {
@@ -74,7 +68,7 @@ public class HereticEntity extends Monster {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new HereticAttackGoal(this, 1f, true));
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1f, true));
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1D));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 4f));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
@@ -87,7 +81,7 @@ public class HereticEntity extends Monster {
                 .add(Attributes.MOVEMENT_SPEED, 0.4f)
                 .add(Attributes.ARMOR, 1.7f)
                 .add(Attributes.ATTACK_DAMAGE, 8)
-                .add(Attributes.FOLLOW_RANGE,10);
+                .add(Attributes.FOLLOW_RANGE, 10);
     }
 
     @Override
@@ -99,7 +93,8 @@ public class HereticEntity extends Monster {
 
     ///////////////
     // ANIMATION //
-    ///////////////
+
+    /// ////////////
 
 
     private void setupAnimationStates() {
@@ -130,34 +125,31 @@ public class HereticEntity extends Monster {
 
     ////////
     // AI //
-    ////////
+
+    /// /////
 
 
-    public class HereticAttackGoal extends MeleeAttackGoal {
-
-
+    public static class AttackGoal extends MeleeAttackGoal {
         private final HereticEntity entity;
-        private int attackDelay = 15;
-        private int ticksUntilNextAttack = 15;
+        private int attackDelay = 30;
+        private int ticksUntilNextAttack = 30;
         private boolean shouldCountTillNextAttack = false;
 
-        public HereticAttackGoal(PathfinderMob mob, double speed, boolean pauseWhenMobIdle) {
-            super(mob, speed, pauseWhenMobIdle);
-            entity = ((HereticEntity) mob);
+        public AttackGoal(PathfinderMob pMob, double pSpeedModifier, boolean pFollowingTargetEvenIfNotSeen) {
+            super(pMob, pSpeedModifier, pFollowingTargetEvenIfNotSeen);
+            entity = ((HereticEntity) pMob);
         }
 
         @Override
         public void start() {
             super.start();
-            tick1 = 0;
-            attackDelay = 15;
-            ticksUntilNextAttack = 15;
+            attackDelay = 30;
+            ticksUntilNextAttack = 30;
         }
-
 
         @Override
         protected void checkAndPerformAttack(LivingEntity pEnemy) {
-            if (canPerformAttack(pEnemy)) {
+            if (isEnemyWithinAttackDistance(pEnemy, entity.distanceToSqr(pEnemy))) {
                 shouldCountTillNextAttack = true;
 
                 if (isTimeToStartAttackAnimation()) {
@@ -184,7 +176,6 @@ public class HereticEntity extends Monster {
                                     1, 0, 0, 0, 0);
                         }
                     }
-
                     performAttack(pEnemy);
                 }
             } else {
@@ -195,10 +186,12 @@ public class HereticEntity extends Monster {
             }
         }
 
-        protected boolean isTimeToStartAttackAnimation() {
-            return this.ticksUntilNextAttack <= attackDelay;
+        private boolean isEnemyWithinAttackDistance(LivingEntity pEnemy, double pDistToEnemySqr) {
+            return pDistToEnemySqr <= this.getAttackReachSqr(pEnemy);
         }
-
+        protected double getAttackReachSqr(LivingEntity pAttackTarget) {
+            return (double)(this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 2.0F + pAttackTarget.getBbWidth());
+        }
         protected void resetAttackCooldown() {
             this.ticksUntilNextAttack = this.adjustedTickDelay(attackDelay * 2);
         }
@@ -207,27 +200,29 @@ public class HereticEntity extends Monster {
             return this.ticksUntilNextAttack <= 0;
         }
 
-        protected void performAttack(LivingEntity pEnemy) {
+        protected boolean isTimeToStartAttackAnimation() {
+            return this.ticksUntilNextAttack <= attackDelay;
+        }
 
+        protected int getTicksUntilNextAttack() {
+            return this.ticksUntilNextAttack;
+        }
+
+
+        protected void performAttack(LivingEntity pEnemy) {
             this.resetAttackCooldown();
             this.mob.swing(InteractionHand.MAIN_HAND);
             this.mob.doHurtTarget(pEnemy);
         }
 
-
-
         @Override
         public void tick() {
             super.tick();
-
-
             if (shouldCountTillNextAttack) {
                 this.ticksUntilNextAttack = Math.max(this.ticksUntilNextAttack - 1, 0);
-                if (ticksUntilNextAttack == 0) {
-                    entity.setAggressive(false);
-                }
             }
         }
+
 
         @Override
         public void stop() {
@@ -237,48 +232,49 @@ public class HereticEntity extends Monster {
     }
 
 
-    // attacking
+// attacking
 
-    private static final EntityDataAccessor<Boolean> ATTACKING =
-            SynchedEntityData.defineId(HereticEntity.class, EntityDataSerializers.BOOLEAN);
+private static final EntityDataAccessor<Boolean> ATTACKING =
+        SynchedEntityData.defineId(HereticEntity.class, EntityDataSerializers.BOOLEAN);
 
-    public void setAggressive(boolean attacking) {
-        this.entityData.set(ATTACKING, attacking);
-    }
+public void setAggressive(boolean attacking) {
+    this.entityData.set(ATTACKING, attacking);
+}
 
-    @Override
-    public boolean isAggressive() {
-        return this.entityData.get(ATTACKING);
-    }
+@Override
+public boolean isAggressive() {
+    return this.entityData.get(ATTACKING);
+}
 
-    @Override
-    public boolean doHurtTarget(Entity target) {
-        boolean bl = super.doHurtTarget(target);
-        this.playSound(HolyHellSounds.HERETIC_ATTACK.get(), 1F, 1F);
-        setAggressive(true);
-        return bl;
-    }
+@Override
+public boolean doHurtTarget(Entity target) {
+    boolean bl = super.doHurtTarget(target);
+    this.playSound(HolyHellSounds.HERETIC_ATTACK.get(), 1F, 1F);
+    setAggressive(true);
+    return bl;
+}
 
-    //////////
-    //SOUNDS//
-    //////////
+//////////
+//SOUNDS//
+
+/// ///////
 
 
-    @Override
-    protected SoundEvent getDeathSound() {
-        return HolyHellSounds.HERETIC_DEATH.get();
-    }
+@Override
+protected SoundEvent getDeathSound() {
+    return HolyHellSounds.HERETIC_DEATH.get();
+}
 
-    @org.jetbrains.annotations.Nullable
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return HolyHellSounds.HERETIC_IDLE.get();
-    }
+@org.jetbrains.annotations.Nullable
+@Override
+protected SoundEvent getAmbientSound() {
+    return HolyHellSounds.HERETIC_IDLE.get();
+}
 
-    @Override
-    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return HolyHellSounds.HERETIC_HURT.get();
-    }
+@Override
+protected SoundEvent getHurtSound(DamageSource pDamageSource) {
+    return HolyHellSounds.HERETIC_HURT.get();
+}
 
 
 }
