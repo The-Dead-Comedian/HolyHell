@@ -93,14 +93,8 @@ public class HolyHellAttachments {
                     .serialize(StoredInventory.CODEC)
                     .build()
     );
-    public static final Supplier<AttachmentType<StoredInventory>> COFFIN_INVENTORY = ATTACHMENT_TYPES.register(
-            "coffin_inventory",
-            () -> AttachmentType.builder(StoredInventory::new)
-                    .serialize(StoredInventory.CODEC)
-                    .build()
-    );
 
-    // Register the DeferredRegister to your mod bus in your mod constructor
+
     public static void register(IEventBus modBus) {
         ATTACHMENT_TYPES.register(modBus);
     }

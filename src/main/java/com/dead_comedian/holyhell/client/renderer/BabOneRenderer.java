@@ -15,7 +15,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class BabOneRenderer extends MobRenderer<BabOneEntity, BabOneModel<BabOneEntity>> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/entity/bab1.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/entity/bab/bab1.png");
 
     public BabOneRenderer(EntityRendererProvider.Context context) {
         super(context, new BabOneModel<>(context.bakeLayer(HolyHellModelLayers.BAB)), 0.6F);

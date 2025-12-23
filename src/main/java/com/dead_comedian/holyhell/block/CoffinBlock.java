@@ -35,11 +35,9 @@ public class CoffinBlock extends BaseEntityBlock {
     public static final EnumProperty<DoubleBlockHalf> HALF = EnumProperty.create("half", DoubleBlockHalf.class);
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty ACTIVATED = BooleanProperty.create("activated");
-    public static final BooleanProperty OPEN = BooleanProperty.create("open");
-
     public CoffinBlock(Properties pProperties) {
         super(pProperties);
-        this.registerDefaultState(this.defaultBlockState().setValue(HALF, DoubleBlockHalf.LOWER).setValue(OPEN, false).setValue(ACTIVATED, false));
+        this.registerDefaultState(this.defaultBlockState().setValue(HALF, DoubleBlockHalf.LOWER).setValue(ACTIVATED, false));
     }
 
     @Override
@@ -49,7 +47,7 @@ public class CoffinBlock extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(HALF, FACING, ACTIVATED, OPEN);
+        pBuilder.add(HALF, FACING, ACTIVATED);
     }
 
     @Override

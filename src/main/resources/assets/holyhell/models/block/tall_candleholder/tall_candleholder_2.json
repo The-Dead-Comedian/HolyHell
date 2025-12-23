@@ -5,9 +5,9 @@
 
   "texture_size": [24, 53],
 	"textures": {
-		"0": "holyhell:block/tall_candleholder_1",
-		"1": "holyhell:block/tall_candleholder_2",
-		"particle": "holyhell:block/tall_candleholder_1"
+		"0": "holyhell:block/tall_candleholder/tall_candleholder_1",
+		"1": "holyhell:block/tall_candleholder/tall_candleholder_2",
+		"particle": "holyhell:block/tall_candleholder/tall_candleholder_1"
 	},
 	"elements": [
 		{

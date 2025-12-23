@@ -40,9 +40,9 @@ public class EndTextOverlay {
 
 
     public static final ResourceLocation[] FRAME_TEXTURES = {
-            ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/misc/text_1.png"),
-            ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/misc/text_2.png"),
-            ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/misc/text_3.png"),
+            ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/misc/end_text/text_1.png"),
+            ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/misc/end_text/text_2.png"),
+            ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/misc/end_text/text_3.png"),
     };
 
 

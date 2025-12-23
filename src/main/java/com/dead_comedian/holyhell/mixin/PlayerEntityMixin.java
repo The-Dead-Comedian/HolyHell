@@ -138,20 +138,15 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     private void attack(Entity target, CallbackInfo ci) {
         //Sword Cross
         ItemStack itemStack = this.getItemInHand(this.getUsedItemHand());
-//        if (itemStack.is(HolyHellItems.HOLY_GRAIL.get())) {
-//            this.level().playSound(this, this.blockPosition(), HolyHellSound.SWORD_SLASH.get(), SoundSource.PLAYERS, 0.5f, 1f);
-//        }
+        if (itemStack.is(HolyHellItems.HOLY_GRAIL.get())) {
+            this.level().playSound(this, this.blockPosition(), HolyHellSounds.SWORD_SLASH.get(), SoundSource.PLAYERS, 0.5f, 1f);
+        }
         if (itemStack.is(HolyHellItems.SACRIFICIAL_KATAR.get())) {
 
             this.level().playSound(this, this.blockPosition(), HolyHellSounds.SWORD_SLASH.get(), SoundSource.PLAYERS, 0.5f, 2f);
 
         }
 
-
-    }
-
-    @Inject(method = "die", at = @At(value = "HEAD"))
-    private void die(DamageSource pCause, CallbackInfo ci) {
 
     }
 

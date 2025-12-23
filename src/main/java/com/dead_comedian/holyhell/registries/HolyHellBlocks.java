@@ -4,7 +4,7 @@ package com.dead_comedian.holyhell.registries;
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.block.*;
 
-import com.dead_comedian.holyhell.item.*;
+import com.dead_comedian.holyhell.item.custom.block_item.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.item.BlockItem;

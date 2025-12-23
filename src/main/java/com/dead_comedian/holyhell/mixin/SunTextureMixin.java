@@ -305,15 +305,15 @@ public abstract class SunTextureMixin {
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         if (spriteNo == 0) {
-            RenderSystem.setShaderTexture(0, ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/environment/eye1.png"));
+            RenderSystem.setShaderTexture(0, ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/environment/eye/eye1.png"));
         } else if (spriteNo == 1) {
-            RenderSystem.setShaderTexture(0, ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/environment/eye2.png"));
+            RenderSystem.setShaderTexture(0, ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/environment/eye/eye2.png"));
         } else if (spriteNo == 2) {
-            RenderSystem.setShaderTexture(0, ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/environment/eye3.png"));
+            RenderSystem.setShaderTexture(0, ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/environment/eye/eye3.png"));
         } else if (spriteNo == 3) {
-            RenderSystem.setShaderTexture(0, ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/environment/eye4.png"));
+            RenderSystem.setShaderTexture(0, ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/environment/eye/eye4.png"));
         } else if (spriteNo == 4) {
-            RenderSystem.setShaderTexture(0, ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/environment/eye5.png"));
+            RenderSystem.setShaderTexture(0, ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/environment/eye/eye5.png"));
         }
     }
 }

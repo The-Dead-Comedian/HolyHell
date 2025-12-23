@@ -38,16 +38,16 @@ public class EyeTransitionOverlay {
 
 
     public static final ResourceLocation[] FRAME_TEXTURES = {
-            ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/misc/eye_overlay_1.png"),
-            ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/misc/eye_overlay_2.png"),
-            ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/misc/eye_overlay_3.png"),
-            ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/misc/eye_overlay_4.png"),
-            ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/misc/eye_overlay_5.png"),
-            ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/misc/eye_overlay_5.png"),
-            ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/misc/eye_overlay_4.png"),
-            ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/misc/eye_overlay_3.png"),
-            ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/misc/eye_overlay_2.png"),
-            ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/misc/eye_overlay_1.png"),
+            ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/misc/eye_overlay/eye_overlay_1.png"),
+            ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/misc/eye_overlay/eye_overlay_2.png"),
+            ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/misc/eye_overlay/eye_overlay_3.png"),
+            ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/misc/eye_overlay/eye_overlay_4.png"),
+            ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/misc/eye_overlay/eye_overlay_5.png"),
+            ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/misc/eye_overlay/eye_overlay_5.png"),
+            ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/misc/eye_overlay/eye_overlay_4.png"),
+            ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/misc/eye_overlay/eye_overlay_3.png"),
+            ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/misc/eye_overlay/eye_overlay_2.png"),
+            ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/misc/eye_overlay/eye_overlay_1.png"),
 
 
     };

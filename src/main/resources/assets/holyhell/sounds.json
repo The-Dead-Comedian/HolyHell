@@ -1,10 +1,4 @@
 {
-  "clarity_music": {
-    "subtitle": "sounds.holyhell.clarity_music",
-    "sounds": [
-      "holyhell:clarity_music"
-    ]
-  },
   "holy_shield_block": {
     "subtitle": "sounds.holyhell.holy_shield_block",
     "sounds": [
@@ -14,19 +8,19 @@
   "rings_hold": {
     "subtitle": "sounds.holyhell.rings_hold",
     "sounds": [
-      "holyhell:rings_hold"
+      "holyhell:rings/rings_hold"
     ]
   },
   "rings_intro": {
     "subtitle": "sounds.holyhell.rings_intro",
     "sounds": [
-      "holyhell:rings_intro"
+      "holyhell:rings/rings_intro"
     ]
   },
   "rings_outro": {
     "subtitle": "sounds.holyhell.rings_outro",
     "sounds": [
-      "holyhell:rings_outro"
+      "holyhell:rings/rings_outro"
     ]
   },
   "candelabra_place": {
@@ -65,84 +59,92 @@
       "holyhell:stone_crack"
     ]
   },
+
+
   "angel_flutter": {
     "subtitle": "sounds.holyhell.angel_flutter",
     "sounds": [
-      "holyhell:angel_flutter"
+      "holyhell:angel/angel_flutter"
     ]
   },
   "angel_shoot": {
     "subtitle": "sounds.holyhell.angel_shoot",
     "sounds": [
-      "holyhell:angel_shoot"
+      "holyhell:angel/angel_shoot"
     ]
   },
   "angel_hurt": {
     "subtitle": "sounds.holyhell.angel_hurt",
     "sounds": [
-      "holyhell:angel_hurt"
+      "holyhell:angel/angel_hurt"
     ]
   },
   "angel_idle": {
     "subtitle": "sounds.holyhell.angel_idle",
     "sounds": [
-      "holyhell:angel_idle"
+      "holyhell:angel/angel_idle"
     ]
   },
+
+
+
   "bab_idle": {
     "subtitle": "sounds.holyhell.bab_idle",
     "sounds": [
-      "holyhell:bab_idle"
+      "holyhell:bab/bab_idle"
     ]
   },
   "bab_walk": {
     "subtitle": "sounds.holyhell.bab_walk",
     "sounds": [
-      "holyhell:bab_walk"
+      "holyhell:bab/bab_walk"
     ]
   },
   "bab_leg_walk": {
     "subtitle": "sounds.holyhell.bab_leg_walk",
     "sounds": [
-      "holyhell:bab_leg_walk"
+      "holyhell:bab/bab_leg_walk"
     ]
   },
   "bab_hurt": {
     "subtitle": "sounds.holyhell.bab_hurt",
     "sounds": [
-      "holyhell:bab_hurt"
+      "holyhell:bab/bab_hurt"
     ]
   },
   "bab_die": {
     "subtitle": "sounds.holyhell.bab_die",
     "sounds": [
-      "holyhell:bab_die"
+      "holyhell:bab/bab_die"
     ]
   },
   "bab_2_attack": {
     "subtitle": "sounds.holyhell.bab_2_attack",
     "sounds": [
-      "holyhell:bab_2_attack"
+      "holyhell:bab/bab_2_attack"
     ]
   },
   "bab_3_attack": {
     "subtitle": "sounds.holyhell.bab_3_attack",
     "sounds": [
-      "holyhell:bab_3_attack"
+      "holyhell:bab/bab_3_attack"
     ]
   },
   "bab_tame": {
     "subtitle": "sounds.holyhell.bab_tame",
     "sounds": [
-      "holyhell:bab_tame"
+      "holyhell:bab/bab_tame"
     ]
   },
   "bab_merge": {
     "subtitle": "sounds.holyhell.bab_merge",
     "sounds": [
-      "holyhell:bab_merge"
+      "holyhell:bab/bab_merge"
     ]
   },
+
+
+
   "bell_ring": {
     "subtitle": "sounds.holyhell.bell_ring",
     "sounds": [
@@ -161,30 +163,38 @@
       "holyhell:holy_spirit_death"
     ]
   },
+
+
+
   "heretic_attack": {
     "subtitle": "sounds.holyhell.heretic_attack",
     "sounds": [
-      "holyhell:heretic_attack"
+      "holyhell:heretic/heretic_attack"
     ]
   },
   "heretic_death": {
     "subtitle": "sounds.holyhell.heretic_death",
     "sounds": [
-      "holyhell:heretic_death"
+      "holyhell:heretic/heretic_death"
     ]
   },
   "heretic_hurt": {
     "subtitle": "sounds.holyhell.heretic_hurt",
     "sounds": [
-      "holyhell:heretic_hurt"
+      "holyhell:heretic/heretic_hurt"
     ]
   },
   "heretic_idle": {
     "subtitle": "sounds.holyhell.heretic_idle",
     "sounds": [
-      "holyhell:heretic_idle"
+      "holyhell:heretic/heretic_idle"
     ]
   },
+
+
+
+
+
   "stun": {
     "subtitle": "sounds.holyhell.stun",
     "sounds": [
@@ -221,24 +231,29 @@
       "holyhell:flashbang"
     ]
   },
+
+
   "revenant_walk": {
     "subtitle": "sounds.holyhell.revenant_walk",
     "sounds": [
-      "holyhell:revenant_walk"
+      "holyhell:revenant/revenant_walk"
     ]
   },
   "revenant_rise": {
     "subtitle": "sounds.holyhell.revenant_rise",
     "sounds": [
-      "holyhell:revenant_rise"
+      "holyhell:revenant/revenant_rise"
     ]
   },
   "revenant_attack": {
     "subtitle": "sounds.holyhell.revenant_attack",
     "sounds": [
-      "holyhell:revenant_attack"
+      "holyhell:revenant/revenant_attack"
     ]
   },
+
+
+
   "metal_hurt": {
     "subtitle": "sounds.holyhell.metal_hurt",
     "sounds": [

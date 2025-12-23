@@ -45,9 +45,7 @@ public class BoneChandelierBlock extends Block {
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighbourState,
                                   LevelAccessor level, BlockPos pos, BlockPos neighbourPos) {
 
-        // If the block ABOVE changed, recheck survival
         if (direction == Direction.UP && !state.canSurvive(level, pos)) {
-            // Replace with air
             return Blocks.AIR.defaultBlockState();
         }
 

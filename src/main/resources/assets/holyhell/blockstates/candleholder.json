@@ -1,11 +1,11 @@
 {
   "variants": {
     "half=lower": {
-      "model": "holyhell:block/candleholder_bot",
+      "model": "holyhell:block/candleholder/candleholder_bot",
       "y": 0
     },
     "half=upper": {
-      "model": "holyhell:block/candleholder_top",
+      "model": "holyhell:block/candleholder/candleholder_top",
       "y": 0
     }
   }

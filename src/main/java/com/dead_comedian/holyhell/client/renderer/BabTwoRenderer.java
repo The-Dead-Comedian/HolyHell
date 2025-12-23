@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class BabTwoRenderer extends MobRenderer<BabTwoEntity, BabTwoModel<BabTwoEntity>> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/entity/bab2.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/entity/bab/bab2.png");
 
     public BabTwoRenderer(EntityRendererProvider.Context context) {
         super(context, new BabTwoModel<>(context.bakeLayer(HolyHellModelLayers.BAB1)), 0.6F);
