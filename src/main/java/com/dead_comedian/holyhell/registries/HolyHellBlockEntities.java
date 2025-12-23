@@ -2,6 +2,7 @@ package com.dead_comedian.holyhell.registries;
 
 import com.dead_comedian.holyhell.Holyhell;
 
+import com.dead_comedian.holyhell.block.entity.CoffinBlockEntity;
 import com.dead_comedian.holyhell.block.entity.DiviningTableBlockEntity;
 import com.dead_comedian.holyhell.block.entity.FallingCrossBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -22,7 +23,10 @@ public class HolyHellBlockEntities {
     public static final Supplier<BlockEntityType<DiviningTableBlockEntity>> DIVINING_TABLE_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("divining_table_block_entity", () -> BlockEntityType.Builder.of(
                     DiviningTableBlockEntity::new, HolyHellBlocks.DIVINING_TABLE.get()).build(null));
-
+    public static final Supplier<BlockEntityType<CoffinBlockEntity>> COFFIN_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("coffin_block_entity", () ->
+                    BlockEntityType.Builder.of(CoffinBlockEntity::new,
+                            HolyHellBlocks.COFFIN.get()).build(null));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

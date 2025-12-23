@@ -13,6 +13,7 @@ import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -23,6 +24,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
+import javax.annotation.Nullable;
 import java.util.function.ToIntFunction;
 
 public class ChandelierBlock extends Block {
@@ -39,13 +41,37 @@ public class ChandelierBlock extends Block {
     }
 
     @Override
-    protected BlockState updateShape(BlockState blockState, Direction direction, BlockState neighborState, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos neighborPos) {
-        return direction == Direction.UP && !this.canSurvive(blockState, levelAccessor, blockPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(blockState, direction, neighborState, levelAccessor, blockPos, neighborPos);
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighbourState,
+                                  LevelAccessor level, BlockPos pos, BlockPos neighbourPos) {
+
+        // If the block ABOVE changed, recheck survival
+        if (direction == Direction.UP && !state.canSurvive(level, pos)) {
+            // Replace with air
+            return Blocks.AIR.defaultBlockState();
+        }
+
+        return super.updateShape(state, direction, neighbourState, level, pos, neighbourPos);
     }
 
+
     @Override
-    protected boolean canSurvive(BlockState blockState, LevelReader levelReader, BlockPos blockPos) {
-        return canSupportCenter(levelReader, blockPos.below(), Direction.UP);
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        BlockPos above = pos.above();
+        BlockState aboveState = level.getBlockState(above);
+
+        return aboveState.isFaceSturdy(level, above, Direction.DOWN);
+    }
+    @Nullable
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        BlockPos pos = ctx.getClickedPos();
+
+        if (!ctx.getLevel().getBlockState(pos.above())
+                .isFaceSturdy(ctx.getLevel(), pos.above(), Direction.DOWN)) {
+            return null; // cancels placement
+        }
+
+        return this.defaultBlockState();
     }
 
     @Override

@@ -66,6 +66,17 @@ public class HolyHellSounds {
 
     public static final Supplier<SoundEvent> FLASHBANG = registerSoundEvents("flashbang");
 
+    public static final Supplier<SoundEvent> REVENANT_WALK = registerSoundEvents("revenant_walk");
+    public static final Supplier<SoundEvent> REVENANT_RISE = registerSoundEvents("revenant_rise");
+    public static final Supplier<SoundEvent> REVENANT_ATTACK = registerSoundEvents("revenant_attack");
+    public static final Supplier<SoundEvent> METAL_HURT = registerSoundEvents("metal_hurt");
+
+    public static final Supplier<SoundEvent> ULULU = registerSoundEvents("ululu");
+    public static final Supplier<SoundEvent> MOB_PASSES = registerSoundEvents("mob_passes");
+    public static final Supplier<SoundEvent> PERISH = registerSoundEvents("perish");
+    public static final Supplier<SoundEvent> DISSAPEAR = registerSoundEvents("dissapear");
+
+    public static final Supplier<SoundEvent> COFFIN_LID = registerSoundEvents("coffin_lid");
 
 
     public static final Supplier<SoundEvent> STATIC_AMBIENT = registerSoundEvents("static_ambient");

@@ -32,25 +32,26 @@ public class BabItem extends Item {
     public boolean onDroppedByPlayer(ItemStack item, Player player) {
 
 
+        Level level = player.level();
+        Mob babEntity = new BabOneEntity(HolyHellEntities.BAB_ONE.get(), level);
 
-            Level level = player.level();
-            Mob babEntity = new BabOneEntity(HolyHellEntities.BAB_ONE.get(), level);
 
-
-            if (item.get(DataComponents.CUSTOM_DATA) != null) {
-                if (item.get(DataComponents.CUSTOM_DATA).copyTag().getInt("level") == 2) {
-                    babEntity = new BabTwoEntity(HolyHellEntities.BAB_TWO.get(), level);
-                } else if (item.get(DataComponents.CUSTOM_DATA).copyTag().getInt("level") == 3) {
-                    babEntity = new BabThreeEntity(HolyHellEntities.BAB_THREE.get(), level);
-                }
+        if (item.get(DataComponents.CUSTOM_DATA) != null) {
+            if (item.get(DataComponents.CUSTOM_DATA).copyTag().getInt("level") == 2) {
+                babEntity = new BabTwoEntity(HolyHellEntities.BAB_TWO.get(), level);
+            } else if (item.get(DataComponents.CUSTOM_DATA).copyTag().getInt("level") == 3) {
+                babEntity = new BabThreeEntity(HolyHellEntities.BAB_THREE.get(), level);
             }
+        }
 
-            level.addFreshEntity(babEntity);
-            babEntity.moveTo(player.blockPosition().above(), babEntity.getYRot(), babEntity.getXRot());
-            babEntity.addDeltaMovement(player.getLookAngle().multiply(2, 2, 2));
+        level.addFreshEntity(babEntity);
+        babEntity.moveTo(player.blockPosition().above(), babEntity.getYRot(), babEntity.getXRot());
+        babEntity.addDeltaMovement(player.getLookAngle().multiply(2, 2, 2));
 
 
-        item.getEntityRepresentation().discard();
+        if (item.getEntityRepresentation() != null) {
+            item.getEntityRepresentation().discard();
+        }
         return super.onDroppedByPlayer(item, player);
     }
 

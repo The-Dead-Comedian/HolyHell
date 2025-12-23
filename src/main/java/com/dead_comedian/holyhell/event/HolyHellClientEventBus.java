@@ -12,6 +12,7 @@ import com.dead_comedian.holyhell.networking.packet.ServerboundAngelShaderAbilit
 import com.dead_comedian.holyhell.networking.packet.ServerboundExplosionShaderAbilityPacket;
 import com.dead_comedian.holyhell.particle.*;
 import com.dead_comedian.holyhell.registries.*;
+import com.dead_comedian.holyhell.screen.CoffinScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.AttackSweepParticle;
 import net.minecraft.client.renderer.GameRenderer;
@@ -175,6 +176,9 @@ public class HolyHellClientEventBus {
             }
 
         }
+    } @SubscribeEvent
+    public static void registerScreens(RegisterMenuScreensEvent event) {
+        event.register(HolyHellScreens.COFFIN_MENU.get(), CoffinScreen::new);
     }
 
     @SubscribeEvent

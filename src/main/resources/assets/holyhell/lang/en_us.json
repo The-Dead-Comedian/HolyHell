@@ -19,6 +19,8 @@
   "item.holyhell.heretic_spawn_egg": "Heretic Spawn Egg",
   "item.holyhell.kamikaze_spawn_egg": "Kamikaze Spawn Egg",
   "item.holyhell.bab_spawn_egg": "Bab Spawn Egg",
+  "item.holyhell.cherub_spawn_egg": "Cherub Spawn Egg",
+  "item.holyhell.revenant_spawn_egg": "Revenant Spawn Egg",
 
 
   "item.holyhell.evangelist_helmet": "Evangelist Helmet",
@@ -34,6 +36,19 @@
   "block.holyhell.chandelier": "Chandelier",
   "block.holyhell.stone_cross": "Stone Cross",
   "block.holyhell.falling_cross": "Falling  Cross",
+
+  "block.holyhell.bone_pile": "Bone Pile",
+  "block.holyhell.skull_pile": "Skull Pile",
+
+  "block.holyhell.carved_pumpkin_eye": "Carved Pumpkin Eye",
+  "block.holyhell.carved_pumpkin_cross": "Carved Pumpkin Cross",
+  "block.holyhell.jack_o_lantern_eye": "Jack-O Lantern",
+  "block.holyhell.jack_o_lantern_cross": "Jack-O Lantern",
+
+  "block.holyhell.coffin": "Coffin",
+
+  "block.holyhell.bone_chandelier": "Bone Chandelier",
+
 
 
   "block.holyhell.cobbled_marble": "Cobbled Marble",
@@ -79,6 +94,8 @@
   "entity.holyhell.bab_three": "Level 3 Bab",
   "entity.holyhell.cherub": "Cherub",
   "entity.holyhell.holy_cow": "Holy Cow",
+  "entity.holyhell.revenant": "Revenant",
+
 
   "entity.holyhell.gate": "Gate",
   "entity.holyhell.globular_dome": "Globular Dome",

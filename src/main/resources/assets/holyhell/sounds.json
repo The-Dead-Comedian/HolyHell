@@ -161,7 +161,6 @@
       "holyhell:holy_spirit_death"
     ]
   },
-
   "heretic_attack": {
     "subtitle": "sounds.holyhell.heretic_attack",
     "sounds": [
@@ -193,37 +192,87 @@
     ]
   },
   "divine_prot": {
-  "subtitle": "sounds.holyhell.divine_prot",
-  "sounds": [
-    "holyhell:divine_prot"
-  ]
-},
-
+    "subtitle": "sounds.holyhell.divine_prot",
+    "sounds": [
+      "holyhell:divine_prot"
+    ]
+  },
   "static_ambient": {
     "subtitle": "sounds.holyhell.static_ambient",
     "sounds": [
       "holyhell:ambient/static_ambient"
     ]
   },
-
   "blink": {
     "subtitle": "sounds.holyhell.blink",
     "sounds": [
       "holyhell:ambient/blink"
     ]
   },
-
   "heavens_voice": {
     "subtitle": "sounds.holyhell.heavens_voice",
     "sounds": [
       "holyhell:ambient/music/heavens_voice-keta"
     ]
   },
-
   "flashbang": {
     "subtitle": "sounds.holyhell.flashbang",
     "sounds": [
       "holyhell:flashbang"
+    ]
+  },
+  "revenant_walk": {
+    "subtitle": "sounds.holyhell.revenant_walk",
+    "sounds": [
+      "holyhell:revenant_walk"
+    ]
+  },
+  "revenant_rise": {
+    "subtitle": "sounds.holyhell.revenant_rise",
+    "sounds": [
+      "holyhell:revenant_rise"
+    ]
+  },
+  "revenant_attack": {
+    "subtitle": "sounds.holyhell.revenant_attack",
+    "sounds": [
+      "holyhell:revenant_attack"
+    ]
+  },
+  "metal_hurt": {
+    "subtitle": "sounds.holyhell.metal_hurt",
+    "sounds": [
+      "holyhell:metal_hurt"
+    ]
+  },
+  "ululu": {
+    "subtitle": "sounds.holyhell.ululu",
+    "sounds": [
+      "holyhell:ululu"
+    ]
+  },
+  "mob_passes": {
+    "subtitle": "sounds.holyhell.mob_passes",
+    "sounds": [
+      "holyhell:mob_passes"
+    ]
+  },
+  "perish": {
+    "subtitle": "sounds.holyhell.perish",
+    "sounds": [
+      "holyhell:perish"
+    ]
+  },
+  "dissapear": {
+    "subtitle": "sounds.holyhell.dissapear",
+    "sounds": [
+      "holyhell:dissapear"
+    ]
+  },
+  "coffin_lid": {
+    "subtitle": "sounds.holyhell.coffin_lid",
+    "sounds": [
+      "holyhell:coffin_lid"
     ]
   }
 }

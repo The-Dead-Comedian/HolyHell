@@ -43,22 +43,15 @@ public class HolyHellItems {
 
 
     public static final Supplier<Item> ANGEL_SPAWN_EGG = ITEMS.register("angel_spawn_egg", () -> new
-            DeferredSpawnEggItem(HolyHellEntities.ANGEL, 0xffefbf, 0xd19822, new Item.Properties()));
+            DeferredSpawnEggItem(HolyHellEntities.ANGEL, 0xcec7b6, 0xc9a932, new Item.Properties()));
     public static final Supplier<Item> KAMIKAZE_SPAWN_EGG = ITEMS.register("kamikaze_spawn_egg", () -> new
-            DeferredSpawnEggItem(HolyHellEntities.KAMIKAZE, 0xffefbf, 0xd19822, new Item.Properties()));
+            DeferredSpawnEggItem(HolyHellEntities.KAMIKAZE, 0xcebda1, 0xbd8c22, new Item.Properties()));
     public static final Supplier<Item> HERETIC_SPAWN_EGG = ITEMS.register("heretic_spawn_egg", () -> new
-            DeferredSpawnEggItem(HolyHellEntities.HERETIC, 0xffefbf, 0xd19822, new Item.Properties()));
+            DeferredSpawnEggItem(HolyHellEntities.HERETIC, 0xd5cf9f, 0x92813d, new Item.Properties()));
     public static final Supplier<Item> BAB_SPAWN_EGG = ITEMS.register("bab_spawn_egg", () -> new
-            DeferredSpawnEggItem(HolyHellEntities.BAB_ONE, 0xffefbf, 0xd19822, new Item.Properties()));
-
-
-    //     public static final RegistryObject<Item> DEVOUT_SPAWN_EGG = ITEMS.register("devout_spawn_egg",
-//            () ->new ForgeSpawnEggItem(HolyHellEntities.DEVOUT, 0xa6242b, 0xdad5ab,new Item.Properties()));
-//    public static final RegistryObject<Item> PALLADIN_SPAWN_EGG = ITEMS.register("palladin_spawn_egg",
-//            () ->new ForgeSpawnEggItem(HolyHellEntities.PALLADIN, 0xffefbf, 0xd19822,new Item.Properties()));
-//    public static final RegistryObject<HolyGrailItem> HOLY_GRAIL = ITEMS.register("holy_grail",
-//            () -> new HolyGrailItem(HolyHellToolMaterial.GRAIL,10, -2.6F, new Item.Properties()));
-
+            DeferredSpawnEggItem(HolyHellEntities.BAB_ONE, 0xe2d8c0, 0xd6bf9d, new Item.Properties()));
+    public static final Supplier<Item> CHERUB_SPAWN_EGG = ITEMS.register("cherub_spawn_egg", () -> new
+            DeferredSpawnEggItem(HolyHellEntities.CHERUB, 0x92813d, 0x991c2e, new Item.Properties()));
 
     public static final Supplier<Item> HOLY_TEAR = ITEMS.register("holy_tear", () -> new
             Item(new Item.Properties()));

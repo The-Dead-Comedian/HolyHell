@@ -2,7 +2,10 @@ package com.dead_comedian.holyhell.event;
 
 
 import com.dead_comedian.holyhell.Holyhell;
+import com.dead_comedian.holyhell.block.entity.CoffinBlockEntity;
 import com.dead_comedian.holyhell.client.renderer.overlay.EndTextOverlay;
+import com.dead_comedian.holyhell.data.PlayerCoffinStatus;
+import com.dead_comedian.holyhell.data.StoredInventory;
 import com.dead_comedian.holyhell.entity.*;
 import com.dead_comedian.holyhell.networking.HolyHellMessages;
 import com.dead_comedian.holyhell.registries.*;
@@ -11,6 +14,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -27,15 +31,20 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.portal.DimensionTransition;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingHealEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 
@@ -62,6 +71,66 @@ public class HolyHellEventBusEvents {
             return ((ServerLevel) (Object) (event.getLevel())).<AllSeerEntity>getEntities(HolyHellEntities.ALL_SEER.get(), LivingEntity::isAlive);
         }
         return null;
+    }
+
+    @SubscribeEvent
+    public static void onDeath(LivingDeathEvent event) {
+        if (!(event.getEntity() instanceof ServerPlayer player)) return;
+
+        ServerLevel level = player.serverLevel();
+
+        PlayerCoffinStatus status = player.getData(HolyHellAttachments.COFFIN_STATUS);
+
+        BlockEntity blockEntity = level.getBlockEntity(status.coffinPos);
+
+        if (!(blockEntity instanceof CoffinBlockEntity entity)) return;
+        if (!status.active) return;
+
+        entity.setStoredPlayer(player.getUUID());
+
+        StoredInventory data = player.getData(HolyHellAttachments.STORED_INVENTORY);
+
+        for (int i = 0; i < 36; i++)
+            data.items[i] = player.getInventory().items.get(i).copyAndClear();
+
+        for (int i = 0; i < 4; i++)
+            data.armor[i] = player.getInventory().armor.get(i).copyAndClear();
+
+        data.offhand[0] = player.getInventory().offhand.get(0).copyAndClear();
+
+
+        player.getInventory().clearContent();
+
+        status.update(false, status.coffinPos);
+        entity.postDeathHook();
+    }
+
+    @SubscribeEvent
+    public static void changePumpkinFace(PlayerInteractEvent.RightClickBlock event) {
+        Block pumpkin = event.getLevel().getBlockState(event.getPos()).getBlock();
+        if (event.getItemStack().is(Tags.Items.TOOLS_SHEAR)) {
+            event.getLevel().playSound((Player) null, event.getPos(), SoundEvents.PUMPKIN_CARVE, SoundSource.BLOCKS, 1.0F, 1.0F);
+
+            if (pumpkin == Blocks.CARVED_PUMPKIN) {
+                event.getLevel().setBlock(event.getPos(), HolyHellBlocks.CARVED_PUMPKIN_EYE.get().defaultBlockState(), 11);
+            }
+            if (pumpkin == HolyHellBlocks.CARVED_PUMPKIN_EYE.get()) {
+                event.getLevel().setBlock(event.getPos(), HolyHellBlocks.CARVED_PUMPKIN_CROSS.get().defaultBlockState(), 11);
+            }
+            if (pumpkin == HolyHellBlocks.CARVED_PUMPKIN_CROSS.get()) {
+                event.getLevel().setBlock(event.getPos(), Blocks.CARVED_PUMPKIN.defaultBlockState(), 11);
+            }
+
+            if (pumpkin == Blocks.JACK_O_LANTERN) {
+                event.getLevel().setBlock(event.getPos(), HolyHellBlocks.JACK_O_LANTERN_EYE.get().defaultBlockState(), 11);
+            }
+            if (pumpkin == HolyHellBlocks.JACK_O_LANTERN_EYE.get()) {
+                event.getLevel().setBlock(event.getPos(), HolyHellBlocks.JACK_O_LANTERN_CROSS.get().defaultBlockState(), 11);
+            }
+            if (pumpkin == HolyHellBlocks.JACK_O_LANTERN_CROSS.get()) {
+                event.getLevel().setBlock(event.getPos(), Blocks.JACK_O_LANTERN.defaultBlockState(), 11);
+            }
+        }
     }
 
     private static boolean isAprilFools() {
@@ -212,8 +281,8 @@ public class HolyHellEventBusEvents {
         if (player != null) {
             if (player.getData(HolyHellAttachments.SHOULD_EXPLODE) && player.hasEffect(HolyHellEffects.JESISTANCE)) {
 
-                if (player.getData(HolyHellAttachments.DAMAGE_ABSORBED) < 5){
-                    explosionMagnitude =1;
+                if (player.getData(HolyHellAttachments.DAMAGE_ABSORBED) < 5) {
+                    explosionMagnitude = 1;
                 } else if (player.getData(HolyHellAttachments.DAMAGE_ABSORBED) < 10) {
                     explosionMagnitude = 2;
                 } else if (player.getData(HolyHellAttachments.DAMAGE_ABSORBED) < 15) {

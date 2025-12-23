@@ -1,6 +1,8 @@
 package com.dead_comedian.holyhell.registries;
 
 import com.dead_comedian.holyhell.Holyhell;
+import com.dead_comedian.holyhell.data.PlayerCoffinStatus;
+import com.dead_comedian.holyhell.data.StoredInventory;
 import com.mojang.serialization.Codec;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.neoforged.bus.api.IEventBus;
@@ -9,6 +11,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 public class HolyHellAttachments {
     private static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES =
@@ -74,6 +77,26 @@ public class HolyHellAttachments {
                     .serialize(Codec.BOOL)
                     .sync(ByteBufCodecs.BOOL)
                     .copyOnDeath()
+                    .build()
+    );
+
+
+    public static final Supplier<AttachmentType<PlayerCoffinStatus>> COFFIN_STATUS = ATTACHMENT_TYPES.register(
+            "coffin_status",
+            () -> AttachmentType.builder(PlayerCoffinStatus::new)
+                    .serialize(PlayerCoffinStatus.CODEC)
+                    .build()
+    );
+    public static final Supplier<AttachmentType<StoredInventory>> STORED_INVENTORY = ATTACHMENT_TYPES.register(
+            "stored_inventory",
+            () -> AttachmentType.builder(StoredInventory::new)
+                    .serialize(StoredInventory.CODEC)
+                    .build()
+    );
+    public static final Supplier<AttachmentType<StoredInventory>> COFFIN_INVENTORY = ATTACHMENT_TYPES.register(
+            "coffin_inventory",
+            () -> AttachmentType.builder(StoredInventory::new)
+                    .serialize(StoredInventory.CODEC)
                     .build()
     );
 

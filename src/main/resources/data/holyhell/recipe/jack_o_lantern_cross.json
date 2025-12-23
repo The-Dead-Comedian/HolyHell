@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "A": {
+      "item": "holyhell:carved_pumpkin_cross"
+    },
+    "B": {
+      "item": "minecraft:torch"
+    }
+  },
+  "pattern": [
+    "A",
+    "B"
+  ],
+  "result": {
+    "count": 1,
+    "id": "holyhell:jack_o_lantern_cross"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "A": {
+      "item": "minecraft:candle"
+    },
+    "B": {
+      "item": "minecraft:bone"
+    }
+  },
+  "pattern": [
+    "ABA",
+    "BBB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "holyhell:bone_chandelier"
+  },
+  "show_notification": true
+}

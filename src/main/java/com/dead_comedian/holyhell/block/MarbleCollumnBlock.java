@@ -1,7 +1,6 @@
 package com.dead_comedian.holyhell.block;
 
 import com.dead_comedian.holyhell.registries.HolyHellBlocks;
-import net.minecraft.client.resources.sounds.Sound;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;

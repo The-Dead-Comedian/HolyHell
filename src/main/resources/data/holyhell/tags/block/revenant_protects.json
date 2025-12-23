@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "holyhell:bone_chandelier",
+    "holyhell:skull_pile",
+    "holyhell:bone_pile",
+    "minecraft:bone_block"
+
+  ]
+}

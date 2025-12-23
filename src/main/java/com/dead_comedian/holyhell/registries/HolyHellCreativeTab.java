@@ -49,6 +49,7 @@ public class HolyHellCreativeTab {
                         pOutput.accept(HolyHellItems.KAMIKAZE_SPAWN_EGG.get());
                         pOutput.accept(HolyHellItems.HERETIC_SPAWN_EGG.get());
                         pOutput.accept(HolyHellItems.BAB_SPAWN_EGG.get());
+                        pOutput.accept(HolyHellItems.CHERUB_SPAWN_EGG.get());
 
                         pOutput.accept(HolyHellBlocks.COBBLED_MARBLE.get());
                         pOutput.accept(HolyHellBlocks.COBBLED_MARBLE_WALL.get());
@@ -74,6 +75,18 @@ public class HolyHellCreativeTab {
                         pOutput.accept(HolyHellBlocks.DOOMSLAYER_STATUE.get());
                         pOutput.accept(HolyHellBlocks.KRATOS_STATUE.get());
                         pOutput.accept(HolyHellBlocks.V1_STATUE.get());
+
+
+                        pOutput.accept(HolyHellBlocks.CARVED_PUMPKIN_CROSS.get());
+                        pOutput.accept(HolyHellBlocks.CARVED_PUMPKIN_EYE.get());
+                        pOutput.accept(HolyHellBlocks.JACK_O_LANTERN_CROSS.get());
+                        pOutput.accept(HolyHellBlocks.JACK_O_LANTERN_EYE.get());
+
+                        pOutput.accept(HolyHellBlocks.BONE_PILE.get());
+                        pOutput.accept(HolyHellBlocks.SKULL_PILE.get());
+                        pOutput.accept(HolyHellBlocks.BONE_CHANDELIER.get());
+
+                        pOutput.accept(HolyHellBlocks.COFFIN.get());
                     })
                     .build());
 
