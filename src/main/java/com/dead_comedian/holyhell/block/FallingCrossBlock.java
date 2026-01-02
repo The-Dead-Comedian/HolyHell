@@ -1,6 +1,6 @@
 package com.dead_comedian.holyhell.block;
 
-import com.dead_comedian.holyhell.block.entity.FallingCrossBlockEntity;
+import com.dead_comedian.holyhell.block.entity.FallingSmashingBlockEntity;
 import com.dead_comedian.holyhell.registries.HolyHellBlockEntities;
 import com.dead_comedian.holyhell.registries.HolyHellSounds;
 import com.mojang.serialization.MapCodec;
@@ -54,7 +54,7 @@ public class FallingCrossBlock extends BaseEntityBlock implements EntityBlock, F
                 ((ServerLevel) pLevel).sendParticles(ParticleTypes.CAMPFIRE_SIGNAL_SMOKE.getType(), (double) pPos.getX(), (double) pPos.getY(), (double) pPos.getZ(), 15, 1.0, 1.0, 1.0, 0.2);
             }
         }
-        wiw.removeAll(wiw);
+        wiw.clear();
 
     }
 
@@ -79,7 +79,7 @@ public class FallingCrossBlock extends BaseEntityBlock implements EntityBlock, F
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new FallingCrossBlockEntity(pos, state);
+        return new FallingSmashingBlockEntity(HolyHellBlockEntities.FALLING_CROSS_BLOCK_ENTITY  .get(), pos, state);
     }
 
     @Override

@@ -34,6 +34,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.*;
@@ -42,7 +43,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import java.util.List;
 
 
-@EventBusSubscriber(modid = Holyhell.MOD_ID)
+@EventBusSubscriber(modid = Holyhell.MOD_ID,value = Dist.CLIENT)
 public class HolyHellClientEventBus {
 
     public static int staticTimer = 0;

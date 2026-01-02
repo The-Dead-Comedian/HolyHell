@@ -103,7 +103,7 @@ public class TallCandelabraBlock extends Block {
         super.animateTick(pState, pLevel, pPos, pRandom);
         if (pState.getValue(HALF) == DoubleBlockHalf.UPPER && pState.getValue(LIT)) {
             double d = pPos.getX() + 0.5;
-            double e = pPos.getY() + 0.9;
+            double e = pPos.getY() + 1;
             double f = pPos.getZ() + 0.5;
             pLevel.addParticle(ParticleTypes.SMOKE, d, e, f, 0.0, 0.0, 0.0);
             pLevel.addParticle(this.particle, d, e, f, 0.0, 0.0, 0.0);

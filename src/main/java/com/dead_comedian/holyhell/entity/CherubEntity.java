@@ -1,15 +1,12 @@
 package com.dead_comedian.holyhell.entity;
 
 
-
 import com.dead_comedian.holyhell.registries.HolyHellEntities;
 import com.dead_comedian.holyhell.registries.HolyHellSounds;
 import com.dead_comedian.holyhell.registries.HolyhellParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -36,15 +33,15 @@ import java.util.EnumSet;
 public class CherubEntity extends Monster implements FlyingAnimal {
     ///////////////
     // VARIABLES //
-    ///////////////
+    /// ////////////
 
     public boolean hasSpawnedBab;
     public int flutterLoop = 24;
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
 
-    double capacity = 20;
-    int wave_level = 0;
+    double capacity = 5;
+    float damageMultiplier = 0;
     int current = 0;
 
 
@@ -52,14 +49,14 @@ public class CherubEntity extends Monster implements FlyingAnimal {
      * 0 = Kamikaze
      * 1 = Angel
      * 2 = Heretic
-     * 3 = Devout (paladin for now)(none existent for now)
      * */
     int[] mobSpawnIndex = new int[]{5, 3, 4};
 
 
     //////////
     // MISC //
-    //////////
+
+    /// ///////
 
     public CherubEntity(EntityType<? extends Monster> entityType, Level world) {
         super(entityType, world);
@@ -88,255 +85,44 @@ public class CherubEntity extends Monster implements FlyingAnimal {
             flutterLoop = 24;
         }
 
-
-        if (wave_level == 1) {
-
-
-            LivingEntity lastAttacker = this.getLastAttacker();
-            double spawnY = 0;
-            if (lastAttacker != null) {
-                spawnY = lastAttacker.getY() - 4;
-            }
-            int retries = 0;
-
-
-            int radius = 12;
-            boolean b;
-            capacity = 20 * 1.3;
-
-
+        if (damageMultiplier != 0) {
             do {
-
-                double angle = random.nextDouble() * 2 * Math.PI;
-                double spawnX = radius * Math.cos(angle);
-                double spawnZ = radius * Math.sin(angle);
-
-                int mobIndex = random.nextInt(3);
-
-
-                BlockPos centerPos = this.blockPosition();
-                BlockPos spawnPos = new BlockPos((int) (centerPos.getX() + spawnX), (int) spawnY, (int) (centerPos.getZ() + spawnZ));
-
-                if (!hasSpawnedBab) {
-                    BabOneEntity babOneEntity = new BabOneEntity(HolyHellEntities.BAB_ONE.get(), this.level());
-                    this.level().addFreshEntity(babOneEntity);
-                    babOneEntity.moveTo(spawnPos, babOneEntity.getYRot(), babOneEntity.getXRot());
-
-                    hasSpawnedBab = true;
-                }
-
-                if (!this.level().getBlockState(spawnPos).isAir() || this.level().getBlockState(spawnPos.below()).isAir()) {
-                    while (retries < 10) {
-                        spawnY++;
-                        spawnPos = new BlockPos((int) spawnX, (int) spawnY, (int) spawnZ);
-                        retries++;
-                    }
-                }
-
-                if (!this.level().getBlockState(spawnPos).isAir()) {
-                    while (retries == 10) {
-                        radius--;
-                        spawnPos = new BlockPos((int) spawnX, (int) spawnY, (int) spawnZ);
-                        retries++;
-                    }
-                }
-
-
+                BlockPos blockPos = this.blockPosition();
+                Mob mob = null;
+                int mobIndex = this.level().getRandom().nextInt(0, 3);
 
                 switch (mobIndex) {
                     case 0:
-                        KamikazeEntity kamikazeEntity = new KamikazeEntity(HolyHellEntities.KAMIKAZE.get(), this.level());
-                        this.level().addFreshEntity(kamikazeEntity);
-                        kamikazeEntity.moveTo(spawnPos, kamikazeEntity.getYRot(), kamikazeEntity.getXRot());
-                        kamikazeEntity.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20));
-                        current = current + mobSpawnIndex[mobIndex];
-                        break;
+                        mob = new AngelEntity(HolyHellEntities.ANGEL.get(), level());
                     case 1:
-                        AngelEntity angelEntity = new AngelEntity(HolyHellEntities.ANGEL.get(), this.level());
-                        this.level().addFreshEntity(angelEntity);
-                        angelEntity.moveTo(spawnPos, angelEntity.getYRot(), angelEntity.getXRot());
-                        angelEntity.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20));
-                        current = current + mobSpawnIndex[mobIndex];
-                        break;
+                        mob = new KamikazeEntity(HolyHellEntities.KAMIKAZE.get(), level());
                     case 2:
-                        HereticEntity hereticEntity = new HereticEntity(HolyHellEntities.HERETIC.get(), this.level());
-                        this.level().addFreshEntity(hereticEntity);
-                        hereticEntity.moveTo(spawnPos, hereticEntity.getYRot(), hereticEntity.getXRot());
-                        hereticEntity.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20));
-                        current = current + mobSpawnIndex[mobIndex];
-                        break;
+                        mob = new HereticEntity(HolyHellEntities.HERETIC.get(), level());
                 }
-                b = capacity * 1.3 > current;
 
-            } while (b);
+                current = current + mobSpawnIndex[mobIndex];
+
+
+                if (mob != null) {
+                    this.level().addFreshEntity(mob);
+                    mob.moveTo(blockPos, mob.getYRot(), mob.getXRot());
+                }
+
+                System.out.println("goog");
+
+            }
+            while (
+                    current < capacity * damageMultiplier
+            );
 
 
             if (current > capacity) {
                 current = 0;
-                wave_level = 0;
-                this.playSound(HolyHellSounds.BELL_RING.get(),1F,1F);
+                damageMultiplier = 0;
+                this.playSound(HolyHellSounds.BELL_RING.get(), 1F, 1F);
                 this.discard();
             }
         }
-        if (wave_level == 2) {
-
-
-            LivingEntity lastAttacker = this.getLastAttacker();
-            double y = 0;
-            if (lastAttacker != null) {
-                y = lastAttacker.getY();
-            }
-            int retries = 0;
-
-
-            int radius = 7;
-            boolean b;
-            capacity = 20 * 1.4;
-
-            do {
-
-                double angle = random.nextDouble() * 2 * Math.PI;
-                double x = radius * Math.cos(angle);
-                double z = radius * Math.sin(angle);
-
-                int mobIndex = random.nextInt(3);
-
-
-                BlockPos centerPos = this.blockPosition();
-                BlockPos spawnPos = new BlockPos((int) (centerPos.getX() + x), (int) y, (int) (centerPos.getZ() + z));
-
-                if (!hasSpawnedBab) {
-                    BabOneEntity babOneEntity = new BabOneEntity(HolyHellEntities.BAB_ONE.get(), this.level());
-                    this.level().addFreshEntity(babOneEntity);
-                    babOneEntity.moveTo(spawnPos, babOneEntity.getYRot(), babOneEntity.getXRot());
-
-                    hasSpawnedBab = true;
-                }
-
-                if (!this.level().getBlockState(spawnPos).isAir()) {
-                    while (retries < 10) {
-                        y++;
-                        spawnPos = new BlockPos((int) x, (int) y, (int) z);
-                        retries++;
-                    }
-                }
-
-                if (!this.level().getBlockState(spawnPos).isAir()) {
-                    while (retries == 10) {
-                        radius--;
-                        spawnPos = new BlockPos((int) x, (int) y, (int) z);
-                        retries++;
-                    }
-                }
-
-                switch (mobIndex) {
-                    case 0:
-                        KamikazeEntity kamikazeEntity = new KamikazeEntity(HolyHellEntities.KAMIKAZE.get(), this.level());
-                        this.level().addFreshEntity(kamikazeEntity);
-                        kamikazeEntity.moveTo(spawnPos, kamikazeEntity.getYRot(), kamikazeEntity.getXRot());
-                        kamikazeEntity.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20));
-                        current = current + mobSpawnIndex[mobIndex];
-                        break;
-                    case 1:
-                        AngelEntity angelEntity = new AngelEntity(HolyHellEntities.ANGEL.get(), this.level());
-                        this.level().addFreshEntity(angelEntity);
-                        angelEntity.moveTo(spawnPos, angelEntity.getYRot(), angelEntity.getXRot());
-                        angelEntity.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20));
-                        current = current + mobSpawnIndex[mobIndex];
-                        break;
-                    case 2:
-                        HereticEntity hereticEntity = new HereticEntity(HolyHellEntities.HERETIC.get(), this.level());
-                        this.level().addFreshEntity(hereticEntity);
-                        hereticEntity.moveTo(spawnPos, hereticEntity.getYRot(), hereticEntity.getXRot());
-                        hereticEntity.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20));
-                        current = current + mobSpawnIndex[mobIndex];
-                        break;
-                }
-
-
-                b = capacity * 1.3 > current;
-
-            } while (b);
-
-
-            if (current > capacity) {
-                current = 0;
-                wave_level = 0;
-                this.playSound(HolyHellSounds.BELL_RING.get(),1F,1F);
-                this.discard();
-            }
-        }
-        if (wave_level == 3) {
-
-
-            LivingEntity lastAttacker = this.getLastAttacker();
-            double y = 0;
-            if (lastAttacker != null) {
-                y = lastAttacker.getY();
-            }
-            int retries = 0;
-
-
-            int radius = 7;
-            boolean b;
-            capacity = 20 * 3;
-
-
-            do {
-
-                double angle = random.nextDouble() * 2 * Math.PI;
-                double x = radius * Math.cos(angle);
-                double z = radius * Math.sin(angle);
-
-                int a = random.nextInt(4);
-
-                BlockPos centerPos = this.blockPosition();
-                BlockPos spawnPos = new BlockPos((int) (centerPos.getX() + x), (int) y, (int) (centerPos.getZ() + z));
-                if (!hasSpawnedBab) {
-                    BabOneEntity babOneEntity = new BabOneEntity(HolyHellEntities.BAB_ONE.get(), this.level());
-                    this.level().addFreshEntity(babOneEntity);
-                    babOneEntity.moveTo(spawnPos, babOneEntity.getYRot(), babOneEntity.getXRot());
-
-                    hasSpawnedBab = true;
-                }
-                if (!this.level().getBlockState(spawnPos).isAir()) {
-                    while (retries < 10) {
-                        y++;
-                        spawnPos = new BlockPos((int) x, (int) y, (int) z);
-                        retries++;
-                    }
-                }
-
-                if (!this.level().getBlockState(spawnPos).isAir()) {
-                    while (retries == 10) {
-                        radius--;
-                        spawnPos = new BlockPos((int) x, (int) y, (int) z);
-                        retries++;
-                    }
-                }
-
-                    if (a == 0) {
-
-                    KamikazeEntity kamikazeEntity = new KamikazeEntity(HolyHellEntities.KAMIKAZE.get(), this.level());
-                    this.level().addFreshEntity(kamikazeEntity);
-                    kamikazeEntity.moveTo(spawnPos, kamikazeEntity.getYRot(), kamikazeEntity.getXRot());
-                    current = current + mobSpawnIndex[a];
-                }
-
-                b = capacity * 1.3 > current;
-
-            } while (b);
-
-
-            if (current > capacity) {
-                current = 0;
-                wave_level = 0;
-                this.playSound(HolyHellSounds.BELL_RING.get(),1F,1F);
-                this.discard();
-            }
-        }
-
-
     }
 
     @Override
@@ -359,13 +145,7 @@ public class CherubEntity extends Monster implements FlyingAnimal {
             ((ServerLevel) this.level()).sendParticles(HolyhellParticles.SOUND_RING.get(), this.getX(), this.getY(), this.getZ(), 1, 0, 0, 0, 0);
         }
 
-        if (pAmount <= 9) {
-            wave_level = 1;
-        } else if (pAmount <= 15) {
-            wave_level = 2;
-        } else if (pAmount > 15) {
-            wave_level = 3;
-        }
+        damageMultiplier = pAmount;
 
 
         return super.hurt(pSource, pAmount);
@@ -375,7 +155,8 @@ public class CherubEntity extends Monster implements FlyingAnimal {
 
     ////////////////
     // NAVIGATION //
-    ////////////////
+
+    /// /////////////
 
 
     @Override
@@ -415,7 +196,8 @@ public class CherubEntity extends Monster implements FlyingAnimal {
 
     ///////////////
     // ANIMATION //
-    ///////////////
+
+    /// ////////////
 
 
     private void setupAnimationStates() {

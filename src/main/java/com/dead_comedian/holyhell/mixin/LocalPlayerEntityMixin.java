@@ -42,17 +42,17 @@ public abstract class LocalPlayerEntityMixin extends LivingEntity {
 
     @Inject(method = "move", at = @At(value = "HEAD"), cancellable = true)
     private void tick(CallbackInfo ci) {
-        //Globular Dome
-        List<Entity> entityBelow = this.level().getEntities(this, this.getBoundingBox().inflate(-0.1));
-        for (Entity entity : entityBelow) {
-            if (this.canCollideWith(entity) && entity instanceof GlobularDomeEntity) {
 
+        //Globular Dome
+        LocalPlayer player = ((LocalPlayer) (Object) this);
+        List<Entity> entityBelow = (player.level().getEntities(player,
+                player.getBoundingBox().inflate(-0.1)));
+        for (Entity entity : entityBelow) {
+            if (player.canCollideWith(entity) && entity instanceof GlobularDomeEntity) {
                 ci.cancel();
             }
         }
     }
-
-
 
 
 }

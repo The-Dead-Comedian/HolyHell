@@ -1,7 +1,10 @@
 package com.dead_comedian.holyhell.block;
 
 
+import com.dead_comedian.holyhell.block.entity.FallingSmashingBlockEntity;
+import com.dead_comedian.holyhell.registries.HolyHellBlockEntities;
 import com.dead_comedian.holyhell.registries.HolyHellSounds;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
@@ -17,8 +20,10 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -28,7 +33,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import javax.annotation.Nullable;
 import java.util.function.ToIntFunction;
 
-public class BoneChandelierBlock extends Block {
+public class BoneChandelierBlock extends BaseEntityBlock implements EntityBlock, Fallable {
     protected final ParticleOptions particle;
     public static final BooleanProperty LIT = BooleanProperty.create("lit");
     public static final ToIntFunction<BlockState> LIGHT_EMISSION = (p_152848_) -> {
@@ -58,7 +63,7 @@ public class BoneChandelierBlock extends Block {
         BlockPos above = pos.above();
         BlockState aboveState = level.getBlockState(above);
 
-        return aboveState.isFaceSturdy(level, above, Direction.DOWN);
+        return aboveState.isFaceSturdy(level, above, Direction.DOWN) || aboveState.is(Blocks.CHAIN);
     }
     @Nullable
     @Override
@@ -199,6 +204,26 @@ public class BoneChandelierBlock extends Block {
 
         }
     }
+    @org.jetbrains.annotations.Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+        return createTickerHelper(pBlockEntityType, HolyHellBlockEntities.CHANDELIER_BLOCK_ENTITY.get(), (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1));
+    }
 
+    @org.jetbrains.annotations.Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new FallingSmashingBlockEntity(HolyHellBlockEntities.CHANDELIER_BLOCK_ENTITY.get(), pos, state);
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return null;
+    }
+
+    @Override
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
+    }
 
 }

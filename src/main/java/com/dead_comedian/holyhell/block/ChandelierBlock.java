@@ -1,15 +1,21 @@
 package com.dead_comedian.holyhell.block;
 
 
+import com.dead_comedian.holyhell.block.entity.FallingSmashingBlockEntity;
+import com.dead_comedian.holyhell.registries.HolyHellBlockEntities;
 import com.dead_comedian.holyhell.registries.HolyHellSounds;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -17,17 +23,21 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.function.ToIntFunction;
 
-public class ChandelierBlock extends Block {
+public class ChandelierBlock extends BaseEntityBlock implements EntityBlock, Fallable {
     protected final ParticleOptions particle;
     public static final BooleanProperty LIT = BooleanProperty.create("lit");
     public static final ToIntFunction<BlockState> LIGHT_EMISSION = (p_152848_) -> {
@@ -59,8 +69,9 @@ public class ChandelierBlock extends Block {
         BlockPos above = pos.above();
         BlockState aboveState = level.getBlockState(above);
 
-        return aboveState.isFaceSturdy(level, above, Direction.DOWN);
+        return aboveState.isFaceSturdy(level, above, Direction.DOWN) || aboveState.is(Blocks.CHAIN);
     }
+
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
@@ -199,5 +210,46 @@ public class ChandelierBlock extends Block {
         }
     }
 
+    @Override
+    public void onLand(Level pLevel, BlockPos pPos, BlockState pState, BlockState pReplaceableState, FallingBlockEntity pFallingBlock) {
+        List<Entity> wiw = pLevel.getEntities(null, new AABB(pPos).inflate(1, 1, 1));
 
+        if (!pFallingBlock.isSilent()) {
+            pLevel.playSound((Player) null, pPos, HolyHellSounds.STONE_CRACK.get(), SoundSource.BLOCKS, 0.8f, 1);
+        }
+        for (Entity entity : wiw) {
+            entity.hurt(pLevel.damageSources().fallingBlock(entity), 20);
+        }
+        for (int i = 0; i < 20; i++) {
+
+            if (pLevel instanceof ServerLevel) {
+                ((ServerLevel) pLevel).sendParticles(ParticleTypes.CAMPFIRE_SIGNAL_SMOKE.getType(), (double) pPos.getX(), (double) pPos.getY(), (double) pPos.getZ(), 15, 1.0, 1.0, 1.0, 0.2);
+            }
+        }
+        wiw.clear();
+
+    }
+
+
+    @org.jetbrains.annotations.Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+        return createTickerHelper(pBlockEntityType, HolyHellBlockEntities.CHANDELIER_BLOCK_ENTITY.get(), (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1));
+    }
+
+    @org.jetbrains.annotations.Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new FallingSmashingBlockEntity(HolyHellBlockEntities.CHANDELIER_BLOCK_ENTITY.get(), pos, state);
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return null;
+    }
+
+    @Override
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
+    }
 }

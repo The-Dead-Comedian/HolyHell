@@ -5,7 +5,7 @@
       "rules": [
         {
           "input_predicate": {
-            "block": "minecraft:cobblestone",
+            "block": "holyhell:marble_bricks",
             "predicate_type": "minecraft:random_block_match",
             "probability": 0.3
           },
@@ -13,36 +13,9 @@
             "predicate_type": "minecraft:always_true"
           },
           "output_state": {
-            "Name": "minecraft:mossy_cobblestone"
-          }
-        },
-        {
-          "input_predicate": {
-            "block": "minecraft:stone_bricks",
-            "predicate_type": "minecraft:random_block_match",
-            "probability": 0.3
-          },
-          "location_predicate": {
-            "predicate_type": "minecraft:always_true"
-          },
-          "output_state": {
-            "Name": "minecraft:mossy_stone_bricks"
-          }
-        },
-        {
-          "input_predicate": {
-            "block": "minecraft:stone_bricks",
-            "predicate_type": "minecraft:random_block_match",
-            "probability": 0.4
-          },
-          "location_predicate": {
-            "predicate_type": "minecraft:always_true"
-          },
-          "output_state": {
-            "Name": "minecraft:cracked_stone_bricks"
+            "Name": "holyhell:cracked_marble_bricks"
           }
         }
-
       ]
     }
   ]
