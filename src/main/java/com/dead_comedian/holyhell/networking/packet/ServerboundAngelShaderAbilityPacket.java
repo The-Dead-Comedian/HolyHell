@@ -11,6 +11,8 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 
@@ -29,17 +31,13 @@ public record ServerboundAngelShaderAbilityPacket() implements CustomPacketPaylo
 
     public static void handle(ServerboundAngelShaderAbilityPacket packet, IPayloadContext context) {
         context.enqueueWork(() -> {
-            if (context.player() != null) {
-                ServerPlayer player = (ServerPlayer) context.player();
-                if (player.hasEffect(HolyHellEffects.ANGELIC_VISION)) {
 
-                    if (Minecraft.getInstance().level != null && Minecraft.getInstance().player != null) {
-                        Minecraft.getInstance().level.playLocalSound(Minecraft.getInstance().player, HolyHellSounds.BLINK.get(), SoundSource.AMBIENT, 0.7F, 1);
-                    }
-
-                    player.setData(HolyHellAttachments.ANGEL_VISION_TRANSITION, true);
-                }
+            ServerPlayer player = (ServerPlayer) context.player();
+            if (player.hasEffect(HolyHellEffects.ANGELIC_VISION)) {
+                context.player().level().playSound(context.player(),context.player().blockPosition(), HolyHellSounds.BLINK.get(), SoundSource.AMBIENT, 0.7F, 1);
+                player.setData(HolyHellAttachments.ANGEL_VISION_TRANSITION, true);
             }
+
         });
     }
 }

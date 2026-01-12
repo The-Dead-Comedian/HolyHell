@@ -1,7 +1,6 @@
 package com.dead_comedian.holyhell.entity;
 
 import com.dead_comedian.holyhell.registries.*;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

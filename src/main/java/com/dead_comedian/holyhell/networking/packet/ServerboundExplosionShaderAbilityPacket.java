@@ -29,12 +29,10 @@ public record ServerboundExplosionShaderAbilityPacket() implements CustomPacketP
 
     public static void handle(ServerboundExplosionShaderAbilityPacket packet, IPayloadContext context) {
         context.enqueueWork(() -> {
-            if (context.player() != null) {
                 ServerPlayer player = (ServerPlayer) context.player();
                 if (player.hasEffect(HolyHellEffects.JESISTANCE)) {
                     player.setData(HolyHellAttachments.SHOULD_EXPLODE, true);
                 }
-            }
 
         });
     }

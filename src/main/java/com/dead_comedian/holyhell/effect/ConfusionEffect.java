@@ -1,19 +1,13 @@
 package com.dead_comedian.holyhell.effect;
 
-import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.entity.ai.ConfusionAggroGoal;
-import com.dead_comedian.holyhell.registries.HolyHellAttachments;
 import com.dead_comedian.holyhell.registries.HolyHellSounds;
-import net.minecraft.client.Minecraft;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.player.Player;
 
 
