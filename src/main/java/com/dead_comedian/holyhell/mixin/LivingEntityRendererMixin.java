@@ -1,7 +1,7 @@
 package com.dead_comedian.holyhell.mixin;
 
-import com.dead_comedian.holyhell.registries.HolyHellAttachments;
-import com.dead_comedian.holyhell.registries.HolyHellEffects;
+import com.dead_comedian.holyhell.server.registries.HolyHellAttachments;
+import com.dead_comedian.holyhell.server.registries.HolyHellEffects;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;

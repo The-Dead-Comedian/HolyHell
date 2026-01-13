@@ -3,16 +3,13 @@ package com.dead_comedian.holyhell.client.renderer;
 
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.client.model.entity.AllSeerModel;
-import com.dead_comedian.holyhell.client.model.entity.AngelModel;
 import com.dead_comedian.holyhell.client.renderer.glow_layer.GlowingSeerLayer;
-import com.dead_comedian.holyhell.entity.AllSeerEntity;
-import com.dead_comedian.holyhell.entity.AngelEntity;
-import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
+import com.dead_comedian.holyhell.server.entity.AllSeerEntity;
+import com.dead_comedian.holyhell.server.registries.HolyHellModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 
 public class AllSeerRenderer extends MobRenderer<AllSeerEntity, AllSeerModel<AllSeerEntity>> {

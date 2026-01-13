@@ -1,8 +1,8 @@
 package com.dead_comedian.holyhell.mixin;
 
-import com.dead_comedian.holyhell.registries.HolyHellEffects;
-import com.dead_comedian.holyhell.registries.HolyHellItems;
-import com.dead_comedian.holyhell.registries.HolyHellSounds;
+import com.dead_comedian.holyhell.server.registries.HolyHellEffects;
+import com.dead_comedian.holyhell.server.registries.HolyHellItems;
+import com.dead_comedian.holyhell.server.registries.HolyHellSounds;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Attackable;
 import net.minecraft.world.entity.Entity;

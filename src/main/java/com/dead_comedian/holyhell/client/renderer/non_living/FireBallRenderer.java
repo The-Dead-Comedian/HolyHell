@@ -5,8 +5,8 @@ package com.dead_comedian.holyhell.client.renderer.non_living;
 
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.client.model.entity.non_living.FireBallModel;
-import com.dead_comedian.holyhell.entity.non_living.FireBallEntity;
-import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
+import com.dead_comedian.holyhell.server.entity.non_living.FireBallEntity;
+import com.dead_comedian.holyhell.server.registries.HolyHellModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;

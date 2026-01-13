@@ -1,7 +1,7 @@
 package com.dead_comedian.holyhell;
 
-import com.dead_comedian.holyhell.client.renderer.overlay.EyeTransitionOverlay;
-import com.dead_comedian.holyhell.registries.*;
+import com.dead_comedian.holyhell.client.event.EyeTransitionOverlay;
+import com.dead_comedian.holyhell.server.registries.*;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLEnvironment;
 import org.slf4j.Logger;
@@ -56,6 +56,6 @@ public class Holyhell {
 
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
-        LOGGER.info("HELLO from server starting");
+        LOGGER.info("HELLO from com.dead_comedian.holyhell.server starting");
     }
 }

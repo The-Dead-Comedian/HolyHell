@@ -4,8 +4,8 @@ package com.dead_comedian.holyhell.client.renderer;
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.client.model.entity.BabOneModel;
 
-import com.dead_comedian.holyhell.entity.BabOneEntity;
-import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
+import com.dead_comedian.holyhell.server.entity.BabOneEntity;
+import com.dead_comedian.holyhell.server.registries.HolyHellModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;

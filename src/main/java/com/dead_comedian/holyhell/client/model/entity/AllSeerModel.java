@@ -3,17 +3,13 @@ package com.dead_comedian.holyhell.client.model.entity;// Made with Blockbench 4
 // Paste this class into your mod and generate all required imports
 
 
-import com.dead_comedian.holyhell.entity.AllSeerEntity;
+import com.dead_comedian.holyhell.server.entity.AllSeerEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.phys.Vec3;
 
 public class AllSeerModel<T extends AllSeerEntity> extends HierarchicalModel<T> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor

@@ -3,15 +3,13 @@ package com.dead_comedian.holyhell.client.renderer;
 
 import com.dead_comedian.holyhell.Holyhell;
 import com.dead_comedian.holyhell.client.model.entity.CherubModel;
-import com.dead_comedian.holyhell.entity.CherubEntity;
-import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
+import com.dead_comedian.holyhell.server.entity.CherubEntity;
+import com.dead_comedian.holyhell.server.registries.HolyHellModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
-
-import java.awt.*;
 
 
 public class CherubRenderer extends MobRenderer<CherubEntity, CherubModel<CherubEntity>> {

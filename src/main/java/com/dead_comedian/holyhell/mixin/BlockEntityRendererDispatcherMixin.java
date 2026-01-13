@@ -1,6 +1,6 @@
 package com.dead_comedian.holyhell.mixin;
 
-import com.dead_comedian.holyhell.registries.HolyHellAttachments;
+import com.dead_comedian.holyhell.server.registries.HolyHellAttachments;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;

@@ -1,10 +1,10 @@
 package com.dead_comedian.holyhell.mixin;
 
-import com.dead_comedian.holyhell.entity.HereticEntity;
-import com.dead_comedian.holyhell.entity.non_living.GlobularDomeEntity;
+import com.dead_comedian.holyhell.server.entity.HereticEntity;
+import com.dead_comedian.holyhell.server.entity.non_living.GlobularDomeEntity;
 
-import com.dead_comedian.holyhell.item.HolyhellArmorMaterials;
-import com.dead_comedian.holyhell.registries.*;
+import com.dead_comedian.holyhell.server.item.HolyhellArmorMaterials;
+import com.dead_comedian.holyhell.server.registries.*;
 import net.minecraft.server.level.ServerLevel;
 
 import net.minecraft.sounds.SoundSource;

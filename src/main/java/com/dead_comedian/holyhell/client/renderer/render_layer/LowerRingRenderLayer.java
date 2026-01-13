@@ -2,8 +2,8 @@ package com.dead_comedian.holyhell.client.renderer.render_layer;
 
 
 import com.dead_comedian.holyhell.Holyhell;
-import com.dead_comedian.holyhell.registries.HolyHellEffects;
-import com.dead_comedian.holyhell.registries.HolyHellModelLayers;
+import com.dead_comedian.holyhell.server.registries.HolyHellEffects;
+import com.dead_comedian.holyhell.server.registries.HolyHellModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;

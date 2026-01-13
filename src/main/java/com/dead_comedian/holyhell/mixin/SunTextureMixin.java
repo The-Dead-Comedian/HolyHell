@@ -1,9 +1,9 @@
 package com.dead_comedian.holyhell.mixin;
 
 import com.dead_comedian.holyhell.Holyhell;
-import com.dead_comedian.holyhell.registries.HolyHellAttachments;
-import com.dead_comedian.holyhell.registries.HolyHellEffects;
-import com.dead_comedian.holyhell.registries.HolyhellDimensions;
+import com.dead_comedian.holyhell.server.registries.HolyHellAttachments;
+import com.dead_comedian.holyhell.server.registries.HolyHellEffects;
+import com.dead_comedian.holyhell.server.registries.HolyhellDimensions;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;

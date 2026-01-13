@@ -7,7 +7,7 @@ package com.dead_comedian.holyhell.client.model.entity;
 import com.dead_comedian.holyhell.client.animation.ModAnimations;
 
 
-import com.dead_comedian.holyhell.entity.BabOneEntity;
+import com.dead_comedian.holyhell.server.entity.BabOneEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.*;

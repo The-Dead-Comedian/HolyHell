@@ -3,12 +3,11 @@ package com.dead_comedian.holyhell.client.model.entity;// Made with Blockbench 4
 // Paste this class into your mod and generate all required imports
 
 
-import com.dead_comedian.holyhell.entity.HolyCowEntity;
+import com.dead_comedian.holyhell.server.entity.HolyCowEntity;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HierarchicalModel;
-import net.minecraft.client.model.QuadrupedModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;

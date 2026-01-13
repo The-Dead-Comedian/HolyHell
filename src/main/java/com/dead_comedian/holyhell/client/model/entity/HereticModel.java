@@ -4,7 +4,7 @@ package com.dead_comedian.holyhell.client.model.entity;// Made with Blockbench 4
 
 
 import com.dead_comedian.holyhell.client.animation.ModAnimations;
-import com.dead_comedian.holyhell.entity.HereticEntity;
+import com.dead_comedian.holyhell.server.entity.HereticEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HierarchicalModel;

@@ -1,6 +1,6 @@
 package com.dead_comedian.holyhell.particle;
 
-import com.dead_comedian.holyhell.registries.HolyHellAttachments;
+import com.dead_comedian.holyhell.server.registries.HolyHellAttachments;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;

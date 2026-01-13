@@ -1,7 +1,6 @@
 package com.dead_comedian.holyhell.client;
 
-import com.dead_comedian.holyhell.Holyhell;
-import com.dead_comedian.holyhell.registries.HolyHellItems;
+import com.dead_comedian.holyhell.server.registries.HolyHellItems;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.world.entity.player.Player;
 
