@@ -62,7 +62,7 @@ public class FallingCrossBlock extends BaseEntityBlock implements EntityBlock, F
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return createTickerHelper(pBlockEntityType, HolyHellBlockEntities.FALLING_CROSS_BLOCK_ENTITY.get(), (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1));
+        return createTickerHelper(pBlockEntityType, HolyHellBlockEntities.FALLING_SMASHING_BLOCK_ENTITY.get(), (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1));
     }
 
     @Nullable
@@ -79,7 +79,7 @@ public class FallingCrossBlock extends BaseEntityBlock implements EntityBlock, F
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new FallingSmashingBlockEntity(HolyHellBlockEntities.FALLING_CROSS_BLOCK_ENTITY  .get(), pos, state);
+        return new FallingSmashingBlockEntity(HolyHellBlockEntities.FALLING_SMASHING_BLOCK_ENTITY.get(), pos, state);
     }
 
     @Override

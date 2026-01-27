@@ -18,28 +18,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements Attackable {
-
-    @Shadow
-    public abstract void push(Entity pEntity);
-
     public LivingEntityMixin(EntityType<?> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-    }
-
-
-    @Inject(method = "tick", at = @At(value = "HEAD"))
-    private void bishbashbosh(CallbackInfo ci) {
-        LivingEntity entity = ((LivingEntity) (Object) this);
-        if (entity.hasEffect(HolyHellEffects.BLOODLUST) && entity.hasEffect(MobEffects.REGENERATION)) {
-            entity.removeEffect(MobEffects.REGENERATION);
-        }
-        if (entity.hasEffect(HolyHellEffects.BLOODLUST) && entity.hasEffect(MobEffects.HEALTH_BOOST)) {
-            entity.removeEffect(MobEffects.HEALTH_BOOST);
-        }
-        if (entity.hasEffect(HolyHellEffects.BLOODLUST) && entity.hasEffect(MobEffects.HEAL)) {
-            ((LivingEntity) (Object) this).removeEffect(MobEffects.HEAL);
-
-        }
     }
 
     //Holy Shield Sound

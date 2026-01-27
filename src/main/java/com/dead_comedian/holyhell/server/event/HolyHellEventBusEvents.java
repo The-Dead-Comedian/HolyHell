@@ -8,6 +8,7 @@ import com.dead_comedian.holyhell.server.data.PlayerCoffinStatus;
 import com.dead_comedian.holyhell.server.data.StoredInventory;
 import com.dead_comedian.holyhell.server.entity.*;
 import com.dead_comedian.holyhell.server.registries.*;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -17,9 +18,16 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -123,37 +131,31 @@ public class HolyHellEventBusEvents {
         }
     }
 
-    private static boolean isAprilFools() {
-        LocalDate localdate = LocalDate.now();
-        int i = localdate.get(ChronoField.DAY_OF_MONTH);
-        int j = localdate.get(ChronoField.MONTH_OF_YEAR);
-        return j == 4 && i <= 2;
-    }
 
     @SubscribeEvent
     public static void inAngel(PlayerTickEvent.Post event) {
         Player player = event.getEntity();
-            if (player.level().dimension() == HolyhellDimensions.ANGEL) {
+        if (player.level().dimension() == HolyhellDimensions.ANGEL) {
 
-                if (musicDuration == 1660) {
-                    player.level().playLocalSound(player, HolyHellSounds.HEAVENS_VOICE.get(), SoundSource.MUSIC, 1, 1);
+            if (musicDuration == 1660) {
+                player.level().playLocalSound(player, HolyHellSounds.HEAVENS_VOICE.get(), SoundSource.MUSIC, 1, 1);
 
-                }
-                if (musicDuration <= 1660) {
-                    musicDuration--;
+            }
+            if (musicDuration <= 1660) {
+                musicDuration--;
 //                    Minecraft.getInstance().getMusicManager().stopPlaying();
-                }
-                if (musicDuration <= 0) {
-                    musicCooldown = player.level().getRandom().nextInt(200, 9000);
-                    musicDuration = 1;
-                }
-                if (musicCooldown <= 0 && musicDuration == 1) {
-                    musicDuration = 1660;
-                }
+            }
+            if (musicDuration <= 0) {
+                musicCooldown = player.level().getRandom().nextInt(200, 9000);
+                musicDuration = 1;
+            }
+            if (musicCooldown <= 0 && musicDuration == 1) {
+                musicDuration = 1660;
+            }
 
-                player.setData(HolyHellAttachments.VISION_SHADER, false);
+            player.setData(HolyHellAttachments.VISION_SHADER, false);
 
-                player.getAbilities().flying = true;
+            player.getAbilities().flying = true;
         }
 
     }
@@ -194,23 +196,19 @@ public class HolyHellEventBusEvents {
 
     @SubscribeEvent
     public static void teleportPlayer(PlayerTickEvent.Post event) {
-        if (!(event.getEntity().level() instanceof ServerLevel serverLevel)) {
-            return;
-        }
+        Player player = event.getEntity();
 
-        Player playerooni = event.getEntity();
-        List<ServerPlayer> players = new ArrayList<>(serverLevel.players());
 
-        for (ServerPlayer player : players) {
-            if (player.level().dimension() == Level.END && player.getY() <= -50) {
-                ServerLevel targetLevel = event.getEntity().level().getServer().getLevel(HolyhellDimensions.ANGEL);
-                if (playerooni.getData(HolyHellAttachments.CAN_TP_TO_ANGEL)) {
+        if (player.level().dimension() == Level.END && player.getY() <= -50) {
+            if (player.getData(HolyHellAttachments.CAN_TP_TO_ANGEL)) {
+                if (player.level() instanceof ServerLevel serverLevel) {
+
+                    ServerLevel targetLevel = serverLevel.getServer().getLevel(HolyhellDimensions.ANGEL);
                     if (targetLevel != null) {
-                        playerooni.removeEffect(HolyHellEffects.ANGELIC_VISION);
+                        System.out.println("BOMBOCLAT");
                         player.removeEffect(HolyHellEffects.ANGELIC_VISION);
                         player.changeDimension(new DimensionTransition(targetLevel, new Vec3(20, 12, 0), player.getDeltaMovement(), Direction.EAST.toYRot(), player.getXRot(), DimensionTransition.PLAY_PORTAL_SOUND.then(DimensionTransition.PLACE_PORTAL_TICKET)));
-                        playerooni.setData(HolyHellAttachments.CAN_TP_TO_ANGEL, false);
-
+//                        player.setData(HolyHellAttachments.CAN_TP_TO_ANGEL, false);
                     }
                 }
             }
@@ -269,32 +267,33 @@ public class HolyHellEventBusEvents {
 
         if (player.getData(HolyHellAttachments.SHOULD_EXPLODE) && player.hasEffect(HolyHellEffects.JESISTANCE)) {
 
-            if (player.getData(HolyHellAttachments.DAMAGE_ABSORBED) < 5) {
-                explosionMagnitude = 1;
-            } else if (player.getData(HolyHellAttachments.DAMAGE_ABSORBED) < 10) {
+            System.out.println(player.getData(HolyHellAttachments.DAMAGE_ABSORBED));
+            if (player.getData(HolyHellAttachments.DAMAGE_ABSORBED) < 5.0 && player.getData(HolyHellAttachments.DAMAGE_ABSORBED)>0) {
                 explosionMagnitude = 2;
-            } else if (player.getData(HolyHellAttachments.DAMAGE_ABSORBED) < 15) {
-                explosionMagnitude = 3;
-            } else if (player.getData(HolyHellAttachments.DAMAGE_ABSORBED) < 20) {
+            } else if (player.getData(HolyHellAttachments.DAMAGE_ABSORBED) < 10.0) {
                 explosionMagnitude = 4;
+            } else if (player.getData(HolyHellAttachments.DAMAGE_ABSORBED) < 15.0) {
+                explosionMagnitude = 6;
+            } else if (player.getData(HolyHellAttachments.DAMAGE_ABSORBED) < 20.0) {
+                explosionMagnitude = 8;
             }
 
             event.getEntity().level().explode(player, player.getX(), player.getY(), player.getZ(), explosionMagnitude, Level.ExplosionInteraction.MOB);
             player.setData(HolyHellAttachments.DAMAGE_ABSORBED, 0F);
             player.setData(HolyHellAttachments.SHOULD_EXPLODE, false);
+
+            player.removeEffect(HolyHellEffects.JESISTANCE);
         }
     }
 
 
+    /// ////////////////////////
 
-
-    @SubscribeEvent
-    public static void onLivingHealEvent(LivingHealEvent event) {
-        if (event.getEntity() instanceof Player player) {
-            if (player.hasEffect(HolyHellEffects.BLOODLUST)) {
-                event.setCanceled(true);
-            }
-        }
+    private static boolean isAprilFools() {
+        LocalDate localdate = LocalDate.now();
+        int i = localdate.get(ChronoField.DAY_OF_MONTH);
+        int j = localdate.get(ChronoField.MONTH_OF_YEAR);
+        return j == 4 && i <= 2;
     }
 
     @SubscribeEvent
@@ -309,6 +308,9 @@ public class HolyHellEventBusEvents {
             }
         }
     }
+
+    /// /////////////////////
+
 
     @SubscribeEvent
     public static void triggerFallingCrossAchievement(LivingDeathEvent event) {
@@ -330,42 +332,6 @@ public class HolyHellEventBusEvents {
             }
         }
     }
-
-//    @SubscribeEvent
-//    public static void giveBuffsFromKatar(LivingDeathEvent event) {
-//
-//        LivingEntity entity = event.getEntity();
-//        LivingEntity entity1 = (LivingEntity) event.getSource().getEntity();
-//        if (entity == Minecraft.getInstance().player && entity.hasEffect(HolyHellEffects.BLOODLUST)) {
-//            entity.setHealth(20);
-//        }
-//
-//
-//        if (entity instanceof LivingEntity && entity1 != null && entity != entity1) {
-//            if (entity1.hasEffect(HolyHellEffects.BLOODLUST)) {
-//                entity1.setHealth((float) (entity1.getHealth() + entity.getAttribute(Attributes.MAX_HEALTH).getBaseValue() * 0.3F));
-//
-//
-//                if (entity instanceof RangedAttackMob) {
-//                    entity1.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200, 1));
-//
-//                }
-//                if (entity instanceof FlyingAnimal) {
-//                    entity1.addEffect(new MobEffectInstance(MobEffects.JUMP, 200, 1));
-//
-//                }
-//                if (entity instanceof Monster) {
-//                    entity1.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 200, 1));
-//
-//                }
-//                if (entity instanceof Animal) {
-//                    entity1.addEffect(new MobEffectInstance(MobEffects.SATURATION, 200, 1));
-//
-//                }
-//            }
-//        }
-//
-//    }
 
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {

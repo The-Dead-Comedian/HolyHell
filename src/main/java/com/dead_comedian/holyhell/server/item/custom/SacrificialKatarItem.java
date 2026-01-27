@@ -26,8 +26,8 @@ public class SacrificialKatarItem extends SwordItem {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
-        double d0 = (double) (-Mth.sin(pPlayer.getYRot() * ((float) Math.PI / 180F)));
-        double d1 = (double) Mth.cos(pPlayer.getYRot() * ((float) Math.PI / 180F));
+        double d0 = -Mth.sin(pPlayer.getYRot() * ((float) Math.PI / 180F));
+        double d1 = Mth.cos(pPlayer.getYRot() * ((float) Math.PI / 180F));
 
         if (!pPlayer.hasEffect(HolyHellEffects.BLOODLUST)) {
             if (pPlayer.level() instanceof ServerLevel) {

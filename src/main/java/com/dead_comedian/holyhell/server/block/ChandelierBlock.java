@@ -69,7 +69,8 @@ public class ChandelierBlock extends BaseEntityBlock implements EntityBlock, Fal
         BlockPos above = pos.above();
         BlockState aboveState = level.getBlockState(above);
 
-        return aboveState.isFaceSturdy(level, above, Direction.DOWN) || aboveState.is(Blocks.CHAIN);
+        return (aboveState.isFaceSturdy(level, above, Direction.DOWN) ||
+                level.getBlockState(pos.below()).isFaceSturdy(level, above, Direction.UP)) || aboveState.is(Blocks.CHAIN);
     }
 
     @Nullable
@@ -234,13 +235,13 @@ public class ChandelierBlock extends BaseEntityBlock implements EntityBlock, Fal
     @org.jetbrains.annotations.Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return createTickerHelper(pBlockEntityType, HolyHellBlockEntities.CHANDELIER_BLOCK_ENTITY.get(), (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1));
+        return createTickerHelper(pBlockEntityType, HolyHellBlockEntities.FALLING_SMASHING_BLOCK_ENTITY.get(), (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1));
     }
 
     @org.jetbrains.annotations.Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new FallingSmashingBlockEntity(HolyHellBlockEntities.CHANDELIER_BLOCK_ENTITY.get(), pos, state);
+        return new FallingSmashingBlockEntity(HolyHellBlockEntities.FALLING_SMASHING_BLOCK_ENTITY.get(), pos, state);
     }
 
     @Override

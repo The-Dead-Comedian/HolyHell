@@ -31,7 +31,6 @@ public record ServerboundAngelShaderAbilityPacket() implements CustomPacketPaylo
 
             ServerPlayer player = (ServerPlayer) context.player();
             if (player.hasEffect(HolyHellEffects.ANGELIC_VISION)) {
-                context.player().level().playSound(context.player(),context.player().blockPosition(), HolyHellSounds.BLINK.get(), SoundSource.AMBIENT, 0.7F, 1);
                 player.setData(HolyHellAttachments.ANGEL_VISION_TRANSITION, true);
             }
 

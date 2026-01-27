@@ -87,6 +87,7 @@ public class HolyhellModClient {
 
         }
     }
+
     public static void attemptLoadShader(ResourceLocation effect) {
         GameRenderer renderer = Minecraft.getInstance().gameRenderer;
         if (loadShaderAttempt <= 0) {
@@ -99,9 +100,6 @@ public class HolyhellModClient {
     }
 
 
-
-
-
     @SubscribeEvent
     public static void renderRing(RenderPlayerEvent.Post event) {
         event.getRenderer().addLayer(new LowerRingRenderLayer<>(event.getRenderer(), Minecraft.getInstance().getEntityModels()));
@@ -109,7 +107,7 @@ public class HolyhellModClient {
     }
 
     @SubscribeEvent
-    public static void playAmbientEffects(ClientTickEvent.Post event) {
+    public static void playAmbientSounds(ClientTickEvent.Post event) {
         staticTimer++;
         Level level = Minecraft.getInstance().level;
         Player player = Minecraft.getInstance().player;
@@ -118,17 +116,16 @@ public class HolyhellModClient {
             if (player.getData(HolyHellAttachments.VISION_SHADER)) {
                 if (staticTimer % 202 == 0) {
                     level.playLocalSound(player, HolyHellSounds.STATIC_AMBIENT.get(), SoundSource.AMBIENT, 1F, 1);
-
                 }
             }
         }
     }
 
     @SubscribeEvent
-    public static void obfuscationRenderer(ClientTickEvent.Pre event){
+    public static void obfuscationRenderer(ClientTickEvent.Pre event) {
         Player player = Minecraft.getInstance().player;
-        if(player!=null){
-            if(!player.getData(HolyHellAttachments.VISION_SHADER) && player.hasEffect(HolyHellEffects.CONFUSION)){
+        if (player != null) {
+            if (!player.getData(HolyHellAttachments.VISION_SHADER) && player.hasEffect(HolyHellEffects.CONFUSION)) {
                 Level level = player.level();
 
                 AABB userHitbox = new AABB(player.blockPosition()).inflate(100);
@@ -179,9 +176,12 @@ public class HolyhellModClient {
     public static void onKeyInput(InputEvent.Key event) {
         if (HolyHellKeyBinds.VISION_ABILITY_KEY.consumeClick()) {
             EyeTransitionOverlay.eyeTransitionCounter = 0;
+
+            Minecraft.getInstance().level.playLocalSound(Minecraft.getInstance().player, HolyHellSounds.BLINK.get(),SoundSource.PLAYERS,1,1);
             PacketDistributor.sendToServer(new ServerboundAngelShaderAbilityPacket());
         }
         if (HolyHellKeyBinds.RING_ABILITY_KEY.consumeClick()) {
-            PacketDistributor.sendToServer(new ServerboundExplosionShaderAbilityPacket());        }
+            PacketDistributor.sendToServer(new ServerboundExplosionShaderAbilityPacket());
+        }
     }
 }

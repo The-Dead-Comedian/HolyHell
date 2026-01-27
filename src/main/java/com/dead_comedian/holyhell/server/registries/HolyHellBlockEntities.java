@@ -16,12 +16,9 @@ public class HolyHellBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
             DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, Holyhell.MOD_ID);
 
-    public static final Supplier<BlockEntityType<FallingSmashingBlockEntity>> FALLING_CROSS_BLOCK_ENTITY =
-            BLOCK_ENTITIES.register("falling_cross_block_entity", () -> BlockEntityType.Builder.of(
-                    FallingSmashingBlockEntity::new, HolyHellBlocks.FALLING_CROSS.get()).build(null));
-    public static final Supplier<BlockEntityType<FallingSmashingBlockEntity>> CHANDELIER_BLOCK_ENTITY =
-            BLOCK_ENTITIES.register("chandelier_block_entity", () -> BlockEntityType.Builder.of(
-                    FallingSmashingBlockEntity::new, HolyHellBlocks.CHANDELIER.get()).build(null));
+    public static final Supplier<BlockEntityType<FallingSmashingBlockEntity>> FALLING_SMASHING_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("falling_smashing_block_entity", () -> BlockEntityType.Builder.of(
+                    FallingSmashingBlockEntity::new, HolyHellBlocks.FALLING_CROSS.get(),HolyHellBlocks.CHANDELIER.get(), HolyHellBlocks.BONE_CHANDELIER.get()).build(null));
 
 
     public static final Supplier<BlockEntityType<DiviningTableBlockEntity>> DIVINING_TABLE_BLOCK_ENTITY =

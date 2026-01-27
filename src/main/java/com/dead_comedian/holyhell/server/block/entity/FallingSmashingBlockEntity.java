@@ -4,6 +4,7 @@ import com.dead_comedian.holyhell.server.registries.HolyHellBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -17,10 +18,7 @@ import java.util.List;
 public class FallingSmashingBlockEntity extends BlockEntity {
 
     public FallingSmashingBlockEntity( BlockPos pos, BlockState state) {
-        super(HolyHellBlockEntities.FALLING_CROSS_BLOCK_ENTITY.get(), pos, state);
-    }
-    public FallingSmashingBlockEntity(BlockState state,BlockPos pos) {
-        super(HolyHellBlockEntities.CHANDELIER_BLOCK_ENTITY.get(), pos, state);
+        super(HolyHellBlockEntities.FALLING_SMASHING_BLOCK_ENTITY.get(), pos, state);
     }
     public FallingSmashingBlockEntity(BlockEntityType type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -36,6 +34,7 @@ public class FallingSmashingBlockEntity extends BlockEntity {
     public void tick(Level world, BlockPos pos, BlockState state) {
         for (Entity entity : getEntitiesOnBlock(world, pos)) {
             if (world.getBlockState(pos.below()).isAir() && pos.getY() >= world.getMinBuildHeight() && entity instanceof LivingEntity) {
+                FallingBlockEntity fallingBlockEntity = FallingBlockEntity.fall(world, pos, state);
                 getEntitiesOnBlock(world, pos).removeAll(getEntitiesOnBlock(world, pos));
             }
         }

@@ -275,7 +275,7 @@ public abstract class SunTextureMixin {
 
             if (Minecraft.getInstance().player.getData(HolyHellAttachments.VISION_SHADER)) {
 
-                RenderSystem.setShaderTexture(0, ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/environment/eye5.png"));
+                RenderSystem.setShaderTexture(0, ResourceLocation.fromNamespaceAndPath(Holyhell.MOD_ID, "textures/environment/eye/eye5.png"));
 
                 RenderSystem.setShaderColor(1F, 1F, 1F, 0.0F);
                 return;

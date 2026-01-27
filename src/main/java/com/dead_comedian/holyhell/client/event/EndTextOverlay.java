@@ -31,7 +31,7 @@ public class EndTextOverlay {
                 GuiGraphics guiGraphics = event.getGuiGraphics();
 
                 if (player.hasEffect(HolyHellEffects.PARANOIA) && player.getEffect(HolyHellEffects.PARANOIA).getAmplifier() == 3) {
-                    renderMultiFileAnimation(guiGraphics, mc.getWindow().getGuiScaledWidth(), mc.getWindow().getGuiScaledHeight());
+                    renderMultiFileAnimation(guiGraphics, mc.getWindow().getGuiScaledWidth(), mc.getWindow().getGuiScaledHeight(),player);
                 }
             }
         }
@@ -45,7 +45,7 @@ public class EndTextOverlay {
     };
 
 
-    private static void renderMultiFileAnimation(GuiGraphics guiGraphics, int screenWidth, int screenHeight) {
+    private static void renderMultiFileAnimation(GuiGraphics guiGraphics, int screenWidth, int screenHeight, Player player) {
 
         int currentFrame = (int) ((textCounter / ANIMATION_SPEED) % FRAME_TEXTURES.length);
         if (textCounter >= 180) {
@@ -67,11 +67,15 @@ public class EndTextOverlay {
 
         if (currentFrame == 2) {
             extraGraceTime--;
-            Minecraft.getInstance().player.setData(HolyHellAttachments.CAN_TP_TO_ANGEL, true);
-            if (Minecraft.getInstance().player != null && extraGraceTime == 0) {
+            if (player != null) {
 
-                Minecraft.getInstance().player.setData(HolyHellAttachments.SHOULD_DISPLAY_TEXT, false);
-                textCounter = 185;
+                System.out.println(player.getData(HolyHellAttachments.CAN_TP_TO_ANGEL));
+                player.setData(HolyHellAttachments.CAN_TP_TO_ANGEL, true);
+                if (extraGraceTime == 0) {
+
+                    player.setData(HolyHellAttachments.SHOULD_DISPLAY_TEXT, false);
+                    textCounter = 185;
+                }
             }
 
 
@@ -86,7 +90,7 @@ public class EndTextOverlay {
     @SubscribeEvent
     public static void increaseCounter(ClientTickEvent.Post event) {
         if (EndTextOverlay.textCounter >= 0) {
-            if (EndTextOverlay.textCounter < EndTextOverlay.FRAME_TEXTURES.length * 60 +5) {
+            if (EndTextOverlay.textCounter < EndTextOverlay.FRAME_TEXTURES.length * 60 + 5) {
                 EndTextOverlay.textCounter++;
             }
         }

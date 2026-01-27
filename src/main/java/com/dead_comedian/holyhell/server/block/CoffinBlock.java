@@ -157,8 +157,7 @@ public class CoffinBlock extends BaseEntityBlock {
                 entity = level.getBlockEntity(pos);
             } else if (state.getValue(HALF) == DoubleBlockHalf.UPPER) {
                 entity = this.getLowerBlockEntity(pos, state, level);
-                System.out.println(entity);
-                System.out.println(entity.getBlockPos());
+
             }
 
 

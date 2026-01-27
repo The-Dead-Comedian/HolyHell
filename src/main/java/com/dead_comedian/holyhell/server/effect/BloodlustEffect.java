@@ -21,7 +21,7 @@ public class BloodlustEffect extends MobEffect {
     @Override
     public void onEffectAdded(LivingEntity livingEntity, int amplifier) {
         health = livingEntity.getAttribute(Attributes.MAX_HEALTH);
-        if (!woah) {
+        if (!woah && !livingEntity.level().isClientSide()) {
             livingEntity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(livingEntity.getAttributeBaseValue(Attributes.MAX_HEALTH) * 0.8);
             livingEntity.setHealth((float) (livingEntity.getHealth() * 0.8));
             woah = true;
@@ -32,7 +32,7 @@ public class BloodlustEffect extends MobEffect {
     @Override
     public void onMobRemoved(LivingEntity livingEntity, int amplifier, Entity.RemovalReason reason) {
         super.onMobRemoved(livingEntity, amplifier, reason);
-        if (woah) {
+        if (woah && !livingEntity.level().isClientSide()) {
             livingEntity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(health.getValue());
             woah = false;
         }

@@ -9,10 +9,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -28,9 +31,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.function.ToIntFunction;
 
 public class BoneChandelierBlock extends BaseEntityBlock implements EntityBlock, Fallable {
@@ -50,7 +55,9 @@ public class BoneChandelierBlock extends BaseEntityBlock implements EntityBlock,
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighbourState,
                                   LevelAccessor level, BlockPos pos, BlockPos neighbourPos) {
 
+        // If the block ABOVE changed, recheck survival
         if (direction == Direction.UP && !state.canSurvive(level, pos)) {
+            // Replace with air
             return Blocks.AIR.defaultBlockState();
         }
 
@@ -63,8 +70,10 @@ public class BoneChandelierBlock extends BaseEntityBlock implements EntityBlock,
         BlockPos above = pos.above();
         BlockState aboveState = level.getBlockState(above);
 
-        return aboveState.isFaceSturdy(level, above, Direction.DOWN) || aboveState.is(Blocks.CHAIN);
+        return (aboveState.isFaceSturdy(level, above, Direction.DOWN) ||
+                level.getBlockState(pos.below()).isFaceSturdy(level, above, Direction.UP)) || aboveState.is(Blocks.CHAIN);
     }
+
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
@@ -104,25 +113,25 @@ public class BoneChandelierBlock extends BaseEntityBlock implements EntityBlock,
 
             return ItemInteractionResult.SUCCESS;
         }
+
         return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
     }
 
-
-
     @Override
-    public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         for (int i = 1; i < 15; i++) {
             if (level.getBlockState(new BlockPos(pos.getX(), pos.getY() - i, pos.getZ())).is(Blocks.LIGHT)) {
                 level.setBlock(new BlockPos(pos.getX(), pos.getY() - i, pos.getZ()), Blocks.AIR.defaultBlockState(), 11);
             }
         }
-        return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
+        return super.playerWillDestroy(level, pos, state, player);
     }
 
-    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(LIT);
     }
+
+
 
 
     @Override
@@ -204,16 +213,38 @@ public class BoneChandelierBlock extends BaseEntityBlock implements EntityBlock,
 
         }
     }
+
+    @Override
+    public void onLand(Level pLevel, BlockPos pPos, BlockState pState, BlockState pReplaceableState, FallingBlockEntity pFallingBlock) {
+        List<Entity> wiw = pLevel.getEntities(null, new AABB(pPos).inflate(1, 1, 1));
+
+        if (!pFallingBlock.isSilent()) {
+            pLevel.playSound((Player) null, pPos, HolyHellSounds.STONE_CRACK.get(), SoundSource.BLOCKS, 0.8f, 1);
+        }
+        for (Entity entity : wiw) {
+            entity.hurt(pLevel.damageSources().fallingBlock(entity), 20);
+        }
+        for (int i = 0; i < 20; i++) {
+
+            if (pLevel instanceof ServerLevel) {
+                ((ServerLevel) pLevel).sendParticles(ParticleTypes.CAMPFIRE_SIGNAL_SMOKE.getType(), (double) pPos.getX(), (double) pPos.getY(), (double) pPos.getZ(), 15, 1.0, 1.0, 1.0, 0.2);
+            }
+        }
+        wiw.clear();
+
+    }
+
+
     @org.jetbrains.annotations.Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return createTickerHelper(pBlockEntityType, HolyHellBlockEntities.CHANDELIER_BLOCK_ENTITY.get(), (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1));
+        return createTickerHelper(pBlockEntityType, HolyHellBlockEntities.FALLING_SMASHING_BLOCK_ENTITY.get(), (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1));
     }
 
     @org.jetbrains.annotations.Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new FallingSmashingBlockEntity(HolyHellBlockEntities.CHANDELIER_BLOCK_ENTITY.get(), pos, state);
+        return new FallingSmashingBlockEntity(HolyHellBlockEntities.FALLING_SMASHING_BLOCK_ENTITY.get(), pos, state);
     }
 
     @Override
@@ -225,5 +256,7 @@ public class BoneChandelierBlock extends BaseEntityBlock implements EntityBlock,
     public RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
     }
-
 }
+
+
+
