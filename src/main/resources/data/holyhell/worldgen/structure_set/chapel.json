@@ -1,0 +1,15 @@
+{"structures": [
+{
+"structure": "holyhell:chapel",
+"weight": 1
+}
+],
+"placement": {
+"salt": 1123444741,
+
+  "separation": 5,
+  "spacing": 21,
+
+"type": "minecraft:random_spread"
+}
+}
