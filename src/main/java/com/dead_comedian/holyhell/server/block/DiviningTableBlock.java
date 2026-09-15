@@ -70,9 +70,10 @@ public class DiviningTableBlock extends BaseEntityBlock implements EntityBlock {
             level.playLocalSound(pos, HolyHellSounds.DIVINING_TABLE_INTERACT.get(), SoundSource.BLOCKS, 1, 1 + level.random.nextInt(), false);
 
             CherubEntity cherubEntity = new CherubEntity(HolyHellEntities.CHERUB.get(), level);
-            level.addFreshEntity(cherubEntity);
             cherubEntity.moveTo(pos.offset(0, 1, 0), cherubEntity.getYRot(), cherubEntity.getXRot());
             cherubEntity.setBlockPos(pos);
+            level.addFreshEntity(cherubEntity);
+
             ((DiviningTableBlockEntity) level.getBlockEntity(pos)).enableCooldown();
 
             return ItemInteractionResult.SUCCESS;
