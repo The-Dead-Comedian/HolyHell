@@ -169,7 +169,10 @@ public class RevenantModel<T extends RevenantEntity> extends HierarchicalModel<T
             this.right_magic.zScale = 1.5F;
 
         } else {
-            this.weapon.yScale = 0;
+
+            if(!(entity.getState().getId()==4||entity.getState().getId()==7)) {
+                this.weapon.yScale = 0;
+            }
 
             this.torso.xRot = 0;
             this.left_arm.xRot = 0;

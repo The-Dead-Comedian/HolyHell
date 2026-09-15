@@ -36,7 +36,6 @@ public class RevenantPrepareTarget extends Behavior<RevenantEntity> {
                     BehaviorUtils.setWalkAndLookTargetMemories(owner, owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get(), 1, 0);
                 }
             } else {
-                owner.setState(RevenantStates.UNARMED);
                 if (owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent()) {
                     // sets position target for unarmed attack
                     if (owner.getBrain().getMemory(HolyHellMemoryModules.WEAPON_POS.get()).isEmpty() && owner.getState().getId() == 3) {

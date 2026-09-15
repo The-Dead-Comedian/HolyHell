@@ -116,7 +116,7 @@ public class RevenantEntity extends Monster {
         if (this.level().isClientSide) {
             this.setupAnimationStates();
         }
-        System.out.println(this.getState().getId());
+        System.out.println("state: " + this.getState().getId());
 
     }
 

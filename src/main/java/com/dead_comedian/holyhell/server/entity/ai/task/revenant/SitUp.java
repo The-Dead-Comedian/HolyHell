@@ -11,7 +11,7 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 
 public class SitUp extends Behavior<RevenantEntity> {
 
-    public static final int DURATION = 20;
+    public static final int DURATION = 21;
 
     public SitUp() {
         super(ImmutableMap.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT), DURATION);
