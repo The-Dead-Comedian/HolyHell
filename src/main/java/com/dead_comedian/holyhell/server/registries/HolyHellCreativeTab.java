@@ -64,7 +64,7 @@ public class HolyHellCreativeTab {
                         pOutput.accept(HolyHellBlocks.CRACKED_MARBLE_BRICK_WALL.get());
                         pOutput.accept(HolyHellBlocks.CRACKED_MARBLE_BRICK_SLAB.get());
                         pOutput.accept(HolyHellBlocks.CRACKED_MARBLE_BRICK_STAIRS.get());
-                        pOutput.accept(HolyHellBlocks.MARBLE_column.get());
+                        pOutput.accept(HolyHellBlocks.MARBLE_COLUMN.get());
 
                         pOutput.accept(HolyHellBlocks.ATLAS_STATUE.get());
                         pOutput.accept(HolyHellBlocks.BAPHOMET_STATUE.get());

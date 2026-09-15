@@ -3,18 +3,9 @@ package com.dead_comedian.holyhell.datagen;
 import com.dead_comedian.holyhell.server.registries.HolyHellBlocks;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
-import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import java.util.Set;
 
@@ -48,7 +39,7 @@ public class HolyhellBlockLootTableProvider extends BlockLootSubProvider {
         dropSelf(HolyHellBlocks.CRACKED_MARBLE_BRICK_STAIRS.get());
         dropSelf(HolyHellBlocks.CRACKED_MARBLE_BRICK_WALL.get());
 
-        dropSelf(HolyHellBlocks.MARBLE_column.get());
+        dropSelf(HolyHellBlocks.MARBLE_COLUMN.get());
 
 
         dropSelf(HolyHellBlocks.CARVED_PUMPKIN_CROSS.get());

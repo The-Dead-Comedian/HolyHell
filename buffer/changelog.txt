@@ -36,3 +36,9 @@ Version 1.9.2:
     - Coffin moved to BERs with new animations and particles (still wip)
     - Loot Table redo s
     - Revenant Getting stuck in one state when leaving world fixed
+
+Version 2.0.1:
+    - Fixed bug with Revenant always sitting
+
+Version 2.1.0:
+    - Marble set removed .noOcclusion() file. Makes Distant Horizons mod actually render the blocks at a distance

@@ -53,7 +53,7 @@ public class HolyhellBlockTagProvider extends BlockTagsProvider {
                 .add(HolyHellBlocks.CRACKED_MARBLE_BRICK_STAIRS.get())
                 .add(HolyHellBlocks.CRACKED_MARBLE_BRICK_WALL.get())
 
-                .add(HolyHellBlocks.MARBLE_column.get())
+                .add(HolyHellBlocks.MARBLE_COLUMN.get())
 
                 .add(HolyHellBlocks.ATLAS_STATUE.get())
                 .add(HolyHellBlocks.BAPHOMET_STATUE.get())
@@ -81,7 +81,7 @@ public class HolyhellBlockTagProvider extends BlockTagsProvider {
                 .add(HolyHellBlocks.CRACKED_MARBLE_BRICK_STAIRS.get())
                 .add(HolyHellBlocks.CRACKED_MARBLE_BRICK_WALL.get())
 
-                .add(HolyHellBlocks.MARBLE_column.get())
+                .add(HolyHellBlocks.MARBLE_COLUMN.get())
 
                 .add(HolyHellBlocks.ATLAS_STATUE.get())
                 .add(HolyHellBlocks.BAPHOMET_STATUE.get())

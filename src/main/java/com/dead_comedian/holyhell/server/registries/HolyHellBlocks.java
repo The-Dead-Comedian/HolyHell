@@ -138,7 +138,6 @@ public class HolyHellBlocks {
             () -> new WallBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.TERRACOTTA_WHITE)
                     .strength(0.75F)
-                    .noOcclusion()
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.STONE)
                     .forceSolidOn()) {
@@ -147,7 +146,6 @@ public class HolyHellBlocks {
             () -> new SlabBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.TERRACOTTA_WHITE)
                     .strength(0.75F)
-                    .noOcclusion()
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.STONE)) {
             });
@@ -155,7 +153,6 @@ public class HolyHellBlocks {
             () -> new StairBlock(MARBLE.get().defaultBlockState(), BlockBehaviour.Properties.of()
                     .mapColor(MapColor.TERRACOTTA_WHITE)
                     .strength(0.75F)
-                    .noOcclusion()
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.STONE)) {
             });
@@ -165,7 +162,6 @@ public class HolyHellBlocks {
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.TERRACOTTA_WHITE)
                     .strength(0.75F)
-                    .noOcclusion()
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.STONE)) {
             });
@@ -173,7 +169,6 @@ public class HolyHellBlocks {
             () -> new WallBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.TERRACOTTA_WHITE)
                     .strength(0.75F)
-                    .noOcclusion()
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.STONE)
                     .forceSolidOn()) {
@@ -182,7 +177,6 @@ public class HolyHellBlocks {
             () -> new SlabBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.TERRACOTTA_WHITE)
                     .strength(0.75F)
-                    .noOcclusion()
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.STONE)) {
             });
@@ -190,7 +184,6 @@ public class HolyHellBlocks {
             () -> new StairBlock(MARBLE_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.of()
                     .mapColor(MapColor.TERRACOTTA_WHITE)
                     .strength(0.75F)
-                    .noOcclusion()
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.STONE)) {
             });
@@ -199,7 +192,6 @@ public class HolyHellBlocks {
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.TERRACOTTA_WHITE)
                     .strength(0.75F)
-                    .noOcclusion()
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.STONE)) {
             });
@@ -207,7 +199,7 @@ public class HolyHellBlocks {
             () -> new WallBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.TERRACOTTA_WHITE)
                     .strength(0.75F)
-                    .noOcclusion()
+
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.STONE)
                     .forceSolidOn()) {
@@ -216,7 +208,6 @@ public class HolyHellBlocks {
             () -> new SlabBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.TERRACOTTA_WHITE)
                     .strength(0.75F)
-                    .noOcclusion()
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.STONE)) {
             });
@@ -224,16 +215,14 @@ public class HolyHellBlocks {
             () -> new StairBlock(CRACKED_MARBLE_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.of()
                     .mapColor(MapColor.TERRACOTTA_WHITE)
                     .strength(0.75F)
-                    .noOcclusion()
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.STONE)) {
             });
 
-    public static final Supplier<Block> MARBLE_column = register("marble_column",
+    public static final Supplier<Block> MARBLE_COLUMN = register("marble_column",
             () -> new MarbleColumnBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.TERRACOTTA_WHITE)
                     .strength(0.75F)
-                    .noOcclusion()
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.STONE)) {
             });

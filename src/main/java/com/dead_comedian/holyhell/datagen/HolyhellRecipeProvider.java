@@ -193,7 +193,7 @@ public class HolyhellRecipeProvider extends RecipeProvider implements ICondition
         slab(recipeOutput, RecipeCategory.BUILDING_BLOCKS, HolyHellBlocks.CRACKED_MARBLE_BRICK_SLAB.get(), HolyHellBlocks.CRACKED_MARBLE_BRICKS.get());
         wall(recipeOutput, RecipeCategory.BUILDING_BLOCKS, HolyHellBlocks.CRACKED_MARBLE_BRICK_WALL.get(), HolyHellBlocks.CRACKED_MARBLE_BRICKS.get());
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, HolyHellBlocks.MARBLE_column.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, HolyHellBlocks.MARBLE_COLUMN.get())
                 .define('B', HolyHellBlocks.MARBLE_SLAB.get())
                 .pattern("B")
                 .pattern("B")
@@ -215,7 +215,7 @@ public class HolyhellRecipeProvider extends RecipeProvider implements ICondition
         stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, HolyHellBlocks.CRACKED_MARBLE_BRICK_STAIRS.get(), HolyHellBlocks.MARBLE.get());
         stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, HolyHellBlocks.CRACKED_MARBLE_BRICK_WALL.get(), HolyHellBlocks.MARBLE.get());
 
-        stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, HolyHellBlocks.MARBLE_column.get(), HolyHellBlocks.MARBLE.get());
+        stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, HolyHellBlocks.MARBLE_COLUMN.get(), HolyHellBlocks.MARBLE.get());
 
 
         stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, HolyHellBlocks.MARBLE_BRICK_SLAB.get(), HolyHellBlocks.MARBLE_BRICKS.get(), 2);
