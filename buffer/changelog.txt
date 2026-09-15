@@ -43,3 +43,4 @@ Version 2.0.1:
 Version 2.1.0:
     - Marble set removed .noOcclusion() file. Makes Distant Horizons mod actually render the blocks at a distance
     - Interactions with lower part of coffin don't work anymore
+    - Fixed bugs where player is forced in crawl mode by angel projectiles

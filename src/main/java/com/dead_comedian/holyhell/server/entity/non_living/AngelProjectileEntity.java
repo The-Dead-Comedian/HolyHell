@@ -111,6 +111,11 @@ public class AngelProjectileEntity extends Projectile {
     }
 
     @Override
+    public boolean canCollideWith(Entity entity) {
+        return entity instanceof AngelProjectileEntity;
+    }
+
+    @Override
     public boolean shouldBlockExplode(Explosion explosion, BlockGetter world, BlockPos pos, BlockState state, float explosionPower) {
         return false;
     }
