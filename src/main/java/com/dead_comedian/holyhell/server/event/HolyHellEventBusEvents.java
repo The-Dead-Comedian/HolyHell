@@ -3,6 +3,7 @@ package com.dead_comedian.holyhell.server.event;
 
 import com.dead_comedian.holyhell.HolyHell;
 import com.dead_comedian.holyhell.client.event.EndTextOverlay;
+import com.dead_comedian.holyhell.networking.ServerboundTpToAngelPacket;
 import com.dead_comedian.holyhell.server.data.StatueData;
 import com.dead_comedian.holyhell.server.entity.*;
 import com.dead_comedian.holyhell.server.entity.non_living.GlobularDomeEntity;
@@ -44,6 +45,7 @@ import net.neoforged.neoforge.event.entity.player.CriticalHitEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 
 import java.time.LocalDate;
@@ -58,6 +60,7 @@ public class HolyHellEventBusEvents {
     private static int paranoiaAmp;
     private static int secTillText = 40;
     private static int cooldown = 0;
+    private static boolean textSequenceTriggered = false;
 
     public static void setCooldown(int cooldown) {
         HolyHellEventBusEvents.cooldown = cooldown;
@@ -172,6 +175,13 @@ public class HolyHellEventBusEvents {
             player.getAbilities().mayBuild = true;
         }
 
+        if(level.isClientSide){
+            System.out.println("c: "+player.getData(HolyHellAttachments.TP_TO_ANGEL));
+        }
+        else {
+            System.out.println("s: "+player.getData(HolyHellAttachments.TP_TO_ANGEL));
+        }
+
 
         // Teleport player
         if (player.level().dimension() == Level.END && player.blockPosition().getY() < -50) {
@@ -221,15 +231,21 @@ public class HolyHellEventBusEvents {
                 if (secTillText > 0) {
                     secTillText--;
                 } else {
-                    if (EndTextOverlay.textCounter == 185) {
+                    if (!textSequenceTriggered) {
+                        if (level.isClientSide()) {
+                            PacketDistributor.sendToServer(new ServerboundTpToAngelPacket());
+                        }
                         player.setData(HolyHellAttachments.TP_TO_ANGEL, player.level().dimension() != HolyHellDimensions.ANGEL);
                         EndTextOverlay.textCounter = 1;
+                        EndTextOverlay.extraGraceTime = 60;
                         player.setData(HolyHellAttachments.SHOULD_DISPLAY_TEXT, true);
+                        textSequenceTriggered = true; // consumed — won't fire again until re-armed below
                     }
                 }
             } else {
-
                 player.setData(HolyHellAttachments.SHOULD_DISPLAY_TEXT, false);
+                secTillText = 40;
+                textSequenceTriggered = false;
             }
 
 
