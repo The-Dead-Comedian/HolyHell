@@ -46,5 +46,5 @@ Version 2.0.2:
     - Fixed bugs where player is forced in crawl mode by angel projectiles
 
 Version 2.1.0:
-    - Place blocks (DALEK VIDEO ONLY)
-    - Transition to covenant direction
+    - Transition to covenant structure now works
+    - Covenant and church now properly generate marble columns
