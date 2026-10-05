@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_carved_marble_medium_1": {
+      "conditions": {
+        "items": [
+          {
+            "items": "holyhell:carved_marble_medium_1"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:marble_bricks_from_carved_marble_medium_1_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_carved_marble_medium_1"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:marble_bricks_from_carved_marble_medium_1_stonecutting"
+    ]
+  }
+}

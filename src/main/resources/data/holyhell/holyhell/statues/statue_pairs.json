@@ -23,6 +23,10 @@
     {
       "top": "holyhell:marble_brick_stairs",
       "statue": "holyhell:v1_statue"
+    },
+    {
+      "top": "holyhell:marble_brick_slab",
+      "statue": "holyhell:dalek_statue"
     }
   ]
 }

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "holyhell:block/marble/carved/medium/carved_marble_medium_1_upper"
+    },
+    "half=lower": {
+      "model": "holyhell:block/marble/carved/medium/carved_marble_medium_1_lower"
+    }
+  }
+}

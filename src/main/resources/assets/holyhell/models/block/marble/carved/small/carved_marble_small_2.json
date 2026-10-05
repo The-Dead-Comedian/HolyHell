@@ -1,0 +1,9 @@
+{
+	"parent": "minecraft:block/cube_column",
+	"render_type": "minecraft:cutout",
+	"textures": {
+		"particle": "holyhell:block/marble/carved/top",
+		"end": "holyhell:block/marble/carved/top",
+		"side": "holyhell:block/marble/carved/small/carved_marble_small_2"
+	}
+}

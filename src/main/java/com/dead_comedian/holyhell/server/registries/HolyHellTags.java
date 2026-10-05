@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 public class HolyHellTags {
@@ -28,6 +29,14 @@ public class HolyHellTags {
         }
     }
 
+    public static class Items{
+        public static final TagKey<Item> GLASS =
+                createTag("glass");
+        private static TagKey<Item> createTag(String name) {
+            return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(HolyHell.MOD_ID, name));
+        }
+    }
+
     public static class Blocks{
 
         public static final TagKey<Block> DOME_CLEARS_OUT =
@@ -44,6 +53,8 @@ public class HolyHellTags {
 
         public static final TagKey<Block> REVENANT_PROTECTS =
                 createTag("revenant_protects");
+
+
 
         private static TagKey<Block> createTag(String name) {
             return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(HolyHell.MOD_ID, name));

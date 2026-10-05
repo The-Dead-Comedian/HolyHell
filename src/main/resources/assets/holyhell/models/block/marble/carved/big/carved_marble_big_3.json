@@ -1,0 +1,26 @@
+{
+	"format_version": "1.9.0",
+  "parent": "minecraft:block/cube",
+  "credit": "Made with Blockbench",
+	"render_type": "minecraft:cutout",
+	"textures": {
+		"0": "holyhell:block/marble/carved/top",
+		"2": "holyhell:block/empty",
+		"3": "holyhell:block/marble/carved/big/carved_marble_big_3",
+		"particle": "holyhell:block/marble/carved/top"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#2"},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#3"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"west": {"uv": [16, 0, 0, 16], "texture": "#3"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#2"}
+			}
+		}
+	]
+}

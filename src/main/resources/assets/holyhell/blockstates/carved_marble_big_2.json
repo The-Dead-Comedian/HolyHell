@@ -1,0 +1,41 @@
+{
+  "variants": {
+    "vertical_direction=up,facing=east": {
+      "model": "holyhell:block/marble/carved/big/carved_marble_big_2",
+      "y": 90
+    },
+    "vertical_direction=up,facing=north": {
+      "model": "holyhell:block/marble/carved/big/carved_marble_big_2"
+    },
+    "vertical_direction=up,facing=west": {
+      "model": "holyhell:block/marble/carved/big/carved_marble_big_2",
+      "y": 270
+    },
+    "vertical_direction=up,facing=south": {
+      "model": "holyhell:block/marble/carved/big/carved_marble_big_2",
+      "y": 180
+    },
+
+
+
+    "vertical_direction=down,facing=east": {
+      "model": "holyhell:block/marble/carved/big/carved_marble_big_2",
+      "y": 270,
+      "x": 180
+    },
+    "vertical_direction=down,facing=north": {
+      "model": "holyhell:block/marble/carved/big/carved_marble_big_2",
+      "x": 180,
+      "y": 180
+    },
+    "vertical_direction=down,facing=west": {
+      "model": "holyhell:block/marble/carved/big/carved_marble_big_2",
+      "y": 90,
+      "x": 180
+    },
+    "vertical_direction=down,facing=south": {
+      "model": "holyhell:block/marble/carved/big/carved_marble_big_2",
+      "x": 180
+    }
+  }
+}

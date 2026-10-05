@@ -1,5 +1,5 @@
-// 1.21.1	2026-06-07T20:06:52.4476445	Tags for minecraft:block mod id holyhell
+// 1.21.1	2026-09-28T17:58:54.698411144	Tags for minecraft:block mod id holyhell
 9ad25c29dbd6f577c61445ad773c27190e5c9321 data/holyhell/tags/block/lighting_blocks.json
-41ecae9ddd4d7cb779e6b624e31cd8bcd548713a data/holyhell/tags/block/marble.json
+084f96e2f4e04d57f0e63c7e133505f1fbc1ad0e data/holyhell/tags/block/marble.json
 49ecb7f46b1c54c1ab631905781173362a36d6ff data/holyhell/tags/block/statue.json
-ac501499bf37c818547a5e6a03f8853aab1d5342 data/minecraft/tags/block/mineable/pickaxe.json
+bfddb987a764974e214ae74c0a2a3cbcb449fbb6 data/minecraft/tags/block/mineable/pickaxe.json

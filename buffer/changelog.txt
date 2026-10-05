@@ -48,3 +48,5 @@ Version 2.0.2:
 Version 2.1.0:
     - Transition to covenant structure now works
     - Covenant and church now properly generate marble columns
+    - Player tps back in the tower if they fall in the void
+    - Dalek Statue

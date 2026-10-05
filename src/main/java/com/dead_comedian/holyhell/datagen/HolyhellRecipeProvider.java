@@ -230,6 +230,19 @@ public class HolyhellRecipeProvider extends RecipeProvider implements ICondition
         stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, HolyHellBlocks.CRACKED_MARBLE_BRICK_STAIRS.get(), HolyHellBlocks.CRACKED_MARBLE_BRICKS.get());
         stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, HolyHellBlocks.CRACKED_MARBLE_BRICK_WALL.get(), HolyHellBlocks.CRACKED_MARBLE_BRICKS.get());
 
+        stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, HolyHellBlocks.MARBLE_BRICKS.get(), HolyHellBlocks.CARVED_MARBLE_SMALL_1.get());
+        stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, HolyHellBlocks.MARBLE_BRICKS.get(), HolyHellBlocks.CARVED_MARBLE_SMALL_2.get());
+        stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, HolyHellBlocks.MARBLE_BRICKS.get(), HolyHellBlocks.CARVED_MARBLE_SMALL_3.get());
+
+        stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, HolyHellBlocks.MARBLE_BRICKS.get(), HolyHellBlocks.CARVED_MARBLE_MEDIUM_1.get());
+        stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, HolyHellBlocks.MARBLE_BRICKS.get(), HolyHellBlocks.CARVED_MARBLE_MEDIUM_2.get());
+        stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, HolyHellBlocks.MARBLE_BRICKS.get(), HolyHellBlocks.CARVED_MARBLE_MEDIUM_3.get());
+
+        stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, HolyHellBlocks.MARBLE_BRICKS.get(), HolyHellBlocks.CARVED_MARBLE_BIG_1.get());
+        stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, HolyHellBlocks.MARBLE_BRICKS.get(), HolyHellBlocks.CARVED_MARBLE_BIG_2.get());
+        stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, HolyHellBlocks.MARBLE_BRICKS.get(), HolyHellBlocks.CARVED_MARBLE_BIG_3.get());
+
+
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, HolyHellBlocks.CHANDELIER.get(),4)
                 .pattern("XBX")

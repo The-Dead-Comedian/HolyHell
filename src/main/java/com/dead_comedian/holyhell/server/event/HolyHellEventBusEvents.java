@@ -175,14 +175,6 @@ public class HolyHellEventBusEvents {
             player.getAbilities().mayBuild = true;
         }
 
-        if(level.isClientSide){
-            System.out.println("c: "+player.getData(HolyHellAttachments.TP_TO_ANGEL));
-        }
-        else {
-            System.out.println("s: "+player.getData(HolyHellAttachments.TP_TO_ANGEL));
-        }
-
-
         // Teleport player
         if (player.level().dimension() == Level.END && player.blockPosition().getY() < -50) {
             if (level instanceof ServerLevel serverLevel) {
@@ -254,6 +246,11 @@ public class HolyHellEventBusEvents {
             if (player.hasEffect(HolyHellEffects.PARANOIA)) {
                 player.removeEffect(HolyHellEffects.PARANOIA);
             }
+        }
+
+
+        if(player.getY() < -10 && level.dimension()==HolyHellDimensions.ANGEL){
+            player.teleportTo(-10.5, 126, -11.5);
         }
     }
 

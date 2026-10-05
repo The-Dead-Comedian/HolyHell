@@ -68,16 +68,26 @@
   "block.holyhell.cracked_marble_brick_stairs": "Cracked Marble Brick Stairs",
 
   "block.holyhell.atlas_statue": "Atlas Statue",
+  "block.holyhell.dalek_statue": "Dalek Statue",
   "block.holyhell.baphomet_statue": "Baphomet Statue",
   "block.holyhell.doomslayer_statue": "Doomslayer Statue",
   "block.holyhell.icarus_statue": "Icarus Statue",
   "block.holyhell.kratos_statue": "Kratos Statue",
   "block.holyhell.v1_statue": "V1 Statue",
 
-
   "block.holyhell.marble_column": "Marble Column",
 
+  "block.holyhell.carved_marble_small_1": "Carved Marble Small 1",
+  "block.holyhell.carved_marble_medium_1": "Carved Marble Medium 1",
+  "block.holyhell.carved_marble_big_1": "Carved Marble Big 1",
 
+  "block.holyhell.carved_marble_small_2": "Carved Marble Small 2",
+  "block.holyhell.carved_marble_medium_2": "Carved Marble Medium 2",
+  "block.holyhell.carved_marble_big_2": "Carved Marble Big 2",
+
+  "block.holyhell.carved_marble_small_3": "Carved Marble Small 3",
+  "block.holyhell.carved_marble_medium_3": "Carved Marble Medium 3",
+  "block.holyhell.carved_marble_big_3": "Carved Marble Big 3",
 
   "entity.holyhell.angel" : "Angel",
   "entity.holyhell.heretic": "Heretic",
@@ -104,7 +114,7 @@
   "effect.holyhell.angelic_vision": "Angelic Vision",
   "effect.holyhell.paranoia": "Paranoia",
 
-"sounds.holyhell.divine_prot": "Armor summons a miracle",
+  "sounds.holyhell.divine_prot": "Armor summons a miracle",
 
   "sounds.holyhell.clarity_music": "Metal Detector Jingle",
   "sounds.holyhell.cross_fall": "Cross Lands",
@@ -182,6 +192,8 @@
   "advancements.holyhell.kebab.description": ":(",
   "advancements.holyhell.absorb.title": "ABSORB YOURSELF NOW  !",
   "advancements.holyhell.absorb.description": "get Babs to merge",
+  "advancements.holyhell.dalek.title": "MOOOD DEVVV!",
+  "advancements.holyhell.dalek.description": "get Dalek statue",
 
   "creativetab.holyhell_tab": "Holy Trinkets"
 }

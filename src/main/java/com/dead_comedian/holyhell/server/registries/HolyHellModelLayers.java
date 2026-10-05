@@ -32,5 +32,6 @@ public class HolyHellModelLayers {
 
 
     public static final ModelLayerLocation COFFIN = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(HolyHell.MOD_ID, "coffin"), "main");
+    public static final ModelLayerLocation CARVED_MARBLE = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(HolyHell.MOD_ID, "carved_marble"), "main");
 
 }

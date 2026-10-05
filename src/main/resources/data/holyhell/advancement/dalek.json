@@ -1,0 +1,25 @@
+{
+  "parent": "holyhell:find_church",
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "holyhell:dalek_statue"
+    },
+    "title": {
+      "translate": "advancements.holyhell.dalek.title"
+    },
+    "description": {
+      "translate": "advancements.holyhell.dalek.description"
+    }
+  },
+  "criteria": {
+    "has_item": {
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ]
+}

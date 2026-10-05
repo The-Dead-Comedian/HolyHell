@@ -5,6 +5,7 @@ import com.dead_comedian.holyhell.HolyHellModClient;
 import com.dead_comedian.holyhell.client.model.entity.*;
 import com.dead_comedian.holyhell.client.model.entity.non_living.AngelProjectileModel;
 import com.dead_comedian.holyhell.client.model.entity.non_living.GlobularDomeModel;
+import com.dead_comedian.holyhell.client.renderer.block_entity.CarvedMarbleRenderer;
 import com.dead_comedian.holyhell.client.renderer.block_entity.CoffinRenderer;
 import com.dead_comedian.holyhell.client.renderer.render_layer.LowerRingRenderLayer;
 import com.dead_comedian.holyhell.particle.KamikazeExplosionParticle;
@@ -80,6 +81,7 @@ public class HolyhellClientRegistries {
         event.registerLayerDefinition(HolyHellModelLayers.RELIGIOUS_RINGS, LowerRingRenderLayer::getTexturedModelData);
 
         event.registerLayerDefinition(HolyHellModelLayers.COFFIN, CoffinRenderer::createBodyLayer);
+        event.registerLayerDefinition(HolyHellModelLayers.CARVED_MARBLE, CarvedMarbleRenderer::createBodyLayer);
 
 
         event.registerLayerDefinition(HolyHellModelLayers.GLOBULAR_DOME, GlobularDomeModel::createBodyLayer);
@@ -103,8 +105,8 @@ public class HolyhellClientRegistries {
 
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerBlockEntityRenderer(HolyHellBlockEntities.COFFIN_BLOCK_ENTITY.get(),CoffinRenderer::new
-        );
+        event.registerBlockEntityRenderer(HolyHellBlockEntities.COFFIN_BLOCK_ENTITY.get(),CoffinRenderer::new);
+        event.registerBlockEntityRenderer(HolyHellBlockEntities.CARVED_MARBLE_BLOCK_ENTITY.get(), CarvedMarbleRenderer::new);
     }
 
     @SubscribeEvent

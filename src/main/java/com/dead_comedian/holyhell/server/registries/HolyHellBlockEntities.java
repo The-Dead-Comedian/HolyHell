@@ -2,6 +2,7 @@ package com.dead_comedian.holyhell.server.registries;
 
 import com.dead_comedian.holyhell.HolyHell;
 
+import com.dead_comedian.holyhell.server.block.entity.CarvedMarbleBlockEntity;
 import com.dead_comedian.holyhell.server.block.entity.CoffinBlockEntity;
 import com.dead_comedian.holyhell.server.block.entity.DiviningTableBlockEntity;
 import com.dead_comedian.holyhell.server.block.entity.FallingSmashingBlockEntity;
@@ -19,6 +20,13 @@ public class HolyHellBlockEntities {
     public static final Supplier<BlockEntityType<FallingSmashingBlockEntity>> FALLING_SMASHING_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("falling_smashing_block_entity", () -> BlockEntityType.Builder.of(
                     FallingSmashingBlockEntity::new, HolyHellBlocks.FALLING_CROSS.get(),HolyHellBlocks.CHANDELIER.get(), HolyHellBlocks.BONE_CHANDELIER.get()).build(null));
+
+    public static final Supplier<BlockEntityType<CarvedMarbleBlockEntity>> CARVED_MARBLE_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("carved_marble_block_entity", () -> BlockEntityType.Builder.of(
+                    CarvedMarbleBlockEntity::new, HolyHellBlocks.CARVED_MARBLE_BIG_1.get(),HolyHellBlocks.CARVED_MARBLE_BIG_2.get(), HolyHellBlocks.CARVED_MARBLE_BIG_3.get(),
+                    HolyHellBlocks.CARVED_MARBLE_MEDIUM_1.get(), HolyHellBlocks.CARVED_MARBLE_MEDIUM_2.get(), HolyHellBlocks.CARVED_MARBLE_MEDIUM_3.get(),
+                        HolyHellBlocks.CARVED_MARBLE_SMALL_1.get(), HolyHellBlocks.CARVED_MARBLE_SMALL_2.get(), HolyHellBlocks.CARVED_MARBLE_SMALL_3.get()).build(null));
+
 
 
     public static final Supplier<BlockEntityType<DiviningTableBlockEntity>> DIVINING_TABLE_BLOCK_ENTITY =

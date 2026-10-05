@@ -1,0 +1,13 @@
+{
+	"parent": "minecraft:block/cube",
+	"render_type": "cutout",
+	"textures": {
+		"down": "holyhell:block/empty",
+		"east": "holyhell:block/marble/carved/medium/carved_marble_medium_2_upper",
+		"north": "holyhell:block/marble/carved/medium/carved_marble_medium_2_upper",
+		"particle": "holyhell:block/marble/carved/medium/carved_marble_medium_2_upper",
+		"south":"holyhell:block/marble/carved/medium/carved_marble_medium_2_upper",
+		"up": "holyhell:block/marble/carved/top",
+		"west": "holyhell:block/marble/carved/medium/carved_marble_medium_2_upper"
+	}
+}

@@ -7,6 +7,7 @@ import com.dead_comedian.holyhell.server.registries.HolyHellTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
@@ -60,8 +61,19 @@ public class HolyhellBlockTagProvider extends BlockTagsProvider {
                 .add(HolyHellBlocks.DOOMSLAYER_STATUE.get())
                 .add(HolyHellBlocks.ICARUS_STATUE.get())
                 .add(HolyHellBlocks.KRATOS_STATUE.get())
-                .add(HolyHellBlocks.V1_STATUE.get());
+                .add(HolyHellBlocks.V1_STATUE.get())
 
+                .add(HolyHellBlocks.CARVED_MARBLE_SMALL_1.get())
+                .add(HolyHellBlocks.CARVED_MARBLE_SMALL_2.get())
+                .add(HolyHellBlocks.CARVED_MARBLE_SMALL_3.get())
+
+                .add(HolyHellBlocks.CARVED_MARBLE_MEDIUM_1.get())
+                .add(HolyHellBlocks.CARVED_MARBLE_MEDIUM_2.get())
+                .add(HolyHellBlocks.CARVED_MARBLE_MEDIUM_3.get())
+
+                .add(HolyHellBlocks.CARVED_MARBLE_BIG_1.get())
+                .add(HolyHellBlocks.CARVED_MARBLE_BIG_2.get())
+                .add(HolyHellBlocks.CARVED_MARBLE_BIG_3.get());
 
         tag(HolyHellTags.Blocks.MARBLE)
 
@@ -88,7 +100,19 @@ public class HolyhellBlockTagProvider extends BlockTagsProvider {
                 .add(HolyHellBlocks.DOOMSLAYER_STATUE.get())
                 .add(HolyHellBlocks.ICARUS_STATUE.get())
                 .add(HolyHellBlocks.KRATOS_STATUE.get())
-                .add(HolyHellBlocks.V1_STATUE.get());
+                .add(HolyHellBlocks.V1_STATUE.get())
+
+                .add(HolyHellBlocks.CARVED_MARBLE_SMALL_1.get())
+                .add(HolyHellBlocks.CARVED_MARBLE_SMALL_2.get())
+                .add(HolyHellBlocks.CARVED_MARBLE_SMALL_3.get())
+
+                .add(HolyHellBlocks.CARVED_MARBLE_MEDIUM_1.get())
+                .add(HolyHellBlocks.CARVED_MARBLE_MEDIUM_2.get())
+                .add(HolyHellBlocks.CARVED_MARBLE_MEDIUM_3.get())
+
+                .add(HolyHellBlocks.CARVED_MARBLE_BIG_1.get())
+                .add(HolyHellBlocks.CARVED_MARBLE_BIG_2.get())
+                .add(HolyHellBlocks.CARVED_MARBLE_BIG_3.get());
 
 
         tag(HolyHellTags.Blocks.STATUE)

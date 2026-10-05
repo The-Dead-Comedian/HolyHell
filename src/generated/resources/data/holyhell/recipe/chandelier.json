@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "B": {
-      "item": "holyhell:baptized_plate"
+      "item": "holyhell:holy_gold"
     },
     "X": {
       "item": "minecraft:candle"
@@ -14,7 +14,7 @@
     "BBB"
   ],
   "result": {
-    "count": 1,
+    "count": 4,
     "id": "holyhell:chandelier"
   }
 }

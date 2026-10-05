@@ -67,11 +67,25 @@ public class HolyHellCreativeTab {
                         pOutput.accept(HolyHellBlocks.MARBLE_COLUMN.get());
 
                         pOutput.accept(HolyHellBlocks.ATLAS_STATUE.get());
+                        pOutput.accept(HolyHellBlocks.DALEK_STATUE.get());
                         pOutput.accept(HolyHellBlocks.BAPHOMET_STATUE.get());
                         pOutput.accept(HolyHellBlocks.ICARUS_STATUE.get());
                         pOutput.accept(HolyHellBlocks.DOOMSLAYER_STATUE.get());
                         pOutput.accept(HolyHellBlocks.KRATOS_STATUE.get());
                         pOutput.accept(HolyHellBlocks.V1_STATUE.get());
+
+                        pOutput.accept(HolyHellBlocks.CARVED_MARBLE_SMALL_1.get());
+                        pOutput.accept(HolyHellBlocks.CARVED_MARBLE_SMALL_2.get());
+                        pOutput.accept(HolyHellBlocks.CARVED_MARBLE_SMALL_3.get());
+
+                        pOutput.accept(HolyHellBlocks.CARVED_MARBLE_MEDIUM_1.get());
+                        pOutput.accept(HolyHellBlocks.CARVED_MARBLE_MEDIUM_2.get());
+                        pOutput.accept(HolyHellBlocks.CARVED_MARBLE_MEDIUM_3.get());
+
+                        pOutput.accept(HolyHellBlocks.CARVED_MARBLE_BIG_1.get());
+                        pOutput.accept(HolyHellBlocks.CARVED_MARBLE_BIG_2.get());
+                        pOutput.accept(HolyHellBlocks.CARVED_MARBLE_BIG_3.get());
+
 
 
                         pOutput.accept(HolyHellBlocks.CARVED_PUMPKIN_CROSS.get());

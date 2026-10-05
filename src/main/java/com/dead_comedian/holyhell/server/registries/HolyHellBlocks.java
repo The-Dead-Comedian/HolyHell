@@ -237,6 +237,16 @@ public class HolyHellBlocks {
                     .pushReaction(PushReaction.DESTROY)
                     .isViewBlocking(HolyHellBlocks::never).dynamicShape()) {
             });
+    public static final Supplier<Block> DALEK_STATUE = register("dalek_statue",
+            () -> new MarbleStatueBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.TERRACOTTA_WHITE)
+                    .strength(0.75F)
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.STONE)
+                    .pushReaction(PushReaction.DESTROY)
+                    .isViewBlocking(HolyHellBlocks::never).dynamicShape()) {
+            });
 
     public static final Supplier<Block> ATLAS_STATUE = register("atlas_statue",
             () -> new MarbleStatueBlock(BlockBehaviour.Properties.of()
@@ -295,6 +305,92 @@ public class HolyHellBlocks {
                     .noOcclusion()
                     .pushReaction(PushReaction.DESTROY)
                     .isViewBlocking(HolyHellBlocks::never)) {
+            });
+
+    public static final Supplier<Block> CARVED_MARBLE_SMALL_1 = register("carved_marble_small_1",
+            () -> new CarvedMarbleBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.TERRACOTTA_WHITE)
+                    .strength(0.75F)
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion()
+                    .isViewBlocking(HolyHellBlocks::never)
+                    .sound(SoundType.STONE)) {
+            });
+    public static final Supplier<Block> CARVED_MARBLE_SMALL_2 = register("carved_marble_small_2",
+            () -> new CarvedMarbleBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.TERRACOTTA_WHITE)
+                    .strength(0.75F)
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion()
+                    .isViewBlocking(HolyHellBlocks::never)
+                    .sound(SoundType.STONE)) {
+            });
+    public static final Supplier<Block> CARVED_MARBLE_SMALL_3 = register("carved_marble_small_3",
+            () -> new CarvedMarbleBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.TERRACOTTA_WHITE)
+                    .strength(0.75F)
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion()
+                    .isViewBlocking(HolyHellBlocks::never)
+                    .sound(SoundType.STONE)) {
+            });
+
+    public static final Supplier<Block> CARVED_MARBLE_MEDIUM_1 = register("carved_marble_medium_1",
+            () -> new MediumCarvedMarbleBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.TERRACOTTA_WHITE)
+                    .strength(0.75F)
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion()
+                    .isViewBlocking(HolyHellBlocks::never)
+                    .sound(SoundType.STONE)) {
+            });
+    public static final Supplier<Block> CARVED_MARBLE_MEDIUM_2 = register("carved_marble_medium_2",
+            () -> new MediumCarvedMarbleBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.TERRACOTTA_WHITE)
+                    .strength(0.75F)
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion()
+                    .isViewBlocking(HolyHellBlocks::never)
+                    .sound(SoundType.STONE)) {
+            });
+    public static final Supplier<Block> CARVED_MARBLE_MEDIUM_3 = register("carved_marble_medium_3",
+            () -> new MediumCarvedMarbleBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.TERRACOTTA_WHITE)
+                    .strength(0.75F)
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion()
+                    .isViewBlocking(HolyHellBlocks::never)
+
+                    .sound(SoundType.STONE)) {
+            });
+
+    public static final Supplier<Block> CARVED_MARBLE_BIG_1 = register("carved_marble_big_1",
+            () -> new BigCarvedMarbleBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.TERRACOTTA_WHITE)
+                    .strength(0.75F)
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion()
+                    .isViewBlocking(HolyHellBlocks::never)
+                    .sound(SoundType.STONE)) {
+            });
+    public static final Supplier<Block> CARVED_MARBLE_BIG_2 = register("carved_marble_big_2",
+            () -> new BigCarvedMarbleBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.TERRACOTTA_WHITE)
+                    .strength(0.75F)
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion()
+                    .isViewBlocking(HolyHellBlocks::never)
+                    .sound(SoundType.STONE)) {
+            });
+    public static final Supplier<Block> CARVED_MARBLE_BIG_3 = register("carved_marble_big_3",
+            () -> new BigCarvedMarbleBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.TERRACOTTA_WHITE)
+                    .strength(0.75F)
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion()
+                    .isViewBlocking(HolyHellBlocks::never)
+
+                    .sound(SoundType.STONE)) {
             });
 
 

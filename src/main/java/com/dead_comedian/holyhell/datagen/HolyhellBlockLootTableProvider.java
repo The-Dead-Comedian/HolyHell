@@ -39,6 +39,18 @@ public class HolyhellBlockLootTableProvider extends BlockLootSubProvider {
         dropSelf(HolyHellBlocks.CRACKED_MARBLE_BRICK_STAIRS.get());
         dropSelf(HolyHellBlocks.CRACKED_MARBLE_BRICK_WALL.get());
 
+        dropSelf(HolyHellBlocks.CARVED_MARBLE_SMALL_1.get());
+        dropSelf(HolyHellBlocks.CARVED_MARBLE_SMALL_2.get());
+        dropSelf(HolyHellBlocks.CARVED_MARBLE_SMALL_3.get());
+
+        dropSelf(HolyHellBlocks.CARVED_MARBLE_MEDIUM_1.get());
+        dropSelf(HolyHellBlocks.CARVED_MARBLE_MEDIUM_2.get());
+        dropSelf(HolyHellBlocks.CARVED_MARBLE_MEDIUM_3.get());
+
+        dropSelf(HolyHellBlocks.CARVED_MARBLE_BIG_1.get());
+        dropSelf(HolyHellBlocks.CARVED_MARBLE_BIG_2.get());
+        dropSelf(HolyHellBlocks.CARVED_MARBLE_BIG_3.get());
+
         dropSelf(HolyHellBlocks.MARBLE_COLUMN.get());
 
 
@@ -56,6 +68,7 @@ public class HolyhellBlockLootTableProvider extends BlockLootSubProvider {
 
         return HolyHellBlocks.BLOCKS.getEntries().stream().map(Holder::value)
                 .filter(block -> block != HolyHellBlocks.ATLAS_STATUE.get())
+                .filter(block -> block != HolyHellBlocks.DALEK_STATUE.get())
                 .filter(block -> block != HolyHellBlocks.BAPHOMET_STATUE.get())
                 .filter(block -> block != HolyHellBlocks.DOOMSLAYER_STATUE.get())
                 .filter(block -> block != HolyHellBlocks.ICARUS_STATUE.get())
