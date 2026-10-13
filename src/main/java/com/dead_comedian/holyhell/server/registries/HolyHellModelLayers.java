@@ -25,6 +25,7 @@ public class HolyHellModelLayers {
 
     public static final ModelLayerLocation ANGEL_PROJECTILE = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(HolyHell.MOD_ID, "angel_projectile"), "main");
     public static final ModelLayerLocation GLOBULAR_DOME = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(HolyHell.MOD_ID, "globular_dome"), "main");
+    public static final ModelLayerLocation CHAKRAM = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(HolyHell.MOD_ID, "chakram"), "main");
 
 
     public static final ModelLayerLocation RELIGIOUS_RINGS = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(HolyHell.MOD_ID, "religious_rings"), "main");

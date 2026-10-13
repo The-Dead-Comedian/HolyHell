@@ -1,2 +1,4 @@
-// 1.21.1	2026-10-05T12:24:05.691672664	Tags for minecraft:item mod id holyhell
+// 1.21.1	2026-10-09T12:56:19.357860736	Tags for minecraft:item mod id holyhell
 9c77fdf429be0eeb86b90ac527eb7a3b3a387662 data/holyhell/tags/item/glass.json
+425008eabf404bbee1cebbf10e76cc43ceefab24 data/minecraft/tags/item/enchantable/sharp_weapon.json
+425008eabf404bbee1cebbf10e76cc43ceefab24 data/minecraft/tags/item/enchantable/trident.json

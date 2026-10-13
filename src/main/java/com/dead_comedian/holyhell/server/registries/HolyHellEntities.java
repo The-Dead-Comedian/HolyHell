@@ -5,6 +5,7 @@ import com.dead_comedian.holyhell.HolyHell;
 import com.dead_comedian.holyhell.server.entity.*;
 import com.dead_comedian.holyhell.server.entity.non_living.AngelProjectileEntity;
 import com.dead_comedian.holyhell.server.entity.non_living.BlindingBombEntity;
+import com.dead_comedian.holyhell.server.entity.non_living.ChakramEntity;
 import com.dead_comedian.holyhell.server.entity.non_living.GlobularDomeEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
@@ -69,6 +70,9 @@ public class HolyHellEntities {
     public static final Supplier<EntityType<BlindingBombEntity>> BLINDING_BOMB =
             ENTITY_TYPES.register("blinding_bomb", () -> EntityType.Builder.<BlindingBombEntity>of(BlindingBombEntity::new, MobCategory.MISC)
                     .sized(0.5f, 0.7f).build("blinding_bomb"));
+    public static final Supplier<EntityType<ChakramEntity>> CHAKRAM =
+            ENTITY_TYPES.register("chakram", () -> EntityType.Builder.<ChakramEntity>of(ChakramEntity::new, MobCategory.MISC)
+                    .sized(1f, 0.1f).build("chakram"));
 
     public static final Supplier<EntityType<AngelProjectileEntity>> ANGEL_PROJECTILE =
             ENTITY_TYPES.register("angel_projectile", () -> EntityType.Builder.<AngelProjectileEntity>of(AngelProjectileEntity::new, MobCategory.MISC)

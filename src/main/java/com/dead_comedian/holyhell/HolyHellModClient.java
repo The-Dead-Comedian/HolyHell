@@ -3,6 +3,7 @@ package com.dead_comedian.holyhell;
 import com.dead_comedian.holyhell.client.event.EyeTransitionOverlay;
 import com.dead_comedian.holyhell.client.renderer.*;
 import com.dead_comedian.holyhell.client.renderer.non_living.AngelProjectileRenderer;
+import com.dead_comedian.holyhell.client.renderer.non_living.ChakramRenderer;
 import com.dead_comedian.holyhell.client.renderer.non_living.GlobularDomeRenderer;
 import com.dead_comedian.holyhell.networking.ServerboundAngelShaderAbilityPacket;
 import com.dead_comedian.holyhell.server.registries.*;
@@ -69,6 +70,7 @@ public class HolyHellModClient {
         EntityRenderers.register(HolyHellEntities.BLINDING_BOMB.get(), ThrownItemRenderer::new);
         EntityRenderers.register(HolyHellEntities.ANGEL_PROJECTILE.get(), AngelProjectileRenderer::new);
         EntityRenderers.register(HolyHellEntities.GLOBULAR_DOME.get(), GlobularDomeRenderer::new);
+        EntityRenderers.register(HolyHellEntities.CHAKRAM.get(), ChakramRenderer::new);
 
         EntityRenderers.register(HolyHellEntities.REVENANT.get(), RevenantRenderer::new);
 

@@ -1,10 +1,12 @@
 package com.dead_comedian.holyhell.datagen;
 
 import com.dead_comedian.holyhell.HolyHell;
+import com.dead_comedian.holyhell.server.registries.HolyHellItems;
 import com.dead_comedian.holyhell.server.registries.HolyHellTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -19,6 +21,12 @@ public class HolyhellItemTagProvider extends ItemTagsProvider {
     }
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        tag(ItemTags.TRIDENT_ENCHANTABLE)
+                .add(HolyHellItems.CHAKRAM.get());
+
+        tag(ItemTags.SHARP_WEAPON_ENCHANTABLE)
+                .add(HolyHellItems.CHAKRAM.get());
+
         tag(HolyHellTags.Items.GLASS)
                 .add(Blocks.GLASS.asItem())
                 .add(Blocks.BLACK_STAINED_GLASS.asItem())

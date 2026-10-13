@@ -5,6 +5,7 @@ import com.dead_comedian.holyhell.HolyHell;
 import com.dead_comedian.holyhell.server.item.HolyHellToolMaterial;
 import com.dead_comedian.holyhell.server.item.HolyhellArmorMaterials;
 import com.dead_comedian.holyhell.server.item.custom.*;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
@@ -35,6 +36,12 @@ public class HolyHellItems {
             HolyShieldItem(new Item.Properties().durability(1000)));
     public static final Supplier<GlobularDomeItem> GLOBULAR_DOME = ITEMS.register("globular_dome", () -> new
             GlobularDomeItem(new Item.Properties()));
+    public static final Supplier<ChakramItem> CHAKRAM = ITEMS.register("chakram", () -> new
+            ChakramItem(new Item.Properties().rarity(Rarity.EPIC)
+            .stacksTo(3)
+            .attributes(ChakramItem.createAttributes())
+            .component(DataComponents.TOOL, ChakramItem.createToolProperties())));
+
 
     public static final Supplier<BlindingBombItem> BLINDING_BOMB = ITEMS.register("blinding_bomb", () -> new
             BlindingBombItem(new Item.Properties()));
@@ -51,7 +58,7 @@ public class HolyHellItems {
     public static final Supplier<Item> CHERUB_SPAWN_EGG = ITEMS.register("cherub_spawn_egg", () -> new
             DeferredSpawnEggItem(HolyHellEntities.CHERUB, 0x92813d, 0x991c2e, new Item.Properties()));
     public static final Supplier<Item> REVENANT_SPAWN_EGG = ITEMS.register("revenant_spawn_egg", () -> new
-            DeferredSpawnEggItem(HolyHellEntities.REVENANT,  0x6b6f6c, 0xe3d8c1, new Item.Properties()));
+            DeferredSpawnEggItem(HolyHellEntities.REVENANT, 0x6b6f6c, 0xe3d8c1, new Item.Properties()));
 
 
     public static final Supplier<Item> HOLY_TEAR = ITEMS.register("holy_tear", () -> new
@@ -68,11 +75,11 @@ public class HolyHellItems {
 
     public static final Supplier<EvangelistArmorItem> EVANGELIST_HELMET = ITEMS.register("evangelist_helmet", () -> new
             EvangelistArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.HELMET, (new Item.Properties()).durability(ArmorItem.Type.HELMET.getDurability(140))));
-    public static final Supplier<EvangelistArmorItem> EVANGELIST_CHESTPLATE = ITEMS.register( "evangelist_chestplate", () -> new
+    public static final Supplier<EvangelistArmorItem> EVANGELIST_CHESTPLATE = ITEMS.register("evangelist_chestplate", () -> new
             EvangelistArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.CHESTPLATE, (new Item.Properties()).durability(ArmorItem.Type.CHESTPLATE.getDurability(140))));
-    public static final Supplier<EvangelistArmorItem> EVANGELIST_LEGGINGS = ITEMS.register( "evangelist_leggings", () ->
+    public static final Supplier<EvangelistArmorItem> EVANGELIST_LEGGINGS = ITEMS.register("evangelist_leggings", () ->
             new EvangelistArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.LEGGINGS, (new Item.Properties()).durability(ArmorItem.Type.LEGGINGS.getDurability(140))));
-    public static final Supplier<EvangelistArmorItem> EVANGELIST_BOOTS = ITEMS.register( "evangelist_boots", () -> new
+    public static final Supplier<EvangelistArmorItem> EVANGELIST_BOOTS = ITEMS.register("evangelist_boots", () -> new
             EvangelistArmorItem(HolyhellArmorMaterials.EVANGELIST, ArmorItem.Type.BOOTS, (new Item.Properties()).durability(ArmorItem.Type.BOOTS.getDurability(140))));
 
 
