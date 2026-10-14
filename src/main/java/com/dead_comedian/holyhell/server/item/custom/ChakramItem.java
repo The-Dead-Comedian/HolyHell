@@ -73,46 +73,21 @@ public class ChakramItem extends Item implements ProjectileItem {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
-        float f = EnchantmentHelper.getTridentSpinAttackStrength(stack, player);
-        if ((!(f > 0.0F) || player.isInWaterOrRain())) {
-            Holder<SoundEvent> holder = (Holder) EnchantmentHelper.pickHighestLevel(stack, EnchantmentEffectComponents.TRIDENT_SOUND).orElse(SoundEvents.TRIDENT_THROW);
-            if (!level.isClientSide) {
-                if (f == 0.0F) {
-                    ChakramEntity throwntrident = new ChakramEntity(level, player, stack);
-                    throwntrident.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 2.5F, 1.0F);
-                    if (player.hasInfiniteMaterials()) {
-                        throwntrident.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
-                    }
-
-                    level.addFreshEntity(throwntrident);
-                    level.playSound((Player) null, throwntrident, (SoundEvent) holder.value(), SoundSource.PLAYERS, 1.0F, 1.0F);
-                    if (!player.hasInfiniteMaterials()) {
-                        stack.consume(1, player);
-                        player.getCooldowns().addCooldown(stack.getItem(),10);
-                    }
-                }
+        Holder<SoundEvent> holder = (Holder) EnchantmentHelper.pickHighestLevel(stack, EnchantmentEffectComponents.TRIDENT_SOUND).orElse(SoundEvents.TRIDENT_THROW);
+        if (!level.isClientSide) {
+            ChakramEntity chakram = new ChakramEntity(level, player, stack);
+            chakram.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 3F, 1.0F);
+            if (player.hasInfiniteMaterials()) {
+                chakram.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
             }
 
+            level.addFreshEntity(chakram);
+            level.playSound((Player) null, chakram, (SoundEvent) holder.value(), SoundSource.PLAYERS, 1.0F, 1.0F);
+            if (!player.hasInfiniteMaterials()) {
+                stack.consume(1, player);
+                player.getCooldowns().addCooldown(stack.getItem(), 10);
+            }
             player.awardStat(Stats.ITEM_USED.get(this));
-            if (f > 0.0F) {
-                float f7 = player.getYRot();
-                float f1 = player.getXRot();
-                float f2 = -Mth.sin(f7 * ((float) Math.PI / 180F)) * Mth.cos(f1 * ((float) Math.PI / 180F));
-                float f3 = -Mth.sin(f1 * ((float) Math.PI / 180F));
-                float f4 = Mth.cos(f7 * ((float) Math.PI / 180F)) * Mth.cos(f1 * ((float) Math.PI / 180F));
-                float f5 = Mth.sqrt(f2 * f2 + f3 * f3 + f4 * f4);
-                f2 *= f / f5;
-                f3 *= f / f5;
-                f4 *= f / f5;
-                player.push((double) f2, (double) f3, (double) f4);
-                player.startAutoSpinAttack(20, 8.0F, stack);
-                if (player.onGround()) {
-                    float f6 = 1.1999999F;
-                    player.move(MoverType.SELF, new Vec3((double) 0.0F, (double) 1.1999999F, (double) 0.0F));
-                }
-
-                level.playSound((Player) null, player, (SoundEvent) holder.value(), SoundSource.PLAYERS, 1.0F, 1.0F);
-            }
 
         }
 
@@ -131,11 +106,7 @@ public class ChakramItem extends Item implements ProjectileItem {
         return 1;
     }
 
-//    public Projectile asProjectile(Level level, Position pos, ItemStack stack, Direction direction) {
-//        ThrownTrident throwntrident = new ThrownTrident(level, pos.x(), pos.y(), pos.z(), stack.copyWithCount(1));
-//        throwntrident.pickup = AbstractArrow.Pickup.ALLOWED;
-//        return throwntrident;
-//    }
+
 
     public boolean canPerformAction(ItemStack stack, ItemAbility itemAbility) {
         return ItemAbilities.DEFAULT_TRIDENT_ACTIONS.contains(itemAbility);

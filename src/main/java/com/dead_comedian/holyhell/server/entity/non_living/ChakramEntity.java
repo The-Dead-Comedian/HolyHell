@@ -87,7 +87,7 @@ public class ChakramEntity extends AbstractArrow {
                     this.yOld = this.getY();
                 }
 
-                double d0 = 0.05d;
+                double d0 = 0.2d;
                 this.setDeltaMovement(this.getDeltaMovement().scale(0.95).add(vec3.normalize().scale(d0)));
                 if (this.clientSideReturnTridentTickCount == 0) {
                     this.playSound(SoundEvents.TRIDENT_RETURN, 10.0F, 1.0F);
@@ -98,6 +98,12 @@ public class ChakramEntity extends AbstractArrow {
         }
 
         super.tick();
+    }
+
+
+    @Override
+    protected double getDefaultGravity() {
+        return super.getDefaultGravity()/2;
     }
 
     private boolean isAcceptibleReturnOwner() {
