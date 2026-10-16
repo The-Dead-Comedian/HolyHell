@@ -1,0 +1,21 @@
+{
+  "description": {
+    "translate": "enchantment.holyhell.rebound"
+  },
+  "supported_items": "holyhell:chakram",
+  "exclusive_set": "#holyhell:temp",
+  "max_level": 3,
+  "weight": 6,
+  "max_cost": {
+    "base": 45,
+    "per_level_above_first": 8
+  },
+  "min_cost": {
+    "base": 2,
+    "per_level_above_first": 4
+  },
+  "anvil_cost": 2,
+  "slots": [
+    "hand"
+  ]
+}

@@ -1,11 +1,14 @@
 package com.dead_comedian.holyhell.server.item.custom;
 
 import com.dead_comedian.holyhell.server.entity.non_living.ChakramEntity;
+import com.dead_comedian.holyhell.server.registries.HolyHellEnchantments;
 import com.dead_comedian.holyhell.server.registries.HolyHellEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Position;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -29,6 +32,7 @@ import net.minecraft.world.item.ProjectileItem;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.component.Tool;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
@@ -81,6 +85,15 @@ public class ChakramItem extends Item implements ProjectileItem {
                 chakram.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
             }
 
+//
+//            for (Holder<Enchantment> e : this.components().get(DataComponents.ENCHANTMENTS).keySet()){
+//                if(e.equals(leve))
+//            }
+
+                if (stack.getComponents().get(DataComponents.ENCHANTMENTS).getLevel(level.holderOrThrow(HolyHellEnchantments.REBOUND)) != 0) {
+                chakram.getEntityData().set(ChakramEntity.REBOUND_LEVEL, stack.getComponents().get(DataComponents.ENCHANTMENTS).getLevel(level.holderOrThrow(HolyHellEnchantments.REBOUND)));
+            }
+
             level.addFreshEntity(chakram);
             level.playSound((Player) null, chakram, (SoundEvent) holder.value(), SoundSource.PLAYERS, 1.0F, 1.0F);
             if (!player.hasInfiniteMaterials()) {
@@ -105,7 +118,6 @@ public class ChakramItem extends Item implements ProjectileItem {
     public int getEnchantmentValue() {
         return 1;
     }
-
 
 
     public boolean canPerformAction(ItemStack stack, ItemAbility itemAbility) {

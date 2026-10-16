@@ -2,6 +2,7 @@ package com.dead_comedian.holyhell.server.entity.non_living;
 
 import com.dead_comedian.holyhell.server.registries.HolyHellEntities;
 import com.dead_comedian.holyhell.server.registries.HolyHellItems;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -21,9 +22,11 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
@@ -31,6 +34,8 @@ import javax.annotation.Nullable;
 public class ChakramEntity extends AbstractArrow {
 
     private static final EntityDataAccessor<Boolean> ID_FOIL = SynchedEntityData.defineId(ChakramEntity.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Integer> REBOUND_LEVEL = SynchedEntityData.defineId(ChakramEntity.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> BOUNCES = SynchedEntityData.defineId(ChakramEntity.class, EntityDataSerializers.INT);
     private boolean dealtDamage;
     public int clientSideReturnTridentTickCount;
 
@@ -43,15 +48,18 @@ public class ChakramEntity extends AbstractArrow {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(ID_FOIL, false);
+        builder.define(REBOUND_LEVEL, 0);
+        builder.define(BOUNCES, 0);
     }
 
+
     public ChakramEntity(Level level, LivingEntity shooter, ItemStack pickupItemStack) {
-        super(HolyHellEntities.CHAKRAM.get(), shooter, level, pickupItemStack, (ItemStack)null);
+        super(HolyHellEntities.CHAKRAM.get(), shooter, level, pickupItemStack, (ItemStack) null);
         this.entityData.set(ID_FOIL, pickupItemStack.hasFoil());
     }
 
     public boolean isFoil() {
-        return (Boolean)this.entityData.get(ID_FOIL);
+        return (Boolean) this.entityData.get(ID_FOIL);
     }
 
     public void tickDespawn() {
@@ -88,7 +96,7 @@ public class ChakramEntity extends AbstractArrow {
                 }
 
                 double d0 = 0.2d;
-                this.setDeltaMovement(this.getDeltaMovement().scale(0.95).add(vec3.normalize().scale(d0)));
+                this.setDeltaMovement(this.getDeltaMovement().scale(1).add(vec3.normalize().scale(d0)));
                 if (this.clientSideReturnTridentTickCount == 0) {
                     this.playSound(SoundEvents.TRIDENT_RETURN, 10.0F, 1.0F);
                 }
@@ -103,7 +111,7 @@ public class ChakramEntity extends AbstractArrow {
 
     @Override
     protected double getDefaultGravity() {
-        return super.getDefaultGravity()/2;
+        return super.getDefaultGravity();
     }
 
     private boolean isAcceptibleReturnOwner() {
@@ -113,14 +121,14 @@ public class ChakramEntity extends AbstractArrow {
 
     @Nullable
     protected EntityHitResult findHitEntity(Vec3 startVec, Vec3 endVec) {
-        return this.dealtDamage ? null : super.findHitEntity(startVec, endVec);
+        return this.entityData.get(BOUNCES) >= this.entityData.get(REBOUND_LEVEL) * 2 ? (this.dealtDamage ? null : super.findHitEntity(startVec, endVec)) : super.findHitEntity(startVec, endVec);
     }
 
     protected void onHitEntity(EntityHitResult result) {
         Entity entity = result.getEntity();
         float f = 8.0F;
         Entity entity1 = this.getOwner();
-        DamageSource damagesource = this.damageSources().trident(this, (Entity)(entity1 == null ? this : entity1));
+        DamageSource damagesource = this.damageSources().trident(this, (Entity) (entity1 == null ? this : entity1));
         Level var7 = this.level();
         if (var7 instanceof ServerLevel serverlevel) {
             f = EnchantmentHelper.modifyDamage(serverlevel, this.getWeaponItem(), entity, damagesource, f);
@@ -134,12 +142,12 @@ public class ChakramEntity extends AbstractArrow {
 
             var7 = this.level();
             if (var7 instanceof ServerLevel) {
-                ServerLevel serverlevel1 = (ServerLevel)var7;
+                ServerLevel serverlevel1 = (ServerLevel) var7;
                 EnchantmentHelper.doPostAttackEffectsWithItemSource(serverlevel1, entity, damagesource, this.getWeaponItem());
             }
 
             if (entity instanceof LivingEntity) {
-                LivingEntity livingentity = (LivingEntity)entity;
+                LivingEntity livingentity = (LivingEntity) entity;
                 this.doKnockback(livingentity, damagesource);
                 this.doPostHurtEffects(livingentity);
             }
@@ -151,11 +159,43 @@ public class ChakramEntity extends AbstractArrow {
 
     @Override
     protected void onHitBlock(BlockHitResult result) {
+        Vec3 vel = this.getDeltaMovement(); // capture BEFORE super overwrites it
+
         super.onHitBlock(result);
+        this.inGround = false;
+        this.shakeTime = 0;
+        this.setNoPhysics(false);
+
+        if (this.entityData.get(BOUNCES) >= this.entityData.get(REBOUND_LEVEL) * 2) {
             this.dealtDamage = true;
+            this.setDeltaMovement(Vec3.ZERO);
+            return;
+        }
 
+        Vec3 pos = result.getLocation();
+        Direction face = result.getDirection();
 
-        this.setDeltaMovement(this.getDeltaMovement().scale(0));
+        for (int i = 0; i < 4; i++) {
+            Vec3 n = new Vec3(face.getStepX(), face.getStepY(), face.getStepZ());
+            vel = vel.subtract(n.scale(2 * vel.dot(n)));
+            pos = pos.add(n.scale(0.05));
+
+            BlockHitResult next = this.level().clip(new ClipContext(
+                    pos, pos.add(vel), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
+            if (next.getType() == HitResult.Type.MISS) break;
+
+            pos = next.getLocation();
+            face = next.getDirection();
+        }
+
+        this.setPos(pos);
+        this.setDeltaMovement(vel);
+        this.hasImpulse = true;
+
+        if (!this.level().isClientSide) {
+            this.entityData.set(BOUNCES, this.entityData.get(BOUNCES) + 1);
+            this.level().broadcastEntityEvent(this, (byte) 5);
+        }
     }
 
     protected void hitBlockEnchantmentEffects(ServerLevel level, BlockHitResult hitResult, ItemStack stack) {
@@ -168,7 +208,7 @@ public class ChakramEntity extends AbstractArrow {
             var10002 = null;
         }
 
-        EnchantmentHelper.onHitBlock(level, stack, var10002, this, (EquipmentSlot)null, vec3, level.getBlockState(hitResult.getBlockPos()), (p_348680_) -> this.kill());
+        EnchantmentHelper.onHitBlock(level, stack, var10002, this, (EquipmentSlot) null, vec3, level.getBlockState(hitResult.getBlockPos()), (p_348680_) -> this.kill());
     }
 
     protected boolean tryPickup(Player player) {
@@ -176,17 +216,20 @@ public class ChakramEntity extends AbstractArrow {
     }
 
     public ItemStack getWeaponItem() {
-        return new ItemStack(HolyHellItems.CHAKRAM.get(),1);
+        return new ItemStack(HolyHellItems.CHAKRAM.get(), 1);
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.dealtDamage = compound.getBoolean("DealtDamage");
+        this.entityData.set(REBOUND_LEVEL, compound.getInt("rebound"));
+        this.entityData.set(BOUNCES, compound.getInt("bounces"));
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("DealtDamage", this.dealtDamage);
+        compound.putInt("bounces", this.entityData.get(BOUNCES));
     }
 
 
@@ -194,9 +237,6 @@ public class ChakramEntity extends AbstractArrow {
     public boolean shouldRender(double x, double y, double z) {
         return true;
     }
-
-
-
 
 
     @Override
