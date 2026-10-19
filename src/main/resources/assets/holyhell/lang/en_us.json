@@ -3,6 +3,7 @@
   "item.holyhell.sacrificial_katar" : "Sacrificial Katar",
   "item.holyhell.holy_grail" : "Holy Grail",
   "item.holyhell.holy_shield" : "Holy Shield",
+  "item.holyhell.chakram" : "Chakram",
   "item.holyhell.blinding_bomb": "Blinding Bomb",
   "item.holyhell.globular_dome": "Globular Dome",
 
@@ -113,6 +114,9 @@
   "effect.holyhell.divine_protection_cooldown": "Divine Cooldown",
   "effect.holyhell.angelic_vision": "Angelic Vision",
   "effect.holyhell.paranoia": "Paranoia",
+
+  "enchantment.holyhell.rebound" : "Rebound",
+
 
   "sounds.holyhell.divine_prot": "Armor summons a miracle",
 

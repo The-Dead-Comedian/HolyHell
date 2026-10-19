@@ -14,6 +14,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.portal.DimensionTransition;
 import net.minecraft.world.phys.Vec3;
@@ -21,6 +22,7 @@ import net.neoforged.neoforge.fluids.FluidType;
 
 public class AllSeerEntity extends Mob {
 
+    private boolean isViolent = false;
 
     public AllSeerEntity(EntityType<? extends Mob> type, Level world) {
         super(type, world);
@@ -48,18 +50,18 @@ public class AllSeerEntity extends Mob {
 
     @Override
     protected InteractionResult mobInteract(Player player, InteractionHand hand) {
-        if (player.getItemInHand(hand).isEmpty()) {
+        if (player.getItemInHand(hand).isEmpty() && isViolent) {
             if (!player.level().isClientSide()) {
                 player.addItem(new ItemStack(HolyHellItems.HOLY_GRAIL.get(), 1));
                 ServerLevel targetLevel = player.level().getServer().getLevel(Level.END);
                 if (targetLevel != null) {
-                    player.changeDimension(new DimensionTransition(targetLevel, new Vec3(ServerLevel.END_SPAWN_POINT.getX(), ServerLevel.END_SPAWN_POINT.getY(), ServerLevel.END_SPAWN_POINT.getZ()),
-                            player.getDeltaMovement(), Direction.WEST.toYRot(), player.getXRot(), DimensionTransition.PLAY_PORTAL_SOUND.then(DimensionTransition.PLACE_PORTAL_TICKET)))
-                    ;
 
                 }
 
             }
+        }
+        if (player.getItemInHand(hand).is(Items.BARRIER)) {
+            isViolent = true;
         }
 
 
@@ -68,7 +70,7 @@ public class AllSeerEntity extends Mob {
 
     @Override
     public float getScale() {
-        return 2.5f;
+        return isViolent ? 3f : 1.5f;
     }
 
     @Override

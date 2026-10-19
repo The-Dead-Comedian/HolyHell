@@ -1,0 +1,12 @@
+{
+  "structures": [
+    {
+      "structure": "holyhell:arena",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "holyhell:arena",
+    "salt": 1149502915
+  }
+}

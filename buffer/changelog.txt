@@ -50,3 +50,6 @@ Version 2.1.0:
     - Covenant and church now properly generate marble columns
     - Player tps back in the tower if they fall in the void
     - Dalek Statue
+    - Chakram
+    - Rebound enchant
+    - Arena Generation
