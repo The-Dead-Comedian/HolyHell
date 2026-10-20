@@ -36,6 +36,10 @@ public abstract class JigsawPlacementMixin {
                         ResourceLocation.fromNamespaceAndPath(HolyHell.MOD_ID, "covenant/start_pool")))
                 .orElse(false);
 
-        return ours ? Rotation.CLOCKWISE_90 : original.call(random);
+        boolean ours2 = startPool.unwrapKey().map(key -> key.location().equals(
+                        ResourceLocation.fromNamespaceAndPath(HolyHell.MOD_ID, "arena/start_pool")))
+                .orElse(false);
+
+        return ours || ours2 ? Rotation.CLOCKWISE_90 : original.call(random);
     }
 }

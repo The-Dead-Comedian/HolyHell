@@ -7,6 +7,7 @@
   ],
   "placement": {
     "type": "holyhell:arena",
+    "position": [300, 1, 300],
     "salt": 1149502915
   }
 }

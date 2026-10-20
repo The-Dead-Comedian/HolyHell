@@ -183,7 +183,7 @@ public class HolyHellEventBusEvents {
                     if (targetLevel != null) {
                         player.changeDimension(new DimensionTransition(
                                 targetLevel,
-                                new Vec3(-10.5, 126, -11.5),
+                                new Vec3(-10.5, 126, 11.5),
                                 Vec3.ZERO,
                                 player.getYRot(),
                                 player.getXRot(),
@@ -250,7 +250,7 @@ public class HolyHellEventBusEvents {
 
 
         if(player.getY() < -10 && level.dimension()==HolyHellDimensions.ANGEL){
-            player.teleportTo(-10.5, 126, -11.5);
+            player.teleportTo(-10.5, 126, 11.5);
         }
     }
 

@@ -2,6 +2,7 @@ package com.dead_comedian.holyhell.server.entity;
 
 import com.dead_comedian.holyhell.server.registries.HolyHellItems;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -50,12 +51,12 @@ public class AllSeerEntity extends Mob {
 
     @Override
     protected InteractionResult mobInteract(Player player, InteractionHand hand) {
-        if (player.getItemInHand(hand).isEmpty() && isViolent) {
+        if (player.getItemInHand(hand).isEmpty() && !isViolent) {
             if (!player.level().isClientSide()) {
                 player.addItem(new ItemStack(HolyHellItems.HOLY_GRAIL.get(), 1));
                 ServerLevel targetLevel = player.level().getServer().getLevel(Level.END);
                 if (targetLevel != null) {
-
+                    player.teleportTo(265, 12, 312);
                 }
 
             }
@@ -66,6 +67,18 @@ public class AllSeerEntity extends Mob {
 
 
         return super.mobInteract(player, hand);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putBoolean("isViolent", this.isViolent);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        isViolent = compound.getBoolean("isViolent");
     }
 
     @Override

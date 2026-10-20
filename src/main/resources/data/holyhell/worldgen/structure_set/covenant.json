@@ -7,6 +7,7 @@
   ],
   "placement": {
     "type": "holyhell:origin",
-    "salt": 1149102915
+    "position": [0, 1, 0],
+    "salt": 1149502915
   }
 }
