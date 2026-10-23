@@ -118,6 +118,8 @@
   "enchantment.holyhell.rebound" : "Rebound",
 
 
+
+
   "sounds.holyhell.divine_prot": "Armor summons a miracle",
 
   "sounds.holyhell.clarity_music": "Metal Detector Jingle",
@@ -199,5 +201,7 @@
   "advancements.holyhell.dalek.title": "MOOOD DEVVV!",
   "advancements.holyhell.dalek.description": "get Dalek statue",
 
-  "creativetab.holyhell_tab": "Holy Trinkets"
+  "creativetab.holyhell_tab": "Holy Trinkets",
+
+  "boss.holyhell.all_seer": "All Seer"
 }

@@ -3,7 +3,11 @@ package com.dead_comedian.holyhell.server.entity;
 import com.dead_comedian.holyhell.server.registries.HolyHellItems;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.BossEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -23,7 +27,9 @@ import net.neoforged.neoforge.fluids.FluidType;
 
 public class AllSeerEntity extends Mob {
 
-    private boolean isViolent = false;
+    public boolean isViolent = false;
+
+    private ServerBossEvent bossEvent=new ServerBossEvent(Component.translatable("boss.holyhell.all_seer"), BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.NOTCHED_6);
 
     public AllSeerEntity(EntityType<? extends Mob> type, Level world) {
         super(type, world);
@@ -114,12 +120,28 @@ public class AllSeerEntity extends Mob {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, 10)
+                .add(Attributes.MAX_HEALTH, 50)
                 .add(Attributes.MOVEMENT_SPEED, 0.2f)
                 .add(Attributes.ARMOR, 1.3f)
                 .add(Attributes.ATTACK_DAMAGE, 2)
                 .add(Attributes.FOLLOW_RANGE, 100);
     }
 
+    @Override
+    public void startSeenByPlayer(ServerPlayer serverPlayer) {
+        super.startSeenByPlayer(serverPlayer);
+        this.bossEvent.addPlayer(serverPlayer);
+    }
 
+    @Override
+    public void stopSeenByPlayer(ServerPlayer serverPlayer) {
+        super.stopSeenByPlayer(serverPlayer);
+        this.bossEvent.removePlayer(serverPlayer);
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        this.bossEvent.setProgress(this.getHealth()/this.getMaxHealth());
+    }
 }

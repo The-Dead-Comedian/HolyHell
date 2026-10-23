@@ -53,3 +53,4 @@ Version 2.1.0:
     - Chakram
     - Rebound enchant
     - Arena Generation
+    - Resprites

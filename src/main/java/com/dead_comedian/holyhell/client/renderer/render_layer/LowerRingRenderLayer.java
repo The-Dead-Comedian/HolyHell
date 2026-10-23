@@ -88,14 +88,14 @@ public class LowerRingRenderLayer<T extends LivingEntity> extends RenderLayer<T,
                 poseStack.translate(0, -0.6, 0);
                 float n = j * (float) (-11);
                 poseStack.mulPose(Axis.YP.rotationDegrees(-n));
-                this.bb_main1.render(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY);
+                this.bb_main1.render(poseStack, vertexConsumer, -1572864, OverlayTexture.NO_OVERLAY);
                 poseStack.popPose();
 
                 poseStack.pushPose();
                 poseStack.scale(size, 1, size);
                 poseStack.translate(0, -0.4, 0);
                 poseStack.mulPose(Axis.YP.rotationDegrees(n));
-                this.bb_main.render(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY);
+                this.bb_main.render(poseStack, vertexConsumer, -1572864, OverlayTexture.NO_OVERLAY);
                 poseStack.popPose();
 
             } else {
