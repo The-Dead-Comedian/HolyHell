@@ -54,3 +54,4 @@ Version 2.1.0:
     - Rebound enchant
     - Arena Generation
     - Resprites
+    - Grail ability : Holy knight - turns a mob against other nearby monsters and makes it ignore you for about 50 seconds

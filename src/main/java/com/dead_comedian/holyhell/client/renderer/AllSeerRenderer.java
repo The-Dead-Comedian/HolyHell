@@ -18,8 +18,9 @@ import net.minecraft.world.phys.Vec3;
 
 public class AllSeerRenderer extends MobRenderer<AllSeerEntity, AllSeerModel<AllSeerEntity>> {
 
-    protected float roll;
-    protected float oRoll;
+    public ResourceLocation ACTIVATED = ResourceLocation.fromNamespaceAndPath(HolyHell.MOD_ID, "textures/entity/all_seer/all_seer.png");
+    public ResourceLocation DEACTIVATED = ResourceLocation.fromNamespaceAndPath(HolyHell.MOD_ID, "textures/entity/all_seer/all_seer_blinking.png");
+
 
     public AllSeerRenderer(EntityRendererProvider.Context pContext) {
         super(pContext, new AllSeerModel<>(pContext.bakeLayer(HolyHellModelLayers.ALL_SEER)), 0);
@@ -28,7 +29,7 @@ public class AllSeerRenderer extends MobRenderer<AllSeerEntity, AllSeerModel<All
 
     @Override
     public ResourceLocation getTextureLocation(AllSeerEntity pEntity) {
-        return ResourceLocation.fromNamespaceAndPath(HolyHell.MOD_ID, "textures/entity/all_seer.png");
+        return pEntity.getShield() <= 0 ? DEACTIVATED : ACTIVATED;
     }
 
     @Override
@@ -36,11 +37,11 @@ public class AllSeerRenderer extends MobRenderer<AllSeerEntity, AllSeerModel<All
         Vec3 camPos = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
         double dx = camPos.x - entity.getX();
         double dz = camPos.z - entity.getZ();
-        double dy = camPos.y - entity.getY()-entity.getBoundingBox().getYsize()/2;
+        double dy = camPos.y - entity.getY() - entity.getBoundingBox().getYsize() / 2;
         float facingYaw = (float) (Mth.atan2(dz, dx) * (180.0 / Math.PI)) - 90.0F;
         double horizontalDist = Math.sqrt(dx * dx + dz * dz);
         float pitch = (float) (Mth.atan2(dy, horizontalDist) * (180.0 / Math.PI)); // sign flipped vs above, see note
-        super.setupRotations(entity, poseStack, partialTick, facingYaw, partialTick,1);
+        super.setupRotations(entity, poseStack, partialTick, facingYaw, partialTick, 1);
         poseStack.mulPose(Axis.XP.rotationDegrees(pitch));
     }
 

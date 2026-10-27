@@ -181,7 +181,6 @@ public class AngelProjectileEntity extends Projectile {
 
         if (!this.level().isClientSide) {
 
-            // Restore target from UUID
             if (this.finalTarget == null && this.targetId != null) {
                 this.finalTarget = ((ServerLevel) this.level()).getEntity(this.targetId);
                 if (this.finalTarget == null) {
@@ -203,12 +202,10 @@ public class AngelProjectileEntity extends Projectile {
 
                     Vec3 forward = toTarget.normalize();
 
-                    // ---- Overshoot ----
                     Vec3 overshootTarget = targetPos.add(forward.scale(OVERSHOOT_FACTOR));
                     Vec3 desiredDirection = overshootTarget.subtract(currentPos).normalize();
 
-                    // ---- Sine wave offset ----
-                    sineTime += WAVE_FREQUENCY;
+                     sineTime += WAVE_FREQUENCY;
 
                     Vec3 perpendicular = desiredDirection.cross(new Vec3(0, 0, 0));
                     if (perpendicular.lengthSqr() < 0.01) {

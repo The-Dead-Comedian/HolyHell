@@ -1,6 +1,8 @@
 package com.dead_comedian.holyhell.server.entity;
 
+import com.dead_comedian.holyhell.server.entity.non_living.AngelProjectileEntity;
 import com.dead_comedian.holyhell.server.registries.HolyHellItems;
+import com.dead_comedian.holyhell.server.registries.HolyhellAttributes;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -14,7 +16,9 @@ import net.minecraft.world.BossEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -34,12 +38,23 @@ public class AllSeerEntity extends Mob {
     private static final EntityDataAccessor<Boolean> VIOLENT =
             SynchedEntityData.defineId(AllSeerEntity.class, EntityDataSerializers.BOOLEAN);
 
+    private static final EntityDataAccessor<Float> SHIELD =
+            SynchedEntityData.defineId(AllSeerEntity.class, EntityDataSerializers.FLOAT);
+
     public void setViolent(boolean attacking) {
         this.entityData.set(VIOLENT, attacking);
     }
 
     public boolean isViolent() {
         return this.entityData.get(VIOLENT);
+    }
+
+    public void setShield(float shield) {
+        this.entityData.set(SHIELD, shield);
+    }
+
+    public float getShield() {
+        return this.entityData.get(SHIELD);
     }
 
     private ServerBossEvent bossEvent = new ServerBossEvent(Component.translatable("boss.holyhell.all_seer"), BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.NOTCHED_6);
@@ -72,6 +87,7 @@ public class AllSeerEntity extends Mob {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(VIOLENT, false);
+        builder.define(SHIELD, 50f);
     }
 
     @Override
@@ -107,13 +123,23 @@ public class AllSeerEntity extends Mob {
     }
 
     @Override
+    public void knockback(double strength, double x, double z) {
+
+    }
+
+    @Override
+    protected float getKnockback(Entity attacker, DamageSource damageSource) {
+        return 0;
+    }
+
+    @Override
     public float getScale() {
         return isViolent() ? 3f : 1.5f;
     }
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        return !source.isCreativePlayer();
+        return !isViolent();
     }
 
     @Override
@@ -136,9 +162,26 @@ public class AllSeerEntity extends Mob {
         return true;
     }
 
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if(source.getEntity() instanceof Player player && player.isCreative()){
+            return super.hurt(source,amount);
+        }
+
+        if (getShield() > 0 && source.getDirectEntity() instanceof AngelProjectileEntity) {
+            this.setShield(this.getShield() - amount);
+            return false;
+        } else if (getShield() > 0 && !(source.getDirectEntity() instanceof AngelProjectileEntity)) {
+            return false;
+        } else if (getShield() <= 0) {
+            return super.hurt(source, amount);
+        }
+        return super.hurt(source, amount);
+    }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createLivingAttributes()
+                .add(HolyhellAttributes.MAX_SEER_SHIELD, 50)
                 .add(Attributes.MAX_HEALTH, 50)
                 .add(Attributes.MOVEMENT_SPEED, 0.2f)
                 .add(Attributes.ARMOR, 1.3f)
@@ -162,5 +205,6 @@ public class AllSeerEntity extends Mob {
     public void aiStep() {
         super.aiStep();
         this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
+
     }
 }
