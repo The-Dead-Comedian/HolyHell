@@ -4,6 +4,9 @@ import com.dead_comedian.holyhell.server.registries.HolyHellItems;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -27,9 +30,19 @@ import net.neoforged.neoforge.fluids.FluidType;
 
 public class AllSeerEntity extends Mob {
 
-    public boolean isViolent = false;
 
-    private ServerBossEvent bossEvent=new ServerBossEvent(Component.translatable("boss.holyhell.all_seer"), BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.NOTCHED_6);
+    private static final EntityDataAccessor<Boolean> VIOLENT =
+            SynchedEntityData.defineId(AllSeerEntity.class, EntityDataSerializers.BOOLEAN);
+
+    public void setViolent(boolean attacking) {
+        this.entityData.set(VIOLENT, attacking);
+    }
+
+    public boolean isViolent() {
+        return this.entityData.get(VIOLENT);
+    }
+
+    private ServerBossEvent bossEvent = new ServerBossEvent(Component.translatable("boss.holyhell.all_seer"), BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.NOTCHED_6);
 
     public AllSeerEntity(EntityType<? extends Mob> type, Level world) {
         super(type, world);
@@ -56,8 +69,14 @@ public class AllSeerEntity extends Mob {
     }
 
     @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(VIOLENT, false);
+    }
+
+    @Override
     protected InteractionResult mobInteract(Player player, InteractionHand hand) {
-        if (player.getItemInHand(hand).isEmpty() && !isViolent) {
+        if (player.getItemInHand(hand).isEmpty() && !isViolent()) {
             if (!player.level().isClientSide()) {
                 player.addItem(new ItemStack(HolyHellItems.HOLY_GRAIL.get(), 1));
                 ServerLevel targetLevel = player.level().getServer().getLevel(Level.END);
@@ -68,7 +87,7 @@ public class AllSeerEntity extends Mob {
             }
         }
         if (player.getItemInHand(hand).is(Items.BARRIER)) {
-            isViolent = true;
+            setViolent(true);
         }
 
 
@@ -78,18 +97,18 @@ public class AllSeerEntity extends Mob {
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putBoolean("isViolent", this.isViolent);
+        compound.putBoolean("isViolent", this.isViolent());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        isViolent = compound.getBoolean("isViolent");
+        setViolent(compound.getBoolean("isViolent"));
     }
 
     @Override
     public float getScale() {
-        return isViolent ? 3f : 1.5f;
+        return isViolent() ? 3f : 1.5f;
     }
 
     @Override
@@ -142,6 +161,6 @@ public class AllSeerEntity extends Mob {
     @Override
     public void aiStep() {
         super.aiStep();
-        this.bossEvent.setProgress(this.getHealth()/this.getMaxHealth());
+        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
     }
 }

@@ -48,7 +48,6 @@ public class AngelEntity extends Monster implements RangedAttackMob {
         } else {
             return super.isInvulnerableTo(pSource);
         }
-
     }
 
 

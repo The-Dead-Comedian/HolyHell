@@ -1,5 +1,7 @@
 package com.dead_comedian.holyhell.mixin;
 
+import com.dead_comedian.holyhell.HolyHell;
+import com.dead_comedian.holyhell.server.registries.HolyHellAttachments;
 import com.dead_comedian.holyhell.server.registries.HolyHellEffects;
 import com.dead_comedian.holyhell.server.registries.HolyHellItems;
 import com.dead_comedian.holyhell.server.registries.HolyHellSounds;
@@ -8,12 +10,21 @@ import net.minecraft.world.entity.Attackable;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.memory.MemoryStatus;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 
 @Mixin(LivingEntity.class)
@@ -36,4 +47,59 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
         }
         return;
     }
+
+    @Inject(method = "tick", at = @At(value = "HEAD"))
+    private void holyhell$tick(CallbackInfo ci) {
+        LivingEntity that = ((LivingEntity) (Object) this);
+
+        if (that.getData(HolyHellAttachments.KNIGHTED) != null) {
+            int count = that.getData(HolyHellAttachments.KNIGHTED);
+            if (count > 0) {
+                that.setData(HolyHellAttachments.KNIGHTED, count - 1);
+            } else {
+                that.setData(HolyHellAttachments.KNIGHTER, "");
+            }
+
+            if (that instanceof Monster monster) {
+
+                AABB searchBox = monster.getBoundingBox().inflate(10, 4, 10);
+                List<Entity> nearbyEntities = monster.level().getEntities(monster, searchBox, entity1 -> entity1 instanceof LivingEntity livingEntity && !livingEntity.getStringUUID().equals(monster.getData(HolyHellAttachments.KNIGHTER)) && !livingEntity.isSpectator());
+                nearbyEntities.sort((entityA, entityB) -> Float.compare(monster.distanceTo(entityA), monster.distanceTo(entityB)));
+
+                if (monster.getData(HolyHellAttachments.KNIGHTER) != null && !monster.getData(HolyHellAttachments.KNIGHTER).isEmpty()) {
+
+                    if (monster.getBrain() != null) {
+                        if (monster.getBrain().checkMemory(MemoryModuleType.ATTACK_TARGET, MemoryStatus.REGISTERED)) {
+                            if (monster.getBrain().checkMemory(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT) &&
+                                    monster.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get().getStringUUID().equals(monster.getData(HolyHellAttachments.KNIGHTER))) {
+                                monster.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, Optional.empty());
+                            }
+                            if (monster.getBrain().checkMemory(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT) && !nearbyEntities.isEmpty()) {
+                                monster.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, (LivingEntity) nearbyEntities.getFirst());
+
+                            }
+                        }
+                    } else {
+                        if (monster.getTarget() != null && monster.getTarget().getStringUUID().equals(monster.getData(HolyHellAttachments.KNIGHTER))) {
+                            monster.setTarget(null);
+                        }
+                        if (monster.getTarget() == null && !nearbyEntities.isEmpty()) {
+                            monster.setTarget((LivingEntity) nearbyEntities.getFirst());
+                        }
+                    }
+
+                }
+            }
+
+            System.out.println(count);
+        }
+
+    }
+
+
+    public void pebis(Monster monster, LivingEntity target) {
+
+    }
+
+
 }

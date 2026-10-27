@@ -30,7 +30,7 @@ public class HolyHellItems {
             new BabItem(new Item.Properties().stacksTo(1)));
 
     public static final Supplier<SwordItem> HOLY_GRAIL = ITEMS.register("holy_grail", (properties) -> new
-            HolyGrailItem(HolyHellToolMaterial.GRAIL, new Item.Properties().attributes(SacrificialKatarItem.createAttributes(HolyHellToolMaterial.GRAIL, 9, -2F))));
+            HolyGrailItem(HolyHellToolMaterial.GRAIL, new Item.Properties().attributes(SacrificialKatarItem.createAttributes(HolyHellToolMaterial.GRAIL, 12, -2F))));
 
     public static final Supplier<ShieldItem> HOLY_SHIELD = ITEMS.register("holy_shield", () -> new
             HolyShieldItem(new Item.Properties().durability(1000)));

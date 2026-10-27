@@ -36,7 +36,7 @@ public class HolyHellClientBossBarEvent {
             }
 
 
-            if (allSeerEntity!=null && allSeerEntity.isViolent) {
+            if (allSeerEntity!=null && allSeerEntity.isViolent()) {
                 GuiGraphics guiGraphics = event.getGuiGraphics();
                 int screenWidth = guiGraphics.guiWidth();
                 int y = event.getY();

@@ -68,12 +68,6 @@ public class ChakramItem extends Item implements ProjectileItem {
         return !player.isCreative();
     }
 
-
-    public UseAnim getUseAnimation(ItemStack stack) {
-        return UseAnim.SPEAR;
-    }
-
-
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 

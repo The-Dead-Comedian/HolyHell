@@ -10,6 +10,7 @@
   "mixins": [
     "JigsawPlacementMixin",
     "LivingEntityMixin",
+    "MobEntityMixin",
     "PlayerEntityMixin"
   ],
   "client": [

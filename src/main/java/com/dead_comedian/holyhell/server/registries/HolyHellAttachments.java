@@ -16,6 +16,22 @@ public class HolyHellAttachments {
             DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, HolyHell.MOD_ID);
 
 
+
+    public static final Supplier<AttachmentType<Integer>> KNIGHTED = ATTACHMENT_TYPES.register(
+            "knighted",
+            () -> AttachmentType.builder(() -> 0)
+                    .serialize(Codec.INT)
+                    .sync(ByteBufCodecs.INT)
+                    .build()
+    );
+    public static final Supplier<AttachmentType<String>> KNIGHTER = ATTACHMENT_TYPES.register(
+            "knighter",
+            () -> AttachmentType.builder(() -> "")
+                    .serialize(Codec.STRING)
+                    .sync(ByteBufCodecs.STRING_UTF8)
+                    .build()
+    );
+
     public static final Supplier<AttachmentType<Boolean>> RENDER_RINGS = ATTACHMENT_TYPES.register(
             "render_rings",
             () -> AttachmentType.builder(() -> false)
