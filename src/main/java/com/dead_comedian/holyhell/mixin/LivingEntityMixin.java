@@ -52,15 +52,22 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
     private void holyhell$tick(CallbackInfo ci) {
         LivingEntity that = ((LivingEntity) (Object) this);
 
-        if (that.getData(HolyHellAttachments.KNIGHTED) != null) {
-            int count = that.getData(HolyHellAttachments.KNIGHTED);
-            if (count > 0) {
-                that.setData(HolyHellAttachments.KNIGHTED, count - 1);
-            } else {
-                that.setData(HolyHellAttachments.KNIGHTER, "");
-            }
+        if (that instanceof Monster monster) {
 
-            if (that instanceof Monster monster) {
+            if (monster.getData(HolyHellAttachments.KNIGHTED) != null) {
+                int count = monster.getData(HolyHellAttachments.KNIGHTED);
+                if (count > 0) {
+                    monster.setData(HolyHellAttachments.KNIGHTED, count - 1);
+                } else {
+                    monster.setData(HolyHellAttachments.KNIGHTER, "");
+                    if (monster.getBrain() != null && monster.getBrain().checkMemory(MemoryModuleType.ATTACK_TARGET, MemoryStatus.REGISTERED)) {
+                        monster.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, Optional.empty());
+                    }
+                    if (monster.getBrain() == null) {
+                        monster.setTarget(null);
+                    }
+                }
+
 
                 AABB searchBox = monster.getBoundingBox().inflate(10, 4, 10);
                 List<Entity> nearbyEntities = monster.level().getEntities(monster, searchBox, entity1 -> entity1 instanceof LivingEntity livingEntity && !livingEntity.getStringUUID().equals(monster.getData(HolyHellAttachments.KNIGHTER)) && !livingEntity.isSpectator());
@@ -90,16 +97,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
 
                 }
             }
-
-            System.out.println(count);
         }
 
     }
-
-
-    public void pebis(Monster monster, LivingEntity target) {
-
-    }
-
-
 }
