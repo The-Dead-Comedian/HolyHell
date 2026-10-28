@@ -1,11 +1,15 @@
 package com.dead_comedian.holyhell.server.entity;
 
+import com.dead_comedian.holyhell.server.entity.ai.AllSeerAi;
+import com.dead_comedian.holyhell.server.entity.ai.AngelAi;
 import com.dead_comedian.holyhell.server.entity.non_living.AngelProjectileEntity;
 import com.dead_comedian.holyhell.server.registries.HolyHellItems;
 import com.dead_comedian.holyhell.server.registries.HolyhellAttributes;
+import com.mojang.serialization.Dynamic;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -20,6 +24,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -40,6 +45,8 @@ public class AllSeerEntity extends Mob {
 
     private static final EntityDataAccessor<Float> SHIELD =
             SynchedEntityData.defineId(AllSeerEntity.class, EntityDataSerializers.FLOAT);
+
+    private int shieldRechargeTimer=200;
 
     public void setViolent(boolean attacking) {
         this.entityData.set(VIOLENT, attacking);
@@ -78,10 +85,54 @@ public class AllSeerEntity extends Mob {
         return true;
     }
 
+
     @Override
-    protected void registerGoals() {
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
+    protected void sendDebugPackets() {
+        super.sendDebugPackets();
+        DebugPackets.sendEntityBrain(this);
     }
+
+    @Override
+    protected void customServerAiStep() {
+        this.level().getProfiler().push("angelBrain");
+        ((Brain<AllSeerEntity>) this.brain).tick((ServerLevel) this.level(), this);
+        this.level().getProfiler().pop();
+        this.level().getProfiler().push("angelActivityUpdate");
+        AllSeerAi.updateActivity(this);
+        this.level().getProfiler().pop();
+
+        super.customServerAiStep();
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if(getShield()<=0){
+            if(shieldRechargeTimer>=0){
+                shieldRechargeTimer--;
+            }else{
+                shieldRechargeTimer=200;
+                setShield(50);
+            }
+        }
+    }
+
+    @Override
+    protected Brain<?> makeBrain(Dynamic<?> dynamic) {
+        return AllSeerAi.makeBrain(this.brainProvider().makeBrain(dynamic));
+    }
+
+    @Override
+    protected Brain.Provider<AllSeerEntity> brainProvider() {
+        return Brain.provider(AllSeerAi.MEMORY_MODULES, AllSeerAi.SENSORS);
+    }
+
+    @Override
+    public Brain<AllSeerEntity> getBrain() {
+        return (Brain<AllSeerEntity>) super.getBrain();
+    }
+
+
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
