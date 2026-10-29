@@ -29,6 +29,10 @@ public class DetermineAttackPattern extends Behavior<AllSeerEntity> {
 
      */
 
+    @Override
+    protected boolean canStillUse(ServerLevel level, AllSeerEntity entity, long gameTime) {
+        return true;
+    }
 
     @Override
     protected void start(ServerLevel level, AllSeerEntity entity, long gameTime) {
@@ -43,8 +47,7 @@ public class DetermineAttackPattern extends Behavior<AllSeerEntity> {
         super.tick(level, owner, gameTime);
         Brain<AllSeerEntity> brain = owner.getBrain();
 
-        if (brain.getMemory(HolyHellMemoryModules.ENERGY.get()).isPresent() &&
-                brain.getMemory(HolyHellMemoryModules.ATTACK_INDEX.get()).isPresent()) {
+        if (brain.getMemory(HolyHellMemoryModules.ENERGY.get()).isPresent()) {
 
             if (brain.getMemory(HolyHellMemoryModules.ENERGY.get()).get() > 0) {
                 brain.setMemory(HolyHellMemoryModules.ATTACK_INDEX.get(), level.random.nextInt(1, 4));

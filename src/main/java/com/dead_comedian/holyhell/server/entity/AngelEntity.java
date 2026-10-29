@@ -20,6 +20,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
+import javax.annotation.Nullable;
+
 public class AngelEntity extends Monster implements RangedAttackMob {
 
 
@@ -181,7 +183,7 @@ public class AngelEntity extends Monster implements RangedAttackMob {
         this.playSound(this.getStepSound(), 0.15F, 1.0F);
     }
 
-    @org.jetbrains.annotations.Nullable
+    @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
         return HolyHellSounds.ANGEL_IDLE.get();

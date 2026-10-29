@@ -28,12 +28,10 @@ public class AllSeerAi {
             HolyHellMemoryModules.PHASE.get(),
             HolyHellMemoryModules.ATTACK_INDEX.get(),
             HolyHellMemoryModules.ENERGY.get(),
-            MemoryModuleType.WALK_TARGET,
             MemoryModuleType.LOOK_TARGET,
             MemoryModuleType.ATTACK_TARGET,
-            MemoryModuleType.NEAREST_PLAYERS,
-            MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
-            MemoryModuleType.PATH
+            MemoryModuleType.NEAREST_PLAYERS
+
 
     );
 

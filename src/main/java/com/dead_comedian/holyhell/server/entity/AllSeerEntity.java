@@ -1,12 +1,10 @@
 package com.dead_comedian.holyhell.server.entity;
 
 import com.dead_comedian.holyhell.server.entity.ai.AllSeerAi;
-import com.dead_comedian.holyhell.server.entity.ai.AngelAi;
 import com.dead_comedian.holyhell.server.entity.non_living.AngelProjectileEntity;
 import com.dead_comedian.holyhell.server.registries.HolyHellItems;
 import com.dead_comedian.holyhell.server.registries.HolyhellAttributes;
 import com.mojang.serialization.Dynamic;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.DebugPackets;
@@ -22,22 +20,18 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.Brain;
-import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.portal.DimensionTransition;
-import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.fluids.FluidType;
 
-public class AllSeerEntity extends Mob {
+public class AllSeerEntity extends Monster {
 
 
     private static final EntityDataAccessor<Boolean> VIOLENT =
@@ -66,7 +60,7 @@ public class AllSeerEntity extends Mob {
 
     private ServerBossEvent bossEvent = new ServerBossEvent(Component.translatable("boss.holyhell.all_seer"), BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.NOTCHED_6);
 
-    public AllSeerEntity(EntityType<? extends Mob> type, Level world) {
+    public AllSeerEntity(EntityType<? extends Monster> type, Level world) {
         super(type, world);
     }
 
@@ -94,10 +88,10 @@ public class AllSeerEntity extends Mob {
 
     @Override
     protected void customServerAiStep() {
-        this.level().getProfiler().push("angelBrain");
+        this.level().getProfiler().push("seerBrain");
         ((Brain<AllSeerEntity>) this.brain).tick((ServerLevel) this.level(), this);
         this.level().getProfiler().pop();
-        this.level().getProfiler().push("angelActivityUpdate");
+        this.level().getProfiler().push("seerActivityUpdate");
         AllSeerAi.updateActivity(this);
         this.level().getProfiler().pop();
 
