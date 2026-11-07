@@ -3,6 +3,7 @@ package com.dead_comedian.holyhell.server.entity;
 import com.dead_comedian.holyhell.server.entity.ai.AllSeerAi;
 import com.dead_comedian.holyhell.server.entity.non_living.AngelProjectileEntity;
 import com.dead_comedian.holyhell.server.registries.HolyHellItems;
+import com.dead_comedian.holyhell.server.registries.HolyHellMemoryModules;
 import com.dead_comedian.holyhell.server.registries.HolyhellAttributes;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.nbt.CompoundTag;
@@ -149,6 +150,8 @@ public class AllSeerEntity extends Monster {
         }
         if (player.getItemInHand(hand).is(Items.BARRIER)) {
             setViolent(true);
+        } if (player.getItemInHand(hand).is(Items.SUGAR)) {
+            this.getBrain().setMemory(HolyHellMemoryModules.ENERGY.get(),10);
         }
 
 

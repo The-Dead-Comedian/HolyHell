@@ -4,6 +4,7 @@ import com.dead_comedian.holyhell.server.entity.AllSeerEntity;
 import com.dead_comedian.holyhell.server.entity.AngelEntity;
 import com.dead_comedian.holyhell.server.entity.ai.task.RangedAttack;
 import com.dead_comedian.holyhell.server.entity.ai.task.seer.DetermineAttackPattern;
+import com.dead_comedian.holyhell.server.entity.ai.task.seer.SpearAttack;
 import com.dead_comedian.holyhell.server.registries.HolyHellMemoryModules;
 import com.dead_comedian.holyhell.server.registries.HolyHellSensorTypes;
 import com.google.common.collect.ImmutableList;
@@ -73,6 +74,7 @@ public class AllSeerAi {
                 Activity.IDLE,
                 0,
                 ImmutableList.of(
+                        new SpearAttack()
                 )
         );
 

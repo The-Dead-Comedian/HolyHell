@@ -5,6 +5,7 @@ import com.dead_comedian.holyhell.client.renderer.*;
 import com.dead_comedian.holyhell.client.renderer.non_living.AngelProjectileRenderer;
 import com.dead_comedian.holyhell.client.renderer.non_living.ChakramRenderer;
 import com.dead_comedian.holyhell.client.renderer.non_living.GlobularDomeRenderer;
+import com.dead_comedian.holyhell.client.renderer.non_living.JudgementSpearRenderer;
 import com.dead_comedian.holyhell.networking.ServerboundAngelShaderAbilityPacket;
 import com.dead_comedian.holyhell.server.registries.*;
 import net.minecraft.client.Minecraft;
@@ -54,7 +55,6 @@ public class HolyHellModClient {
         HolyHellItemProperties.addCustomItemProperties();
 
 
-
         EntityRenderers.register(HolyHellEntities.ANGEL.get(), AngelRenderer::new);
         EntityRenderers.register(HolyHellEntities.BAB_ONE.get(), BabOneRenderer::new);
         EntityRenderers.register(HolyHellEntities.BAB_TWO.get(), BabTwoRenderer::new);
@@ -69,6 +69,7 @@ public class HolyHellModClient {
 
         EntityRenderers.register(HolyHellEntities.BLINDING_BOMB.get(), ThrownItemRenderer::new);
         EntityRenderers.register(HolyHellEntities.ANGEL_PROJECTILE.get(), AngelProjectileRenderer::new);
+        EntityRenderers.register(HolyHellEntities.JUDGEMENT_SPEAR.get(), JudgementSpearRenderer::new);
         EntityRenderers.register(HolyHellEntities.GLOBULAR_DOME.get(), GlobularDomeRenderer::new);
         EntityRenderers.register(HolyHellEntities.CHAKRAM.get(), ChakramRenderer::new);
 

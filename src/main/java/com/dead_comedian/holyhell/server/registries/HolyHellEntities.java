@@ -3,10 +3,7 @@ package com.dead_comedian.holyhell.server.registries;
 
 import com.dead_comedian.holyhell.HolyHell;
 import com.dead_comedian.holyhell.server.entity.*;
-import com.dead_comedian.holyhell.server.entity.non_living.AngelProjectileEntity;
-import com.dead_comedian.holyhell.server.entity.non_living.BlindingBombEntity;
-import com.dead_comedian.holyhell.server.entity.non_living.ChakramEntity;
-import com.dead_comedian.holyhell.server.entity.non_living.GlobularDomeEntity;
+import com.dead_comedian.holyhell.server.entity.non_living.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -77,6 +74,9 @@ public class HolyHellEntities {
     public static final Supplier<EntityType<AngelProjectileEntity>> ANGEL_PROJECTILE =
             ENTITY_TYPES.register("angel_projectile", () -> EntityType.Builder.<AngelProjectileEntity>of(AngelProjectileEntity::new, MobCategory.MISC)
                     .sized(0.9F, 0.9F).build("angel_projectile"));
+    public static final Supplier<EntityType<JudgementSpearEntity>> JUDGEMENT_SPEAR =
+            ENTITY_TYPES.register("judgement_spear", () -> EntityType.Builder.<JudgementSpearEntity>of(JudgementSpearEntity::new, MobCategory.MISC)
+                    .sized(0.9F, 0.9F).build("judgement_spear"));
 
 
 

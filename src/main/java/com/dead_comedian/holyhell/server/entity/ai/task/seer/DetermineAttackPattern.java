@@ -50,7 +50,7 @@ public class DetermineAttackPattern extends Behavior<AllSeerEntity> {
         if (brain.getMemory(HolyHellMemoryModules.ENERGY.get()).isPresent()) {
 
             if (brain.getMemory(HolyHellMemoryModules.ENERGY.get()).get() > 0) {
-                brain.setMemory(HolyHellMemoryModules.ATTACK_INDEX.get(), level.random.nextInt(1, 4));
+                brain.setMemory(HolyHellMemoryModules.ATTACK_INDEX.get(),2);
             } else {
                 if (owner.getShield() > 0) {
                     brain.setMemory(HolyHellMemoryModules.ATTACK_INDEX.get(), 6);
