@@ -60,7 +60,7 @@ public class BeamAttack extends Behavior<AllSeerEntity> {
         }
 
         int phase = owner.getBrain().getMemory(HolyHellMemoryModules.PHASE.get()).orElse(1);
-        int beamCount = 4 * phase;
+        int beamCount = 8 * phase;
         double radius = 4.0;
 
         double waveOffset = wave * (Math.PI / beamCount);

@@ -79,7 +79,7 @@ public class HolyHellEntities {
                     .sized(0.9F, 0.9F).build("judgement_spear"));
     public static final Supplier<EntityType<LightBeamEntity>> LIGHTBEAM =
             ENTITY_TYPES.register("lightbeam", () -> EntityType.Builder.<LightBeamEntity>of(LightBeamEntity::new, MobCategory.MISC)
-                    .sized(0.9F, 5F).build("lightbeam"));
+                    .sized(0.75F, 5F).build("lightbeam"));
 
 
     public static void register(IEventBus eventBus) {

@@ -6,6 +6,7 @@ import com.dead_comedian.holyhell.client.model.entity.*;
 import com.dead_comedian.holyhell.client.model.entity.non_living.*;
 import com.dead_comedian.holyhell.client.renderer.block_entity.CarvedMarbleRenderer;
 import com.dead_comedian.holyhell.client.renderer.block_entity.CoffinRenderer;
+import com.dead_comedian.holyhell.client.renderer.non_living.LightBeamRenderer;
 import com.dead_comedian.holyhell.client.renderer.render_layer.LowerRingRenderLayer;
 import com.dead_comedian.holyhell.particle.KamikazeExplosionParticle;
 import com.dead_comedian.holyhell.particle.LightRingParticle;
@@ -47,6 +48,7 @@ public class HolyhellClientRegistries {
 
 
     public static ShaderInstance ANGEL_RING_SHADER;
+    public static ShaderInstance NO_SHADE_TRANSLUCENT;
 
     @SubscribeEvent
     public static void registerLayers(EntityRenderersEvent.AddLayers event) {
@@ -68,6 +70,10 @@ public class HolyhellClientRegistries {
                 new ShaderInstance(event.getResourceProvider(), HolyHellModClient.ANGEL_RINGS_SHADER, DefaultVertexFormat.POSITION),
                 shader -> ANGEL_RING_SHADER = shader
         );
+        event.registerShader(
+                new ShaderInstance(event.getResourceProvider(), HolyHellModClient.NO_SHADE_TRANSLUCENT, DefaultVertexFormat.POSITION),
+                shader -> NO_SHADE_TRANSLUCENT = shader
+        );
     }
 
     @SubscribeEvent
@@ -78,6 +84,8 @@ public class HolyhellClientRegistries {
     @SubscribeEvent
     public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(HolyHellModelLayers.RELIGIOUS_RINGS, LowerRingRenderLayer::getTexturedModelData);
+        event.registerLayerDefinition(HolyHellModelLayers.RELIGIOUS_RINGS, LightBeamRenderer::getTexturedModelData);
+        event.registerLayerDefinition(HolyHellModelLayers.RELIGIOUS_RINGS, LightBeamRenderer::getTexturedModelData);
 
         event.registerLayerDefinition(HolyHellModelLayers.COFFIN, CoffinRenderer::createBodyLayer);
         event.registerLayerDefinition(HolyHellModelLayers.CARVED_MARBLE, CarvedMarbleRenderer::createBodyLayer);
@@ -107,7 +115,7 @@ public class HolyhellClientRegistries {
 
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerBlockEntityRenderer(HolyHellBlockEntities.COFFIN_BLOCK_ENTITY.get(),CoffinRenderer::new);
+        event.registerBlockEntityRenderer(HolyHellBlockEntities.COFFIN_BLOCK_ENTITY.get(), CoffinRenderer::new);
         event.registerBlockEntityRenderer(HolyHellBlockEntities.CARVED_MARBLE_BLOCK_ENTITY.get(), CarvedMarbleRenderer::new);
     }
 

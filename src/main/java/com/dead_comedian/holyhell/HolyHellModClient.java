@@ -37,6 +37,7 @@ public class HolyHellModClient {
 
     public static final ResourceLocation ANGEL_VISION_SHADER = ResourceLocation.fromNamespaceAndPath(HolyHell.MOD_ID, "shaders/post/angel_vision.json");
     public static final ResourceLocation ANGEL_RINGS_SHADER = ResourceLocation.fromNamespaceAndPath(HolyHell.MOD_ID, "angel_rings");
+    public static final ResourceLocation NO_SHADE_TRANSLUCENT = ResourceLocation.fromNamespaceAndPath(HolyHell.MOD_ID, "no_shade_translucent");
 
     public static int loadShaderAttempt = 0;
     public static int staticTimer = 0;
