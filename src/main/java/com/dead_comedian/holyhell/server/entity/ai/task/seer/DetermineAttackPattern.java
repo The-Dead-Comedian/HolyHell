@@ -56,7 +56,7 @@ public class DetermineAttackPattern extends Behavior<AllSeerEntity> {
                 kewldown--;
             } else {
                 if (brain.getMemory(HolyHellMemoryModules.ENERGY.get()).get() > 0) {
-                    brain.setMemory(HolyHellMemoryModules.ATTACK_INDEX.get(), 1);
+                    brain.setMemory(HolyHellMemoryModules.ATTACK_INDEX.get(), 5);
                 } else {
                     if (owner.getShield() > 0) {
                         brain.setMemory(HolyHellMemoryModules.ATTACK_INDEX.get(), 5);

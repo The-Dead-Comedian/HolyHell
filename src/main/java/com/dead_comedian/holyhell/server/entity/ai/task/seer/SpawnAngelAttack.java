@@ -29,7 +29,7 @@ public class SpawnAngelAttack extends Behavior<AllSeerEntity> {
     protected boolean checkExtraStartConditions(ServerLevel level, AllSeerEntity owner) {
 
         return owner.getBrain().getMemory(HolyHellMemoryModules.ATTACK_INDEX.get()).isPresent() &&
-                owner.getBrain().getMemory(HolyHellMemoryModules.ATTACK_INDEX.get()).get() == 6;
+                owner.getBrain().getMemory(HolyHellMemoryModules.ATTACK_INDEX.get()).get() == 5;
     }
 
     @Override
@@ -39,6 +39,7 @@ public class SpawnAngelAttack extends Behavior<AllSeerEntity> {
 
     boolean a = true;
     boolean b = true;
+    boolean c = false;
 
     @Override
     protected void tick(ServerLevel level, AllSeerEntity owner, long gameTime) {
@@ -50,17 +51,16 @@ public class SpawnAngelAttack extends Behavior<AllSeerEntity> {
             if (b) {
                 mobs = WaveSpawner.spawnWave(level, owner.blockPosition().below(9), (int) (1.5 * owner.getBrain().getMemory(HolyHellMemoryModules.PHASE.get()).get()));
                 b = false;
+                c = true;
             }
 
 
             if (!mobs.isEmpty()) {
                 mobs.removeIf(entity -> !entity.isAlive());
             } else {
-                a = false;
-            }
-
-            if (!a) {
-                stop(level, owner, gameTime);
+                if (c) {
+                    a = false;
+                }
             }
         }
 
@@ -74,7 +74,7 @@ public class SpawnAngelAttack extends Behavior<AllSeerEntity> {
         Brain<AllSeerEntity> brain = entity.getBrain();
 
         if (brain.getMemory(HolyHellMemoryModules.ATTACK_INDEX.get()).isPresent() &&
-                brain.getMemory(HolyHellMemoryModules.ATTACK_INDEX.get()).get() == 6 &&
+                brain.getMemory(HolyHellMemoryModules.ATTACK_INDEX.get()).get() == 5 &&
                 brain.getMemory(HolyHellMemoryModules.ENERGY.get()).isPresent()) {
 //            brain.eraseMemory(HolyHellMemoryModules.ATTACK_INDEX.get());
             int i = brain.getMemory(HolyHellMemoryModules.ENERGY.get()).get() - 1;

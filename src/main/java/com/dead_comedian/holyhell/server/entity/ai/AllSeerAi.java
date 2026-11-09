@@ -5,6 +5,7 @@ import com.dead_comedian.holyhell.server.entity.AngelEntity;
 import com.dead_comedian.holyhell.server.entity.ai.task.RangedAttack;
 import com.dead_comedian.holyhell.server.entity.ai.task.seer.BeamAttack;
 import com.dead_comedian.holyhell.server.entity.ai.task.seer.DetermineAttackPattern;
+import com.dead_comedian.holyhell.server.entity.ai.task.seer.SpawnAngelAttack;
 import com.dead_comedian.holyhell.server.entity.ai.task.seer.SpearAttack;
 import com.dead_comedian.holyhell.server.entity.non_living.LightBeamEntity;
 import com.dead_comedian.holyhell.server.registries.HolyHellMemoryModules;
@@ -76,7 +77,7 @@ public class AllSeerAi {
                 Activity.IDLE,
                 0,
                 ImmutableList.of(
-                        new BeamAttack()
+                        new SpawnAngelAttack()
                 )
         );
 
