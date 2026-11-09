@@ -1,8 +1,6 @@
 package com.dead_comedian.holyhell.server.entity.ai.task.seer;
 
-import com.dead_comedian.holyhell.HolyHell;
 import com.dead_comedian.holyhell.server.entity.AllSeerEntity;
-import com.dead_comedian.holyhell.server.entity.non_living.AngelProjectileEntity;
 import com.dead_comedian.holyhell.server.entity.non_living.JudgementSpearEntity;
 import com.dead_comedian.holyhell.server.registries.HolyHellEntities;
 import com.dead_comedian.holyhell.server.registries.HolyHellMemoryModules;
@@ -13,16 +11,12 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
-import net.minecraft.world.entity.player.Player;
-
-import java.util.Map;
-import java.util.Objects;
 
 public class SpearAttack extends Behavior<AllSeerEntity> {
     public SpearAttack() {
         super(ImmutableMap.of(MemoryModuleType.NEAREST_PLAYERS, MemoryStatus.VALUE_PRESENT,
                 HolyHellMemoryModules.ATTACK_INDEX.get(), MemoryStatus.VALUE_PRESENT,
-                HolyHellMemoryModules.ENERGY.get(), MemoryStatus.VALUE_PRESENT), 1);
+                HolyHellMemoryModules.ENERGY.get(), MemoryStatus.VALUE_PRESENT));
     }
 
     @Override

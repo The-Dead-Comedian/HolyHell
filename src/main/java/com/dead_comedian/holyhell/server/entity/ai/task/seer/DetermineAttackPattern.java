@@ -17,15 +17,16 @@ public class DetermineAttackPattern extends Behavior<AllSeerEntity> {
                 HolyHellMemoryModules.ATTACK_INDEX.get(), MemoryStatus.VALUE_ABSENT));
     }
 
+    private int kewldown = 0;
+
     /*  ATTACK INDEX LEGEND
 
         1 - Beam attack
         2 - Spear attack
         3 - Desperation attack
-        4 -
+        4 - Guardian beam
 
-        5 - Desperate attack
-        6 - Spawn Mobs
+       5 - Spawn Mobs
 
      */
 
@@ -40,6 +41,8 @@ public class DetermineAttackPattern extends Behavior<AllSeerEntity> {
         if (entity.getBrain().getMemory(HolyHellMemoryModules.ENERGY.get()).isEmpty() && entity.getBrain().getMemory(HolyHellMemoryModules.PHASE.get()).isPresent()) {
             entity.getBrain().setMemory(HolyHellMemoryModules.ENERGY.get(), 2 + 2 * entity.getBrain().getMemory(HolyHellMemoryModules.PHASE.get()).get());
         }
+
+        kewldown = 30 / entity.getBrain().getMemory(HolyHellMemoryModules.PHASE.get()).get();
     }
 
     @Override
@@ -48,15 +51,20 @@ public class DetermineAttackPattern extends Behavior<AllSeerEntity> {
         Brain<AllSeerEntity> brain = owner.getBrain();
 
         if (brain.getMemory(HolyHellMemoryModules.ENERGY.get()).isPresent()) {
-
-            if (brain.getMemory(HolyHellMemoryModules.ENERGY.get()).get() > 0) {
-                brain.setMemory(HolyHellMemoryModules.ATTACK_INDEX.get(),2);
+            if (kewldown > 0) {
+                kewldown--;
             } else {
-                if (owner.getShield() > 0) {
-                    brain.setMemory(HolyHellMemoryModules.ATTACK_INDEX.get(), 6);
+                if (brain.getMemory(HolyHellMemoryModules.ENERGY.get()).get() > 0) {
+                    brain.setMemory(HolyHellMemoryModules.ATTACK_INDEX.get(), 2);
                 } else {
-                    brain.setMemory(HolyHellMemoryModules.ATTACK_INDEX.get(), 5);
+                    if (owner.getShield() > 0) {
+                        brain.setMemory(HolyHellMemoryModules.ATTACK_INDEX.get(), 5);
+                    }
                 }
+                if (owner.getShield() <= 0) {
+                    brain.setMemory(HolyHellMemoryModules.ATTACK_INDEX.get(), 3);
+                }
+                this.stop(level, owner, gameTime);
             }
 
         }
