@@ -40,9 +40,10 @@ public class DetermineAttackPattern extends Behavior<AllSeerEntity> {
         super.start(level, entity, gameTime);
         if (entity.getBrain().getMemory(HolyHellMemoryModules.ENERGY.get()).isEmpty() && entity.getBrain().getMemory(HolyHellMemoryModules.PHASE.get()).isPresent()) {
             entity.getBrain().setMemory(HolyHellMemoryModules.ENERGY.get(), 2 + 2 * entity.getBrain().getMemory(HolyHellMemoryModules.PHASE.get()).get());
+            kewldown = 30 / entity.getBrain().getMemory(HolyHellMemoryModules.PHASE.get()).get();
         }
 
-        kewldown = 30 / entity.getBrain().getMemory(HolyHellMemoryModules.PHASE.get()).get();
+
     }
 
     @Override
@@ -55,7 +56,7 @@ public class DetermineAttackPattern extends Behavior<AllSeerEntity> {
                 kewldown--;
             } else {
                 if (brain.getMemory(HolyHellMemoryModules.ENERGY.get()).get() > 0) {
-                    brain.setMemory(HolyHellMemoryModules.ATTACK_INDEX.get(), 2);
+                    brain.setMemory(HolyHellMemoryModules.ATTACK_INDEX.get(), 1);
                 } else {
                     if (owner.getShield() > 0) {
                         brain.setMemory(HolyHellMemoryModules.ATTACK_INDEX.get(), 5);

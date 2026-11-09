@@ -2,10 +2,7 @@ package com.dead_comedian.holyhell;
 
 import com.dead_comedian.holyhell.client.event.EyeTransitionOverlay;
 import com.dead_comedian.holyhell.client.renderer.*;
-import com.dead_comedian.holyhell.client.renderer.non_living.AngelProjectileRenderer;
-import com.dead_comedian.holyhell.client.renderer.non_living.ChakramRenderer;
-import com.dead_comedian.holyhell.client.renderer.non_living.GlobularDomeRenderer;
-import com.dead_comedian.holyhell.client.renderer.non_living.JudgementSpearRenderer;
+import com.dead_comedian.holyhell.client.renderer.non_living.*;
 import com.dead_comedian.holyhell.networking.ServerboundAngelShaderAbilityPacket;
 import com.dead_comedian.holyhell.server.registries.*;
 import net.minecraft.client.Minecraft;
@@ -72,6 +69,7 @@ public class HolyHellModClient {
         EntityRenderers.register(HolyHellEntities.JUDGEMENT_SPEAR.get(), JudgementSpearRenderer::new);
         EntityRenderers.register(HolyHellEntities.GLOBULAR_DOME.get(), GlobularDomeRenderer::new);
         EntityRenderers.register(HolyHellEntities.CHAKRAM.get(), ChakramRenderer::new);
+        EntityRenderers.register(HolyHellEntities.LIGHTBEAM.get(), LightBeamRenderer::new);
 
         EntityRenderers.register(HolyHellEntities.REVENANT.get(), RevenantRenderer::new);
 

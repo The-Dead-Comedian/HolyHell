@@ -3,10 +3,7 @@ package com.dead_comedian.holyhell.client.event;
 import com.dead_comedian.holyhell.HolyHell;
 import com.dead_comedian.holyhell.HolyHellModClient;
 import com.dead_comedian.holyhell.client.model.entity.*;
-import com.dead_comedian.holyhell.client.model.entity.non_living.AngelProjectileModel;
-import com.dead_comedian.holyhell.client.model.entity.non_living.ChakramModel;
-import com.dead_comedian.holyhell.client.model.entity.non_living.GlobularDomeModel;
-import com.dead_comedian.holyhell.client.model.entity.non_living.JudgementSpearModel;
+import com.dead_comedian.holyhell.client.model.entity.non_living.*;
 import com.dead_comedian.holyhell.client.renderer.block_entity.CarvedMarbleRenderer;
 import com.dead_comedian.holyhell.client.renderer.block_entity.CoffinRenderer;
 import com.dead_comedian.holyhell.client.renderer.render_layer.LowerRingRenderLayer;
@@ -90,6 +87,7 @@ public class HolyhellClientRegistries {
         event.registerLayerDefinition(HolyHellModelLayers.CHAKRAM, ChakramModel::createBodyLayer);
         event.registerLayerDefinition(HolyHellModelLayers.ANGEL_PROJECTILE, AngelProjectileModel::createBodyLayer);
         event.registerLayerDefinition(HolyHellModelLayers.JUDGEMENT_SPEAR, JudgementSpearModel::createBodyLayer);
+        event.registerLayerDefinition(HolyHellModelLayers.LIGHTBEAM, LightBeamModel::createBodyLayer);
 
         event.registerLayerDefinition(HolyHellModelLayers.ALL_SEER, AllSeerModel::createBodyLayer);
 
