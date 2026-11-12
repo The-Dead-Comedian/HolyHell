@@ -80,6 +80,9 @@ public class HolyHellEntities {
     public static final Supplier<EntityType<LightBeamEntity>> LIGHTBEAM =
             ENTITY_TYPES.register("lightbeam", () -> EntityType.Builder.<LightBeamEntity>of(LightBeamEntity::new, MobCategory.MISC)
                     .sized(0.75F, 5F).build("lightbeam"));
+    public static final Supplier<EntityType<LightArrowEntity>> LIGHT_ARROW =
+            ENTITY_TYPES.register("light_arrow", () -> EntityType.Builder.<LightArrowEntity>of(LightArrowEntity::new, MobCategory.MISC)
+                    .sized(0.75F, 0.75F).build("light_arrow"));
 
 
     public static void register(IEventBus eventBus) {

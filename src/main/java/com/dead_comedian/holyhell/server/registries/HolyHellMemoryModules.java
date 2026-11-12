@@ -20,6 +20,7 @@ public class HolyHellMemoryModules {
     public static final Supplier<MemoryModuleType<Integer>> ENERGY = register("energy", Codec.INT);
     public static final Supplier<MemoryModuleType<Integer>> ATTACK_INDEX = register("attack_index", Codec.INT);
     public static final Supplier<MemoryModuleType<Integer>> PHASE = register("phase", Codec.INT);
+    public static final Supplier<MemoryModuleType<Integer>> ARROWS_SUMMONED = register("arrows_summoned", Codec.INT);
 
 
 

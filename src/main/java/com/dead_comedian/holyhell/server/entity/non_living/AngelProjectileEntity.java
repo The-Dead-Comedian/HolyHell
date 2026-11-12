@@ -1,5 +1,6 @@
 package com.dead_comedian.holyhell.server.entity.non_living;
 
+import com.dead_comedian.holyhell.server.entity.AllSeerEntity;
 import com.dead_comedian.holyhell.server.registries.HolyHellEntities;
 import com.dead_comedian.holyhell.server.registries.HolyHellParticles;
 import net.minecraft.core.BlockPos;
@@ -259,7 +260,7 @@ public class AngelProjectileEntity extends Projectile {
         super.onHitEntity(result);
 
         Entity entity = result.getEntity();
-        if (!(entity instanceof Monster)) {
+        if (!(entity instanceof Monster) || entity instanceof AllSeerEntity) {
             entity.hurt(this.damageSources().thrown(this, this.getOwner()), 10F);
             this.discard();
         }

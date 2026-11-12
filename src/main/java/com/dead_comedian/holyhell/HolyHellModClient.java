@@ -71,6 +71,7 @@ public class HolyHellModClient {
         EntityRenderers.register(HolyHellEntities.GLOBULAR_DOME.get(), GlobularDomeRenderer::new);
         EntityRenderers.register(HolyHellEntities.CHAKRAM.get(), ChakramRenderer::new);
         EntityRenderers.register(HolyHellEntities.LIGHTBEAM.get(), LightBeamRenderer::new);
+        EntityRenderers.register(HolyHellEntities.LIGHT_ARROW.get(), LightArrowRenderer::new);
 
         EntityRenderers.register(HolyHellEntities.REVENANT.get(), RevenantRenderer::new);
 

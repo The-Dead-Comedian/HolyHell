@@ -96,6 +96,7 @@ public class HolyhellClientRegistries {
         event.registerLayerDefinition(HolyHellModelLayers.ANGEL_PROJECTILE, AngelProjectileModel::createBodyLayer);
         event.registerLayerDefinition(HolyHellModelLayers.JUDGEMENT_SPEAR, JudgementSpearModel::createBodyLayer);
         event.registerLayerDefinition(HolyHellModelLayers.LIGHTBEAM, LightBeamModel::createBodyLayer);
+        event.registerLayerDefinition(HolyHellModelLayers.LIGHT_ARROW, LightArrowModel::createBodyLayer);
 
         event.registerLayerDefinition(HolyHellModelLayers.ALL_SEER, AllSeerModel::createBodyLayer);
 

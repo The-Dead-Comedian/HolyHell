@@ -2,6 +2,7 @@ package com.dead_comedian.holyhell.server.entity;
 
 import com.dead_comedian.holyhell.server.entity.ai.AllSeerAi;
 import com.dead_comedian.holyhell.server.entity.non_living.AngelProjectileEntity;
+import com.dead_comedian.holyhell.server.entity.non_living.LightArrowEntity;
 import com.dead_comedian.holyhell.server.registries.HolyHellItems;
 import com.dead_comedian.holyhell.server.registries.HolyHellMemoryModules;
 import com.dead_comedian.holyhell.server.registries.HolyhellAttributes;
@@ -21,16 +22,21 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.fluids.FluidType;
+
+import java.util.List;
 
 public class AllSeerEntity extends Monster {
 
@@ -41,7 +47,17 @@ public class AllSeerEntity extends Monster {
     private static final EntityDataAccessor<Float> SHIELD =
             SynchedEntityData.defineId(AllSeerEntity.class, EntityDataSerializers.FLOAT);
 
-    private int shieldRechargeTimer=200;
+    private int timeHit = 0;
+
+    public int getTimeHit() {
+        return timeHit;
+    }
+
+    public void setTimeHit(int timeHit) {
+        this.timeHit = timeHit;
+    }
+
+    private int shieldRechargeTimer = 200;
 
     public void setViolent(boolean attacking) {
         this.entityData.set(VIOLENT, attacking);
@@ -102,11 +118,11 @@ public class AllSeerEntity extends Monster {
     @Override
     public void tick() {
         super.tick();
-        if(getShield()<=0){
-            if(shieldRechargeTimer>=0){
+        if (getShield() <= 0) {
+            if (shieldRechargeTimer >= 0) {
                 shieldRechargeTimer--;
-            }else{
-                shieldRechargeTimer=200;
+            } else {
+                shieldRechargeTimer = 200;
                 setShield(50);
             }
         }
@@ -126,7 +142,6 @@ public class AllSeerEntity extends Monster {
     public Brain<AllSeerEntity> getBrain() {
         return (Brain<AllSeerEntity>) super.getBrain();
     }
-
 
 
     @Override
@@ -150,8 +165,9 @@ public class AllSeerEntity extends Monster {
         }
         if (player.getItemInHand(hand).is(Items.BARRIER)) {
             setViolent(true);
-        } if (player.getItemInHand(hand).is(Items.SUGAR)) {
-            this.getBrain().setMemory(HolyHellMemoryModules.ENERGY.get(),10);
+        }
+        if (player.getItemInHand(hand).is(Items.SUGAR)) {
+            this.getBrain().setMemory(HolyHellMemoryModules.ENERGY.get(), 10);
         }
 
 
@@ -212,8 +228,8 @@ public class AllSeerEntity extends Monster {
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        if(source.getEntity() instanceof Player player && player.isCreative()){
-            return super.hurt(source,amount);
+        if (source.getEntity() instanceof Player player && player.isCreative()) {
+            return super.hurt(source, amount);
         }
 
         if (getShield() > 0 && source.getDirectEntity() instanceof AngelProjectileEntity) {
@@ -222,8 +238,33 @@ public class AllSeerEntity extends Monster {
         } else if (getShield() > 0 && !(source.getDirectEntity() instanceof AngelProjectileEntity)) {
             return false;
         } else if (getShield() <= 0) {
+
+            int phase = this.getBrain().getMemory(HolyHellMemoryModules.PHASE.get()).orElse(1);
+            int beamCount = 4 * phase;
+
+            this.setTimeHit(this.getTimeHit() + 1);
+
+            AABB aabb = new AABB(this.getX() - 20,
+                    this.getY() - 20,
+                    this.getZ() - 20,
+                    this.getX() + 20,
+                    this.getY() + 20,
+                    this.getZ() + 20);
+
+            List<Entity> list = this.level().getEntities(this, aabb);
+
+            for (Entity entity : list) {
+                if (entity instanceof LightArrowEntity lightArrowEntity) {
+                    if (getTimeHit() % beamCount == lightArrowEntity.getIndex()) {
+                        lightArrowEntity.discard();
+                    }
+                }
+            }
+
             return super.hurt(source, amount);
+
         }
+
         return super.hurt(source, amount);
     }
 
